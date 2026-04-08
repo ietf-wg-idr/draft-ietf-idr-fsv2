@@ -1,38 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
-<!ENTITY RFC0791 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.0791.xml">
-<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
-<!ENTITY RFC4271 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4271.xml">
-<!ENTITY RFC4360 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4360.xml">
-<!ENTITY RFC4456 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4456.xml">
-<!ENTITY RFC4760 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4760.xml">
-<!ENTITY RFC5065 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5065.xml">
-<!ENTITY RFC5701 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5701.xml">
-<!ENTITY RFC6241 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6241.xml">
-<!ENTITY RFC7153 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7153.xml">
-<!ENTITY RFC7606 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7606.xml">
-<!ENTITY RFC8040 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8040.xml">
-<!ENTITY RFC8174 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml">
-<!ENTITY RFC8205 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8205.xml">
-<!ENTITY RFC8300 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8300.xml">
-<!ENTITY RFC8955 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8955.xml">
-<!ENTITY RFC8956 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8956.xml">
-<!ENTITY RFC9015 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.9015.xml">
-<!ENTITY RFC9117 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.9117.xml">
-<!ENTITY RFC9015 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.9015.xml">
-<!ENTITY RFC9582 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.9582.xml">
-<!ENTITY I-D.ietf-idr-flowspec-l2vpn SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-l2vpn.xml">
-<!ENTITY I-D.ietf-idr-flowspec-nvo3 SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-nvo3.xml">
-<!ENTITY I-D.ietf-idr-flowspec-srv6 SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-srv6.xml">
-<!ENTITY I-D.ietf-idr-flowspec-interfaceset SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-interfaceset.xml">
-<!ENTITY I-D.ietf-idr-flowspec-redirect-ip SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-redirect-ip.xml">
-<!ENTITY I-D.ietf-idr-flowspec-path-redirect SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-path-redirect.xml">
-<!ENTITY I-D.ietf-idr-flowspec-v2 SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-v2.xml">
-<!ENTITY I-D.hares-idr-fsv2-more-ip-filters SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.hares-idr-fsv2-more-ip-filters.xml">
-<!ENTITY I-D.hares-idr-fsv2-more-ip-actions SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.hares-idr-fsv2-more-ip-actions.xml">
-<!ENTITY I-D.ietf-idr-wide-bgp-communities SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-idr-wide-bgp-communities.xml">
-]>
-<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <?rfc toc="yes" ?>
 <?rfc symrefs="yes" ?>
 <?rfc sortrefs="yes"?>
@@ -41,7 +7,12 @@
 <?rfc iprnotified="no" ?>
 <?rfc strict="no" ?>
 <?rfc consensus="yes" ?>
-<rfc category="std" docName="draft-ietf-idr-fsv2-ip-basic-04"  ipr="trust200902">
+<rfc 
+  xmlns:xi="http://www.w3.org/2001/XInclude" 
+  category="std"
+  docName="draft-ietf-idr-fsv2-ip-basic-04"
+  submissionType="IETF" 
+  ipr="trust200902">
   <front>
     <title abbrev="BGP FSv2 Basic IP">BGP Flow Specification Version 2 - for Basic IP </title>
     <author fullname="Susan Hares" initials="S" surname="Hares">
@@ -2007,37 +1978,37 @@
   </middle>
   <back>
     <references title="Normative References">
-      &RFC0791;
-      &RFC2119;
-      &RFC4271;
-      &RFC4360;
-      &RFC4456;
-      &RFC4760;
-      &RFC5065;
-      &RFC5701;
-      &RFC7153;
-      &RFC7606;
-      &RFC8174;
-      &RFC8955;
-      &RFC8956;
-      &RFC9015;
-      &RFC9117;
-      &RFC9582;
-      &I-D.ietf-idr-flowspec-l2vpn;
-      &I-D.ietf-idr-flowspec-nvo3;
-      &I-D.ietf-idr-flowspec-srv6;
-      &I-D.ietf-idr-flowspec-interfaceset;
-      &I-D.ietf-idr-flowspec-redirect-ip;
-      &I-D.ietf-idr-flowspec-path-redirect;
-      &I-D.ietf-idr-wide-bgp-communities;
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.0791"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.2119"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4271"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4360"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4456"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4760"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.5065"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.5701"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.7153"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.7606"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8174"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8955"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8956"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9015"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9117"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9582"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-l2vpn"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-nvo3"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-srv6"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-interfaceset"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-redirect-ip"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-path-redirect"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-wide-bgp-communities"/>
     </references>
     <references title="Informative References">
-      &RFC6241; 
-      &RFC8040;
-      &RFC8205;
-      &I-D.ietf-idr-flowspec-v2;
-      &I-D.hares-idr-fsv2-more-ip-actions;
-      &I-D.hares-idr-fsv2-more-ip-filters;
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.6241"/> 
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8040"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8205"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-v2"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.hares-idr-fsv2-more-ip-actions"/>
+      <!-- xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.hares-idr-fsv2-more-ip-filters"/-->
     </references>
   </back>
 </rfc>

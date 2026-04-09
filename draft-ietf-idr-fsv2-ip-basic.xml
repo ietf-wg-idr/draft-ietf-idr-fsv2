@@ -368,7 +368,7 @@
 
         <list style="symbol">
           <t>IPv4 traffic: AFI:1, SAFI:133 </t>
-          <t>IPv6 Traffic: AFI:2,  SAFI:133 </t>
+          <t>IPv6 Traffic: AFI:2, SAFI:133 </t>
           <t>BGP/MPLS IPv4 VPN: AFI:1, SAFI: 134 </t>
           <t>BGP/MPLS IPv6 VPN: AFI:2, SAFI: 134</t>
         </list>
@@ -403,20 +403,21 @@
       </section>
 
       <section title="Transition to FSv2">
-        <t>This specification specification defines AFI/SAFI pairs to support
-        Flow Spec for IPv4 IP  IPv6, L2, IPv4 VPNs, IPv6 VPNs, L2VPN, SFC, and
-        SFC VPN supports the components and actions for the following: 
+        <t>This specification defines AFI/SAFIs to support
+        Flow Specification version 2 for IPv4, IPv6, Layer 2, IPv4 VPNs, IPv6
+        VPNs, Layer 2 VPNs (L2VPN), Service Function Chaining (SFC), and SFC
+        VPNs:
 
-        <list style="symbols">
-          <t>IPv4 (AFI=1, SAFI=TBD1),</t>
-          <t>IPv6 (AFI=2, SAFI=TBD1),</t>
-          <t>L2 (AFI=6, SAFI=TDB1) [described in [I-D.ietf-idr-flowspec-l2vpn]),</t>
-          <t>BGP/MPLS IPv4 VPN: (AFI=1, SAFI=TBD2),</t>
-          <t>BGP/MPLS IPv6 VPN: (AFI=2, SAFI=TBD2),</t>
-          <t>BGP/MPLS L2VPN (AFI=25, SAFI=TDB2) [described in [I-D.ietf-idr-flowspec-l2vpn]),</t>
-          <t>SFC: (AFI=31, SAFI=TBD1),</t>
-          <t>SFC VPN (AFI=31, SAFI=TBD2),</t>
-        </list>
+          <ul>
+            <li>IPv4 traffic: AFI=1, SAFI=TBD1,</li>
+            <li>IPv6 traffic: AFI=2, SAFI=TBD1,</li>
+            <li>L2: AFI=6, SAFI=TDB1 (defined in <xref target="I-D.ietf-idr-flowspec-l2vpn"/>),</li>
+            <li>BGP/MPLS IPv4 VPN: AFI=1, SAFI=TBD2,</li>
+            <li>BGP/MPLS IPv6 VPN: AFI=2, SAFI=TBD2,</li>
+            <li>BGP/MPLS L2VPN: AFI=25, SAFI=TDB2 (defined in <xref target="I-D.ietf-idr-flowspec-l2vpn"/>),</li>
+            <li>SFC: AFI=31, SAFI=TBD1,</li>
+            <li>SFC VPN: AFI=31, SAFI=TBD2</li>
+          </ul>
         </t>
 
         <t>One question asked by developers is what AFI/SAFI is required for
@@ -424,6 +425,7 @@
         FSv2 IP Basic support for non-VPN could be as little as FSv2 for IPv4
         forwarding (AFI/SAFI: 1/TBD1),</t>
 
+        <!-- XXX JMH - this paragraph goes away as we do integration of the other specs later -->
         <t>The IDR specification for L2 VPN traffic was specified in 
         <xref target="I-D.ietf-idr-flowspec-l2vpn"></xref>.  An IDR
         specification for tunneled traffic is in

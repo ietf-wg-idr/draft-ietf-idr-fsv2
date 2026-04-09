@@ -105,7 +105,7 @@
     <keyword>BGP FSv2 - IP Basic</keyword>
     <abstract>
       <t>BGP flow specification version 1 (FSv1), defined in RFC 8955, RFC
-      8956, and RFC 9117 describes the distribution of traffic filter policy
+      8956, and RFC 9117, describes the distribution of traffic filter policy
       (traffic filters and actions) distributed via BGP. During the deployment
       of BGP FSv1 a number of issues were detected, so version 2 of the BGP
       flow specification (FSv2) protocol addresses these issues.  In order to
@@ -132,43 +132,44 @@
       AFI (AFI=2).</t>
 
       <t>The initial BGP FSv2 specification had the correct direction, but it
-      contained than the early implementers desired. The imoplmenters desired a
-      progression of  documents with smaller incremental changes (basic FSv2,
-      adding more filters, and adding more actions.)</t> 
+      contained more than the early implementers desired. The implmenters desired a
+      progression of documents with smaller incremental changes: Basic FSv2,
+      adding more filters, and adding more actions.</t> 
 
-      <t>This draft (FSv2 Basic) provides the basic FSv2 framework
+      <t>This draft provides the basic FSv2 framework
       specification for transmitting user-ordered IP filters in the FSV2 NLRI
-      and associating Flow Spec actions by transmitting the FLow Spec Extended
-      Community(FS-EC) with the FSv2 NLRI.  If a filter match links to a single
-      FS-EC action, the single action succeeds or fails. If a filte rmatch
-      links to mutiple actions, there is a potential for interactions.  Section
-      x.x discusses how to analyze the interaction by categories and solutions
+      and associating Flow Spec actions by transmitting Flow Spec Extended
+      Communities (FS-EC) with the FSv2 NLRI.  If a filter match links to a single
+      FS-EC action, the single action succeeds or fails. If a filter match
+      links to mutiple actions, there is a potential for interactions.  
+      <xref target="fs-interactions"/>
+      discusses how to analyze the interaction by categories and solutions
       to issues with multiple FSv2-EC actions interacting. A complete solution
-      requires the BGP Community Attribute see 
+      requires the BGP Community Container Attribute see 
       <xref target="I-D.ietf-idr-wide-bgp-communities"></xref>) with FSv2
       Container defined in the 
       <xref target="I-D.hares-idr-fsv2-more-ip-actions"></xref>.</t> 
 
-      <t>This document defines 2 new SAFIs (TBD1, TBD2) for FSv2 to be used
-      with 5 AFIs   (1, 2, 6, 25, and 31) to allow user-ordered lists of
-      traffic match filters for user-ordered traffic match actions encoded in
-      Extended Communities (FS-EC) or a newly defined BGP.  FSv2 does not
-      require combinations of FSv2 AFI/SAFIs to be implemented (10
-      combinations).  An implementation is required to implement only 1 these
-      combinations to be compliant.  For example, a compliant implementation
+      <t>This document defines 2 new SAFIs, TBD1 and TBD2, for FSv2 to be used
+      with 5 AFIs: 1, 2, 6, 25, and 31.  FSv2 implementations do not
+      require all 10 combinations of FSv2 AFI/SAFIs to be implemented.
+      An implementation is required to implement only one these
+      AFI/SAFIs to be compliant.  For example, a compliant implementation
       might only define the FSv2 NLRI for IPv4 for IP forwarding (AFI=1,
       SAFI=TBD1).</t>
 
-      <t>FSv1 and FSv2 use different AFI/SAFIs to send flow specification
-      filters.  Since BGP  route selection is performed per AFI/SAFI, this
-      approach can be termed “ships in the night” based on AFI/SAFI.</t>
+      <t>FSv1 and FSv2 use different AFI/SAFIs to send their respective flow
+      specification filters.  This permits FSv1 and FSv2 to be coexist with
+      each other in a "ships in the night" deployment.</t>
 
-      <t>The remainder of section 1 provides background on why the FSv2 was
-      necessary to fix problems with FSv1.  Section 2 contains a Primer on
-      FSv2.  Section 3 contains the encoding rules for FSv2 and user-based
-      encoding sent via BGP.  Section 4 describes how to validate and order
-      FSv2 NLRI.  Sections 5-8 discusses scalability, optional security
-      additions, security considerations, and IANA considerations.</t>          
+      <t>The remainder of <xref target="intro"/> provides background on why the
+      FSv2 was necessary to fix problems with FSv1.
+      <xref target="fsv2-primer"/>  contains a primer on FSv2.
+      <xref target="fsv2-formats-and-actions"/> contains the BGP encoding rules
+      for FSv2.  <xref target="fsv2-validation-and-ordering"/> describes how
+      to validate and order FSv2 NLRI.  The remaining sections discuss
+      scalability, optional security additions, security considerations, and
+      IANA considerations.</t>          
 
       <section anchor="introFSv2" title="Why Flow Specification v2">
         <t>Modern IP routers have the capability to forward traffic and to
@@ -177,84 +178,144 @@
         allow the operator to define match rules that operate on multiple
         fields within header of an IP data packet.  The traffic policy allows
         actions to be taken upon a match to be associated with each match rule.
-        These rules can be more widely defined as “event-condition-action”
+        These rules can be more widely defined as "event-condition-action"
         (ECA) rules where the event is always the reception of a packet.</t>
 
-        <t>BGP (<xref target="RFC4271"></xref>) flow specification as defined
+        <t>BGP (<xref target="RFC4271"></xref>) flow specification version 1 (FSv1) as defined
         by <xref target="RFC8955"></xref>, <xref target="RFC8956"></xref>,
-        <xref target="RFC9117"></xref> specifies the distribution of traffic
-        filter policy (traffic filters and actions) via BGP to a mesh of BGP
-        peers (IBGP and EBGP peers).  The traffic filter policy is applied when
+        and <xref target="RFC9117"></xref> specifies the distribution of traffic
+        filter policy (traffic filters and actions) via BGP to BGP
+        peers, both IBGP and EBGP.  The traffic filter is applied when
         packets are received on a router with the flow specification function
-        turned on. The flow specification protocol defined in
-        <xref target="RFC8955"></xref>, <xref target="RFC8956"></xref>, and 
-        <xref target="RFC9117"></xref> will be called BGP flow specification
-        version 1 (BGP FSv1) in this draft.</t> 
+        enabled.</t> 
 
         <t>Multiple deployed applications currently use BGP FSv1 to distribute
-        traffic filter policy.  These applications include: 1) mitigation of
-        Denial of Service (DoS), 2) traffic filtering in BGP/MPLS VPNS, and 3)
-        centralized traffic control for networks utilizing SDN control of
-        router firewall functions, 4) classifiers for insertion in an SFC, and
-        5) filters for SRv6 (segment routing v6).</t>
+        traffic filters.  These applications include:
 
-        <t>During the deployment of BGP flow specification v1, the following
-        issues were detected:
-
-          <list style="symbols"> 
-            <t>lack of a TLV encoding prevented extension of encodings (FSv1
-            uses TV (type-value),</t>
-            <t>inability to allow users to define order for filtering
-            rules,</t>
-            <t>inability to allow users to define order for multiple actions,
-            and </t>
-            <t>lack of clear rules for multiple actions per filter match that
-            provide default actions on the order of actions and what happens
-            when an action fails.</t>
-          </list>
+          <ul>
+            <li>Mitigation of Denial of Service traffic (DoS).</li>
+            <li>Traffic filtering in BGP/MPLS VPNS.</li>
+            <li>Centralized traffic control for networks utilizing SDN control
+            of router firewall functions.</li>
+            <li>Classifiers for insertion into a SFC.</li>
+            <li>Filters for SRv6 (segment routing v6).</li>
+          </ul>
         </t>
 
-        <t>Networks currently cope with these issues above by constraining
-        deployments or using topology/deployment specific workaround.</t>
+        <t>During the deployment of FSv1, the following issues were noted:
+
+          <ul>
+            <li>FSv1 NLRI components did not use TLV encoding, which inhibited
+            defining new component types. (The format was type-value, missing a
+            length field.)</li>
+            <li>FSv1 rules did not have the ability to be ordered by the
+            operator. Instead, only the protocol-defined rule ordering was
+            permitted.</li>
+            <li>When conflicting outcomes for rule actions was present, the
+            operator was unable to influence their ordering.</li>
+            <li>When multiple and conflicting rule actions were present, the
+            operator couldn't define their order when some actions could not be
+            implemented on the receiving router.</li>
+          </ul>
+        </t>
+
+        <t>Networks currently address these issues by constraining
+        deployments or using topology/deployment specific workarounds.</t>
 
         <t>FSv1 is a critical component of deployed applications. Therefore,
         this specification defines how FSv2 will interact with BGP peers that
-        support either FSv2, FSv1, or FSv2 and FSv1. It is expected that a
+        support combinations FSv1 and FSv2. It is expected that a
         transition to FSv2 will occur over time as new applications require
-        FSv2 features.</t>        
+        features enabled by FSv2.</t>        
       </section> 
+
       <section title="Definitions and Acronyms">
         <t>
-          <dl>
-          <dt>AFI-</dt> <dd>Address Family Identifier</dd>
-          <dt>AS -</dt> <dd>Autonomous System </dd>
-          <dt>BGP Session ephemeral state -</dt><dd>state which does not survive the loss of BGP peer session.</dd>
-          <dt>BGP Commmunity Path Attribute -</dt><dd>BGP Community Path attribute with a FS TLV defined by 
+          <dl newline="true">
+          <dt>AFI:</dt>
+          <dd>Address Family Identifier <xref target="RFC4760"/></dd>
+
+          <dt>AS:</dt>
+          <dd>Autonomous System</dd>
+
+          <dt>BGP session ephemeral state:</dt>
+          <dd>State which does not survive the loss of BGP peer session.</dd>
+
+          <!-- XXX JMH - the terminology here needs normalizing. This seems like an RFC 1997 attribute rather than one in the community container. -->
+          <dt>BGP Commmunity Path Attribute:</dt>
+          <dd>BGP Community Path attribute with a FS TLV defined by 
           <xref target="I-D.hares-idr-fsv2-more-ip-actions"></xref></dd> 
-          <dt>Configuration state -</dt><dd>state which persist across a reboot of software module within 
-          a routing system or a reboot of a hardware routing device.</dd>
-          <dt>CPA -</dt><dd>BGP Community Path Attribute </dd>
-          <dt>DDoS -</dt><dd>Distributed Denial of Service.</dd>
-          <dt>Ephemeral state -</dt><dd>state which does not survive the reboot of a software module,
-          or a hardware reboot. Ephemeral state can be ephemeral configuration state or 
-          operational state.</dd> 
-          <dt>FSv1 -</dt><dd>Flow Specification version 1 [RFC8955] [RFC8956] </dd>
-          <dt>FSv2 -</dt><dd>Flow Specification version 2 (this document) </dd>
-          <dt>FS -</dt><dd>Flow Specification (either v1 or v2) </dd> 
-          <dt> FS-CPA -</dt><dd>Flow Specification Actions defined in Community Path Attribute </dd>
-          <dt>FS-EC -</dt><dd>FS related Extended Community with FS actions </dd>
-          <dt>FSv1-EC -</dt><dd>FSv1 Extended Community with FS Actions supported by FSv1 </dd>
-          <dt>FSv2-EC -</dt><dd>FSv2 Extended Community with FS Actions supported by FSv2 </dd>
-          <dt>NETCONF -</dt><dd>The Network Configuration Protocol <xref target="RFC6241"></xref>.</dd>
-          <dt>RESTCONF -</dt><dd>The RESTCONF configurati on Protocol <xref target="RFC8040"></xref> </dd>
-          <dt>RIB -</dt><dd>Routing Information Base.</dd>
-          <dt>ROA -</dt><dd> Route Origin Authentication <xref target="RFC9582"></xref></dd>
-          <dt>RR -</dt><dd>Route Reflector.</dd>
-          <dt> SAFI –</dt><dd>Subsequent Address Family Identifier </dd>
+
+          <dt>Configuration state:</dt>
+          <dd>State which persist across a reboot of software module within a
+          routing system or a reboot of a hardware routing device.</dd>
+
+          <dt>CPA:</dt>
+          <dd>BGP Community Path Attribute.</dd>
+
+          <dt>DDoS:</dt>
+          <dd>Distributed Denial of Service.</dd>
+
+          <dt>Ephemeral state:</dt>
+          <dd>State which does not survive the reboot of a software module, or
+          a hardware reboot. Ephemeral state can be ephemeral configuration
+          state or operational state.</dd> 
+
+          <dt>Extended Community:</dt>
+          <dd>BGP Path Attribute defined by <xref target="RFC4360"/>.</dd>
+
+          <dt>FS:</dt>
+          <dd>Flow Specification (either v1 or v2).</dd> 
+
+          <dt>FSv1:</dt>
+          <dd>Flow Specification version 1 <xref target="RFC8955"/>
+          <xref target="RFC8956"/>.</dd>
+
+          <dt>FSv2:</dt>
+          <dd>Flow Specification version 2 (this document and its extensions).</dd>
+
+          <dt>FS-CPA:</dt>
+          <dd>Flow Specification Actions defined in Community Path Attribute.</dd>
+
+          <dt>FS-EC:</dt>
+          <dd>FS related Extended Community with FS actions.</dd>
+
+          <dt>FSv1-EC:</dt>
+          <dd>FSv1 Extended Community with FS Actions supported by FSv1.</dd>
+
+          <dt>FSv2-EC:</dt>
+          <dd>FSv2 Extended Community with FS Actions supported by FSv2.</dd>
+
+          <dt>NETCONF:</dt>
+          <dd>The Network Configuration Protocol <xref target="RFC6241"/>.</dd>
+
+          <dt>NLRI:</dt>
+          <dd>Network Layer Reachability Information <xref target="RFC4271"/>
+          <xref target="RFC4760"/>.  The "destination" portion of a Flowspec
+          route carried in a BGP UPDATE message.</dd>
+
+          <dt>RESTCONF:</dt>
+          <dd>The RESTCONF Protocol <xref target="RFC8040"/>.</dd>
+
+          <dt>RIB:</dt>
+          <dd>Routing Information Base.</dd>
+
+          <dt>ROA:</dt>
+          <dd>Route Origin Authentication <xref target="RFC9582"/>.</dd>
+
+          <dt>RR:</dt>
+          <dd>Route Reflector <xref target="RFC4456"/>.</dd>
+
+          <dt>SAFI:</dt>
+          <dd>Subsequent Address Family Identifier <xref target="RFC4760"/>.</dd>
+
+          <dt>SFC:</dt>
+          <dd>Service Function Chaining <xref target="RFC7665"/>.</dd>
           </dl>
         </t>
       </section>
-      <section title="RFC 2119 language">
+
+      <section title="Requirements Language">
         <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
         "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
         document are to be interpreted as described in BCP 14 <xref
@@ -263,44 +324,46 @@
       </section> 
     </section>
 
-    <section title="Flow Specification Version 2 Primer ">
-      <t> A BGP Flow Specification (v1 or v2) is an n-tuple containing one or
+    <section anchor="fsv2-primer" title="Flow Specification Version 2 Primer ">
+      <!-- XXX JMH - we're doing FS for non-IP types. Should we drop the language suggesting that's the main case with the other stuff acting as carriers for IP?-->
+      <!-- XXX JMH - the second sentence needs work as well since the SAFI in FSv1 defines the match context: 'main table' vs. 'in a VRF'-->
+      <t>A BGP Flow Specification (v1 or v2) is an n-tuple containing one or
       more match criteria that can be applied to IP traffic, traffic
       encapsulated in IP traffic or traffic associated with IP traffic. The
       exact traffic match depends on the FSv2 AFI/SAFI.</t>
 
-      <t> A given Flow Specification NLRI may be associated with a set of path
-      attributes depending on the particular application, and these attributes
-      within that set may or may not include reachability information (e.g.,
-      NEXT_HOP).  The BGP path attributes associated with FSv2 may also contain
-      Extended Community attributes <xref target="RFC4360"></xref> and Community
-      Container Path attributes
-      <xref target="I-D.ietf-idr-wide-bgp-communities"></xref> with FSv2
-      actions.</t>
+      <t>Flows Specification routes carried in BGP UPDATEs may carry BGP Path
+      Attributes that have additional match or action consequences.  This
+      includes, but is not limited to: Extended Communities 
+      <xref target="RFC4360"/> and Community Container Path attributes
+      <xref target="I-D.ietf-idr-wide-bgp-communities"/>.</t>
 
-      <t>BGP processing treats the NLRI as a key to entries in AFI/SAFI BGP
-      databases. Entries that are placed in the Loc-RIB are then associated with
-      a given set of semantics which are application dependent. Standard BGP 
-      mechanisms such as update filtering by NLRI or by attributes such as AS_PATH or 
-      large communities apply to the BGP Flow Specification defined NLRI-types.</t>
+      <t>Flow Specifiation NLRI for a given AFI/SAFI is used as they key for
+      Flow Specification routes in the BGP RIBs.  Flow Specification routes
+      that are selected for the Loc-RIB are then associated with a given set of
+      semantics which are application dependent. Standard BGP policy mechanisms
+      for BGP routes are applicable to Flow Specification routes, including
+      AS_PATH and community filtering.</t>
 
       <t>This FSv2 for basic IP forwarding specification only requires the use
-      of Extended Communities to associate FS action with FSv2 filters found in
+      of Extended Communities to associate FS actions with FSv2 filters found in
       FSv2 NLRI.</t>
 
-      <t>The FSv2 features of multiple actions with user ordering of actions or
+      <t>FSv2 features implementing multiple actions with user ordering of actions or
       dependencies between actions requires the BGP Community Attribute
       <xref target="I-D.ietf-idr-wide-bgp-communities"></xref> with a FSv2
       Component as defined in <xref target="I-D.hares-idr-fsv2-more-ip-actions"></xref>.</t>
 
-      <t> Network operators can control the propagation of BGP routes by
-      enabling or disabling the exchange of routes for a particular AFI/SAFI
-      pair on a particular peering session.  As such, the Flow Specification may
-      be distributed to only a portion of the BGP infrastructure.</t>
+      <t>Network operators can control the propagation of Flow Specification
+      BGP routes by enabling or disabling the exchange of routes for a
+      particular AFI/SAFI pair on a particular peering session.  BGP policy
+      mechanisms, including <xref target="RFC1997"/> scoping communities, can
+      also be used. Thus, Flow Specification routes may be distributed to only
+      a portion of a BGP deployment.</t>
 
       <section title="Flow Specification v1 (FSv1) SAFIs ">
         <t>The FSv1 NLRI defined in <xref target="RFC8955"></xref> and
-        <xref target="RFC8956"></xref> include 13 match conditions encoded for
+        <xref target="RFC8956"></xref> includes 13 match conditions encoded for
         the following AFI/SAFIs:
 
         <list style="symbol">
@@ -311,35 +374,34 @@
         </list>
         </t>
 
-        <t>Match conditions are ordered by component type in ascending order.
-        If multiple component types filters exist, the ordering within a
-        component type is defined by the component type.  The FSv1 component
+        <t>FSv1 match conditions are ordered by component type in ascending order.
+        The ordering within a component type is defined by that component's definition.
+        <!-- XXX JMH - I don't think the following sentence is true.  What's the intent here? -->
+        The FSv1 component
         format does not provide enough information to create a unique
         canonically sorted list for all implementations in all deployments.</t>          
 
-        <t>The actions standardized for in <xref target="RFC8955"></xref> and
-        <xref target="RFC8956"></xref> are: 
+        <t>The Flow Specification actions standardized by <xref target="RFC8955"/> and
+        <xref target="RFC8956"/> are: 
 
-        <list style="symbols">
-          <t>accept packet (default),</t>
-          <t>traffic flow limitation by bytes (0x6), </t>
-          <t>traffic-action (0x7),</t>
-          <t>redirect traffic to VPN (0x8),</t>
-          <t>mark traffic (0x9), and </t>
-          <t>traffic flow rate limiting (12, 0xC)</t>
-        </list> 
+          <ul>
+            <li>accept packet (default),</li>
+            <li>traffic rate limiting by bps (0x6),</li>
+            <li>traffic-action: sample, or terminate rule (0x7),</li>
+            <li>redirect traffic to VPN by route target(0x8),</li>
+            <li>traffic marking (DSCP) (0x9), and </li>
+            <li>traffic rate limiting by pps (0xC)</li>
+          </ul>
         </t>
 
-        <t>An SFC action <xref target="RFC9015"></xref> defines a redirection
-        of a data flow to an entry point into a specific SFP (Service Function
-        Path) </t> <t>While IDR has proposed other Extended Community Actions,
-        no additional actions have completed the standardization process.</t>
+        <t>A SFC action <xref target="RFC9015"/> defines a redirection of a
+        data flow to an entry point into a specific SFP (Service Function
+        Path).</t>
 
-        <t>Additional proposals for FS Actions in Extended Communities exist,
-        but these are still in the standardization process.  As such, these new
-        FS actions will fall under FSv2 rules for Extended Communities.</t>         
-
+        <t>Other Extended Community actions have been proposed in IDR, but have
+        not completed the standardization process.</t>
       </section>
+
       <section title="Transition to FSv2">
         <t>This specification specification defines AFI/SAFI pairs to support
         Flow Spec for IPv4 IP  IPv6, L2, IPv4 VPNs, IPv6 VPNs, L2VPN, SFC, and
@@ -387,7 +449,7 @@
         <t>The basic principles regarding ordering of flow specification
         filter rules are: 
           <list>
-            <t>1) Rule-0 (zero) is defined to be 0/0 with the “permit-all” action.</t>
+            <t>1) Rule-0 (zero) is defined to be 0/0 with the "permit-all" action.</t>
             <t>2) FSv2 filter rules are ordered based on user-specified order. 
 
               <list>
@@ -480,7 +542,7 @@
       </section>
     </section> 
 
-    <section title="FSv2 NLRI Formats and Actions">
+    <section anchor="fsv2-formats-and-actions" title="FSv2 NLRI Formats and Actions">
       <section title="FSv2 NLRI Format">
         <t> The BGP FSv2 supports NRLI with the format for AFIs for IPv4 (AFI =
         1), IPv6 (AFI = 2), L2 (AFI = 6), L2VPN (AFI=25), and SFC (AFI=31) with
@@ -844,8 +906,8 @@
 
               <t>Where:
                 <list>
-                  <t>Component type: component values are defined in the “Flow
-                  Specification Component types” registry for IPv4 and IPv6 by
+                  <t>Component type: component values are defined in the "Flow
+                  Specification Component types" registry for IPv4 and IPv6 by
                   <xref target="RFC8955"></xref>, <xref target="RFC8956"></xref>,
                   and <xref target="I-D.ietf-idr-flowspec-srv6"></xref></t>
 
@@ -1290,7 +1352,8 @@
           </section> 
         </section> 
 
-        <section title="Interactions between Flow Spec Extended Community Actions (FS-EC)"> 
+        <section anchor="fs-interactions"
+         title="Interactions between Flow Spec Extended Community Actions (FS-EC)"> 
           <t>Interactions between FS-EC only occur if a filter match has
           multiple actions.  If multiple FS-EC actions are listed on a filter,
           these can interact within categories or if a previous FS-EC action
@@ -1454,7 +1517,7 @@
                 <dd> 1 octet byte that determines the action on failure.
                 Actions may succeed or fail and an Action chain must deal with
                 it.  The default value stored for an action chain that does not
-                have this action chain is “stop on failure”.  where AC-Failure
+                have this action chain is "stop on failure".  where AC-Failure
                 types are: 
                   <list>
                     <t> 0x00 – stop on failure of an action </t>
@@ -1472,7 +1535,7 @@
       </section> 
     </section> 
 
-    <section title="Validation and Ordering of NLRI">
+    <section anchor="fsv2-validation-and-ordering" title="Validation and Ordering of NLRI">
       <section title="Validation of FSv2 NLRI ">
         <t>The validation of FSv2 NLRI adheres to the combination of rules for
         general BGP FSv1 NLRI found in <xref target="RFC8955"></xref>, <xref
@@ -1493,7 +1556,7 @@
         portions of these RFCs.  Validation only occurs after BGP UPDATE
         message reception and the FSv2 NLRI and the path attributes relating to
         FSv2 (Extended community and Wide Community) have been determined to be
-        well-formed.  Any MALFORMED FSv2 NRLI is handled as a “session reset”
+        well-formed.  Any MALFORMED FSv2 NRLI is handled as a "session reset"
         <xref target="RFC7606"></xref>.</t>
 
         <section title="Validation of FS NLRI (FSv1 or FSv2)">
@@ -1584,7 +1647,7 @@
                 </list>
               </t>
 
-              <t>c) There are no “more-specific” unicast routes when compared
+              <t>c) There are no "more-specific" unicast routes when compared
               with the flow destination prefix that have been received from a
               different neighbor AS than the best-match unicast route, which
               has been determined in rule b.</t>
@@ -1596,7 +1659,7 @@
           component.  If such is the case, rules b and c are moot and MUST be
           disregarded.</t>
 
-          <t>By “originator” of a BGP route, we mean either the address of the
+          <t>By "originator" of a BGP route, we mean either the address of the
           originator in the ORIGINATOR_ID Attribute
           <xref target="RFC4456"></xref> or the source address of the BGP peer,
           if this path attribute is not present.</t>
@@ -1913,9 +1976,9 @@
         </t>
       </section>
 
-      <section title="FSV2 NLRI TLV Types ">
+      <section title="FSV2 NLRI TLV Types">
         <t>IANA is requested to create the a new registries on a new "Flow
-        Specification v2 TLV Types” web page.</t>
+        Specification v2 TLV Types" web page.</t>
 
         <t>This set of option assumes Type 2 ordering by packet frame rather
         than ascending order. 
@@ -1979,6 +2042,7 @@
   <back>
     <references title="Normative References">
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.0791"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.1997"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.2119"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4271"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4360"/>
@@ -1988,6 +2052,7 @@
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.5701"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.7153"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.7606"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.7665"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8174"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8955"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8956"/>

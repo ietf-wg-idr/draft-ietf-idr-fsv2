@@ -1,40 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
-<!ENTITY RFC0791 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.0791.xml">
-<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
-<!ENTITY RFC4271 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4271.xml">
-<!ENTITY RFC4360 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4360.xml">
-<!ENTITY RFC4456 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4456.xml">
-<!ENTITY RFC4760 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4760.xml">
-<!ENTITY RFC5065 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5065.xml">
-<!ENTITY RFC5701 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5701.xml">
-<!ENTITY RFC6241 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6241.xml">
-<!ENTITY RFC7153 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7153.xml">
-<!ENTITY RFC7606 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7606.xml">
-<!ENTITY RFC8040 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8040.xml">
-<!ENTITY RFC8174 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml">
-<!ENTITY RFC8205 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8205.xml">
-<!ENTITY RFC8206 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8206.xml">
-<!ENTITY RFC8300 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8300.xml">
-<!ENTITY RFC8955 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8955.xml">
-<!ENTITY RFC8956 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8956.xml">
-<!ENTITY RFC9015 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.9015.xml">
-<!ENTITY RFC9117 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.9117.xml">
-<!ENTITY RFC9015 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.9015.xml">
-<!ENTITY RFC9184 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.9184.xml">
-<!ENTITY RFC9582 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.9582.xml">
-<!ENTITY I-D.ietf-idr-flowspec-l2vpn SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-l2vpn.xml">
-<!ENTITY I-D.ietf-idr-flowspec-nvo3 SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-nvo3.xml">
-<!ENTITY I-D.ietf-idr-flowspec-srv6 SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-srv6.xml">
-<!ENTITY I-D.ietf-idr-flowspec-interfaceset SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-interfaceset.xml">
-<!ENTITY I-D.ietf-idr-flowspec-redirect-ip SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-redirect-ip.xml">
-<!ENTITY I-D.ietf-idr-flowspec-path-redirect SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-path-redirect.xml">
-<!ENTITY I-D.ietf-idr-flowspec-v2 SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-v2.xml">
-<!ENTITY I-D.hares-idr-fsv2-more-ip-filters SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.hares-idr-fsv2-more-ip-filters.xml">
-<!ENTITY I-D.hares-idr-fsv2-more-ip-actions SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.hares-idr-fsv2-more-ip-actions.xml">
-<!ENTITY I-D.ietf-idr-wide-bgp-communities SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-idr-wide-bgp-communities.xml">
-]>
-<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <?rfc toc="yes" ?>
 <?rfc symrefs="yes" ?>
 <?rfc sortrefs="yes"?>
@@ -43,7 +7,12 @@
 <?rfc iprnotified="no" ?>
 <?rfc strict="no" ?>
 <?rfc consensus="yes" ?>
-<rfc category="std" docName="draft-ietf-idr-fsv2-ip-basic-04"  ipr="trust200902">
+<rfc 
+  xmlns:xi="http://www.w3.org/2001/XInclude" 
+  category="std"
+  docName="draft-ietf-idr-fsv2-ip-basic-04"
+  submissionType="IETF" 
+  ipr="trust200902">
   <front>
     <title abbrev="BGP FSv2 Basic IP">BGP Flow Specification Version 2 - for Basic IP </title>
     <author fullname="Susan Hares" initials="S" surname="Hares">
@@ -56,29 +25,29 @@
           <code>48176</code>
           <country>USA</country>
         </postal>
-		<phone>+1-734-604-0332</phone>
+        <phone>+1-734-604-0332</phone>
         <email>shares@ndzh.com</email>
       </address>
     </author>
-	<author fullname="Donald Eastlake" initials="D" surname="Eastlake">
+    <author fullname="Donald Eastlake" initials="D" surname="Eastlake">
       <organization>Independent</organization>
       <address>
         <postal>         
-		<street>2386 Panoramic Circle</street>
+        <street>2386 Panoramic Circle</street>
           <city>Apopka</city>
           <region>FL</region>
           <code>32703</code>
           <country>USA</country>
         </postal>
-		<phone>+1-508-333-2270</phone>
+        <phone>+1-508-333-2270</phone>
         <email>d3e3e3@gmail.com</email>
       </address>
     </author>
-	 <author fullname="Jie Dong" initials="J" surname="Dong" >
-      <organization> Huawei Technologies</organization>	
-	    <address>
+    <author fullname="Jie Dong" initials="J" surname="Dong" >
+      <organization> Huawei Technologies</organization>        
+      <address>
         <postal>         
-		<street>No. 156 Beiqing Road</street>
+          <street>No. 156 Beiqing Road</street>
           <city>Beijing</city>
           <region></region>
           <code></code>
@@ -86,12 +55,12 @@
         </postal>
         <email>jie.dong@huawei.com</email>
       </address>
-	 </author> 
-	<author fullname="Chaitanya Yadlapalli" initials="C" surname="Yadlapalli">
-      <organization>ATT</organization>	
-	    <address>
+    </author> 
+    <author fullname="Chaitanya Yadlapalli" initials="C" surname="Yadlapalli">
+      <organization>ATT</organization>        
+      <address>
         <postal>         
-		<street></street>
+          <street></street>
           <city></city>
           <region></region>
           <code></code>
@@ -99,12 +68,12 @@
         </postal>
         <email>cy098d@att.com</email>
       </address>
-	  </author>
-     <author fullname="Sven Maduschke" initials="S" surname="Maduscke" >
-      <organization> Verizon</organization>	
-	    <address>
+    </author>
+    <author fullname="Sven Maduschke" initials="S" surname="Maduscke" >
+      <organization> Verizon</organization>        
+      <address>
         <postal>         
-		<street></street>
+          <street></street>
           <city></city>
           <region></region>
           <code></code>
@@ -112,20 +81,20 @@
         </postal>
         <email>sven.maduschke@de.verizon.com</email>
       </address>
-	 </author> 
-	 <author fullname="Jeff Haas" initials="J" surname="Haas" >
-	    <organization> Juniper</organization>	
-	    <address>
+    </author> 
+    <author fullname="Jeff Haas" initials="J" surname="Haas" >
+      <organization> HPE</organization>        
+      <address>
         <postal>         
-		<street></street>
+          <street></street>
           <city></city>
           <region></region>
           <code></code>
           <country>USA</country>
         </postal>
-        <email>jhaas@juniper.net</email>
+        <email>jeffrey.haas@hpe.com</email>
       </address>
-	 </author> 
+    </author> 
     <date year="2026" />
     <area>Routing Area</area>
     <workgroup>IDR Working Group</workgroup>
@@ -134,1821 +103,1912 @@
     <keyword>I-D</keyword>
     <keyword>Internet-Draft</keyword>
     <keyword>BGP FSv2 - IP Basic</keyword>
-	<abstract>
-	   <t>BGP flow specification version 1 (FSv1), defined in RFC 8955, RFC 8956, and 
-	  RFC 9117 describes the distribution of traffic filter policy (traffic 
-	  filters and actions) distributed via BGP. During the deployment of BGP FSv1 
-	  a number of issues were detected, so version 2 of the BGP 
-	  flow specification (FSv2) protocol addresses these issues.  In order to 
-	  provide a clear demarcation between FSv1 and FSv2, a different NLRI
-		encapsulates FSv2.  
-	   </t>
-	    <t>The IDR WG requires two implementation. Early feedback on implementations of 
-		FSv2 indicate that FSv2 has a correct design direction, but that 
-		breaking FSv2 into a progression of documents would aid deployment of
-        the draft (basic, adding more filters, and adding more actions). 		
-		This document specifies the basic FSv2 NLRI with user ordering of 
-		filters added to FSv1 IP Filters and FSv2 actions.
-	   </t>
+    <abstract>
+      <t>BGP flow specification version 1 (FSv1), defined in RFC 8955, RFC
+      8956, and RFC 9117 describes the distribution of traffic filter policy
+      (traffic filters and actions) distributed via BGP. During the deployment
+      of BGP FSv1 a number of issues were detected, so version 2 of the BGP
+      flow specification (FSv2) protocol addresses these issues.  In order to
+      provide a clear demarcation between FSv1 and FSv2, a different NLRI
+      encapsulates FSv2.</t>
+
+      <t>The IDR WG requires two implementation. Early feedback on
+      implementations of FSv2 indicate that FSv2 has a correct design
+      direction, but that breaking FSv2 into a progression of documents would
+      aid deployment of the draft (basic, adding more filters, and adding more
+      actions). This document specifies the basic FSv2 NLRI with user ordering
+      of filters added to FSv1 IP Filters and FSv2 actions.</t>
     </abstract>
   </front>
-<middle>
-<section anchor="intro" title="Introduction">
-	 <t> Version 2 of BGP flow specification was original defined in 
-	  <xref target="I-D.ietf-idr-flowspec-v2"></xref> (BGP FSv2).  
-	  </t>
-	  <t>
-      FSv2 is an update to BGP Flow specification version 1 (BGP FSv1).  
-	  BGP FSv1 as defined in <xref target="RFC8955"></xref>, 
-	   <xref target="RFC8956"></xref>, and 
-	    <xref target="RFC9117"></xref> specified 2 SAFIs (133, 134) 
-		to be used with IPv4 AFI (AFI = 1) and IPv6 AFI (AFI=2). 
-	  </t>
-	  <t>
-	  The iinitial BGP FSv2 specification had the correct direction, but it contained
-	  than the early implementers desired. The imoplmenters desired a progression of  
-	  documents with smaller incremental changes (basic FSv2, adding more filters, 
-	  and adding more actions.)  
-	  </t> 
-	  <t>This draft (FSv2 Basic) provides the basic FSv2 framework specification 
-	  for transmitting user-ordered IP filters in the FSV2 NLRI and associating 
-	  Flow Spec actions by transmitting the FLow Spec Extended Community(FS-EC) 
-	  with the FSv2 NLRI.  If a filter match links to a single FS-EC action, 
-	  the single action succeeds or fails. If a filte rmatch links to mutiple actions, 
-	  there is a potential for interactions.  Section x.x discusses how to analyze 
-      the interaction by categories and solutions to issues with multiple 
-      FSv2-EC actions interacting. A complete solution requires the BGP Community 
-      Attribute see <xref target="I-D.ietf-idr-wide-bgp-communities"></xref>)
-	  with FSv2 Container defined in the <xref target="I-D.hares-idr-fsv2-more-ip-actions"></xref>. 
-	  </t> 
-	  <t>
-	  This document defines 2 new SAFIs (TBD1, TBD2) for FSv2 to be used with 5 AFIs   
-	  (1, 2, 6, 25, and 31) to allow user-ordered lists of traffic match filters for user-ordered 
-	  traffic match actions encoded in Extended Communities (FS-EC) or a newly defined 
-	  BGP.  FSv2 does not require combinations of FSv2 AFI/SAFIs to be implemented (10 combinations). 
-      An implementation is required to implement only 1 these combinations to be compliant. 
-	  For example, a compliant implementation might only define the FSv2 NLRI for IPv4 for IP forwarding 
-      (AFI=1, SAFI=TBD1). 
-	  </t>
-	  <t>FSv1 and FSv2 use different AFI/SAFIs to send flow specification filters.  Since BGP  
-	  route selection is performed per AFI/SAFI, this approach can be 
-	  termed “ships in the night” based on AFI/SAFI. 
-	  </t>
-     <t>The remainder of section 1 provides background on why the FSv2 was necessary to fix problems with FSv1.  
-	 Section 2 contains a Primer on FSv2. 
-	 Section 3 contains the encoding rules for FSv2 and user-based encoding sent via BGP.  Section 4 describes how to 
-	 validate and order FSv2 NLRI.  Sections 5-8 discusses scalability, optional security additions, security 
-	 considerations, and IANA considerations. 
-	 </t>	  
-<section anchor="introFSv2" title="Why Flow Specification v2">
-      <t> 
-	  Modern IP routers have the capability to forward traffic and to classify, 
-	  shape, rate limit, filter, or redirect packets based on administratively 
-	  defined policies. These traffic policy mechanisms allow the operator 
-	  to define match rules that operate on multiple fields within header 
-	  of an IP data packet.  The traffic policy allows actions 
-	  to be taken upon a match to be associated with each match rule.  
-	  These rules can be more widely defined as “event-condition-action” 
-	  (ECA) rules where the event is always the reception of a packet.  
-	  </t>
-	  <t>BGP (<xref target="RFC4271"></xref>) flow specification as defined by
-	   <xref target="RFC8955"></xref>, <xref target="RFC8956"></xref>,  
-	   <xref target="RFC9117"></xref> specifies the distribution of traffic filter policy (traffic 
-	   filters and actions) via BGP to a mesh of BGP peers (IBGP and EBGP peers). 
-	   The traffic filter policy is applied when packets are received on a router 
-	   with the flow specification function turned on. The flow specification 
-	   protocol defined in <xref target="RFC8955"></xref>, <xref target="RFC8956"></xref>, and 
-	    <xref target="RFC9117"></xref> will be called BGP 
-		flow specification version 1 (BGP FSv1) in this draft.
-	 </t> 
-	  <t>
-	  Multiple deployed applications currently use BGP FSv1 to distribute traffic 
-	  filter policy.  These applications include: 1) mitigation of Denial of 
-	  Service (DoS), 2) traffic filtering in BGP/MPLS VPNS, and 3) centralized 
-	  traffic control for networks utilizing SDN control of router firewall 
-	  functions, 4) classifiers for insertion in an SFC, and 5) filters for SRv6 (segment routing v6).      
-	  </t>
-	  <t>During the deployment of BGP flow specification 
-	  v1, the following issues were detected:  
-	  <list style="symbols"> 
-	  <t>lack of a TLV encoding prevented extension of encodings (FSv1 uses TV (type-value),</t>
-	  <t>inability to allow users to define order for filtering rules,</t>
-	  <t>inability to allow users to define order for multiple actions, and </t>
-	  <t>lack of clear rules for multiple actions per filter match that provide 
-	  default actions on the order of actions and what happens when an action fails. </t>
-	  </list>
-	  </t>
-	  <t>
-	  Networks currently cope with these issues above by constraining deployments 
-	  or using topology/deployment specific workaround. 
-	  </t>
-	  <t>
-	  FSv1 is a critical component of deployed applications. Therefore, this 
-	  specification defines how FSv2 will interact with BGP peers that support 
-	  either FSv2, FSv1, or FSv2 and FSv1. It is expected that a transition to 
-	  FSv2 will occur over time as new applications require FSv2 features. 
-	  </t>	
-	 </section> 
-	 <section title="Definitions and Acronyms">
-      <t><dl>
-  		  <dt>AFI-</dt> <dd>Address Family Identifier</dd>
-		  <dt>AS -</dt> <dd>Autonomous System </dd>
-  		  <dt>BGP Session ephemeral state -</dt><dd>state which does not survive the loss of BGP peer session.</dd>
-		  <dt>BGP Commmunity Path Attribute -</dt><dd>BGP Community Path attribute with a FS TLV defined by 
-		      <xref target="I-D.hares-idr-fsv2-more-ip-actions"></xref></dd> 
-		  <dt>Configuration state -</dt><dd>state which persist across a reboot of software module within 
-		      a routing system or a reboot of a hardware routing device.</dd>
-		  <dt>CPA -</dt><dd>BGP Community Path Attribute </dd>
-		  <dt>DDoS -</dt><dd>Distributed Denial of Service.</dd>
-		  <dt>Ephemeral state -</dt><dd>state which does not survive the reboot of a software module,
-		   or a hardware reboot. Ephemeral state can be ephemeral configuration state or 
-		   operational state.</dd> 
-		  <dt>FSv1 -</dt><dd>Flow Specification version 1 [RFC8955] [RFC8956] </dd>
-  		  <dt>FSv2 -</dt><dd>Flow Specification version 2 (this document) </dd>
-		  <dt>FS -</dt><dd>Flow Specification (either v1 or v2) </dd> 
-		  <dt> FS-CPA -</dt><dd>Flow Specification Actions defined in Community Path Attribute </dd>
-		  <dt>FS-EC -</dt><dd>FS related Extended Community with FS actions </dd>
-		  <dt>FSv1-EC -</dt><dd>FSv1 Extended Community with FS Actions supported by FSv1 </dd>
-		  <dt>FSv2-EC -</dt><dd>FSv2 Extended Community with FS Actions supported by FSv2 </dd>
-		  <dt>NETCONF -</dt><dd>The Network Configuration Protocol <xref target="RFC6241"></xref>.</dd>
-		  <dt>RESTCONF -</dt><dd>The RESTCONF configurati on Protocol <xref target="RFC8040"></xref> </dd>
-		  <dt>RIB -</dt><dd>Routing Information Base.</dd>
-		  <dt>ROA -</dt><dd> Route Origin Authentication <xref target="RFC9582"></xref></dd>
-		  <dt>RR -</dt><dd>Route Reflector.</dd>
-		  <dt> SAFI –</dt><dd>Subsequent Address Family Identifier </dd>
-        </dl>
-		</t>
+  <middle>
+    <section anchor="intro" title="Introduction">
+      <t>Version 2 of BGP flow specification was original defined in 
+      <xref target="I-D.ietf-idr-flowspec-v2"></xref> (BGP FSv2).</t>
+
+      <t>FSv2 is an update to BGP Flow specification version 1 (BGP FSv1).  BGP
+      FSv1 as defined in <xref target="RFC8955"></xref>, 
+      <xref target="RFC8956"></xref>, and <xref target="RFC9117"></xref>
+      specified 2 SAFIs (133, 134) to be used with IPv4 AFI (AFI = 1) and IPv6
+      AFI (AFI=2).</t>
+
+      <t>The initial BGP FSv2 specification had the correct direction, but it
+      contained than the early implementers desired. The imoplmenters desired a
+      progression of  documents with smaller incremental changes (basic FSv2,
+      adding more filters, and adding more actions.)</t> 
+
+      <t>This draft (FSv2 Basic) provides the basic FSv2 framework
+      specification for transmitting user-ordered IP filters in the FSV2 NLRI
+      and associating Flow Spec actions by transmitting the FLow Spec Extended
+      Community(FS-EC) with the FSv2 NLRI.  If a filter match links to a single
+      FS-EC action, the single action succeeds or fails. If a filte rmatch
+      links to mutiple actions, there is a potential for interactions.  Section
+      x.x discusses how to analyze the interaction by categories and solutions
+      to issues with multiple FSv2-EC actions interacting. A complete solution
+      requires the BGP Community Attribute see 
+      <xref target="I-D.ietf-idr-wide-bgp-communities"></xref>) with FSv2
+      Container defined in the 
+      <xref target="I-D.hares-idr-fsv2-more-ip-actions"></xref>.</t> 
+
+      <t>This document defines 2 new SAFIs (TBD1, TBD2) for FSv2 to be used
+      with 5 AFIs   (1, 2, 6, 25, and 31) to allow user-ordered lists of
+      traffic match filters for user-ordered traffic match actions encoded in
+      Extended Communities (FS-EC) or a newly defined BGP.  FSv2 does not
+      require combinations of FSv2 AFI/SAFIs to be implemented (10
+      combinations).  An implementation is required to implement only 1 these
+      combinations to be compliant.  For example, a compliant implementation
+      might only define the FSv2 NLRI for IPv4 for IP forwarding (AFI=1,
+      SAFI=TBD1).</t>
+
+      <t>FSv1 and FSv2 use different AFI/SAFIs to send flow specification
+      filters.  Since BGP  route selection is performed per AFI/SAFI, this
+      approach can be termed “ships in the night” based on AFI/SAFI.</t>
+
+      <t>The remainder of section 1 provides background on why the FSv2 was
+      necessary to fix problems with FSv1.  Section 2 contains a Primer on
+      FSv2.  Section 3 contains the encoding rules for FSv2 and user-based
+      encoding sent via BGP.  Section 4 describes how to validate and order
+      FSv2 NLRI.  Sections 5-8 discusses scalability, optional security
+      additions, security considerations, and IANA considerations.</t>          
+
+      <section anchor="introFSv2" title="Why Flow Specification v2">
+        <t>Modern IP routers have the capability to forward traffic and to
+        classify, shape, rate limit, filter, or redirect packets based on
+        administratively defined policies. These traffic policy mechanisms
+        allow the operator to define match rules that operate on multiple
+        fields within header of an IP data packet.  The traffic policy allows
+        actions to be taken upon a match to be associated with each match rule.
+        These rules can be more widely defined as “event-condition-action”
+        (ECA) rules where the event is always the reception of a packet.</t>
+
+        <t>BGP (<xref target="RFC4271"></xref>) flow specification as defined
+        by <xref target="RFC8955"></xref>, <xref target="RFC8956"></xref>,
+        <xref target="RFC9117"></xref> specifies the distribution of traffic
+        filter policy (traffic filters and actions) via BGP to a mesh of BGP
+        peers (IBGP and EBGP peers).  The traffic filter policy is applied when
+        packets are received on a router with the flow specification function
+        turned on. The flow specification protocol defined in
+        <xref target="RFC8955"></xref>, <xref target="RFC8956"></xref>, and 
+        <xref target="RFC9117"></xref> will be called BGP flow specification
+        version 1 (BGP FSv1) in this draft.</t> 
+
+        <t>Multiple deployed applications currently use BGP FSv1 to distribute
+        traffic filter policy.  These applications include: 1) mitigation of
+        Denial of Service (DoS), 2) traffic filtering in BGP/MPLS VPNS, and 3)
+        centralized traffic control for networks utilizing SDN control of
+        router firewall functions, 4) classifiers for insertion in an SFC, and
+        5) filters for SRv6 (segment routing v6).</t>
+
+        <t>During the deployment of BGP flow specification v1, the following
+        issues were detected:
+
+          <list style="symbols"> 
+            <t>lack of a TLV encoding prevented extension of encodings (FSv1
+            uses TV (type-value),</t>
+            <t>inability to allow users to define order for filtering
+            rules,</t>
+            <t>inability to allow users to define order for multiple actions,
+            and </t>
+            <t>lack of clear rules for multiple actions per filter match that
+            provide default actions on the order of actions and what happens
+            when an action fails.</t>
+          </list>
+        </t>
+
+        <t>Networks currently cope with these issues above by constraining
+        deployments or using topology/deployment specific workaround.</t>
+
+        <t>FSv1 is a critical component of deployed applications. Therefore,
+        this specification defines how FSv2 will interact with BGP peers that
+        support either FSv2, FSv1, or FSv2 and FSv1. It is expected that a
+        transition to FSv2 will occur over time as new applications require
+        FSv2 features.</t>        
+      </section> 
+      <section title="Definitions and Acronyms">
+        <t>
+          <dl>
+          <dt>AFI-</dt> <dd>Address Family Identifier</dd>
+          <dt>AS -</dt> <dd>Autonomous System </dd>
+          <dt>BGP Session ephemeral state -</dt><dd>state which does not survive the loss of BGP peer session.</dd>
+          <dt>BGP Commmunity Path Attribute -</dt><dd>BGP Community Path attribute with a FS TLV defined by 
+          <xref target="I-D.hares-idr-fsv2-more-ip-actions"></xref></dd> 
+          <dt>Configuration state -</dt><dd>state which persist across a reboot of software module within 
+          a routing system or a reboot of a hardware routing device.</dd>
+          <dt>CPA -</dt><dd>BGP Community Path Attribute </dd>
+          <dt>DDoS -</dt><dd>Distributed Denial of Service.</dd>
+          <dt>Ephemeral state -</dt><dd>state which does not survive the reboot of a software module,
+          or a hardware reboot. Ephemeral state can be ephemeral configuration state or 
+          operational state.</dd> 
+          <dt>FSv1 -</dt><dd>Flow Specification version 1 [RFC8955] [RFC8956] </dd>
+          <dt>FSv2 -</dt><dd>Flow Specification version 2 (this document) </dd>
+          <dt>FS -</dt><dd>Flow Specification (either v1 or v2) </dd> 
+          <dt> FS-CPA -</dt><dd>Flow Specification Actions defined in Community Path Attribute </dd>
+          <dt>FS-EC -</dt><dd>FS related Extended Community with FS actions </dd>
+          <dt>FSv1-EC -</dt><dd>FSv1 Extended Community with FS Actions supported by FSv1 </dd>
+          <dt>FSv2-EC -</dt><dd>FSv2 Extended Community with FS Actions supported by FSv2 </dd>
+          <dt>NETCONF -</dt><dd>The Network Configuration Protocol <xref target="RFC6241"></xref>.</dd>
+          <dt>RESTCONF -</dt><dd>The RESTCONF configurati on Protocol <xref target="RFC8040"></xref> </dd>
+          <dt>RIB -</dt><dd>Routing Information Base.</dd>
+          <dt>ROA -</dt><dd> Route Origin Authentication <xref target="RFC9582"></xref></dd>
+          <dt>RR -</dt><dd>Route Reflector.</dd>
+          <dt> SAFI –</dt><dd>Subsequent Address Family Identifier </dd>
+          </dl>
+        </t>
+      </section>
+      <section title="RFC 2119 language">
+        <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+        "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+        document are to be interpreted as described in BCP 14 <xref
+        target="RFC2119"></xref> <xref target="RFC8174"></xref> when, and only
+        when, they appear in all capitals as shown here.</t>
+      </section> 
     </section>
-     <section title="RFC 2119 language">
-	 <t>   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-   document are to be interpreted as described in BCP 14 <xref target="RFC2119"></xref>
-   <xref target="RFC8174"></xref> when, and only when, they appear in all capitals as shown here.    
-	 </t>
-	 </section> 
-</section>
-<section title="Flow Specification Version 2 Primer ">
- <t>
- A BGP Flow Specification (v1 or v2) is an n-tuple containing one or more match criteria 
- that can be applied to IP traffic, traffic encapsulated in IP traffic or 
- traffic associated with IP traffic. The exact traffic match depends on the 
- FSv2 AFI/SAFI.  
- </t>
-  <t>
- A given Flow Specification NLRI may be associated with a set of path 
-attributes depending on the particular application, and these attributes within
-that set may or may not include reachability information (e.g., NEXT_HOP).
-The BGP path attributes associated with FSv2 may also contain 
-Extended Community attributes <xref target="RFC4360"></xref> 
-and Community Container Path attributes
-<xref target="I-D.ietf-idr-wide-bgp-communities"></xref> with FSv2 actions. 
-</t>
- <t>
- BGP processing treats the NLRI as a key to entries in AFI/SAFI BGP 
- databases. Entries that are placed in the Loc-RIB are then associated with 
- a given set of semantics which are application dependent. Standard BGP 
- mechanisms such as update filtering by NLRI or by attributes such as AS_PATH or 
- large communities apply to the BGP Flow Specification defined NLRI-types.  
- </t>
- <t>
-This FSv2 for basic IP forwarding specification only requires the use of 
-Extended Communities to associate FS action with FSv2 filters found in 
-FSv2 NLRI. 
-</t>
-<t>The FSv2 features of multiple actions with user ordering of actions 
-or dependencies between actions requires the BGP Community Attribute
-<xref target="I-D.ietf-idr-wide-bgp-communities"></xref> with 
-a FSv2 Component as defined in <xref target="I-D.hares-idr-fsv2-more-ip-actions"></xref>.
- </t>
- <t>
- Network operators can control the propagation of BGP routes by enabling or 
- disabling the exchange of routes for a particular AFI/SAFI pair on a 
- particular peering session.  As such, the Flow Specification may be 
- distributed to only a portion of the BGP infrastructure. 
- </t>
-<section title="Flow Specification v1 (FSv1) SAFIs ">
-	  <t>
-	  The FSv1 NLRI defined in <xref target="RFC8955"></xref> and <xref target="RFC8956"></xref> 
-      include 13 match conditions encoded for the following AFI/SAFIs: 
-	  <list style="symbol">
-	  <t>IPv4 traffic: AFI:1, SAFI:133 </t>
-	  <t>IPv6 Traffic: AFI:2,  SAFI:133 </t>
-	  <t>BGP/MPLS IPv4 VPN: AFI:1, SAFI: 134 </t>
-	  <t>BGP/MPLS IPv6 VPN: AFI:2, SAFI: 134</t>
-	  </list>
-	  </t>
-	  <t>Match conditions are ordered by component type in ascending order. 
-	  If multiple component types filters exist, the ordering within a 
-	  component type is defined by the component type.  The FSv1 component 
-	  format does not provide enough information to create a
-	  unique canonically sorted list for all implementations in all deployments.
-      </t>	  
-	  <t>
-	 The actions standardized for in <xref target="RFC8955"></xref> and <xref target="RFC8956"></xref> 
-	 are: 
-	 <list style="symbols">
-	 <t>accept packet (default),</t>
-	 <t>traffic flow limitation by bytes (0x6), </t>
-	 <t>traffic-action (0x7),</t>
-	 <t>redirect traffic to VPN (0x8),</t>
-	 <t>mark traffic (0x9), and </t>
-     <t>traffic flow rate limiting (12, 0xC)</t>
-	 </list> 
-	 </t>
-	 <t>An SFC action <xref target="RFC9015"></xref> defines 
-	 a redirection of a data flow to an entry point 
-	 into a specific SFP (Service Function Path) </t>
-	 <t>While IDR has proposed other Extended Community Actions, 
-	 no additional actions have completed the standardization process.  
-	 </t>
-     <t> Additional proposals for FS Actions in Extended Communities exist, 
-	 but these are still in the standardization process.
-	 As such, these new FS actions will fall under FSv2 
-	 rules for Extended Communities.  
-     </t>	 
-</section>
-<section title="Transition to FSv2">
-<t>This specification specification defines AFI/SAFI pairs 
-to support Flow Spec for IPv4 IP  IPv6, L2, IPv4 VPNs, 
-IPv6 VPNs, L2VPN, SFC, and SFC VPN
-supports the components and actions for the following: 
-<list style="symbols">
-<t>IPv4 (AFI=1, SAFI=TBD1),     
-</t>
-<t>IPv6 (AFI=2, SAFI=TBD1), 
-</t>
-<t>L2 (AFI=6, SAFI=TDB1) [described in [I-D.ietf-idr-flowspec-l2vpn]), 
-</t>
-<t>BGP/MPLS IPv4 VPN: (AFI=1, SAFI=TBD2),
-</t>
-<t> BGP/MPLS IPv6 VPN: (AFI=2, SAFI=TBD2),
-</t>
-<t> BGP/MPLS L2VPN (AFI=25, SAFI=TDB2) [described in [I-D.ietf-idr-flowspec-l2vpn]), 
-</t>
-<t> SFC: (AFI=31, SAFI=TBD1),  
-</t>
-<t> SFC VPN (AFI=31, SAFI=TBD2), 
-</t>
-</list>
-</t>
-<t>One question asked by developers is what AFI/SAFI is required for 
-FSv2 IP Basic compliance.  BGP negotiates support for each 
-AFI/SAFI, so FSv2 IP Basic support for non-VPN could be as little 
-as FSv2 for IPv4 forwarding (AFI/SAFI: 1/TBD1),  
-</t>
-<t>The IDR specification for L2 VPN traffic was specified in 
-<xref target="I-D.ietf-idr-flowspec-l2vpn"></xref>.  An IDR specification 
-for tunneled traffic is in <xref target="I-D.ietf-idr-flowspec-nvo3"></xref>.  
-Both of these drafts were targeted for FSv1, but the WG decided to 
-require these to FSv2 TLV formats.  
-</t>
-</section> 
-<section title="FSv2 Overview">
-<t>
-FSv2 allows the user to order the flow specification rules and the actions 
-associated with a rule. Each FSv2 rule may have one or more match conditions 
-and one or more associated actions. 
-</t>
-<t>FSv2 operates in the ships-in-the night model with FSv1 so network 
-operators can manipulate which the distribution of FSv2 
-and FSv1 using configuration parameters.  
-</t>
-<t>An FSv2 peer may receive BGP NLRI routes from a 
-FSv1 peer or a BGP peer that does not support FSv1 or FSv2.  
-The capabilities sent by a remote BGP peer indicate 
-what FS supported by the AFI/SAFI (FSv1 NLRI or FSv2 NLRI or none).  
-</t>
-<t>
-The basic principles regarding ordering of flow specification filter rules are: 
-<list>
-<t>1) Rule-0 (zero) is defined to be 0/0 with the “permit-all” action. </t>
-<t>2) FSv2 filter rules are ordered based on user-specified order. 
-<list>
-<t>The user-specified order is carried in the FSv2 NLRI and a 
-numerical lower value takes precedence over a numerically higher value.  
-For rules received with the same order value, the filter rules are 
-ordered by FSv2 component number and then by rules specified by the component. 
-</t>
-</list>
-</t>
-<t>3) Importing FSv1 into a combined FSv2 and FSv2 rule set requires starting FSv2 
-with Rule 1 and adding FSv1 rules are added after FSv2 rules.  
-<list>
-<t>For example, BGP Peer A has FSv2 data base with 10 FSv2 rules (1-10). Suppose that, 
-FSv1 user ordered FS are configured to start at 301 so 10 FSv1 rules are added at 301-310.
- </t>
-</list>  
-</t>
-<t>4) One or more action can be linked to a filter rule 
-<list>
-<t>If a single action is linked, the action either succeeds or fails. 
-</t> 
-<t>if multiple actions are linked to a filter rule via FSv2 Extended Communities,
-the implementation MUST follow the FSv2-EC interaction rules in section x.x or 
-have a local configuration knob to indicate local interaction rules. 
-Implementations within a network SHOULD follow the same interaction 
-rules
-</t>
-<t> If an implementation allows for FSv2 actions with user-ordering and Extended Community actions, the
-by default the Extended Community are ordered after the user-ordered actions.  
-</t>    
-</list> 
-</t>
-</list>
-</t>
-<t> Figure 1 shows a diagram of the FSv2 
-  logical data structures with 5 rules 
-  for IP Basic functionality.  	   
-<figure>
-<artwork>
+
+    <section title="Flow Specification Version 2 Primer ">
+      <t> A BGP Flow Specification (v1 or v2) is an n-tuple containing one or
+      more match criteria that can be applied to IP traffic, traffic
+      encapsulated in IP traffic or traffic associated with IP traffic. The
+      exact traffic match depends on the FSv2 AFI/SAFI.</t>
+
+      <t> A given Flow Specification NLRI may be associated with a set of path
+      attributes depending on the particular application, and these attributes
+      within that set may or may not include reachability information (e.g.,
+      NEXT_HOP).  The BGP path attributes associated with FSv2 may also contain
+      Extended Community attributes <xref target="RFC4360"></xref> and Community
+      Container Path attributes
+      <xref target="I-D.ietf-idr-wide-bgp-communities"></xref> with FSv2
+      actions.</t>
+
+      <t>BGP processing treats the NLRI as a key to entries in AFI/SAFI BGP
+      databases. Entries that are placed in the Loc-RIB are then associated with
+      a given set of semantics which are application dependent. Standard BGP 
+      mechanisms such as update filtering by NLRI or by attributes such as AS_PATH or 
+      large communities apply to the BGP Flow Specification defined NLRI-types.</t>
+
+      <t>This FSv2 for basic IP forwarding specification only requires the use
+      of Extended Communities to associate FS action with FSv2 filters found in
+      FSv2 NLRI.</t>
+
+      <t>The FSv2 features of multiple actions with user ordering of actions or
+      dependencies between actions requires the BGP Community Attribute
+      <xref target="I-D.ietf-idr-wide-bgp-communities"></xref> with a FSv2
+      Component as defined in <xref target="I-D.hares-idr-fsv2-more-ip-actions"></xref>.</t>
+
+      <t> Network operators can control the propagation of BGP routes by
+      enabling or disabling the exchange of routes for a particular AFI/SAFI
+      pair on a particular peering session.  As such, the Flow Specification may
+      be distributed to only a portion of the BGP infrastructure.</t>
+
+      <section title="Flow Specification v1 (FSv1) SAFIs ">
+        <t>The FSv1 NLRI defined in <xref target="RFC8955"></xref> and
+        <xref target="RFC8956"></xref> include 13 match conditions encoded for
+        the following AFI/SAFIs:
+
+        <list style="symbol">
+          <t>IPv4 traffic: AFI:1, SAFI:133 </t>
+          <t>IPv6 Traffic: AFI:2,  SAFI:133 </t>
+          <t>BGP/MPLS IPv4 VPN: AFI:1, SAFI: 134 </t>
+          <t>BGP/MPLS IPv6 VPN: AFI:2, SAFI: 134</t>
+        </list>
+        </t>
+
+        <t>Match conditions are ordered by component type in ascending order.
+        If multiple component types filters exist, the ordering within a
+        component type is defined by the component type.  The FSv1 component
+        format does not provide enough information to create a unique
+        canonically sorted list for all implementations in all deployments.</t>          
+
+        <t>The actions standardized for in <xref target="RFC8955"></xref> and
+        <xref target="RFC8956"></xref> are: 
+
+        <list style="symbols">
+          <t>accept packet (default),</t>
+          <t>traffic flow limitation by bytes (0x6), </t>
+          <t>traffic-action (0x7),</t>
+          <t>redirect traffic to VPN (0x8),</t>
+          <t>mark traffic (0x9), and </t>
+          <t>traffic flow rate limiting (12, 0xC)</t>
+        </list> 
+        </t>
+
+        <t>An SFC action <xref target="RFC9015"></xref> defines a redirection
+        of a data flow to an entry point into a specific SFP (Service Function
+        Path) </t> <t>While IDR has proposed other Extended Community Actions,
+        no additional actions have completed the standardization process.</t>
+
+        <t>Additional proposals for FS Actions in Extended Communities exist,
+        but these are still in the standardization process.  As such, these new
+        FS actions will fall under FSv2 rules for Extended Communities.</t>         
+
+      </section>
+      <section title="Transition to FSv2">
+        <t>This specification specification defines AFI/SAFI pairs to support
+        Flow Spec for IPv4 IP  IPv6, L2, IPv4 VPNs, IPv6 VPNs, L2VPN, SFC, and
+        SFC VPN supports the components and actions for the following: 
+
+        <list style="symbols">
+          <t>IPv4 (AFI=1, SAFI=TBD1),</t>
+          <t>IPv6 (AFI=2, SAFI=TBD1),</t>
+          <t>L2 (AFI=6, SAFI=TDB1) [described in [I-D.ietf-idr-flowspec-l2vpn]),</t>
+          <t>BGP/MPLS IPv4 VPN: (AFI=1, SAFI=TBD2),</t>
+          <t>BGP/MPLS IPv6 VPN: (AFI=2, SAFI=TBD2),</t>
+          <t>BGP/MPLS L2VPN (AFI=25, SAFI=TDB2) [described in [I-D.ietf-idr-flowspec-l2vpn]),</t>
+          <t>SFC: (AFI=31, SAFI=TBD1),</t>
+          <t>SFC VPN (AFI=31, SAFI=TBD2),</t>
+        </list>
+        </t>
+
+        <t>One question asked by developers is what AFI/SAFI is required for
+        FSv2 IP Basic compliance.  BGP negotiates support for each AFI/SAFI, so
+        FSv2 IP Basic support for non-VPN could be as little as FSv2 for IPv4
+        forwarding (AFI/SAFI: 1/TBD1),</t>
+
+        <t>The IDR specification for L2 VPN traffic was specified in 
+        <xref target="I-D.ietf-idr-flowspec-l2vpn"></xref>.  An IDR
+        specification for tunneled traffic is in
+        <xref target="I-D.ietf-idr-flowspec-nvo3"></xref>.  
+        Both of these drafts were targeted for FSv1, but the WG decided to
+        require these to FSv2 TLV formats.</t>
+      </section> 
+
+      <section title="FSv2 Overview">
+        <t>FSv2 allows the user to order the flow specification rules and the
+        actions associated with a rule. Each FSv2 rule may have one or more
+        match conditions and one or more associated actions.</t>
+
+        <t>FSv2 operates in the ships-in-the night model with FSv1 so network
+        operators can manipulate which the distribution of FSv2 and FSv1 using
+        configuration parameters.</t>
+
+        <t>An FSv2 peer may receive BGP NLRI routes from a FSv1 peer or a BGP
+        peer that does not support FSv1 or FSv2.  The capabilities sent by a
+        remote BGP peer indicate what FS supported by the AFI/SAFI (FSv1 NLRI
+        or FSv2 NLRI or none).</t>
+
+        <t>The basic principles regarding ordering of flow specification
+        filter rules are: 
+          <list>
+            <t>1) Rule-0 (zero) is defined to be 0/0 with the “permit-all” action.</t>
+            <t>2) FSv2 filter rules are ordered based on user-specified order. 
+
+              <list>
+                <t>The user-specified order is carried in the FSv2 NLRI and a
+                numerical lower value takes precedence over a numerically
+                higher value.  For rules received with the same order value,
+                the filter rules are ordered by FSv2 component number and then
+                by rules specified by the component.</t>
+              </list>
+            </t>
+            <t>3) Importing FSv1 into a combined FSv2 and FSv2 rule set
+            requires starting FSv2 with Rule 1 and adding FSv1 rules are added
+            after FSv2 rules.
+
+              <list>
+                <t>For example, BGP Peer A has FSv2 data base with 10 FSv2
+                rules (1-10). Suppose that, FSv1 user ordered FS are configured
+                to start at 301 so 10 FSv1 rules are added at 301-310.</t>
+              </list>  
+            </t>
+            <t>4) One or more action can be linked to a filter rule 
+
+              <list>
+                <t>If a single action is linked, the action either succeeds or
+                fails.</t> 
+                <t>if multiple actions are linked to a filter rule via FSv2
+                Extended Communities, the implementation MUST follow the
+                FSv2-EC interaction rules in section x.x or have a local
+                configuration knob to indicate local interaction rules.
+                Implementations within a network SHOULD follow the same
+                interaction rules</t>
+
+                <t>If an implementation allows for FSv2 actions with
+                user-ordering and Extended Community actions, the by default
+                the Extended Community are ordered after the user-ordered
+                actions.</t>    
+              </list> 
+            </t>
+          </list>
+        </t>
+        <t> Figure 1 shows a diagram of the FSv2 
+          logical data structures with 5 rules 
+          for IP Basic functionality.             
+          <figure>
+          <artwork>
+     
+         +--------------------------------------+
+         | Flow Specification (FS)              | 
+         |  Policy                              | 
+         +--------------------------------------+        
+                    ^               ^              ^
+             |               |              | 
+             |               |              |   
+    +--------^----+  +-------^-------+     +-------------+    
+    |   FS Rule 1 |  |   FS Rule 2   | ... |  FS rule 5  |
+    +-------------+  +---------------+     +-------------+
+                          :  :  :  :               
+        :.................:  :  :  :           
+        :            :............:  :  :         
+     +--V--+ +--V-------+       :  :              
+     |order| |Dependent | ......:  :..       
+     |     | | filter   | :          :
+     +-----+ | chain    | :          :
+             +----------+ :          :
+                          :          :        
+                          :          :        
+                     .....:          :........   
+                     :                     :
+           +---------V-----------+    +----V-------------+
+           |  Rule Condition     |    |   Rule Action    |
+           |  in BGP NLRIs       |    | in BGP extended  |
+           | AFI/SAFI 1/133,     |    | Communities      |
+           | 1/134, 2/133, 2/134 |    |                  |  
+           +-------------------+      +------------------+
+               :     :    :                 :      :    :
+          .....:     .    :.....       .....:      .    :.....
+          :          :         :       :           :         :
+     +----V---+  +---V----+ +--V---+ +-V------+ +--V-----++--V---+
+     |  Match |  | match  | |match | | Action | | action ||action|
+     |Operator|  |Variable| |Value | |Operator| |variable|| Value|
+     |*1      |  |        | |      | |(subtype| |        ||      |
+     +--------+  +--------+ +------+ +--------+ +--------++------+
+     
+       *1 match operator may be complex. 
+     
+       Figure 2-1: BGP Flow Specification v1 Policy 
+          </artwork>
+          </figure>
+        </t>
+      </section>
+    </section> 
+
+    <section title="FSv2 NLRI Formats and Actions">
+      <section title="FSv2 NLRI Format">
+        <t> The BGP FSv2 supports NRLI with the format for AFIs for IPv4 (AFI =
+        1), IPv6 (AFI = 2), L2 (AFI = 6), L2VPN (AFI=25), and SFC (AFI=31) with
+        SAFIs TBD1 (Flow Spec) and TBD2 (Flow Spec for VPNs) to support
+        transmission of the flow specification which supports user ordering of
+        traffic filters and actions for IP traffic and IP VPN traffic.</t>
+
+        <t>A compliant FSv2 implementation only has to implement one AFI/SAFI
+        pair out of the full list of NRLIs.  For example, a compliant FSv2
+        implementation could only implement IPv4 FSv2 (AFI=1, SAFI=TBD1).</t>
+
+        <t>This NLRI information is encoded using MP_REACH_NLRI and
+        MP_UNREACH_NLRI attributes defined in <xref target="RFC4760"></xref>.
+        When advertising FSv2 NLRI, the length of the Next-Hop Network Address
+        MUST be set to 0. Upon reception, the Network Address in the Next-Hop
+        field MUST be ignored.</t>
+
+        <t>Implementations wishing to exchange flow specification rules MUST
+        use BGP's Capability Advertisement facility to exchange the
+        Multiprotocol Extension Capability Code (Code 1) as defined in <xref
+        target="RFC4760"></xref>, and indicate a capability for FSv1, FSv2
+        (Code TBD3), or both.</t> 
+
+        <t>The AFI/SAFI NLRI for BGP Flow Specification version 2 (FSv2) has the format:
+         <figure>
+         <artwork>
+     +--------------------------------+
+     | NLRI length (2 octets)         |
+     +--------------------------------+
+     | TLVs+                          |
+     +--------------------------------+
+     
+      Figure 3-1 - NLRI format 
+          </artwork>
+          </figure> 
+        </t>
+
+        <t>where:
+          <list style="symbols">
+            <t>NLRI length: length of field including all SubTLVs in octets.</t> 
+            <t>TLV+ - indicates the repetition of the TLV field</t>
+          </list> 
+        </t> 
+        <t>Each each TLV has the Format:
+          <figure>
+          <artwork>
+      
+         TLV format   
+     +--------------------------------+
+     | +============================+ |
+     | | order (4 octets)           | |
+     | +----------------------------+ |
+     | | Dependent filters chain    | | 
+     | |(type, chain ID, count,     | |
+     | | item) (8 octets)           | |
+     | +----------------------------+ | 
+     | + FSv2 Filter type (2 octet) + |
+     | +----------------------------+ |
+     | + length TLVs (2 octet)      + |
+     | + ---------------------------+ |
+     | + value (variable)           + |
+     | +----------------------------+ |
+     +-------------------------------+
+
+     Figure 3-2 - TLV format within FSv2 NLRI  
+          </artwork>
+          </figure>
+        </t>
+
+        <t>where:
+
+          <list style="symbols">
+            <t>order: flow-specification global rule order number (4 octets).</t>
+            <t> Dependent Filters Chain: 8 octets for identifying a chain of
+            FSv2 filters that must be deployed at the same time.  
+
+              <list style="hanging">
+                <t hangText="Why needed in FSv2:">Flow specification filters
+                distributed in BGP UPDATE packets may be broken into multiple
+                packets. In FSv2, the dependent filter ID allows the filter
+                chains to be identified across all user-defined or default
+                filters.  The rules can be installed from BGP into the firewall
+                after all filters have been installed.</t>
  
-     +--------------------------------------+
-     | Flow Specification (FS)              | 
-     |  Policy                              | 
-     +--------------------------------------+	
-       	 ^               ^              ^
-         |               |              | 
-         |               |              |   
-+--------^----+  +-------^-------+     +-------------+    
-|   FS Rule 1 |  |   FS Rule 2   | ... |  FS rule 5  |
-+-------------+  +---------------+     +-------------+
-                      :  :  :  :               
-    :.................:  :  :  :           
-    :	    :............:  :  :         
- +--V--+ +--V-------+       :  :              
- |order| |Dependent | ......:  :..       
- |     | | filter   | :          :
- +-----+ | chain    | :          :
-         +----------+ :          :
-                      :          :        
-                      :          :        
-                 .....:          :........   
-                 :                     :
-       +---------V-----------+    +----V-------------+
-       |  Rule Condition     |    |   Rule Action    |
-       |  in BGP NLRIs       |    | in BGP extended  |
-       | AFI/SAFI 1/133,     |    | Communities      |
-       | 1/134, 2/133, 2/134 |    |                  |  
-       +-------------------+      +------------------+
-           :     :    :                 :      :    :
-      .....:     .    :.....       .....:      .    :.....
-      :          :         :       :           :         :
- +----V---+  +---V----+ +--V---+ +-V------+ +--V-----++--V---+
- |  Match |  | match  | |match | | Action | | action ||action|
- |Operator|  |Variable| |Value | |Operator| |variable|| Value|
- |*1      |  |        | |      | |(subtype| |        ||      |
- +--------+  +--------+ +------+ +--------+ +--------++------+
- 
-   *1 match operator may be complex. 
- 
-   Figure 2-1: BGP Flow Specification v1 Policy 
-</artwork>
-</figure>
-</t>
-</section>
-</section> 
-<section title="FSv2 NLRI Formats and Actions">
-<section title="FSv2 NLRI Format">
-<t> The BGP FSv2 supports NRLI with the format for
- AFIs for IPv4 (AFI = 1), IPv6 (AFI = 2), L2 (AFI = 6), L2VPN (AFI=25), and 
- SFC (AFI=31) with SAFIs TBD1 (Flow Spec) and TBD2 (Flow Spec for VPNs) to support transmission of the flow specification
- which supports user ordering of traffic filters and actions for IP traffic and 
- IP VPN traffic.
- </t>
- <t>A compliant FSv2 implementation only has to implement one AFI/SAFI pair out of the 
- full list of NRLIs.  For example, a compliant FSv2 implementation could only implement 
- IPv4 FSv2 (AFI=1, SAFI=TBD1).   
- </t>
- <t>
-  This NLRI information is encoded using MP_REACH_NLRI and MP_UNREACH_NLRI attributes defined in
- <xref target="RFC4760"></xref>.  When advertising FSv2 NLRI, the length of the 
-  Next-Hop Network Address MUST be set to 0. Upon reception, 
-  the Network Address in the Next-Hop field MUST be ignored.  
- </t>
-<t>Implementations wishing to exchange flow specification rules MUST use 
-BGP's Capability Advertisement facility to exchange the Multiprotocol Extension Capability Code 
-(Code 1) as defined in <xref target="RFC4760"></xref>, and 
-indicate a capability for FSv1, FSv2 (Code TBD3), or both.  
-</t> 
-<t>The AFI/SAFI NLRI for BGP Flow Specification version 2 (FSv2) has the format:
- <figure>
- <artwork>
- +--------------------------------+
- | NLRI length (2 octets)         |
- +--------------------------------+
- | TLVs+                          |
- +--------------------------------+
- 
-  Figure 3-1 - NLRI format 
- </artwork>
- </figure> 
- </t>
-  <t>
-  where:
-  <list style="symbols">
-  <t> NLRI length: length of field including all SubTLVs in octets.  </t> 
-  <t> TLV+ - indicates the repetition of the TLV field  </t>
-  </list> 
-</t> 
-<t>Each each TLV has the Format:
-<figure>
-<artwork>
-  
-     TLV format   
- +--------------------------------+
- | +============================+ |
- | | order (4 octets)           | |
- | +----------------------------+ |
- | | Dependent filters chain    | | 
- | |(type, chain ID, count,     | |
- | | item) (8 octets)           | |
- | +----------------------------+ | 
- | + FSv2 Filter type (2 octet) + |
- | +----------------------------+ |
- | + length TLVs (2 octet)      + |
- | + ---------------------------+ |
- | + value (variable)           + |
- | +----------------------------+ |
- +-------------------------------+
+                <t hangText="For basic FSV2:">This field is required to be set
+                to all zero, and ignored upon reception.</t>
 
- Figure 3-2 - TLV format within FSv2 NLRI  
-</artwork>
-  </figure>
-</t>
-  <t>
-  where:
-  <list style="symbols">
-  <t> order: flow-specification global rule order number (4 octets). </t>
-  <t> Dependent Filters Chain: 8 octets for identifying a chain of 
-   FSv2 filters that must be deployed at the same time.  
-   <list style="hanging">
-   <t hangText="Why needed in FSv2:">Flow specification filters 
-   distributed in BGP UPDATE packets may be broken into multiple 
-   packets. In FSv2, the dependent filter ID allows the filter chains
-   to be identified across all user-defined or default filters.
-   The rules can be installed from BGP into the firewall after 
-   all filters have been installed.
-   </t>   
-   <t hangText="For basic FSV2:">This field is required to be set to all zero, 
-   and ignored upon reception. 
-   </t>
-   <t hangText="For future FSV2:">Future specifications will specify the 
-   use of this field, and future specifications will continue to ignore
-   the field if the value is all zeros. 
-   </t>
-   </list> 
-   </t>
-  <t> FSv2 Filter type: contains a type for FSv2 TLV format of the NRLI (2 octets). 
-   This type specifies support for a set of components. 
-   [Editor's note: We need to decide between Option 2 or Option 1. 
-    Option 2 makes provides a better default ordering for frame/packet filters.
-	<list style="hanging">
-   <t hangText="Option 1"> ascending order (draft-ietf-idr-fsv2-ip-basic-02)
-  <list>
-  <t>0 - reserved, </t>
-  <t>1 - IP Basic Filter rules </t>
-  <t>2 - IP Extended Filter Rules </t>
-  <t>3 - MPLS Filter Rules </t>
-  <t>4 - L2 traffic rules</t>
-  <t>5 - SFC Traffic rules </t>
-  <t>6 - Tunneled traffic </t> 
-  </list>
-  </t>
-  <t hangText="Option 2"> ordering by frame/packet (new) 
-  <list>
-  <t>0 - reserved, </t>
-  <t>50 -  L2 Traffic fules  </t>
-  <t>100 - MPLS traffic rules</t>
-  <t>150 - SFC Traffic rules </t>
-  <t>200 - Tunneled traffic </t> 
-  <t>256 - IP Basic Filter Rules (bit 1 of high bit) </t>
-  <t>280 - IP Extended Filter Rules </t> 
-  </list>
-  </t> 
- </list> 
-  </t> 
-  <t> length-TLV: is the length of the value part of the Sub-TLV, 
-  </t>
-  <t>value: value depends on the type of FSv2 Filter type.
-  </t>
- </list>  
-  </t>
-  <t>FSv2 implementations MUST pass valid filter TLVs even if the implementation 
-  does not support these installation of these a particular type of filter rules.  
-  </t> 
-  <t>This specification only defines operation of the IP Basic Filter Rules 
-  that all FSv2 must support. 
-  </t> 
-  <section title="Ordering of TLVs within the FSv2 NLRI">
-  <t> For ease of processing, the ordering within the FSv2 NLRI
-  MUST be by order number.  Within an order value (e.g. 20), 
-  the filters MUST group the filters by the same filter type (e.g. IP Basic filter rules), 
-  and order the groups of filters by filter type (ascending values). 
-  </t>
-  <t>The order within a filter type (e.g. IP Basic Filters) MUST be by the 
-  component type. If multiple components of the same type exist, the 
-  component ordering is specified by the component definition (as in FSv1). 
-  </t>
-  </section> 
-  <section title="Partial Deployments">
-  <t>Partial deployments can occur for two reasons: 
-  <list style="symbols">
-  <t>Only a portion of the nodes in a network with FSv2 support installing 
-   new FSv2 Filter types with new FSv2 components. Other nodes (such as RRs), 
-   check the syntax, but do not handle the semantic meaning.  
-   </t>
-   <t>During upgrades, a portion of the nodes know about a new Filter type 
-   with the components, but other nodes do not. 
-   </t>
-   </list>
-   </t>
-   <t>Editor: Are there others? 
-   </t> 
-  </section> 
-</section>
-<section title="FSv2 Basic IP Filters " >
-<section title="Operators for comparison">
-<section title="Numeric Operator (numeric_op)">
-<t>   This operator is encoded as shown in Figure 3-3. 
-<figure>
-<artwork>
+                <t hangText="For future FSV2:">Future specifications will
+                specify the use of this field, and future specifications will
+                continue to ignore the field if the value is all zeros.</t>
+              </list> 
+            </t>
 
-    0   1   2   3   4   5   6   7
-  +---+---+---+---+---+---+---+---+
-  | e | a |  len  | 0 |lt |gt |eq |
-  +---+---+---+---+---+---+---+---+
+            <t>FSv2 Filter type: contains a type for FSv2 TLV format of the
+            NRLI (2 octets).  This type specifies support for a set of
+            components.  [Editor's note: We need to decide between Option 2 or
+            Option 1.  Option 2 makes provides a better default ordering for
+            frame/packet filters.
 
-        Figure 3-3: Numeric Operator (numeric_op)
+              <list style="hanging">
+                <t hangText="Option 1"> ascending order (draft-ietf-idr-fsv2-ip-basic-02)
 
-</artwork>
-</figure>
-</t>
-<dl>
-<dt>e (end-of-list bit): </dt><dd>Set in the last {op, value} pair in the list
-</dd>
-<dt>a (AND bit):</dt><dd> If unset, the result of the previous {op, value} pair
-   is logically ORed with the current one.  If set, the operation
-   is a logical AND.  In the first operator octet of a sequence,
-   it MUST be encoded as unset and MUST be treated as always unset
-   on decoding.  The AND operator has higher priority than OR for
-   the purposes of evaluating logical expressions.
-</dd>
-<dt>len (length): </dt><dd>The length of the value field for this operator given
-         as (1 &lt;&lt; len).  This encodes 1 (len=00), 2 (len=01), 4
-         (len=10), and 8 (len=11) octets.
-</dd>
-<dt>0 </dt>
-<dd>MUST be set to 0 on NLRI encoding and MUST be ignored during decoding
-</dd>	
-<dt>lt </dt>
-<dd>less-than comparison between data and value 
-</dd>
-<dt>gt:</dt>
-<dd>greater-than comparison between data and value
-</dd>
-<dt> eq:</dt>
-<dd>equality between data and value
-</dd>
-</dl>
-<t> The bits lt, gt, and eq can be combined to produce common relational
-   operators, such as "less or equal", "greater or equal", and "not
-   equal to", as shown in Table 3-1. 
-</t>
-<t> 
-<figure> 
-<artwork> 
+                  <list>
+                    <t>0 - reserved, </t>
+                    <t>1 - IP Basic Filter rules </t>
+                    <t>2 - IP Extended Filter Rules </t>
+                    <t>3 - MPLS Filter Rules </t>
+                    <t>4 - L2 traffic rules</t>
+                    <t>5 - SFC Traffic rules </t>
+                    <t>6 - Tunneled traffic </t> 
+                  </list>
+                </t>
+                <t hangText="Option 2"> ordering by frame/packet (new) 
+                  <list>
+                    <t>0 - reserved, </t>
+                    <t>50 -  L2 Traffic fules  </t>
+                    <t>100 - MPLS traffic rules</t>
+                    <t>150 - SFC Traffic rules </t>
+                    <t>200 - Tunneled traffic </t> 
+                    <t>256 - IP Basic Filter Rules (bit 1 of high bit) </t>
+                    <t>280 - IP Extended Filter Rules </t> 
+                  </list>
+                </t> 
+              </list> 
+            </t> 
 
-            +====+====+====+==================================+
-            | lt | gt | eq | Resulting operation              |
-            +====+====+====+==================================+
-            | 0  | 0  | 0  | false (independent of the value) |
-            +----+----+----+----------------------------------+
-            | 0  | 0  | 1  | == (equal)                       |
-            +----+----+----+----------------------------------+
-            | 0  | 1  | 0  | &gt; (greater than)                 |
-            +----+----+----+----------------------------------+
-            | 0  | 1  | 1  | &lt;= (greater than or equal)       |
-            +----+----+----+----------------------------------+
-            | 1  | 0  | 0  | &lt; (less than)                    |
-            +----+----+----+----------------------------------+
-            | 1  | 0  | 1  | &lt;= (less than or equal)          |
-            +----+----+----+----------------------------------+
-            | 1  | 1  | 0  | != (not equal value)             |
-            +----+----+----+----------------------------------+
-            | 1  | 1  | 1  | true (independent of the value)  |
-            +----+----+----+----------------------------------+
+            <t>length-TLV: is the length of the value part of the Sub-TLV,</t>
+            <t>value: value depends on the type of FSv2 Filter type.</t>
+          </list>  
+        </t>
 
-               Table 3-1: Comparison Operation Combinations
-</artwork>
-</figure>
-</t>
-</section> 
-<section title="Bitmask Operator (bitmask_op)">
-<t>This operator is encoded as shown in Figure 3-4. 
-<figure>
-<artwork>
+        <t>FSv2 implementations MUST pass valid filter TLVs even if the
+        implementation does not support these installation of these a particular
+        type of filter rules.</t>
 
-     0   1   2   3   4   5   6   7
-    +---+---+---+---+---+---+---+---+
-    | e | a |  len  | 0 | 0 |not| m |
-    +---+---+---+---+---+---+---+---+
+        <t>This specification only defines operation of the IP Basic Filter Rules
+        that all FSv2 must support.  </t> 
 
-    Figure 3-4 Bitmask Operator (bitmask_op)
-</artwork>
-</figure> 
-Where: 
-</t>
-<dl>
- <dt>e, a, len (end-of-list bit, AND bit, and length field):</dt>
-<dd> Most significant nibble; defined in the Numeric Operator format in section 3-x. 
-</dd>
-<dt>not (NOT bit):</dt>
-<dd>If set, logical negation of operation. 
-</dd>
-<dt>m (Match bit):</dt>
-<dd>If set, this is a bitwise match operation defined as
-    "(data AND value) == value"; if unset, (data AND value)
-    evaluates to TRUE if any of the bits in the value mask are set
-         in the data.
-</dd>
-<dt>0 (all 0 bits):</dt>
-<dd> MUST be set to 0 on NLRI encoding and MUST be ignored during decoding 
-</dd>
-</dl>
-</section> 
-</section> 
-<section title="IP Basic Filters (Filter type=TBD )">
-<t>
-The format of the IP Basic TLV value field is shown in Figure 3-5.  
-The IP header for the VPN case is specified in section 3.5.      
-</t>
-<t>
- <figure>
- <artwork>
+        <section title="Ordering of TLVs within the FSv2 NLRI">
+          <t> For ease of processing, the ordering within the FSv2 NLRI MUST be
+          by order number.  Within an order value (e.g. 20), the filters MUST
+          group the filters by the same filter type (e.g. IP Basic filter rules),
+          and order the groups of filters by filter type (ascending values).</t>
 
-   Top-level TLV            
- +-------------------------------+   
- | +============================+ |
- | | order (4 octets)           | |
- | +----------------------------+ |
- | | dependency filter chain    | |
- | |  (8 octets)                | |
- | +----------------------------+ | 
- | + FSv2 Filter type (2 octets)| |
- | | option1: 1, option2: 256   | | 
- | +----------------------------+ |
- | + length (2 octet)           + |
- | + ---------------------------+ |
- | + value (variable)           + |
- | +----------------------------+ |
- +--------------------------------+
+          <t>The order within a filter type (e.g. IP Basic Filters) MUST be by
+          the component type. If multiple components of the same type exist, the
+          component ordering is specified by the component definition (as in
+          FSv1).</t>
+        </section> 
 
-Figure 3-5 NLRI format for FSv2 IP Filter Type
-</artwork>
-</figure>
-</t>
-<t>Where: 
-<list> 
-<t> order - is an 4 octet field with a 
-value 1-N.  The value 0 (zero) is invalid, and 
-the TLV should be "treated-as-withdrawl".  
-</t>
-<t> dependency filter chain - is an 8 octet field
-which must be all zero for the IP Basic Filter rules. 
-</t> 
-<t> length - is a 2 octet field indicating the 
-length of the value field. 
-</t>
-<t> value - is a variable field comprised of 
-a sequence of component TLVs: 
-<figure>
-<artwork>
+        <section title="Partial Deployments">
+          <t>Partial deployments can occur for two reasons: 
+            <list style="symbols">
+              <t>Only a portion of the nodes in a network with FSv2 support
+              installing new FSv2 Filter types with new FSv2 components. Other
+              nodes (such as RRs), check the syntax, but do not handle the
+              semantic meaning.</t>
 
- +--------------------------------+
- | + ---------------------------+ |
- | + Components TLV+ (variable) + |
- | +----------------------------+ |
- +--------------------------------+
- 
- Figure 3-6 Value Field 
-</artwork> 
-</figure>
-</t>
-<t>
-<figure> 
-<artwork> 
+              <t>During upgrades, a portion of the nodes know about a new Filter
+              type with the components, but other nodes do not.</t>
+            </list>
+          </t>
+          <t>Editor: Are there others? </t> 
+        </section> 
+      </section>
 
-  Where the Component TLVs are: 
+      <section title="FSv2 Basic IP Filters " >
+        <section title="Operators for comparison">
+          <section title="Numeric Operator (numeric_op)">
+            <t>This operator is encoded as shown in Figure 3-3. 
+              <figure>
+              <artwork>
 
-   +----------------------------+
-   |  Component Type (1 octet)  |
-   +----------------------------+
-   |  length (1 octet)          |
-   + ---------------------------+
-   |  value (variable)          |
-   +----------------------------+
-   
-Figure 3-7 – IP header Component TLVs  
+          0   1   2   3   4   5   6   7
+        +---+---+---+---+---+---+---+---+
+        | e | a |  len  | 0 |lt |gt |eq |
+        +---+---+---+---+---+---+---+---+
 
-</artwork>
-</figure>
-</t>
-<t>
-Where:
-<list>
-<t>Component type: component values are defined in 
-the “Flow Specification Component types” registry for IPv4 and IPv6 by 
-<xref target="RFC8955"></xref>, <xref target="RFC8956"></xref>, and 
-<xref target="I-D.ietf-idr-flowspec-srv6"></xref>
-</t>
-<t>length: length of SubTLV (varies depending on the component type).
-If the length of the component types does match the valid defined length(s)
-for the component, the component type is ignored and the Filter type 
-TLV is "treated-as-withdrawl".  
-</t>
-<t>value: dependent on component type. 
-</t>
-</list>
-</t>
-<t>Many of the components use the operators [numeric_op] and [bitmask_op] 
-defined in <xref target="RFC8955"></xref>   
-</t>
-</list>
-</t>
-<t>The list of valid SubTLV types appears in Table 3-2 
-for filter type of IP Filters (type=1).  Other filters
-beyond these filters may be defined other filter types
-(e.g. IP Extended Filters). 
-</t>
-<t>
-<figure> 
-<artwork>
-Table 3-2 FSv2 IP Basic TLV Components 
-		  
-Sub-TLV   Definition 
---------  ---------------------  
-   0 -    Reserved 
-   1 -    IP Destination prefix 
-   2 -    IP Source prefix 
-   3 –    IPv4 Protocol / 
-          IPv6 Upper Layer Protocol
-   4 –    Port  
-   5 –    Destination Port 
-   6 –    Source Port
-   7 –    ICMPv4 type / ICMPv6 type  
-   8 –    ICMPv4 code / ICPv6 code 
-   9 –    TCP Flags 
-  10 –    Packet length
-  11 –    DSCP  
-  12 –    Fragment 
-  13 –    Flow Label 
-  14-255  Reserved 
- 
-</artwork>
-</figure>
-</t>
-</section>
-<section title="Ordering within the IP Basic Filter TLVs">
-<t>
-The ordering of components within the value field of the 
-IP Basic TLV follows the FSv1 rules.  The following is 
-a restatement of FSv1 rules in FSv2 terms. 
-</t>
-<t>
-<list style="symbols">
-<t>1) order by component types (1-13). 
-</t>
-<t>(2) If the components are the same, then the value fields are compared 
-using mechanisms defined in <xref target="RFC8955"></xref>
-and <xref target="RFC8956"></xref> and MUST be in ascending order.  
-NLRIs having component TLVs which do not follow the above ordering rules 
-MUST be considered as malformed by a BGP FSv2 propagator. This rule 
-prevents any ambiguities that arise from the multiple copies of 
-the same NLRI from multiple BGP FSv2 propagators. 
-A BGP implementation SHOULD treat such malformed NLRIs as "treat-as-withdrawl".  
-<xref target="RFC7606"></xref>.  
-</t>
-</list> 
-</t>
-<t>See <xref target="RFC8955"></xref>, <xref target="RFC8956"></xref>, and
- for details on per component ordering.  
-</t>
-</section> 
-<section title="FSv2 Components for IP Basic TLVs">
-<section title="IP Destination Prefix (type = 1)">
-<t>	IPv4 Name: IP Destination Prefix   (reference:  <xref target="RFC8955"></xref>) </t>
-<t>	IPv6 Name: IPv6 Destination Prefix (reference:  <xref target="RFC8956"></xref>) </t>
-<t></t>
-<t>IPv4 length: Prefix length in bits 
-</t>
-<t>IPv4 value: IPv4 Prefix (variable length)
-</t>
-<t>IPv6 length: length of value 
-</t>
-<t>IPv6 value: [offset (1 octet)] [pattern (variable)] [padding(variable)] 
-</t>
-<t>If IPv6 length = 0 and offset = 0, then component matches every address.  
-Otherwise, length must be offset "less than" length "less than" 129 or component is malformed. 
-</t>
-</section>
-<section title="IP Source Prefix (type = 2) ">
-<t>	IPv4 Name: IP Source Prefix      (reference:  <xref target="RFC8955"></xref>) </t>
-<t>	IPv6 Name: IPv6 Source Prefix  (reference: <xref target="RFC8956"></xref>) </t>
-<t></t>
-<t>IPv4 length: Prefix length in bits </t>
-<t>IPv4 value: Source IPv4 Prefix (variable length)</t>
-<t>IPv6 length: length of value </t>
-<t>IPv6 value: [offset (1 octet)] [pattern (variable)][padding(variable)] 
-</t>
-<t></t>
-<t>
-If IPv6 length = 0 and offset = 0, then component matches every address.  Otherwise, length must be offset &lt; length &lt; 129 
-or component is malformed. 
-</t>
-</section>
-<section title="IP Protocol (type = 3) ">
-<t>	IPv4 Name: IP Protocol  IP Source Prefix  (reference:  <xref target="RFC8955"></xref>) </t>
-<t>	IPv6 Name: IPv6 Upper-Layer Protocol:   (reference: <xref target="RFC8956"></xref>) </t>
-<t></t>
-<t>IPv4 length: variable </t>
-<t>IPv4 value: [numeric_op, value]+</t>
-<t></t>
-<t>IPv6 length: variable </t>
-<t>IPv6 value: [numeric_op, value]+ </t>
-<t>where the value following each numeric_op is a single octet. </t>
-</section>
- <section title="Port (type = 4)">
-<t>	IPv4/IPv6 Name: Port (reference:  <xref target="RFC8955"></xref>),
- <xref target="RFC8956"></xref>) </t>
-<t>Filter defines: a set of port values to match either destination port or source port. 
-</t>
-<t></t>
-<t>IPv4 length: variable </t>
-<t>IPv4 value: [numeric_op, value]+</t>
-<t></t>
-<t>IPv6 length: variable </t>
-<t>IPv6 value: [numeric_op, value]+</t>
-<t></t>
-<t>where the value following each numeric_op is a single octet. </t>
-<t>Note-1: (from FSV1) In the presence of the port component (destination or source port), 
-only a TCP (port 6) or UDP (port 17) packet can match the entire flow specification. 
-If the packet is fragmented and this is not the first fragment, then the system
-may not be able to find the header.  At this point, the FSv2 filter may fail to 
-detect the correct flow.  Similarly, if other IP options or the encapsulating 
-security payload (ESP) is present, then the  node may not be able to describe the transport header
-and the FSv2 filter may fail to detect the flow. 
-</t>
-<t>The restriction in note-1 comes from the inheritance of the FSv1 filter component for port.  
-If better resolution is desired, a new FSv2 filter should be defined. 
-</t>
-<t>Note-2: FSv2 component only matches the first upper layer protocol value. 
-</t>
-</section>
- <section title="Destination Port (type = 5) ">
-<t>	IPv4/IPv6 Name: Destination Port    (reference:  <xref target="RFC8955"></xref>), <xref target="RFC8956"></xref>) </t>
-<t>Filter defines: a list of match filters for destination port for TCP or UDP within a received packet
-</t>
-<t>Length: variable </t>
-<t> Component Value format: [numeric_op, value]+
-</t>
-</section>
- <section title="Source Port (type = 6)  ">
-<t>	IPv4/IPv6 Name: Source Port (reference:  <xref target="RFC8955"></xref>), <xref target="RFC8956"></xref>)
- </t>
-<t>Filter defines: a list of match filters for source port for TCP or UDP within a received packet
-</t>
-<t>IPv4/IPv6 length: variable </t>
-<t>IPv4/Ipv6 value: [numeric_op, value]+
-</t>
-</section>
- <section title="ICMP Type (type = 7) ">
-<t>	IPv4: ICMP Type (reference:  <xref target="RFC8955"></xref>)
-</t>
-<t>	Filter defines: Defines: a list of match criteria for ICMPv4 type 
-</t>  
-<t>IPv6: ICMPv6 Type (reference: <xref target="RFC8956"></xref>) 
-</t>
-<t>Filter defines: a list of match criteria for ICMPv6 type. 
-</t>
-<t> </t>
-<t>IPv4/IPv6 length: variable</t>
-<t>IPv4/IPv6 value: [numeric_op, value]+ </t>
-</section>
- <section title="ICMP Code (type = 8) ">
-<t>	IPv4: ICMP Type (reference:  <xref target="RFC8955"></xref>) </t>
-<t>	Filter defines: a list of match criteria for ICMPv4 code. 
-</t>  
-<t>IPv6: ICMPv6 Type (reference: <xref target="RFC8956"></xref>) </t>
-<t>Filter defines: a list of match criteria for ICMPv6 code. </t>
-<t> </t>
-<t>IPv4/IPv6 length: variable</t>
-<t>IPv4/IPv6 value: [numeric_op, value]+ </t>
-</section>
- <section title="TCP Flags (type = 9) " >
-<t>	IPv4/IPv6: TCP Flags Code  (reference:  <xref target="RFC8955"></xref>)
-</t>
-<t>Filter defines: a list of match criteria for TCP Control bits 
-</t>  
-<t> </t>
-<t>IPv4/IPv6 length: variable</t>
-<t>IPv4/IPv6 value: [bitmask_op, value]+ </t>
-<t></t>
-<t>Note: a 2 octets bitmask match is always used for TCP-Flags </t> 
-</section>
- <section title="Packet length (type = 10 (0x0A)) ">
-<t>	IPv4/IPv6: Packet Length (reference: <xref target="RFC8955"></xref>, <xref target="RFC8956"></xref>) 
-</t>
-<t>	Filter defines: a list of match criteria for length of packet 
-(excluding L2 header but including IP header). 
-</t>  
-<t>IPv4/IPv6 length: variable</t>
-<t>IPv4/IPv6 value: [numeric_op, value]+ </t>
-<t></t>
-<t>Note:<xref target="RFC8955"></xref> uses either 1 or 2 octet values. 
-</t>
-</section>
- <section title="DSCP (Differentiaed Services Code Point)(type = 11 (0x0B)) ">
- 
-<t>	IPv4/IPv6: DSCP Code  (reference:  <xref target="RFC8955"></xref>,  <xref target="RFC8956"></xref>) 
-</t>
-<t>	Filter defines: a list of match criteria for DSCP code values to match the
-6-bit DSCP field.  
-</t> 
-<t> </t>
-<t>IPv4/IPv6 length: variable</t>
-<t>IPv4/IPv6 value: [numeric_op, value]+ </t>
-<t></t>
-<t>Note: This component uses the Numeric Operator (numeric_op) described in
-   <xref target="RFC8955"></xref> in section 4.2.1.1.  
-   Type 11 component values MUST be encoded as single
-   octet (numeric_op len=00). 
-  </t>
-  <t>The six least significant bits contain the DSCP value.  All other
-   bits SHOULD be treated as 0.
-   </t>
-</section>
- <section title="Fragment (type = 12 (0x0C))   ">
-<t>	IPv4/IPv6: Fragment  (reference:  <xref target="RFC8955"></xref>,  <xref target="RFC8956"></xref>) 
-</t>
-<t>	Filter defines: a list of match criteria for specific IP fragments.
-</t> 
-<t> </t>
-<t>Length: variable</t>
-<t>Component Value format: [bitmask_op, value]+</t>
-<t>Bitmask values are:</t>
-<t>
-<figure>
-<artwork>
-      0    1   2   3   4   5   6  7	
-    +---+---+---+---+---+---+---+---+ 
-    | 0 | 0 | 0 | 0 |LF |FF |IsF| DF| 
-    +---+---+---+---+---+---+---+---+ 
-                 Figure 3-8
-</artwork>
-</figure>
-</t>
-<t> Where:
-<list>
-<t> DF (don’t fragment): match If IP header flags bit 1 (DF) is 1.
-</t>
-<t>IsF(is a fragment other than first: match if IP header fragment offset is not 0. 
-</t>
-<t> FF (First Fragment): Match if <xref target="RFC0791"></xref> IP Header Fragment offset is zero and Flags Bit-2 (MF) is 1.
-</t>
-<t>LF (last Fragment): Match if <xref target="RFC0791"></xref> IP header Fragment is not 0 And Flags bit-2 (MF) is 0
-</t>
-<t>0: MUST be sent in NLRI encoding as 0, and MUST be ignored during reception. 
-</t>
-</list>
-</t>
-</section>
- <section title="Flow Label(type = 13 (0xOD)) ">
-<t>	IPv4/IPv6: Fragment  (reference:  <xref target="RFC8956"></xref>) 
-</t>
-<t>	Filter defines: a list of match criteria for 20-bit Flow Label in the IPv6 header field.   
-</t> 
-<t> </t>
-<t>Length: variable</t>
-<t>Component Value format: [numeric_op, value]+
-</t>
-</section> 
-</section> 
-</section>
-<section title="FSv2 Actions for FSv2 IP Basic ">
-<t> The IP Basic FSv2 allows FS actions to be sent in an 
-Extended Community (FSv2-EC) for IPv4 and IPv6.   
-The Extended Community encodes the Flow Specification actions in the Extended IPv4 
-Community format <xref target="RFC4360"></xref> or in the extended IPv6 
-Community format <xref target="RFC5701"></xref>.  </t>
-<t> 
-A Flow Spec filter match maybe linked to only one Flow Spec action.  
-For these deplyments, the details on multiple actions per 
-flow spec filter match in this section can be ignored. 
-</t>
-<t>
-When an operator defines multiple Flow Spec Extended Community (FS-EC) Actions for 
-single filter match, it is possible that some FS-EC actions can interact
-If one sorts the FS-EC actions into categories, the interactions 
-can be minimized. One example of such interactions is if the flow is 
-redirect to a VRF and to a VPN. Another way two actions interact is 
-if an action fails.  For example, if set DSCP action fails prior to 
-redirect to a VPN may have undesired data flow patterns. 
-</t>
-<t> 
-This section defines the FS-EC actions, categories of FS-EC actions, 
-and ways to minimize interactions between FS-EC actions. 
-Section 3.3.1 describes the existing FS-EC action formats.
-Section 3.3.2 describes the interaction between FS-EC action, and 
-categories of actions, and the way to minimizes interactions. 
-Should the BGP to distribute information about
-the configured interactions for sequences of multiple actions,
-Section 3.3 defines an optional FS-EC to pass information
-ordering of categories (user/this standard) and failure action
-(stop or best effort).    
-</t> 
-<t>Note that FSv2 implementations that only associate 1 FSv2-EC 
-per filter match do not need the FSv2-EC.    
-</t> 
-<section title="FSv2 Extended Community Actions"> 
-<t>The FSv2 IP Basic uses FSv1 actions and defines for one one additional 
-optional FSv2 specific FS-EC. This one optional 
-action is the Action Chain Ordering (ACO) Extended Community (ACO-EC) which 
-can pass around defaults currently only available by configuration in FSv1.  
-</t>
-<section title="FSv2 Actions in Extended Community for IPv4">
-<t>
-The format of the Extended Community for IPv4 defined in <xref target="RFC4360"></xref>
-is shown in Figure 3-9 with 2 octet type that is split into a high byte and low byte. 
-The format of the IPv4 Extended Community is shown in Figure 3-10.  
-<figure>
-<artwork>
+              Figure 3-3: Numeric Operator (numeric_op)
 
-  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |  Type high    |  Type low(*)  |                               |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+          Value (6 octets)     |
- |                                                               |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+              </artwork>
+              </figure>
+            </t>
 
-                    Figure 3-9
-</artwork>
-</figure>
-</t>
-<t>
-<figure>
-<artwork>
- 
-               Table 3-3 
-  FSv1 Transitive Extended Communities for IP Basic 
-      High-Low byte of Transitive FS-EC 
- 
-H-L      FSv1 Description               Short-ID FS document
-======   ==================             ======== ==========        
-0x01-0C  Transitive IPv4                RDIPv4   RDIP   
-0x07-02  FSv1 for an Interface set      TAIS     ifset                       
-0x09-xx  Redirect to Indirection ID     RGID     RGID  
-0x0b-00  SFC Reserved                   SFC-R    RFC9015 
-0x0b-01  SFVC SFIR POOL Identifier      SFIR-PI  RFC9015 
-0x0b-02  SFC MPLS label stack Swapping  SFC-MPLS RFC9015 
-         or stacking labels
-0x80-06  Traffic rate limit by bytes    TRB      RFC8955
-0x80-07  Traffic Action                 TA       RFC8955
-         (sample, terminal)   
-0x80-08  Redirection to VRF (2 AS form) RDIP     RFC8955
-0x80-09  Traffic mark DSCP              TM       RFC8955
-0x80-0C  Traffic rate limit by packets  TRP      RFC8955 
-0x81-08  Redirect to VPN (IPv4 form)    RDIP     RFC8955
-0x81-08  Redirect to VPN (4 AS form)    RDIP     RFC8955  
-</artwork>
-</figure>
-</t>
-<t> Note the Short ID is simply a quick way for this 
-document to reference a particular action. 
-</t>
-<t> References: 
-<dl>
-<dt>ifset: </dt><dd> <xref target="I-D.ietf-idr-flowspec-interfaceset"></xref> </dd>
-<dt>RDIP: </dt><dd><xref target="I-D.ietf-idr-flowspec-redirect-ip"></xref> </dd>
-<dt>RGID: </dt><dd><xref target="I-D.ietf-idr-flowspec-path-redirect"></xref>  </dd>
-<dt>RFC9015:</dt><dd><xref target="RFC9015"></xref> </dd>
-<dt>RFC8955: </dt><dd><xref target="RFC8955"></xref></dd>
-</dl>
-</t>
-</section> 
-<section title="Flow Specification Actions in IPv6 forms">
-<t>
-The Transitive IPv6-Address-Specific Extended Community encodes the Flow Specification actions 
-in the Extended Community format specified in <xref target="RFC5701"></xref>
-shown in Figure 3-10. Table 3-3 lists the 4 octet format for high-byte and low-byte. 
-Note that there are two allocations for redirect from IPv6. 
-<figure>
-<artwork>
+            <dl>
+              <dt>e (end-of-list bit): </dt>
+              <dd>Set in the last {op, value} pair in the list</dd>
 
-  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- | Type (high)   |  Sub-type     |   Global Administrator        |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-|
- |         Global Administrator (cont.)                          |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |         Global Administrator (cont.)                          |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |         Global Administrator (cont.)                          |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- | Global Administrator (cont.)  |   Local Administrator         |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+              <dt>a (AND bit):</dt>
+              <dd> If unset, the result of the previous {op, value} pair is
+              logically ORed with the current one.  If set, the operation is a
+              logical AND.  In the first operator octet of a sequence, it MUST be
+              encoded as unset and MUST be treated as always unset on decoding.
+              The AND operator has higher priority than OR for the purposes of
+              evaluating logical expressions.</dd>
 
-              Figure 3-10  
- 
-The 20 octets of value are given in the following format: 
-Global Administrator: IPv6 address assigned by Internet Registry 
-Local Administrator:  2 bytes of Local Administrator 
-</artwork>
-</figure>
-</t>
-<t>
-<figure>
-<artwork>
-                  Table 3-4
-Transitive IPv6-Address-Specific Extended Community Types 
- 
-H-L byte  FSv1 Description        Short-ID FS document
-======    ==================      ======== ==========
-0x0000    Unassigned 
-0x0001    Unassigned 
-0x0002    Route Target            RT        No
-0x0003    Route origin            ROrg      No (deprecated) 
-0x0004    OSPFv3 Route Attribute  OSPFv3    No (deprecated) 
-0x0005    FIT Tail Community      IFITv6    No 
-0x0006    Link Bandwidth          LBW       No        
-0x0008    Unassigned                    
-0x0009    Unassigned 
-0x000A    Unassigned  
-0x000B    VRF Route Import        VRP-I     No
-0x000C    FS Redirect to IPv6     RDIPv6C   Yes: RDIP
-0x000D    FS Redirect to IPv6     RDIPv6    Yes: RFC8956 
-0x000E    Unassigned 
-Ox000F    Unassigned 
-0x0010    Cisco VPN distinguisher Cisco-VPN  No 
-0x0011    UUID-based Route Target UUID-RT    No
-0x0012    Inter-ARea P2MP S-NH    PM2P-NH    No 
-0x0013    Unassigned 
-0x0014    VRF Recursive NH        VRF-RNH    no 
-0x0015    RT-derived-EC           RT-EC      no 
-   
-</artwork>
-</figure>
-</t>
-</section> 
-</section> 
-<section title="Interactions between Flow Spec Extended Community Actions (FS-EC)"> 
-<t>Interactions between FS-EC only occur if a filter match has multiple actions. 
-If multiple FS-EC actions are listed on a filter, these can 
-interact within categories or if a previous FS-EC action fails.
-Consider three cases of multiple actions as you read this sectio. 
-</t> 
-<t> Case 1: a filter match has three actions:
-<list >
-<t>1. set a DSCP value in the IP Packet, </t>
-<t>2. Sample the traffic (for spam checking), and </t>
-<t>3. Redirect the traffic to a VRF.  </t>
-</list>
-</t> 
-<t>Case 2: a filter match has two actions. 
-<list>
-<t>1. redirect to VRF, </t>
-<t>2. TAIS Terminate FS filter processing </t>
-</list> 
-</t>
-<t>Case 3: a Filter match has two actions
-<list>
-<t>1. redirect to VRF, and </t>
-<t>2. redirect to SFC </t>
-</list>
-</t> 
-<section title="Interactions Between Multiple Actions by Categories">
-<t>This section considers interactions between multiple successful
-FSv2 Actions. 
-</t>
-<t>FS-EC actions fall into the following categories:  
-<list>
-<t>1. limitation on filters or actions (interface-set or local configuration) </t> 
-<t>2. rate limiting (bytes (TRB) and packets (TRP)), </t>
-<t>3. Set DSCP value in IP packet </t>
-<t>4. Sample packet (TAIS - sample) </t>
-<t>5. redirect to IP paths  (to VRF, to VPN, to Indirection-ID, to SFC path)  </t>
-<t>6. Terminate action processing (TAIS terminate) </t>
-</list> 
-If multiple actions with only one action per category, 
-then there is little interaction between successful actions. 
-If multiple actions have more than one action per category,
-then successful actions can interact. For example, the 
-multiple actions in Case 1 and Case 2 described above only 
-have one type of action per category.  In contrast, 
-Case 3 has two interactions in the redirect category. 
-</t>
-<t>For multiple actions passed in the FS-EC, this logical 
-categorization allow the implementation to reject 
-a set of multiple actions if some of the actions 
-interact in a set. Using the three case examples, 
-Case 1 and Case 2 FS-EC would be allowed and Case 3 FS-AC
-would be rejected. 
-</t> 
-<t>FSv2 actions passed in a BGP Community Attribute 
-can provide ordering of actions, dependencies or 
-signal which actions are valid within a category
-(see <xref target="I-D.hares-idr-fsv2-more-ip-actions"></xref>).  
-However, these features are beyond the Basic FSv2 for 
-IP forwarding and out of scope for this specification. 
-</t>
-</section> 
-<section title="Failure of an FS-EC Action" >
-<t>If multiple FS-EC action is attached to a Flow Spec filter rule and  
-one of the actions fails there are three potential options: 
-<list>
-<t>Option 1. Stop processing additional filters and (optionally) signal failure to the management process,  </t>
-<t>Option 2. Continue on processing in "best effort" for the next filters. </t> 
-<t>Option 3. Decide between 1 and 2 based on dependencies between filters and actions </t>
-</list>
-Option 1 and 2 can be signaled by configuration within a Flow Specification implementation. 
-Option 3 requires the encoding dependency lists in ordered filters and ordered actions. 
-The FSv2 NLRI format has a field to carry filter dependency information, but these funtions 
-are beyond the FSv2 Basic IP functions and out of scope for this specification. 
-</t>
-<t>Consider Case 1 where the set DSCP value in IP field fails to occur. 
-Option 1, would be to stop processing and not do the other two actions.  
-Option 2, would be to continue prcoessing and do the other two actions.
-</t>
-<t>Currently, for FSv1 local configuration determines what happens if one 
-of the actions fails within a set of multiple actions attached to a filter rule. 
-</t>
-<t>One option for FSv2 is to pass another FS-EC indicating what the originator 
-expects will happen upon failure of an action. 
-</t>
-</section> 
-<section title="Action Chain Ordering FSv2-EC (ACO) (optional)">
-<t>
-<dl>
-<dt>Summary: </dt><dd>>This optional FSv2-EC passes information on what the BGP peer
-originating the FSv2-EC expects will happen with multiple actions 
-attached to a single filter. </dd>
-<dt>Description: </dt> <dd> 
-The BGP peer originating multiple FSv2 FS-EC actions 
-attached to FSv2 NLRI (filters) may attach the Action Chain Ordering (ACO) 
-FS-EC to inform BGP Peers receiving the FSv2 information how 
-the originating pair expects action interactions and actions failures will 
-be handled. Two fields are encoded in this FS-EC: 
-<list>
-<t>AC-interaction - What happens if two actions are specified in a category, and </t> 
-<t>AC-Failure - what happens if an action with multiple action set fails. </t>
-</list>
-</dd>
-<dt>Encoding:</dt> <dd>The Generic Transitive encoding is shown in 
-figure 3-11 with the field definitions below.  
-</dd>
-</dl>
-</t>
-<t>
- <figure>
- <artwork>
- Generic Transitive Extended Community (IPv4)
- 
-   0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |  Type high    |  Type low     |AC-interaction |  AC-Failure   |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |        Reserved  (4 octets)                                   |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- 
-                  Figure 3-11 
- </artwork> 
-  </figure> 
-  </t>
- <t>where: 
-  <dl>
-  <dt>Type high: </dt><dd> This 1 octet field has a value of 0x80 For
-  the Generic Transitive EC. </dd>
-  <dt>Type low: </dt><dd> This one octet field identifies the ACO-Action. 
-  The value is TBD4. </dd> 
- <dt>ACO Dependency </dt> <dd>This field indicates whether the FS-EC category 
- order is the pre-defined order or an implementation specific order. 
-  <list>
-  <t>0 (default): do not install actions with two actions per category. </t>
-  <t>1 (local config): allow under local configuration</t>
-  </list> 
- </dd>
- <dt>AC-failure – </dt><dd> 1 octet byte that determines the action on failure.  
- Actions may succeed or fail and an Action chain must deal with it.  
- The default value stored for an action chain that does not have this action chain is “stop on failure”.
- where AC-Failure types are: 
-     <list>
-     <t> 0x00 – stop on failure of an action </t>
-     <t>0x01 – continue on failure of an action,,</t> 
-     </list>
-   </dd>
- <dt>Reserved - </dt><dd> Reserved for future use. 
-    Must be set to all zeros, and ignored upon reception. </dd>
-  </dl>
-</t> 
-</section>
-</section> 
-</section> 
-</section> 
-<section title="Validation and Ordering of NLRI">
-<section title="Validation of FSv2 NLRI ">
-<t>The validation of FSv2 NLRI adheres to the combination of rules for general 
-BGP FSv1 NLRI found in <xref target="RFC8955"></xref>, <xref target="RFC8956"></xref>,
-<xref target="RFC9117"></xref>.  These FSv1 rules are sufficient for FSv2 for IP traffic. 
-</t>
-<t> Specific additions have been defined for IP Filters used for guiding IP traffic into Service 
-Function Service Function Pathways SFC NLRI in <xref target="RFC9015"></xref>, or validation
-of L2VPN FS NLRI (see <xref target="I-D.ietf-idr-flowspec-l2vpn"></xref>).  These 
-additions are not required for the FSv2 for IP Basic functions. 
-Therefore, FSv2 NLRI validation for Basic IP uses the same rules as FSv1. 
-</t>
-<t>To provide clarity, the full validation process for flow specification 
-routes (FSv1 or FSv2) for all AFI/SAFIs is described below in section x.x
-rather than simply referring to the relevant portions of these RFCs.  
-Validation only occurs after BGP UPDATE message reception and 
-the FSv2 NLRI and the path attributes relating to FSv2 (Extended
-community and Wide Community) have been determined to be well-formed.  Any 
-MALFORMED FSv2 NRLI is handled as a “session reset” <xref target="RFC7606"></xref>. 
-</t>
-<section title="Validation of FS NLRI (FSv1 or FSv2)">
-<t>
-Flow specifications received from a BGP peer that are accepted in the
-respective Adj-RIB-In are used as input to the route selection process.
-Although the forwarding attributes of the two routes for tbe same prefix may be 
-the same, BGP is still required to perform its path selection algorithm in 
-order to select the correct set of attributes to advertise. 
-</t>
-<t>The first step of the BGP Route selection procedure (section 9.1.2 of 
-<xref target="RFC4271"></xref> is to exclude from the selection procedure routes that are 
-considered unfeasible. In the context of IP routing information, this 
-is used to validate that the NEXT_HOP Attribute of a given route is 
- resolvable.  
- </t>
-<t>The concept can be extended in the case of the Flow Specification NLRI to allow other validation procedures. 
-</t>
-<t>The FSv2 validation process validates the FSv2 NLRI with following unicast 
-routes received over the same AFI (1 or 2) but different SAFIs:
-<dl>
-<dt>FSv2 received over SAFI=TBD1</dt> <dd> FSv1 received over SAFI=133 are be validated against SAFI=1.  Similarly, FSv2 routes 
-received over SAFI=TBD1 will be validated against SAFI=1. </dd>
-<dt>FSv2 received over SAFI=TBD2 </dt> <dd>FSv1 received over SAFI=134 are validated against SAFI=128, and 
-FSv2 received over SAFI=TBD2 will be validated against SAFI=128. </dd>
-<dt>FSv2 received with AFI = 31 </dt> <dd> The FSV2 routes received with
- (AFI=31, SAFI=TBD1) will be validated against SAFI=1.
- The FSv2 received with (AFI=31, SAFI=TBD2) will be validated against SAFI=128. </dd>
-<dt>FSv2 L2 routes passed in (AFI=6, SAFI=TBD1) and L2VPN routes passed in (AFI=25, SAFI=TBD2). </dt>
-<dd> <dl> 
-<dt>FSv2 L2 routes - </dt> <dd> validate (AFI=6, SAFI=TBD1) against (AFI=1, SAFI=1). </dd>
-<dt>FSv2 L2VPN routes - </dt> <dd> validate (AFI=256, SAFI=TBD2) against (AFI=1, SAFI=128></dd>
-<dt>This is similar to FSv1. -  </dt><dd> The FSv1 L2 validated L2 routes passed in (AFI=6, SAFI=133) against (AFI=1, SAFI=1) 
-and the L2VPN routes (AFI=25, SAFI=134) are validated against (AFI=1, SAFI=128). </dd>
-</dl> </dd>
-</dl>
-</t>
-<t>In the absence of explicit configuration, a Flow specification NLRI (FSv1 or FSv2) 
-MUST be validated such that it is considered feasible if and only if 
-all of the conditions are true:
-<list>
-<t>a) A destination prefix component is embedded in the Flow Specification, </t>
-<t>b) One of the following conditions holds true:
-<list>
-<t> 1.	The originator of the Flow Specification 
-matches the originator of the best-match unicast route for the destination prefix 
-embedded in the flow specification (this is the unicast route 
-with the longest possible prefix length covering the destination 
-prefix embedded in the flow specification).
-</t>
-<t>2.	The AS_PATH attribute of the flow specification is empty or 
-contains only an AS_CONFED_SEQUENCE segment <xref target="RFC5065"></xref>.
-<list>
-<t>2a.This condition should be enabled by default. </t>
-<t>2b.This condition may be disabled by explicit configuration on a BGP Speaker, </t>
-<t>2c.As an extension to this rule, a given non-empty AS_PATH 
-(besides AS_CONFED_SEQUENCE segments) MAY be permitted by policy].</t>
-</list> 
-</t>
-</list>
-</t>
-<t>c)	There are no “more-specific” unicast routes when compared 
-with the flow destination prefix that have been received from a different 
-neighbor AS than the best-match unicast route, which has been 
-determined in rule b. 
-</t>
-</list>
-</t>
-<t>However, part of rule a may be relaxed by explicit configuration, permitting Flow 
-Specifications that include no destination prefix component.  If such is the 
-case, rules b and c are moot and MUST be disregarded. 
-</t>
-<t>By “originator” of a BGP route, we mean either the address of the originator 
-in the ORIGINATOR_ID Attribute <xref target="RFC4456"></xref> or the source address of the BGP
-peer, if this path attribute is not present.  
-</t>
-<t>A BGP implementation MUST enforce that the AS in the left-most position of the 
-AS_PATH attribute of a Flow Specification Route (FSv1 or FSv2) received via 
-the Exterior Border Gateway Protocol (eBGP) matches the AS in the left-most
-position of the AS_PATH attribute of the best-match unicast route for the 
-destination prefix embedded in the Flow Specification (FSv1 or FSv2) NLRI. 
-</t>
-<t>The best-match unicast route may change over time independently of the Flow 
-Specification NLRI (FSv1 or FSv2). Therefore, a revalidation of the Flow 
-Specification MUST be performed whenever unicast routes change.  
-Revalidation is defined as retesting rules a to c as described above. 
-</t>
-</section>
-<section title="Validation of Flow Specification Actions for FSv2 for IP Basic">
-<t>A match on a Flow Specification (FS) filters is linked to one or 
-more FS action set by an Extended Communities (FS-EC) for FSv2 for IP Basic functions. 
-</t>
-<t>Validation of FS-EC action begins with validating the syntax of 
-the Extended Communities attributes attached to FS NLRI in UPDATE packet.
-Since FSv1 and FSv2 operate on different NLRIs (AFI/SAFI sets), a single 
-FS-EC action can apply to both FSv1 and FSv2 filters.   
-If the FS-EC is not syntactically correct, the FS-EC community causes 
-NLRI and FS-EC to be treated as withdrawal. 
-</t> 
-<t>
-If the FS-EC is syntacically correct, then the FS-EC check to 
-determine if this node can perform this action. If not, 
-the FS-EC is stored for transmittal to other nodes, but 
-cannot be used in this node.
-</t>
-<t>If multiple syntactically correct actions that can be performed on  
-are linked to the filtering rules defined in the NLRI in UPDATE packet, 
-then the list of multiple actions are check for conflicts within 
-a category. If conflicts exist within a multiple action set attached to 
-a FSv2 filter, then the default case is to ignore the action set for 
-installation in the node.  Optionally, if the ACO FS-EC may indicate
-if the BGP peer originating the FSv2 filter + action expects 
-this "ignoring" of the action or specifical local configuration.
-</t>
-<t>An example of local configuration might be if rate limiting 
-by byte and by packet are specified, the local configuration might 
-allow both to be enacted in the hardware. 
-</t> 
-</section> 
-<section title="Failure of FS-EC action when processing a filter flow">
-<t>If one action in the ordered list fails for a traffic flow, the 
-local node may be able to halt processing of the for. For example, if 
-a DSCP value set and forwarding to VPN is specified AND the DSCP fails, 
-the forwarding logic may allow the forwarding to the VPN to not occur. 
-</t>
-<t>FSv1-EC current control the failure action by configuration and/or 
-implementation defaults. 
-</t>
-<t>The optional ACO FSv2-EC can inform the BGP receiving the FSv2 information 
-how the originator expects failures within the multiple actions in an action set will occur. 
-The ACO FSv2-EC is optional.
-</t> 
-<t>FSv2 Implementations MAY wish to log the action failures encountered by 
-FS actions (FSv1 or FSv2).    
-</t>
-</section>
-<section title="Error handling and Validation">
-<t>The following two error handling rules must be followed by 
-all BGP speakers which support FSv2:
-<list style="symbols">
-<t>FSv2 NLRI having TLVs which do not have the correct lengths or syntax must be considered MALFORMED,
-and "treated-as-withdrawl".    
-</t>
-<t>FSv2 NLRIs having TLVs which do not follow the above ordering rules described in 
-section 4.1 MUST be considered as MALFORMED by a BGP FSv2 propagator, and treated 
-"treated-as-withdrawl". 
-</t>
-</list>
-The above two rules prevent any ambiguity that arises from the multiple copies of 
-the same NLRI from multiple BGP FSv2 propagators. 
-</t>
-<t>A BGP implementation SHOULD treat such malformed NLRIs as ‘session reset’ 
-<xref target="RFC7606"></xref>  
-</t>
-<t>
-An implementation for a BGP speaker supporting both FSv1 and FSv2 MUST 
-support the error handling for both FSv1 and FSv2. 
-</t>
-</section>
-</section>
-<section title="Ordering of FS filters for BGP Peers which support FSv1 and FSv2">
-<t>
-FSv2 allows the user to order flow specification rules and the actions 
-associated with a rule. Each FSv2 rule has one or more match conditions and 
-one or more actions associated with each rule. 
-</t>
-<t>FSv1 and FSv2 filters are sent as different AFI/SAFI pairs so 
-FSv1 and FSv2 operate as ships-in-the-night.  Some BGP peers 
-in an AS may support both FSv1 and FSv2.  Other BGP peers may support
-FSv1 or FSv2.  Some BGP will not support FSv1 or FSV2.  A coherent 
-flow specification technology must have consistent best practices
-for ordering the FSv1 and FSv2 filter rules. 
-</t>
-<t>One simple rule captures the best practice:  Order the FSv1 filters after
-the FSv2 filter by placing the FSv1 filters after the FSv2 filters.  
-</t>
-<t>To operationally make this work, all flow specification filters should be 
-included the same data base with the FSv1 filters being assigned a user-
-defined order beyond the normal size of FSv2 user-ordered values. 
-A few examples, may help to illustrate this best practice. 
-</t>
-<t>Example 1: User ordered numbering - 
-Suppose you might have 1,000 rules for the FSv2 filters.  Assign all the 
-FSv1 user defined rules to 1,001 (or better yet 2,000).  The FSv1 rules 
-will be ordered by the components and component values. 
-</t>
-<t>
-Example 2: Storage of actions - 
-All FSv1 actions are defined ordered actions in FSv2.  Translate your FSv1 
-actions into FSv2 ordered actions for storing in a common FSv1-FSv2 flow 
-specification data base. 
-</t>
-</section>
-</section> 
-<section title="Scalability and Aspirations for FSv2">
-<t>Operational issues drive the deployment of BGP flow specification as a quick 
-and scalable way to distribute filters.  The early operations accepted the 
-fact validation of the distribution of filter needed to be done outside of 
-the BGP distribution mechanism.  Other mechanisms (NETCONF/RESTCONF or PCEP) 
-have reply-request protocols.  
-</t>
-<t>These features within BGP have not changed. BGP still does not have an 
-action-reply feature. 
-</t>
-<t>NETCONF/RESTCONF latest enhancements provide action/response features which 
-scale.  The combination of a quick distribution of filters via BGP and a 
-long-term action in NETCONF/RESTCONF that ask for reporting of the
-installation of FSv2 filters may provide the best scalability.  
-</t>
-<t>The combination of NETCONF/RESTCONF network management protocols and BGP focuses each 
-protocol on the strengths of scalability.  
-</t>
-<t>FSv2 will be deployed in webs of BGP peers which have some BGP peers passing 
-FSv1, some BGP peers passing FSv2, some BGP peers passing FSv1 and FSv2, and 
-some BGP peers not passing any routes. 
-</t>
-<t>The TLV encoding and deterministic behaviors of FSv2 will not deprecate the 
-need for careful design of the distribution of flow specification filters in 
-this mixed environment.  The needs of networks for flow specification are 
-different depending on the network topology and the deployment technology 
-for BGP peers sending flow specification.  
-</t>
-<t>Suppose we have a centralized RR connected to DDoS processing sending out 
-flow specification to a second tier of RR who distribute the information to 
-targeted nodes. This type of distribution has one set of needs for FSv2 and 
-the transition from FSv1 to FSv2. 
-</t>
-<t>Suppose we have Data Center with a 3-tier backbone trying to distribute DDoS 
-or other filters from the spine to combinational nodes, to the leaf BGP 
-nodes.  The BGP peers may use RR or normal BGP distribution. This deployment
-has another set of needs for FSv2 and the transition from FSv1 to FSV2. 
-</t>
-<t>Suppose we have a corporate network with a few AS sending DDoS filters using 
-basic BGP from a variety of sites. Perhaps the corporate network will be 
-satisfied with FSv1 for a long time. 
-</t> 
-<t>These examples are given to indicate that BGP FSv2, like so many BGP 
-protocols, needs to be carefully tuned to aid the mitigation services within 
-the network. This protocol suite starts the migration toward better tools 
-using FSv2, but it does not end it.  With FSv2 TLVs and deterministic 
-actions, new operational mechanisms can start to be understood and utilized.  
-</t>
-<t>This FSv2 specification is merely the start of a revolution of work – not the end. 
-</t>
-</section>
-<section title="Optional Security Additions">
-<t>This section discusses the optional BGP Security additions for BGP-FS v2
-relating ROA <xref target="RFC9582"></xref>. 
-</t> 
-  <section title="BGP FSv2 with ROA">
-  <t>
-  BGP FSv2 can utilize ROAs in the validation. If BGP FSv2 is 
-  used with BGPSEC and ROA, the first thing is to validate the 
-  route within BGPSEC and second to utilize BGP ROA to validate
-  the route origin. 
-  </t>
-  <t> The BGP-FS peers using both ROA and BGP-FS validation 
-  determine that a BGP Flow specification is valid
-  if and only if one of the following cases: 
-  <list style="symbols">
-  <t>If the BGP Flow Specification NLRI has a IPv4 or 
-  IPv6 address in destination address match
-  filter and the following is true:
-  <list style="symbols">
-  <t>A BGP ROA has been received to validate the originator, and</t>
-  <t>The route is the best-match unicast route for the destination
-  prefix embedded in the match filter; or </t>
-  </list>
-  </t>
-  <t>If a BGP ROA has not been received that matches the 
-  IPv4 or IPv6 destination address in the destination filter, the 
-  match filter must abide by the <xref target="RFC8955"></xref> and
-  <xref target="RFC8956"></xref> validation rules as follows:  
-  <list>
-  <t>The originator match of the flow specification matches the
-  originator of the best-match unicast route for the destination
-  prefix filter embedded in the flow specification", and
-  </t>
-  <t>No more specific unicast routes exist when compared with the 
-   flow destination prefix that have been received from a different
-   neighboring AS than the best-match unicast route, which has been 
-   determined in step A.
-   </t>
-  </list>
-  </t>
-  </list>
-  The best match is defined to be the longest-match NLRI with the highest preference. 
-</t>
-</section>
-</section>
-<section anchor="IANA" title="IANA Considerations">
-   <t>This section complies with <xref target="RFC7153"></xref>.
-   </t>
-   <section title="Flow Specification V2 SAFIs">
-   <t> IANA is requested to assign two SAFI Values in the 
-   registry at https://www.iana.org/assignments/safi-namespace 
-   from the Standard Action Range as follows: 
-   <figure>
-   <artwork>
-   
-     Table 7-1 SAFIs 
-	
-     Value   Description      Reference
-     -----   -------------    ---------------
-      TBD1   BGP FSv2        [this document] 
-      TBD2   BGP FSv2 VPN    [this document]
+              <dt>len (length): </dt>
+              <dd>The length of the value field for this operator given as (1
+              &lt;&lt; len).  This encodes 1 (len=00), 2 (len=01), 4 (len=10), and
+              8 (len=11) octets.</dd>
 
-   </artwork>
-   </figure>
-   </t>
-   </section>
-   <section title="BGP Capability Code">
-   <t>
-   IANA is requested to assign a Capability Code from the registry at 
-   https://www.iana.org/assignments/capability-codes/ from the IETF Review
-   range as follows:
-    <figure>
-   <artwork>     
-   Table 7-2 - Capability Code 
-   
-   Value   Description            Reference       Controller
-   -----  ---------------------  ---------------  ----------
-    TBD3  Flow Specification V2  [this document]  IETF
-  </artwork>
-   </figure>
-   </t>
-   </section>
-   <section title="Generic Transitive Extended Community">
-   <t>
-   IANA is requested to assign a type value from the "Generic Transitive Extended Community 
-   Sub-Types" registry at 
-   https://www.iana.org/assignments/bgp-extended-communities/bgp-extended-communities.xhtml  
-    <figure>
-   <artwork>     
-   Table 7-3 - Generic Transitive Extended Community 
-   
-   Value   Description                Reference       Controller
-   -----  --------------------------  ---------------  ----------
-    TBD4  FSv2 Action Chain Ordering  [this document]  IETF
-	
-   The requested value is "0x01".  
-  </artwork>
-   </figure>
-   </t>
-   </section>
-   <section title="FSv2 IP Filters Component Types">
-   <t>IANA is requested to create a new "BGP FSv2 Component Types" 
-   registry and indicate [this draft] as a reference. 
-   The following assignments in the FSv2 IP Filters Component Types 
-   Registry shold be made.  
-   </t>
-   <t>
-   <figure>
-   <artwork>
-   Table 7-5 - Flow Specification 
+              <dt>0</dt>
+              <dd>MUST be set to 0 on NLRI encoding and MUST be ignored during decoding</dd>        
 
-   Registry Name: BGP FSv2 Component Types 
-   Reference: [this document]
-   Registration Procedures: 0x01-0x3FFF Standards Action. 
- 
-   Value  Description         Reference        
-   -----  ------------------- ------------------------
-    1     Destination filter  [RFC8955][RFC8956][this document] 
-    2     Source Prefix       [RFC8955][RFC8956][this document] 
-    3     IP Protocol         [RFC8955][RFC8956][this document] 
-    4     Port                [RFC8955][RFC8956][this document]   
-    5     Destination Port    [RFC8955][RFC8956][this document] 
-    6     Source Port         [RFC8955][RFC8956][this document] 
-    7     ICMP Type [v4 or v6][RFC8955][RFC8956][this document] 
-    8     ICMP Code [v4 or v6][RFC8955][RFC8956][this document] 
-    9     TCP Flags [v4]      [RFC8955][RFC8956][this document] 
-   10     Packet Length       [RFC8955][RFC8956][this document] 
-   11     DSCP marking        [RFC8955][RFC8956][this document] 
-   12     Fragment            [RFC8955][RFC8956][this document] 
-   13     Flow Label          [RFC8956][this document] 
-   </artwork>
-   </figure>
-   </t>
-   </section>
-   <section title="FSV2 NLRI TLV Types ">
-   <t>IANA is requested to create the a new registries 
-      on a new "Flow Specification v2 TLV Types” web page.  
-   </t>
-   <t> This set of option assumes Type 2 ordering 
-   by packet frame rather than ascending order. 
+              <dt>lt</dt>
+              <dd>less-than comparison between data and value</dd>
 
-   <figure>
-   <artwork>
-   Table 7-6 FSv2 TLV types - Option 2 
-   Registry Name: BGP FSv2 TLV types 
-   Reference: [this document]
-   Registration Procedures: 0x01-0x3FFF Standards Action.
-   
-  
-    Type          Description              Reference
-    ----          ----------------------   ------------
-    0x00          Reserved                 [this document]
-	0x01-0x31     Unassigned               [this document] 
-	0x32 (50)     L2 Traffic Rules         [this document] 
-	0x33-0x63     Unassigned               [this document] 
-	0x64 (100)    MPLS traffic rules         [this document] 
-	0x65 (101)    Unassigned               [this document]
-     -0x95 (149)  	
-	0x96 (150)    SFC Traffic rules        [this document]
-    0x97 (151)    Unassigned               [this document] 
-     - 0xC7 	
-    0xC8 (200)    Tunnel Traffic rules     [this document] 	
-	0xC9-0x99     Unassigned               [this document] 
-	0x100 (256)   IP traffic rules         [this document]
-	 0x101-0x117  Unassigned 
-	 
-    0x118 (280)   Extended IP Rules        [this document]
-	 0x119-0x6000 Unassigned               [this document]
-	 
-    0x6000-0x7FFF Vendor specific          [this document]
-    0x8000-0xFFFF Reserved                 [this document]
+              <dt>gt:</dt>
+              <dd>greater-than comparison between data and value</dd>
 
-   </artwork>
-   </figure>
-   </t>
- </section>
- </section> 
- <section title="Security Considerations">
-   <t>The use of ROA improves on <xref target="RFC8955"></xref>
-   by checking to see of the route origination. This check can improve the 
-   validation sequence for a multiple-AS environment.  
-   </t>
-   <t>>The use of BGPSEC  <xref target="RFC8205"></xref> to secure the packet
-   can increase security of BGP flow specification information sent in the packet.  
-   </t>
-   <t>The use of the reduced validation within an AS <xref target="RFC9117"></xref>
-   can provide adequate validation for distribution of flow specification within a single 
-   autonomous system for prevention of DDoS. 
-   </t>
-   <t>Distribution of flow filters may provide insight into traffic being sent within 
-   an AS, but this information should be composite information that does not reveal the
-   traffic patterns of individuals. 
-   </t>
-</section>
-</middle>
-<back>
+              <dt>eq:</dt>
+              <dd>equality between data and value</dd>
+            </dl>
+
+            <t> The bits lt, gt, and eq can be combined to produce common
+            relational operators, such as "less or equal", "greater or equal", and
+            "not equal to", as shown in Table 3-1.</t>
+
+            <t> 
+              <figure> 
+              <artwork> 
+
+                  +====+====+====+==================================+
+                  | lt | gt | eq | Resulting operation              |
+                  +====+====+====+==================================+
+                  | 0  | 0  | 0  | false (independent of the value) |
+                  +----+----+----+----------------------------------+
+                  | 0  | 0  | 1  | == (equal)                       |
+                  +----+----+----+----------------------------------+
+                  | 0  | 1  | 0  | &gt; (greater than)                 |
+                  +----+----+----+----------------------------------+
+                  | 0  | 1  | 1  | &lt;= (greater than or equal)       |
+                  +----+----+----+----------------------------------+
+                  | 1  | 0  | 0  | &lt; (less than)                    |
+                  +----+----+----+----------------------------------+
+                  | 1  | 0  | 1  | &lt;= (less than or equal)          |
+                  +----+----+----+----------------------------------+
+                  | 1  | 1  | 0  | != (not equal value)             |
+                  +----+----+----+----------------------------------+
+                  | 1  | 1  | 1  | true (independent of the value)  |
+                  +----+----+----+----------------------------------+
+
+                     Table 3-1: Comparison Operation Combinations
+              </artwork>
+              </figure>
+            </t>
+          </section> 
+
+          <section title="Bitmask Operator (bitmask_op)">
+            <t>This operator is encoded as shown in Figure 3-4. 
+              <figure>
+              <artwork>
+
+           0   1   2   3   4   5   6   7
+          +---+---+---+---+---+---+---+---+
+          | e | a |  len  | 0 | 0 |not| m |
+          +---+---+---+---+---+---+---+---+
+
+          Figure 3-4 Bitmask Operator (bitmask_op)
+            </artwork>
+            </figure> 
+
+            Where:</t>
+
+            <dl>
+              <dt>e, a, len (end-of-list bit, AND bit, and length field):</dt>
+              <dd>Most significant nibble; defined in the Numeric Operator format
+              in section 3-x.</dd>
+
+              <dt>not (NOT bit):</dt>
+              <dd>If set, logical negation of operation.</dd>
+
+              <dt>m (Match bit):</dt>
+              <dd>If set, this is a bitwise match operation defined as
+              "(data AND value) == value"; if unset, (data AND value) evaluates to
+              TRUE if any of the bits in the value mask are set in the data.</dd>
+
+              <dt>0 (all 0 bits):</dt>
+              <dd> MUST be set to 0 on NLRI encoding and MUST be ignored during
+              decoding</dd>
+
+            </dl>
+          </section> 
+        </section> 
+
+        <section title="IP Basic Filters (Filter type=TBD )">
+          <t>The format of the IP Basic TLV value field is shown in Figure 3-5.
+          The IP header for the VPN case is specified in section 3.5.</t>
+
+          <t>
+            <figure>
+            <artwork>
+
+         Top-level TLV            
+       +-------------------------------+   
+       | +============================+ |
+       | | order (4 octets)           | |
+       | +----------------------------+ |
+       | | dependency filter chain    | |
+       | |  (8 octets)                | |
+       | +----------------------------+ | 
+       | + FSv2 Filter type (2 octets)| |
+       | | option1: 1, option2: 256   | | 
+       | +----------------------------+ |
+       | + length (2 octet)           + |
+       | + ---------------------------+ |
+       | + value (variable)           + |
+       | +----------------------------+ |
+       +--------------------------------+
+
+      Figure 3-5 NLRI format for FSv2 IP Filter Type
+            </artwork>
+            </figure>
+          </t>
+
+          <t>Where: 
+            <list> 
+              <t>order - is an 4 octet field with a value 1-N.  The value 0 (zero)
+              is invalid, and the TLV should be "treated-as-withdrawl".</t>
+
+              <t>dependency filter chain - is an 8 octet field which must be all
+              zero for the IP Basic Filter rules.</t> 
+
+              <t>length - is a 2 octet field indicating the length of the value
+              field.</t>
+
+              <t>value - is a variable field comprised of a sequence of component TLVs: 
+                <figure>
+                <artwork>
+
+       +--------------------------------+
+       | + ---------------------------+ |
+       | + Components TLV+ (variable) + |
+       | +----------------------------+ |
+       +--------------------------------+
+       
+       Figure 3-6 Value Field 
+                </artwork> 
+                </figure>
+              </t>
+
+              <t>
+                <figure> 
+                <artwork> 
+
+        Where the Component TLVs are: 
+
+         +----------------------------+
+         |  Component Type (1 octet)  |
+         +----------------------------+
+         |  length (1 octet)          |
+         + ---------------------------+
+         |  value (variable)          |
+         +----------------------------+
+         
+      Figure 3-7 – IP header Component TLVs  
+
+                </artwork>
+                </figure>
+              </t>
+
+              <t>Where:
+                <list>
+                  <t>Component type: component values are defined in the “Flow
+                  Specification Component types” registry for IPv4 and IPv6 by
+                  <xref target="RFC8955"></xref>, <xref target="RFC8956"></xref>,
+                  and <xref target="I-D.ietf-idr-flowspec-srv6"></xref></t>
+
+                  <t>length: length of SubTLV (varies depending on the component
+                  type).  If the length of the component types does match the valid
+                  defined length(s) for the component, the component type is
+                  ignored and the Filter type TLV is "treated-as-withdrawl".</t>
+
+                  <t>value: dependent on component type.</t>
+                </list>
+              </t>
+
+              <t>Many of the components use the operators [numeric_op] and
+              [bitmask_op] defined in <xref target="RFC8955"></xref></t>
+            </list>
+          </t>
+
+          <t>The list of valid SubTLV types appears in Table 3-2 for filter type of
+          IP Filters (type=1).  Other filters beyond these filters may be defined
+          other filter types (e.g. IP Extended Filters).</t>
+
+          <t>
+            <figure> 
+            <artwork>
+      Table 3-2 FSv2 IP Basic TLV Components 
+                        
+      Sub-TLV   Definition 
+      --------  ---------------------  
+         0 -    Reserved 
+         1 -    IP Destination prefix 
+         2 -    IP Source prefix 
+         3 –    IPv4 Protocol / 
+                IPv6 Upper Layer Protocol
+         4 –    Port  
+         5 –    Destination Port 
+         6 –    Source Port
+         7 –    ICMPv4 type / ICMPv6 type  
+         8 –    ICMPv4 code / ICPv6 code 
+         9 –    TCP Flags 
+        10 –    Packet length
+        11 –    DSCP  
+        12 –    Fragment 
+        13 –    Flow Label 
+        14-255  Reserved 
+       
+            </artwork>
+            </figure>
+          </t>
+        </section>
+
+        <section title="Ordering within the IP Basic Filter TLVs">
+          <t> The ordering of components within the value field of the IP Basic TLV
+          follows the FSv1 rules.  The following is a restatement of FSv1 rules in
+          FSv2 terms.</t>
+
+          <t>
+            <list style="symbols">
+              <t>1) order by component types (1-13).</t>
+
+              <t>(2) If the components are the same, then the value fields are
+              compared using mechanisms defined in <xref target="RFC8955"></xref>
+              and <xref target="RFC8956"></xref> and MUST be in ascending order.
+              NLRIs having component TLVs which do not follow the above ordering
+              rules MUST be considered as malformed by a BGP FSv2 propagator. This
+              rule prevents any ambiguities that arise from the multiple copies of
+              the same NLRI from multiple BGP FSv2 propagators.  A BGP
+              implementation SHOULD treat such malformed NLRIs as
+              "treat-as-withdrawl".  <xref target="RFC7606"></xref>.</t>
+            </list> 
+          </t>
+
+          <t>See <xref target="RFC8955"></xref>, <xref target="RFC8956"></xref>,
+          and for details on per component ordering.</t>
+        </section> 
+
+        <section title="FSv2 Components for IP Basic TLVs">
+          <section title="IP Destination Prefix (type = 1)">
+            <t>IPv4 Name: IP Destination Prefix   (reference: <xref target="RFC8955"></xref>)</t>
+            <t>IPv6 Name: IPv6 Destination Prefix (reference: <xref target="RFC8956"></xref>)</t>
+            <t></t>
+            <t>IPv4 length: Prefix length in bits</t>
+            <t>IPv4 value: IPv4 Prefix (variable length)</t>
+            <t>IPv6 length: length of value</t>
+            <t>IPv6 value: [offset (1 octet)] [pattern (variable)] [padding(variable)]</t>
+            <t>If IPv6 length = 0 and offset = 0, then component matches every
+            address.  Otherwise, length must be offset "less than" length "less
+            than" 129 or component is malformed.</t>
+          </section>
+
+          <section title="IP Source Prefix (type = 2) ">
+            <t>IPv4 Name: IP Source Prefix    (reference: <xref target="RFC8955"></xref>) </t>
+            <t>IPv6 Name: IPv6 Source Prefix  (reference: <xref target="RFC8956"></xref>) </t>
+            <t></t>
+            <t>IPv4 length: Prefix length in bits</t>
+            <t>IPv4 value: Source IPv4 Prefix (variable length)</t>
+            <t>IPv6 length: length of value</t>
+            <t>IPv6 value: [offset (1 octet)] [pattern (variable)][padding(variable)]</t>
+            <t></t>
+            <t>If IPv6 length = 0 and offset = 0, then component matches every
+            address.  Otherwise, length must be offset &lt; length &lt; 129 or
+            component is malformed.</t>
+          </section>
+          <section title="IP Protocol (type = 3) ">
+            <t>IPv4 Name: IP Protocol  IP Source Prefix  (reference: <xref target="RFC8955"></xref>)</t>
+            <t>IPv6 Name: IPv6 Upper-Layer Protocol:   (reference: <xref target="RFC8956"></xref>)</t>
+            <t></t>
+            <t>IPv4 length: variable</t>
+            <t>IPv4 value: [numeric_op, value]+</t>
+            <t></t>
+            <t>IPv6 length: variable</t>
+            <t>IPv6 value: [numeric_op, value]+</t>
+            <t>where the value following each numeric_op is a single octet.</t>
+          </section>
+
+          <section title="Port (type = 4)">
+            <t>IPv4/IPv6 Name: Port (reference:  <xref target="RFC8955"></xref>),
+            <xref target="RFC8956"></xref>)</t>
+            <t>Filter defines: a set of port values to match either destination
+            port or source port.</t>
+            <t></t>
+            <t>IPv4 length: variable</t>
+            <t>IPv4 value: [numeric_op, value]+</t>
+            <t></t>
+            <t>IPv6 length: variable</t>
+            <t>IPv6 value: [numeric_op, value]+</t>
+            <t></t>
+            <t>where the value following each numeric_op is a single octet. </t>
+            <t>Note-1: (from FSV1) In the presence of the port component
+            (destination or source port), only a TCP (port 6) or UDP (port 17)
+            packet can match the entire flow specification.  If the packet is
+            fragmented and this is not the first fragment, then the system may not
+            be able to find the header.  At this point, the FSv2 filter may fail to
+            detect the correct flow.  Similarly, if other IP options or the
+            encapsulating security payload (ESP) is present, then the  node may not
+            be able to describe the transport header and the FSv2 filter may fail
+            to detect the flow.</t>
+            <t>The restriction in note-1 comes from the inheritance of the FSv1
+            filter component for port.  If better resolution is desired, a new FSv2
+            filter should be defined.</t>
+            <t>Note-2: FSv2 component only matches the first upper layer protocol
+            value.</t>
+          </section>
+
+          <section title="Destination Port (type = 5) ">
+            <t>IPv4/IPv6 Name: Destination Port    (reference:  <xref
+            target="RFC8955"></xref>), <xref target="RFC8956"></xref>) </t>
+            <t>Filter defines: a list of match filters for destination port for TCP
+            or UDP within a received packet</t>
+            <t>Length: variable</t>
+            <t> Component Value format: [numeric_op, value]+</t>
+          </section>
+          <section title="Source Port (type = 6)  ">
+            <t>IPv4/IPv6 Name: Source Port (reference:  <xref target="RFC8955"></xref>), <xref target="RFC8956"></xref>)</t>
+            <t>Filter defines: a list of match filters for source port for TCP or UDP within a received packet</t>
+            <t>IPv4/IPv6 length: variable</t>
+            <t>IPv4/Ipv6 value: [numeric_op, value]+</t>
+          </section>
+
+          <section title="ICMP Type (type = 7) ">
+            <t>IPv4: ICMP Type (reference:  <xref target="RFC8955"></xref>)</t>
+            <t>Filter defines: Defines: a list of match criteria for ICMPv4 type</t>  
+            <t>IPv6: ICMPv6 Type (reference: <xref target="RFC8956"></xref>) </t>
+            <t>Filter defines: a list of match criteria for ICMPv6 type.</t>
+            <t></t>
+            <t>IPv4/IPv6 length: variable</t>
+            <t>IPv4/IPv6 value: [numeric_op, value]+</t>
+          </section>
+
+          <section title="ICMP Code (type = 8) ">
+            <t>IPv4: ICMP Type (reference:  <xref target="RFC8955"></xref>)</t>
+            <t>Filter defines: a list of match criteria for ICMPv4 code.</t>  
+            <t>IPv6: ICMPv6 Type (reference: <xref target="RFC8956"></xref>)</t>
+            <t>Filter defines: a list of match criteria for ICMPv6 code.</t>
+            <t></t>
+            <t>IPv4/IPv6 length: variable</t>
+            <t>IPv4/IPv6 value: [numeric_op, value]+ </t>
+          </section>
+
+          <section title="TCP Flags (type = 9) " >
+            <t>IPv4/IPv6: TCP Flags Code  (reference:  <xref target="RFC8955"></xref>)</t>
+            <t>Filter defines: a list of match criteria for TCP Control bits</t>  
+            <t></t>
+            <t>IPv4/IPv6 length: variable</t>
+            <t>IPv4/IPv6 value: [bitmask_op, value]+</t>
+            <t></t>
+            <t>Note: a 2 octets bitmask match is always used for TCP-Flags </t> 
+          </section>
+
+          <section title="Packet length (type = 10 (0x0A)) ">
+            <t>IPv4/IPv6: Packet Length (reference: <xref target="RFC8955"></xref>,
+            <xref target="RFC8956"></xref>)</t>
+            <t>Filter defines: a list of match criteria for length of packet
+            (excluding L2 header but including IP header).</t>  
+            <t>IPv4/IPv6 length: variable</t>
+            <t>IPv4/IPv6 value: [numeric_op, value]+</t>
+            <t></t>
+            <t>Note:<xref target="RFC8955"></xref> uses either 1 or 2 octet values.</t>
+          </section>
+
+          <section title="DSCP (Differentiaed Services Code Point)(type = 11 (0x0B)) ">
+            <t>IPv4/IPv6: DSCP Code  (reference:  <xref target="RFC8955"></xref>,
+            <xref target="RFC8956"></xref>)</t>
+            <t>Filter defines: a list of match criteria for DSCP code values to
+            match the 6-bit DSCP field.</t> 
+            <t></t>
+            <t>IPv4/IPv6 length: variable</t>
+            <t>IPv4/IPv6 value: [numeric_op, value]+</t>
+            <t></t>
+            <t>Note: This component uses the Numeric Operator (numeric_op)
+            described in <xref target="RFC8955"></xref> in section 4.2.1.1.  Type
+            11 component values MUST be encoded as single octet (numeric_op
+            len=00).</t>
+            <t>The six least significant bits contain the DSCP value.  All other
+            bits SHOULD be treated as 0.</t>
+          </section>
+
+          <section title="Fragment (type = 12 (0x0C))   ">
+            <t>IPv4/IPv6: Fragment  (reference:  <xref target="RFC8955"></xref>,
+            <xref target="RFC8956"></xref>)</t>
+            <t>Filter defines: a list of match criteria for specific IP fragments.</t> 
+            <t></t>
+            <t>Length: variable</t>
+            <t>Component Value format: [bitmask_op, value]+</t>
+            <t>Bitmask values are:</t>
+            <t>
+              <figure>
+              <artwork>
+            0    1   2   3   4   5   6  7        
+          +---+---+---+---+---+---+---+---+ 
+          | 0 | 0 | 0 | 0 |LF |FF |IsF| DF| 
+          +---+---+---+---+---+---+---+---+ 
+                       Figure 3-8
+              </artwork>
+              </figure>
+            </t>
+
+            <t>Where:
+              <list>
+                <t>DF (don’t fragment): match If IP header flags bit 1 (DF) is 1.</t>
+
+                <t>IsF(is a fragment other than first: match if IP header fragment
+                offset is not 0.</t>
+
+                <t> FF (First Fragment): Match if <xref target="RFC0791"></xref>
+                IP Header Fragment offset is zero and Flags Bit-2 (MF) is 1.</t>
+
+                <t>LF (last Fragment): Match if <xref target="RFC0791"></xref> IP
+                header Fragment is not 0 And Flags bit-2 (MF) is 0</t>
+
+                <t>0: MUST be sent in NLRI encoding as 0, and MUST be ignored
+                during reception.</t>
+              </list>
+            </t>
+          </section>
+
+          <section title="Flow Label(type = 13 (0xOD)) ">
+            <t>IPv4/IPv6: Fragment  (reference:  <xref target="RFC8956"></xref>)</t>
+            <t>Filter defines: a list of match criteria for 20-bit Flow Label in the IPv6 header field.</t> 
+            <t></t>
+            <t>Length: variable</t>
+            <t>Component Value format: [numeric_op, value]+</t>
+          </section> 
+        </section> 
+      </section>
+
+      <section title="FSv2 Actions for FSv2 IP Basic ">
+        <t> The IP Basic FSv2 allows FS actions to be sent in an Extended
+        Community (FSv2-EC) for IPv4 and IPv6.   The Extended Community encodes
+        the Flow Specification actions in the Extended IPv4 Community format
+        <xref target="RFC4360"></xref> or in the extended IPv6 Community format
+        <xref target="RFC5701"></xref>.</t>
+
+        <t> A Flow Spec filter match maybe linked to only one Flow Spec action.
+        For these deplyments, the details on multiple actions per flow spec
+        filter match in this section can be ignored.</t>
+
+        <t> When an operator defines multiple Flow Spec Extended Community
+        (FS-EC) Actions for single filter match, it is possible that some FS-EC
+        actions can interact If one sorts the FS-EC actions into categories,
+        the interactions can be minimized. One example of such interactions is
+        if the flow is redirect to a VRF and to a VPN. Another way two actions
+        interact is if an action fails.  For example, if set DSCP action fails
+        prior to redirect to a VPN may have undesired data flow patterns.</t>
+
+        <t> This section defines the FS-EC actions, categories of FS-EC
+        actions, and ways to minimize interactions between FS-EC actions.
+        Section 3.3.1 describes the existing FS-EC action formats.  Section
+        3.3.2 describes the interaction between FS-EC action, and categories of
+        actions, and the way to minimizes interactions.  Should the BGP to
+        distribute information about the configured interactions for sequences
+        of multiple actions, Section 3.3 defines an optional FS-EC to pass
+        information ordering of categories (user/this standard) and failure
+        action (stop or best effort).</t> 
+
+        <t>Note that FSv2 implementations that only associate 1 FSv2-EC per
+        filter match do not need the FSv2-EC.</t> 
+
+        <section title="FSv2 Extended Community Actions"> 
+          <t>The FSv2 IP Basic uses FSv1 actions and defines for one one
+          additional optional FSv2 specific FS-EC. This one optional action is
+          the Action Chain Ordering (ACO) Extended Community (ACO-EC) which can
+          pass around defaults currently only available by configuration in
+          FSv1.</t>
+
+          <section title="FSv2 Actions in Extended Community for IPv4">
+            <t> The format of the Extended Community for IPv4 defined in <xref
+            target="RFC4360"></xref> is shown in Figure 3-9 with 2 octet type
+            that is split into a high byte and low byte.  The format of the
+            IPv4 Extended Community is shown in Figure 3-10.  
+
+              <figure>
+              <artwork>
+
+      0                   1                   2                   3
+      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |  Type high    |  Type low(*)  |                               |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+          Value (6 octets)     |
+     |                                                               |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+                        Figure 3-9
+              </artwork>
+              </figure>
+            </t>
+            <t>
+              <figure>
+              <artwork>
+     
+                   Table 3-3 
+      FSv1 Transitive Extended Communities for IP Basic 
+          High-Low byte of Transitive FS-EC 
+     
+    H-L      FSv1 Description               Short-ID FS document
+    ======   ==================             ======== ==========        
+    0x01-0C  Transitive IPv4                RDIPv4   RDIP   
+    0x07-02  FSv1 for an Interface set      TAIS     ifset                       
+    0x09-xx  Redirect to Indirection ID     RGID     RGID  
+    0x0b-00  SFC Reserved                   SFC-R    RFC9015 
+    0x0b-01  SFVC SFIR POOL Identifier      SFIR-PI  RFC9015 
+    0x0b-02  SFC MPLS label stack Swapping  SFC-MPLS RFC9015 
+             or stacking labels
+    0x80-06  Traffic rate limit by bytes    TRB      RFC8955
+    0x80-07  Traffic Action                 TA       RFC8955
+             (sample, terminal)   
+    0x80-08  Redirection to VRF (2 AS form) RDIP     RFC8955
+    0x80-09  Traffic mark DSCP              TM       RFC8955
+    0x80-0C  Traffic rate limit by packets  TRP      RFC8955 
+    0x81-08  Redirect to VPN (IPv4 form)    RDIP     RFC8955
+    0x81-08  Redirect to VPN (4 AS form)    RDIP     RFC8955  
+              </artwork>
+              </figure>
+            </t>
+
+            <t> Note the Short ID is simply a quick way for this document to
+            reference a particular action.</t>
+
+            <t>References: 
+              <dl>
+                <dt>ifset:</dt>
+                <dd><xref target="I-D.ietf-idr-flowspec-interfaceset"></xref></dd>
+
+                <dt>RDIP:</dt>
+                <dd><xref target="I-D.ietf-idr-flowspec-redirect-ip"></xref></dd>
+
+                <dt>RGID:</dt>
+                <dd><xref target="I-D.ietf-idr-flowspec-path-redirect"></xref></dd>
+
+                <dt>RFC9015:</dt>
+                <dd><xref target="RFC9015"></xref></dd>
+
+                <dt>RFC8955:</dt>
+                <dd><xref target="RFC8955"></xref></dd>
+              </dl>
+            </t>
+          </section> 
+          <section title="Flow Specification Actions in IPv6 forms">
+            <t> The Transitive IPv6-Address-Specific Extended Community encodes
+            the Flow Specification actions in the Extended Community format
+            specified in <xref target="RFC5701"></xref> shown in Figure 3-10.
+            Table 3-3 lists the 4 octet format for high-byte and low-byte.
+            Note that there are two allocations for redirect from IPv6. 
+
+              <figure>
+              <artwork>
+
+      0                   1                   2                   3
+      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     | Type (high)   |  Sub-type     |   Global Administrator        |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-|
+     |         Global Administrator (cont.)                          |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |         Global Administrator (cont.)                          |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |         Global Administrator (cont.)                          |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     | Global Administrator (cont.)  |   Local Administrator         |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+                  Figure 3-10  
+     
+    The 20 octets of value are given in the following format: 
+    Global Administrator: IPv6 address assigned by Internet Registry 
+    Local Administrator:  2 bytes of Local Administrator 
+              </artwork>
+              </figure>
+            </t>
+            <t>
+              <figure>
+              <artwork>
+                      Table 3-4
+    Transitive IPv6-Address-Specific Extended Community Types 
+     
+    H-L byte  FSv1 Description        Short-ID FS document
+    ======    ==================      ======== ==========
+    0x0000    Unassigned 
+    0x0001    Unassigned 
+    0x0002    Route Target            RT        No
+    0x0003    Route origin            ROrg      No (deprecated) 
+    0x0004    OSPFv3 Route Attribute  OSPFv3    No (deprecated) 
+    0x0005    FIT Tail Community      IFITv6    No 
+    0x0006    Link Bandwidth          LBW       No        
+    0x0008    Unassigned                    
+    0x0009    Unassigned 
+    0x000A    Unassigned  
+    0x000B    VRF Route Import        VRP-I     No
+    0x000C    FS Redirect to IPv6     RDIPv6C   Yes: RDIP
+    0x000D    FS Redirect to IPv6     RDIPv6    Yes: RFC8956 
+    0x000E    Unassigned 
+    Ox000F    Unassigned 
+    0x0010    Cisco VPN distinguisher Cisco-VPN  No 
+    0x0011    UUID-based Route Target UUID-RT    No
+    0x0012    Inter-ARea P2MP S-NH    PM2P-NH    No 
+    0x0013    Unassigned 
+    0x0014    VRF Recursive NH        VRF-RNH    no 
+    0x0015    RT-derived-EC           RT-EC      no 
+       
+              </artwork>
+              </figure>
+            </t>
+          </section> 
+        </section> 
+
+        <section title="Interactions between Flow Spec Extended Community Actions (FS-EC)"> 
+          <t>Interactions between FS-EC only occur if a filter match has
+          multiple actions.  If multiple FS-EC actions are listed on a filter,
+          these can interact within categories or if a previous FS-EC action
+          fails.  Consider three cases of multiple actions as you read this
+          section.</t> 
+
+          <t>Case 1: a filter match has three actions:
+            <list>
+              <t>1. set a DSCP value in the IP Packet,</t>
+              <t>2. Sample the traffic (for spam checking), and</t>
+              <t>3. Redirect the traffic to a VRF.</t>
+            </list>
+          </t> 
+          <t>Case 2: a filter match has two actions. 
+            <list>
+              <t>1. redirect to VRF,</t>
+              <t>2. TAIS Terminate FS filter processing</t>
+            </list> 
+          </t>
+          <t>Case 3: a Filter match has two actions
+            <list>
+              <t>1. redirect to VRF, and</t>
+              <t>2. redirect to SFC</t>
+            </list>
+          </t> 
+
+          <section title="Interactions Between Multiple Actions by Categories">
+            <t>This section considers interactions between multiple successful
+            FSv2 Actions.</t>
+
+            <t>FS-EC actions fall into the following categories:  
+              <list>
+                <t>1. limitation on filters or actions (interface-set or local configuration)</t> 
+                <t>2. rate limiting (bytes (TRB) and packets (TRP)),</t>
+                <t>3. Set DSCP value in IP packet</t>
+                <t>4. Sample packet (TAIS - sample)</t>
+                <t>5. redirect to IP paths  (to VRF, to VPN, to Indirection-ID, to SFC path)</t>
+                <t>6. Terminate action processing (TAIS terminate)</t>
+              </list> 
+
+            If multiple actions with only one action per category, then there
+            is little interaction between successful actions.  If multiple
+            actions have more than one action per category, then successful
+            actions can interact. For example, the multiple actions in Case 1
+            and Case 2 described above only have one type of action per
+            category.  In contrast, Case 3 has two interactions in the
+            redirect category.</t>
+
+            <t>For multiple actions passed in the FS-EC, this logical
+            categorization allow the implementation to reject a set of multiple
+            actions if some of the actions interact in a set. Using the three
+            case examples, Case 1 and Case 2 FS-EC would be allowed and Case 3
+            FS-AC would be rejected.</t> 
+
+            <t>FSv2 actions passed in a BGP Community Attribute can provide
+            ordering of actions, dependencies or signal which actions are valid
+            within a category
+            (see <xref target="I-D.hares-idr-fsv2-more-ip-actions"></xref>).  
+            However, these features are beyond the Basic FSv2 for IP forwarding
+            and out of scope for this specification.</t>
+          </section> 
+
+          <section title="Failure of an FS-EC Action" >
+            <t>If multiple FS-EC action is attached to a Flow Spec filter rule and  
+            one of the actions fails there are three potential options: 
+              <list>
+                <t>Option 1. Stop processing additional filters and (optionally) signal failure to the management process,  </t>
+                <t>Option 2. Continue on processing in "best effort" for the next filters. </t> 
+                <t>Option 3. Decide between 1 and 2 based on dependencies between filters and actions </t>
+              </list>
+            Option 1 and 2 can be signaled by configuration within a Flow
+            Specification implementation.  Option 3 requires the encoding
+            dependency lists in ordered filters and ordered actions.  The FSv2
+            NLRI format has a field to carry filter dependency information, but
+            these funtions are beyond the FSv2 Basic IP functions and out of
+            scope for this specification.</t>
+
+            <t>Consider Case 1 where the set DSCP value in IP field fails to occur. 
+            Option 1, would be to stop processing and not do the other two actions.  
+            Option 2, would be to continue prcoessing and do the other two actions.</t>
+
+            <t>Currently, for FSv1 local configuration determines what happens
+            if one of the actions fails within a set of multiple actions
+            attached to a filter rule.</t>
+
+            <t>One option for FSv2 is to pass another FS-EC indicating what the
+            originator expects will happen upon failure of an action.</t>
+          </section> 
+
+          <section title="Action Chain Ordering FSv2-EC (ACO) (optional)">
+            <t>
+              <dl>
+                <dt>Summary:</dt>
+                <dd>>This optional FSv2-EC passes information on what the BGP
+                peer originating the FSv2-EC expects will happen with multiple
+                actions attached to a single filter.</dd>
+
+                  <dt>Description:</dt>
+                  <dd>The BGP peer originating multiple FSv2 FS-EC actions
+                  attached to FSv2 NLRI (filters) may attach the Action Chain
+                  Ordering (ACO) FS-EC to inform BGP Peers receiving the FSv2
+                  information how the originating pair expects action
+                  interactions and actions failures will be handled. Two fields
+                  are encoded in this FS-EC: 
+
+                  <list>
+                    <t>AC-interaction - What happens if two actions are
+                    specified in a category, and</t>
+
+                    <t>AC-Failure - what happens if an action with multiple
+                    action set fails.</t>
+                  </list>
+                </dd>
+
+                <dt>Encoding:</dt>
+                <dd>The Generic Transitive encoding is shown in figure 3-11
+                with the field definitions below.</dd>
+              </dl>
+            </t>
+            <t>
+              <figure>
+              <artwork>
+     Generic Transitive Extended Community (IPv4)
+     
+       0                   1                   2                   3
+      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |  Type high    |  Type low     |AC-interaction |  AC-Failure   |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |        Reserved  (4 octets)                                   |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     
+                      Figure 3-11 
+              </artwork> 
+              </figure> 
+            </t>
+
+            <t>where: 
+              <dl>
+                <dt>Type high:</dt>
+                <dd> This 1 octet field has a value of 0x80 For the Generic
+                Transitive EC.</dd>
+
+                <dt>Type low:</dt>
+                <dd> This one octet field identifies the ACO-Action.  The value
+                is TBD4.</dd> 
+
+                <dt>ACO Dependency</dt>
+                <dd>This field indicates whether the FS-EC category order is
+                the pre-defined order or an implementation specific order. 
+
+                  <list>
+                    <t>0 (default): do not install actions with two actions per
+                    category.</t>
+
+                    <t>1 (local config): allow under local configuration</t>
+                  </list> 
+                </dd>
+
+                <dt>AC-failure –</dt>
+                <dd> 1 octet byte that determines the action on failure.
+                Actions may succeed or fail and an Action chain must deal with
+                it.  The default value stored for an action chain that does not
+                have this action chain is “stop on failure”.  where AC-Failure
+                types are: 
+                  <list>
+                    <t> 0x00 – stop on failure of an action </t>
+                    <t>0x01 – continue on failure of an action,,</t> 
+                  </list>
+                </dd>
+
+                <dt>Reserved -</dt>
+                <dd>Reserved for future use.  Must be set to all zeros, and
+                ignored upon reception.</dd>
+              </dl>
+            </t> 
+          </section>
+        </section> 
+      </section> 
+    </section> 
+
+    <section title="Validation and Ordering of NLRI">
+      <section title="Validation of FSv2 NLRI ">
+        <t>The validation of FSv2 NLRI adheres to the combination of rules for
+        general BGP FSv1 NLRI found in <xref target="RFC8955"></xref>, <xref
+        target="RFC8956"></xref>, <xref target="RFC9117"></xref>.  These FSv1
+        rules are sufficient for FSv2 for IP traffic.</t>
+
+        <t> Specific additions have been defined for IP Filters used for
+        guiding IP traffic into Service Function Service Function Pathways SFC
+        NLRI in <xref target="RFC9015"></xref>, or validation of L2VPN FS NLRI
+        (see <xref target="I-D.ietf-idr-flowspec-l2vpn"></xref>).  These
+        additions are not required for the FSv2 for IP Basic functions.
+        Therefore, FSv2 NLRI validation for Basic IP uses the same rules as
+        FSv1.</t>
+
+        <t>To provide clarity, the full validation process for flow
+        specification routes (FSv1 or FSv2) for all AFI/SAFIs is described
+        below in section x.x rather than simply referring to the relevant
+        portions of these RFCs.  Validation only occurs after BGP UPDATE
+        message reception and the FSv2 NLRI and the path attributes relating to
+        FSv2 (Extended community and Wide Community) have been determined to be
+        well-formed.  Any MALFORMED FSv2 NRLI is handled as a “session reset”
+        <xref target="RFC7606"></xref>.</t>
+
+        <section title="Validation of FS NLRI (FSv1 or FSv2)">
+          <t> Flow specifications received from a BGP peer that are accepted in
+          the respective Adj-RIB-In are used as input to the route selection
+          process.  Although the forwarding attributes of the two routes for
+          tbe same prefix may be the same, BGP is still required to perform its
+          path selection algorithm in order to select the correct set of
+          attributes to advertise.</t>
+
+          <t>The first step of the BGP Route selection procedure (section 9.1.2
+          of <xref target="RFC4271"></xref> is to exclude from the selection
+          procedure routes that are considered unfeasible. In the context of IP
+          routing information, this is used to validate that the NEXT_HOP
+          Attribute of a given route is resolvable.</t>
+
+          <t>The concept can be extended in the case of the Flow Specification
+          NLRI to allow other validation procedures.</t>
+
+          <t>The FSv2 validation process validates the FSv2 NLRI with following
+          unicast routes received over the same AFI (1 or 2) but different
+          SAFIs:
+
+            <dl>
+              <dt>FSv2 received over SAFI=TBD1</dt>
+              <dd> FSv1 received over SAFI=133 are be validated against SAFI=1.
+              Similarly, FSv2 routes received over SAFI=TBD1 will be validated
+              against SAFI=1.</dd>
+
+              <dt>FSv2 received over SAFI=TBD2</dt>
+              <dd>FSv1 received over SAFI=134 are validated against SAFI=128,
+              and FSv2 received over SAFI=TBD2 will be validated against
+              SAFI=128.</dd>
+
+              <dt>FSv2 received with AFI = 31</dt>
+              <dd> The FSV2 routes received with (AFI=31, SAFI=TBD1) will be
+              validated against SAFI=1.  The FSv2 received with (AFI=31,
+              SAFI=TBD2) will be validated against SAFI=128.</dd>
+
+              <dt>FSv2 L2 routes passed in (AFI=6, SAFI=TBD1) and L2VPN routes
+              passed in (AFI=25, SAFI=TBD2).</dt>
+              <dd>
+                <dl> 
+                  <dt>FSv2 L2 routes -</dt>
+                  <dd> validate (AFI=6, SAFI=TBD1) against (AFI=1, SAFI=1).</dd>
+
+                  <dt>FSv2 L2VPN routes -</dt>
+                  <dd> validate (AFI=256, SAFI=TBD2) against (AFI=1, SAFI=128></dd>
+
+                  <dt>This is similar to FSv1. -</dt>
+                  <dd> The FSv1 L2 validated L2 routes passed in (AFI=6,
+                  SAFI=133) against (AFI=1, SAFI=1) and the L2VPN routes
+                  (AFI=25, SAFI=134) are validated against (AFI=1, SAFI=128).</dd>
+                </dl>
+              </dd>
+            </dl>
+          </t>
+
+          <t>In the absence of explicit configuration, a Flow specification
+          NLRI (FSv1 or FSv2) MUST be validated such that it is considered
+          feasible if and only if all of the conditions are true:
+
+            <list>
+              <t>a) A destination prefix component is embedded in the Flow
+              Specification,</t>
+              <t>b) One of the following conditions holds true:
+
+                <list>
+                  <t>1. The originator of the Flow Specification matches the
+                  originator of the best-match unicast route for the destination
+                  prefix embedded in the flow specification (this is the unicast
+                  route with the longest possible prefix length covering the
+                  destination prefix embedded in the flow specification).</t>
+
+                  <t>2. The AS_PATH attribute of the flow specification is empty
+                  or contains only an AS_CONFED_SEQUENCE segment
+                  <xref target="RFC5065"></xref>.
+
+                    <list>
+                      <t>2a.This condition should be enabled by default.</t>
+                      <t>2b.This condition may be disabled by explicit
+                      configuration on a BGP Speaker,</t>
+                      <t>2c.As an extension to this rule, a given non-empty
+                      AS_PATH (besides AS_CONFED_SEQUENCE segments) MAY be
+                      permitted by policy].</t>
+                    </list> 
+                  </t>
+                </list>
+              </t>
+
+              <t>c) There are no “more-specific” unicast routes when compared
+              with the flow destination prefix that have been received from a
+              different neighbor AS than the best-match unicast route, which
+              has been determined in rule b.</t>
+            </list>
+          </t>
+
+          <t>However, part of rule a may be relaxed by explicit configuration,
+          permitting Flow Specifications that include no destination prefix
+          component.  If such is the case, rules b and c are moot and MUST be
+          disregarded.</t>
+
+          <t>By “originator” of a BGP route, we mean either the address of the
+          originator in the ORIGINATOR_ID Attribute
+          <xref target="RFC4456"></xref> or the source address of the BGP peer,
+          if this path attribute is not present.</t>
+
+          <t>A BGP implementation MUST enforce that the AS in the left-most
+          position of the AS_PATH attribute of a Flow Specification Route (FSv1
+          or FSv2) received via the Exterior Border Gateway Protocol (eBGP)
+          matches the AS in the left-most position of the AS_PATH attribute of
+          the best-match unicast route for the destination prefix embedded in
+          the Flow Specification (FSv1 or FSv2) NLRI.</t>
+
+          <t>The best-match unicast route may change over time independently of
+          the Flow Specification NLRI (FSv1 or FSv2). Therefore, a revalidation
+          of the Flow Specification MUST be performed whenever unicast routes
+          change.  Revalidation is defined as retesting rules a to c as
+          described above.</t>
+        </section>
+
+        <section title="Validation of Flow Specification Actions for FSv2 for IP Basic">
+          <t>A match on a Flow Specification (FS) filters is linked to one or
+          more FS action set by an Extended Communities (FS-EC) for FSv2 for IP
+          Basic functions.</t>
+
+          <t>Validation of FS-EC action begins with validating the syntax of
+          the Extended Communities attributes attached to FS NLRI in UPDATE
+          packet.  Since FSv1 and FSv2 operate on different NLRIs (AFI/SAFI
+          sets), a single FS-EC action can apply to both FSv1 and FSv2 filters.
+          If the FS-EC is not syntactically correct, the FS-EC community causes
+          NLRI and FS-EC to be treated as withdrawal.</t> 
+
+          <t>If the FS-EC is syntacically correct, then the FS-EC check to
+          determine if this node can perform this action. If not, the FS-EC is
+          stored for transmittal to other nodes, but cannot be used in this
+          node.</t>
+
+          <t>If multiple syntactically correct actions that can be performed on
+          are linked to the filtering rules defined in the NLRI in UPDATE
+          packet, then the list of multiple actions are check for conflicts
+          within a category. If conflicts exist within a multiple action set
+          attached to a FSv2 filter, then the default case is to ignore the
+          action set for installation in the node.  Optionally, if the ACO
+          FS-EC may indicate if the BGP peer originating the FSv2 filter +
+          action expects this "ignoring" of the action or specifical local
+          configuration.</t>
+
+          <t>An example of local configuration might be if rate limiting by
+          byte and by packet are specified, the local configuration might allow
+          both to be enacted in the hardware.</t> 
+        </section> 
+
+        <section title="Failure of FS-EC action when processing a filter flow">
+          <t>If one action in the ordered list fails for a traffic flow, the
+          local node may be able to halt processing of the for. For example, if
+          a DSCP value set and forwarding to VPN is specified AND the DSCP
+          fails, the forwarding logic may allow the forwarding to the VPN to
+          not occur.</t>
+
+          <t>FSv1-EC current control the failure action by configuration and/or
+          implementation defaults.</t>
+
+          <t>The optional ACO FSv2-EC can inform the BGP receiving the FSv2
+          information how the originator expects failures within the multiple
+          actions in an action set will occur.  The ACO FSv2-EC is optional.</t> 
+
+          <t>FSv2 Implementations MAY wish to log the action failures
+          encountered by FS actions (FSv1 or FSv2).</t>
+        </section>
+
+        <section title="Error handling and Validation">
+          <t>The following two error handling rules must be followed by all BGP
+          speakers which support FSv2:
+
+            <list style="symbols">
+              <t>FSv2 NLRI having TLVs which do not have the correct lengths or
+              syntax must be considered MALFORMED, and "treated-as-withdrawl".</t>
+
+              <t>FSv2 NLRIs having TLVs which do not follow the above ordering
+              rules described in section 4.1 MUST be considered as MALFORMED by
+              a BGP FSv2 propagator, and treated "treated-as-withdrawl".</t>
+            </list>
+
+          The above two rules prevent any ambiguity that arises from the
+          multiple copies of the same NLRI from multiple BGP FSv2 propagators.</t>
+
+          <t>A BGP implementation SHOULD treat such malformed NLRIs as ‘session
+          reset’ <xref target="RFC7606"></xref></t>
+
+          <t>An implementation for a BGP speaker supporting both FSv1 and FSv2
+          MUST support the error handling for both FSv1 and FSv2.</t>
+        </section>
+      </section>
+      <section title="Ordering of FS filters for BGP Peers which support FSv1 and FSv2">
+        <t> FSv2 allows the user to order flow specification rules and the
+        actions associated with a rule. Each FSv2 rule has one or more match
+        conditions and one or more actions associated with each rule.</t>
+
+        <t>FSv1 and FSv2 filters are sent as different AFI/SAFI pairs so FSv1
+        and FSv2 operate as ships-in-the-night.  Some BGP peers in an AS may
+        support both FSv1 and FSv2.  Other BGP peers may support FSv1 or FSv2.
+        Some BGP will not support FSv1 or FSV2.  A coherent flow specification
+        technology must have consistent best practices for ordering the FSv1
+        and FSv2 filter rules.</t>
+
+        <t>One simple rule captures the best practice:  Order the FSv1 filters
+        after the FSv2 filter by placing the FSv1 filters after the FSv2
+        filters.</t>
+
+        <t>To operationally make this work, all flow specification filters
+        should be included the same data base with the FSv1 filters being
+        assigned a user- defined order beyond the normal size of FSv2
+        user-ordered values.  A few examples, may help to illustrate this best
+        practice.</t>
+
+        <t>Example 1: User ordered numbering - Suppose you might have 1,000
+        rules for the FSv2 filters.  Assign all the FSv1 user defined rules to
+        1,001 (or better yet 2,000).  The FSv1 rules will be ordered by the
+        components and component values.</t>
+
+        <t>Example 2: Storage of actions - All FSv1 actions are defined ordered
+        actions in FSv2.  Translate your FSv1 actions into FSv2 ordered actions
+        for storing in a common FSv1-FSv2 flow specification data base.</t>
+      </section>
+    </section> 
+
+    <section title="Scalability and Aspirations for FSv2">
+      <t>Operational issues drive the deployment of BGP flow specification as a
+      quick and scalable way to distribute filters.  The early operations
+      accepted the fact validation of the distribution of filter needed to be
+      done outside of the BGP distribution mechanism.  Other mechanisms
+      (NETCONF/RESTCONF or PCEP) have reply-request protocols.</t>
+
+      <t>These features within BGP have not changed. BGP still does not have an
+      action-reply feature.</t>
+
+      <t>NETCONF/RESTCONF latest enhancements provide action/response features
+      which scale.  The combination of a quick distribution of filters via BGP
+      and a long-term action in NETCONF/RESTCONF that ask for reporting of the
+      installation of FSv2 filters may provide the best scalability.</t>
+
+      <t>The combination of NETCONF/RESTCONF network management protocols and
+      BGP focuses each protocol on the strengths of scalability.</t>
+
+      <t>FSv2 will be deployed in webs of BGP peers which have some BGP peers
+      passing FSv1, some BGP peers passing FSv2, some BGP peers passing FSv1
+      and FSv2, and some BGP peers not passing any routes.</t>
+
+      <t>The TLV encoding and deterministic behaviors of FSv2 will not
+      deprecate the need for careful design of the distribution of flow
+      specification filters in this mixed environment.  The needs of networks
+      for flow specification are different depending on the network topology
+      and the deployment technology for BGP peers sending flow specification.</t>
+
+      <t>Suppose we have a centralized RR connected to DDoS processing sending
+      out flow specification to a second tier of RR who distribute the
+      information to targeted nodes. This type of distribution has one set of
+      needs for FSv2 and the transition from FSv1 to FSv2.</t>
+
+      <t>Suppose we have Data Center with a 3-tier backbone trying to
+      distribute DDoS or other filters from the spine to combinational nodes,
+      to the leaf BGP nodes.  The BGP peers may use RR or normal BGP
+      distribution. This deployment has another set of needs for FSv2 and the
+      transition from FSv1 to FSV2.</t>
+
+      <t>Suppose we have a corporate network with a few AS sending DDoS filters
+      using basic BGP from a variety of sites. Perhaps the corporate network
+      will be satisfied with FSv1 for a long time.</t> 
+
+      <t>These examples are given to indicate that BGP FSv2, like so many BGP
+      protocols, needs to be carefully tuned to aid the mitigation services
+      within the network. This protocol suite starts the migration toward
+      better tools using FSv2, but it does not end it.  With FSv2 TLVs and
+      deterministic actions, new operational mechanisms can start to be
+      understood and utilized.</t>
+
+      <t>This FSv2 specification is merely the start of a revolution of work –
+      not the end.</t>
+    </section>
+
+    <section title="Optional Security Additions">
+      <t>This section discusses the optional BGP Security additions for BGP-FS
+      v2 relating ROA <xref target="RFC9582"></xref>.</t> 
+
+      <section title="BGP FSv2 with ROA">
+        <t>BGP FSv2 can utilize ROAs in the validation. If BGP FSv2 is used
+        with BGPSEC and ROA, the first thing is to validate the route within
+        BGPSEC and second to utilize BGP ROA to validate the route origin.</t>
+
+        <t> The BGP-FS peers using both ROA and BGP-FS validation determine
+        that a BGP Flow specification is valid if and only if one of the
+        following cases: 
+          <list style="symbols">
+            <t>If the BGP Flow Specification NLRI has a IPv4 or IPv6 address in
+            destination address match filter and the following is true:
+
+              <list style="symbols">
+                <t>A BGP ROA has been received to validate the originator, and</t>
+
+                <t>The route is the best-match unicast route for the
+                destination prefix embedded in the match filter; or</t>
+              </list>
+            </t>
+
+            <t>If a BGP ROA has not been received that matches the IPv4 or IPv6
+            destination address in the destination filter, the match filter
+            must abide by the <xref target="RFC8955"></xref> and
+            <xref target="RFC8956"></xref> validation rules as follows:  
+              <list>
+                <t>The originator match of the flow specification matches the
+                originator of the best-match unicast route for the destination
+                prefix filter embedded in the flow specification", and</t>
+
+                <t>No more specific unicast routes exist when compared with the
+                flow destination prefix that have been received from a
+                different neighboring AS than the best-match unicast route,
+                which has been determined in step A.</t>
+              </list>
+            </t>
+          </list>
+        The best match is defined to be the longest-match NLRI with the highest
+        preference.</t>
+      </section>
+    </section>
+
+    <section anchor="IANA" title="IANA Considerations">
+      <t>This section complies with <xref target="RFC7153"></xref>.</t>
+
+      <section title="Flow Specification V2 SAFIs">
+        <t> IANA is requested to assign two SAFI Values in the registry at
+        https://www.iana.org/assignments/safi-namespace from the Standard Action
+        Range as follows: 
+          <figure>
+          <artwork>
+       
+         Table 7-1 SAFIs 
+            
+         Value   Description      Reference
+         -----   -------------    ---------------
+          TBD1   BGP FSv2        [this document] 
+          TBD2   BGP FSv2 VPN    [this document]
+
+          </artwork>
+          </figure>
+        </t>
+      </section>
+
+      <section title="BGP Capability Code">
+        <t>IANA is requested to assign a Capability Code from the registry at
+        https://www.iana.org/assignments/capability-codes/ from the IETF Review
+        range as follows:
+
+        <figure>
+        <artwork>     
+       Table 7-2 - Capability Code 
+       
+       Value   Description            Reference       Controller
+       -----  ---------------------  ---------------  ----------
+        TBD3  Flow Specification V2  [this document]  IETF
+        </artwork>
+        </figure>
+       </t>
+      </section>
+
+      <section title="Generic Transitive Extended Community">
+        <t>IANA is requested to assign a type value from the "Generic
+        Transitive Extended Community Sub-Types" registry at
+        https://www.iana.org/assignments/bgp-extended-communities/bgp-extended-communities.xhtml  
+
+          <figure>
+          <artwork>     
+       Table 7-3 - Generic Transitive Extended Community 
+       
+       Value   Description                Reference       Controller
+       -----  --------------------------  ---------------  ----------
+        TBD4  FSv2 Action Chain Ordering  [this document]  IETF
+            
+       The requested value is "0x01".  
+          </artwork>
+          </figure>
+        </t>
+      </section>
+
+      <section title="FSv2 IP Filters Component Types">
+        <t>IANA is requested to create a new "BGP FSv2 Component Types"
+        registry and indicate [this draft] as a reference.  The following
+        assignments in the FSv2 IP Filters Component Types Registry shold be
+        made.</t>
+
+        <t>
+          <figure>
+          <artwork>
+       Table 7-5 - Flow Specification 
+
+       Registry Name: BGP FSv2 Component Types 
+       Reference: [this document]
+       Registration Procedures: 0x01-0x3FFF Standards Action. 
+     
+       Value  Description         Reference        
+       -----  ------------------- ------------------------
+        1     Destination filter  [RFC8955][RFC8956][this document] 
+        2     Source Prefix       [RFC8955][RFC8956][this document] 
+        3     IP Protocol         [RFC8955][RFC8956][this document] 
+        4     Port                [RFC8955][RFC8956][this document]   
+        5     Destination Port    [RFC8955][RFC8956][this document] 
+        6     Source Port         [RFC8955][RFC8956][this document] 
+        7     ICMP Type [v4 or v6][RFC8955][RFC8956][this document] 
+        8     ICMP Code [v4 or v6][RFC8955][RFC8956][this document] 
+        9     TCP Flags [v4]      [RFC8955][RFC8956][this document] 
+       10     Packet Length       [RFC8955][RFC8956][this document] 
+       11     DSCP marking        [RFC8955][RFC8956][this document] 
+       12     Fragment            [RFC8955][RFC8956][this document] 
+       13     Flow Label          [RFC8956][this document] 
+          </artwork>
+          </figure>
+        </t>
+      </section>
+
+      <section title="FSV2 NLRI TLV Types ">
+        <t>IANA is requested to create the a new registries on a new "Flow
+        Specification v2 TLV Types” web page.</t>
+
+        <t>This set of option assumes Type 2 ordering by packet frame rather
+        than ascending order. 
+
+        <figure>
+        <artwork>
+       Table 7-6 FSv2 TLV types - Option 2 
+       Registry Name: BGP FSv2 TLV types 
+       Reference: [this document]
+       Registration Procedures: 0x01-0x3FFF Standards Action.
+       
+      
+        Type          Description              Reference
+        ----          ----------------------   ------------
+        0x00          Reserved                 [this document]
+            0x01-0x31     Unassigned               [this document] 
+            0x32 (50)     L2 Traffic Rules         [this document] 
+            0x33-0x63     Unassigned               [this document] 
+            0x64 (100)    MPLS traffic rules         [this document] 
+            0x65 (101)    Unassigned               [this document]
+         -0x95 (149)          
+            0x96 (150)    SFC Traffic rules        [this document]
+        0x97 (151)    Unassigned               [this document] 
+         - 0xC7         
+        0xC8 (200)    Tunnel Traffic rules     [this document]         
+            0xC9-0x99     Unassigned               [this document] 
+            0x100 (256)   IP traffic rules         [this document]
+             0x101-0x117  Unassigned 
+             
+        0x118 (280)   Extended IP Rules        [this document]
+             0x119-0x6000 Unassigned               [this document]
+             
+        0x6000-0x7FFF Vendor specific          [this document]
+        0x8000-0xFFFF Reserved                 [this document]
+
+          </artwork>
+          </figure>
+        </t>
+      </section>
+    </section> 
+
+    <section title="Security Considerations">
+      <t>The use of ROA improves on <xref target="RFC8955"></xref> by checking
+      to see of the route origination. This check can improve the validation
+      sequence for a multiple-AS environment.</t>
+
+      <t>>The use of BGPSEC  <xref target="RFC8205"></xref> to secure the
+      packet can increase security of BGP flow specification information sent
+      in the packet.</t>
+
+      <t>The use of the reduced validation within an AS
+      <xref target="RFC9117"></xref> can provide adequate validation for
+      distribution of flow specification within a single autonomous system for
+      prevention of DDoS.</t>
+
+      <t>Distribution of flow filters may provide insight into traffic being
+      sent within an AS, but this information should be composite information
+      that does not reveal the traffic patterns of individuals.</t>
+    </section>
+  </middle>
+  <back>
     <references title="Normative References">
-	  &RFC0791;
-      &RFC2119;
-      &RFC4271;
-	  &RFC4360;
-	  &RFC4456;
-	  &RFC4760;
-	  &RFC5065;
-	  &RFC5701;
-	  &RFC7153;
-	  &RFC7606;
-	  &RFC8174;
-	  &RFC8955;
-	  &RFC8956;
-	  &RFC9015;
-	  &RFC9117;
-	  &RFC9184;
-	  &RFC9582;
-	  &I-D.ietf-idr-flowspec-l2vpn;
-	  &I-D.ietf-idr-flowspec-nvo3;
-	  &I-D.ietf-idr-flowspec-srv6;
-	  &I-D.ietf-idr-flowspec-interfaceset;
-	  &I-D.ietf-idr-flowspec-redirect-ip;
-	  &I-D.ietf-idr-flowspec-path-redirect;
-	  &I-D.ietf-idr-wide-bgp-communities;
-	</references>
-	<references title="Informative References">
-	&RFC6241; 
-	&RFC8040;
-	&RFC8205;
-	&RFC8206;
-	&I-D.ietf-idr-flowspec-v2;
-	&I-D.hares-idr-fsv2-more-ip-actions;
-	&I-D.hares-idr-fsv2-more-ip-filters;
-	 </references>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.0791"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.2119"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4271"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4360"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4456"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4760"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.5065"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.5701"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.7153"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.7606"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8174"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8955"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8956"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9015"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9117"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9582"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-l2vpn"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-nvo3"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-srv6"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-interfaceset"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-redirect-ip"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-path-redirect"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-wide-bgp-communities"/>
+    </references>
+    <references title="Informative References">
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.6241"/> 
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8040"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8205"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-v2"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.hares-idr-fsv2-more-ip-actions"/>
+      <!-- xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.hares-idr-fsv2-more-ip-filters"/-->
+    </references>
   </back>
 </rfc>

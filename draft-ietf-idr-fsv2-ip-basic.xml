@@ -241,7 +241,6 @@
           <dt>BGP session ephemeral state:</dt>
           <dd>State which does not survive the loss of BGP peer session.</dd>
 
-          <!-- XXX JMH - the terminology here needs normalizing. This seems like an RFC 1997 attribute rather than one in the community container. -->
           <dt>BGP Commmunity Path Attribute:</dt>
           <dd>BGP Community Path attribute with a FS TLV defined by 
           <xref target="I-D.hares-idr-fsv2-more-ip-actions"></xref></dd> 
@@ -325,11 +324,8 @@
     </section>
 
     <section anchor="fsv2-primer" title="Flow Specification Version 2 Primer ">
-      <!-- XXX JMH - we're doing FS for non-IP types. Should we drop the language suggesting that's the main case with the other stuff acting as carriers for IP?-->
-      <!-- XXX JMH - the second sentence needs work as well since the SAFI in FSv1 defines the match context: 'main table' vs. 'in a VRF'-->
       <t>A BGP Flow Specification (v1 or v2) is an n-tuple containing one or
-      more match criteria that can be applied to IP traffic, traffic
-      encapsulated in IP traffic or traffic associated with IP traffic. The
+      more match criteria that can be applied to data-plane traffic.  The
       exact traffic match depends on the FSv2 AFI/SAFI.</t>
 
       <t>Flows Specification routes carried in BGP UPDATEs may carry BGP Path
@@ -374,12 +370,9 @@
         </list>
         </t>
 
-        <t>FSv1 match conditions are ordered by component type in ascending order.
-        The ordering within a component type is defined by that component's definition.
-        <!-- XXX JMH - I don't think the following sentence is true.  What's the intent here? -->
-        The FSv1 component
-        format does not provide enough information to create a unique
-        canonically sorted list for all implementations in all deployments.</t>          
+	<t>FSv1 match conditions are ordered by component type in ascending
+	order.  The ordering within a component type is defined by that
+	component's definition.</t>
 
         <t>The Flow Specification actions standardized by <xref target="RFC8955"/> and
         <xref target="RFC8956"/> are: 

@@ -432,242 +432,345 @@
         actions associated with a rule. Each FSv2 rule may have one or more
         match conditions and one or more associated actions.</t>
 
-        <t>FSv2 operates in the ships-in-the night model with FSv1 so network
-        operators can manipulate which the distribution of FSv2 and FSv1 using
-        configuration parameters.</t>
+        <t>FSv2 operates in a ships-in-the night model with FSv1. This permits
+        operators to manage the interaction of FSv2 and FSv1 via
+        configuration.</t>
 
-        <t>An FSv2 peer may receive BGP NLRI routes from a FSv1 peer or a BGP
-        peer that does not support FSv1 or FSv2.  The capabilities sent by a
-        remote BGP peer indicate what FS supported by the AFI/SAFI (FSv1 NLRI
-        or FSv2 NLRI or none).</t>
+        <t>The basic principles regarding the ordering and installation of flow
+        specification filter rules are: 
+          <ol>
+            <li>In the absence of a matching filter for the traffic, that
+            traffic is permitted. That is, the default is permit.
+            Implementations MAY implement a default reject behavior by
+            configuration.</li>
 
-        <t>The basic principles regarding ordering of flow specification
-        filter rules are: 
-          <list>
-            <t>1) Rule-0 (zero) is defined to be 0/0 with the "permit-all" action.</t>
-            <t>2) FSv2 filter rules are ordered based on user-specified order. 
+            <li>FSv2 filter rules are processed prior to FSv1 rules.  FSv1 NLRI
+            are processed according to the procedures defined in
+            <xref target="RFC8955"/> and <xref target="RFC8956"/>.
+            FSv2 filter rules thus have a better precedence vs. FSv1.</li>
 
-              <list>
-                <t>The user-specified order is carried in the FSv2 NLRI and a
-                numerical lower value takes precedence over a numerically
-                higher value.  For rules received with the same order value,
-                the filter rules are ordered by FSv2 component number and then
-                by rules specified by the component.</t>
-              </list>
-            </t>
-            <t>3) Importing FSv1 into a combined FSv2 and FSv2 rule set
-            requires starting FSv2 with Rule 1 and adding FSv1 rules are added
-            after FSv2 rules.
+            <li>FSv2 filter rules are ordered based on user-specified order,
+            carried in each FSv2 NLRI.  Numerically smaller user-specified order
+            values have better precedence than larger values.</li>
 
-              <list>
-                <t>For example, BGP Peer A has FSv2 data base with 10 FSv2
-                rules (1-10). Suppose that, FSv1 user ordered FS are configured
-                to start at 301 so 10 FSv1 rules are added at 301-310.</t>
-              </list>  
-            </t>
-            <t>4) One or more action can be linked to a filter rule 
+            <li>For rules with the same user-specified order, the filter rules
+            are then ordered by FSv2 component type and then rules for each
+            component type.</li>
 
-              <list>
-                <t>If a single action is linked, the action either succeeds or
-                fails.</t> 
-                <t>if multiple actions are linked to a filter rule via FSv2
-                Extended Communities, the implementation MUST follow the
-                FSv2-EC interaction rules in section x.x or have a local
-                configuration knob to indicate local interaction rules.
-                Implementations within a network SHOULD follow the same
-                interaction rules</t>
+            <li>
+              <t>FSv2 filter rules can carry actions.  These actions can be
+              encoded via one or more FSv2 Extended Communities, or within the
+              FSv2 Action Community Container.</t>
 
-                <t>If an implementation allows for FSv2 actions with
-                user-ordering and Extended Community actions, the by default
-                the Extended Community are ordered after the user-ordered
-                actions.</t>    
-              </list> 
-            </t>
-          </list>
+              <t>Some FSv2 Extended Communities may not be understood by every
+              FSv2 implementation.  Since they are encoded as
+              <xref target="RFC4360"/> Extended Communities, they are
+              propagated with the BGP routes regardless of whether they are
+              understood based on the particular Extended Community's
+              transitivity.</t>
+
+              <t>When FSv2 Extended Communities are understood, they have
+              precedence and interaction rules governing the actions they
+              encode. (See XXX JMH TODO)</t>
+
+              <t>The FSv2 Action Community Container defines its own rules
+              governing FSv2 actions.  See that document (XXX JMH TODO) for
+              additional details.</t>
+            </li>
+
+            <li>
+              <t>FSv2 filter match and action criteria may be considered
+              "optional".  For match, the FSv2 NLRI encoding carries a
+              per-component flag set by the operator or implementation that
+              marks that match component as optional or mandatory.  For
+              actions, FSv2 Extended Communities will document whether they are
+              considered optional or mandatory as part of their definition.
+              The optionality of FSv2 Action Community Containers is defined in
+              its defining document.</t>
+
+              <t>If a mandatory match component or action component cannot be
+              locally implemented, the flowspec rule is marked as ineligible to
+              be installed.</t>
+            </li>
+
+            <li>FSv2 filter rules carry a "Dependency" value in the FSv2 NLRI.
+            When this value is non-zero, this value associates multiple received
+            FSv2 filters with each other. If a FSv2 filter rule is ineligible
+            to be installed due to an inability to implement a mandatory match
+            or action component, all other filters carrying the same dendency
+            value will be made ineligible for installation. See
+            <xref target="fsv2-dependencies"/> for more details.</li>
+          </ol>
         </t>
-        <t> Figure 1 shows a diagram of the FSv2 
-          logical data structures with 5 rules 
-          for IP Basic functionality.             
-          <figure>
+        <t><xref target="fsv2-data-structures"/> shows a diagram of the FSv2
+        logical data structures with 5 rules for IP Basic functionality.             
+          <figure anchor="fsv2-data-structures" title="BGP Flow Specification v2 Policy" align="center">
           <artwork>
-     
-         +--------------------------------------+
-         | Flow Specification (FS)              | 
-         |  Policy                              | 
-         +--------------------------------------+        
-                    ^               ^              ^
-             |               |              | 
-             |               |              |   
-    +--------^----+  +-------^-------+     +-------------+    
-    |   FS Rule 1 |  |   FS Rule 2   | ... |  FS rule 5  |
-    +-------------+  +---------------+     +-------------+
-                          :  :  :  :               
-        :.................:  :  :  :           
-        :            :............:  :  :         
-     +--V--+ +--V-------+       :  :              
-     |order| |Dependent | ......:  :..       
-     |     | | filter   | :          :
-     +-----+ | chain    | :          :
-             +----------+ :          :
-                          :          :        
-                          :          :        
-                     .....:          :........   
-                     :                     :
-           +---------V-----------+    +----V-------------+
-           |  Rule Condition     |    |   Rule Action    |
-           |  in BGP NLRIs       |    | in BGP extended  |
-           | AFI/SAFI 1/133,     |    | Communities      |
-           | 1/134, 2/133, 2/134 |    |                  |  
-           +-------------------+      +------------------+
-               :     :    :                 :      :    :
-          .....:     .    :.....       .....:      .    :.....
-          :          :         :       :           :         :
-     +----V---+  +---V----+ +--V---+ +-V------+ +--V-----++--V---+
-     |  Match |  | match  | |match | | Action | | action ||action|
-     |Operator|  |Variable| |Value | |Operator| |variable|| Value|
-     |*1      |  |        | |      | |(subtype| |        ||      |
-     +--------+  +--------+ +------+ +--------+ +--------++------+
-     
-       *1 match operator may be complex. 
-     
-       Figure 2-1: BGP Flow Specification v1 Policy 
+      +--------------------------------------+
+      | Flow Specification (FS)              |
+      | Policy                               |
+      +--------------------------------------+
+          ^               ^              ^
+          |               |              |
+          |               |              |
+ +--------^----+  +-------^-------+     +-------------+
+ |   FS Rule 1 |  |   FS Rule 2   | ... |  FS rule 5  |
+ +-------------+  +---------------+     +-------------+
+                       :  :  :  :
+     ..................:  :  :  :
+     :       .............:  :  :
+  +--V--+ +--V-------+       :  :
+  |Order| |Dependent | ......:  :..
+  |     | | filter   | :          :
+  +-----+ | chain    | :          :
+          +----------+ :          :
+                       :          :
+                       :          :
+                  .....:          :........
+                  :                       :
+        +---------V-----------+      +----V-------------+
+        |  Rule Condition     |      |   Rule Action    |
+        |  in BGP NLRIs       |      | in BGP Extended  |
+        | AFI/SAFI 1/133,     |      | Communities      |
+        | 1/134, 2/133, 2/134 |      |                  |
+        +---------------------+      +------------------+
+            :     :    :                 :      :    :
+       .....:     .    :.....       .....:      .    :.....
+       :          :         :       :           :         :
+  +----V---+  +---V----+ +--V---+ +-V------+ +--V-----++--V---+
+  |  Match |  | Match  | |Match | | Action | | Action ||Action|
+  |Operator|  |Variable| |Value | |Operator| |Variable|| Value|
+  |*1      |  |        | |      | |(subtype| |        ||      |
+  +--------+  +--------+ +------+ +--------+ +--------++------+
+
+    *1 match operator may be complex.
           </artwork>
           </figure>
+          <!-- XXX JMH - I've cleaned up the figure above, but don't completely understand the "Operator/Variable/Value" terminology. Clarify? -->
         </t>
       </section>
     </section> 
 
     <section anchor="fsv2-formats-and-actions" title="FSv2 NLRI Formats and Actions">
       <section title="FSv2 NLRI Format">
-        <t> The BGP FSv2 supports NRLI with the format for AFIs for IPv4 (AFI =
-        1), IPv6 (AFI = 2), L2 (AFI = 6), L2VPN (AFI=25), and SFC (AFI=31) with
-        SAFIs TBD1 (Flow Spec) and TBD2 (Flow Spec for VPNs) to support
-        transmission of the flow specification which supports user ordering of
-        traffic filters and actions for IP traffic and IP VPN traffic.</t>
+        <t>FSv2 is carried in BGP using standard <xref target="RFC4760"/>
+        multiprotocol extensions.  FSv2 supports NRLI with formats for following AFIs:
+	  <ul>
+            <li>IPv4 (AFI = 1)</li>
+	    <li>IPv6 (AFI = 2)</li>
+	    <li>L2 (AFI = 6)</li>
+	    <li>L2VPN (AFI=25)</li>
+	    <li> SFC (AFI=31)</li>
+	  </ul>
+	</t>
+	<t>These AFIs will be paired with the following SAFIs:
+
+	  <ul>
+	    <li>TBD1 (Flow Spec Version 2)</li>
+	    <li>TBD2 (Flow Spec Version 2 for VPNs)</li>
+	  </ul>
+	</t>
 
         <t>A compliant FSv2 implementation only has to implement one AFI/SAFI
         pair out of the full list of NRLIs.  For example, a compliant FSv2
-        implementation could only implement IPv4 FSv2 (AFI=1, SAFI=TBD1).</t>
+        implementation might only implement IPv4 FSv2 (AFI=1, SAFI=TBD1).</t>
 
-        <t>This NLRI information is encoded using MP_REACH_NLRI and
-        MP_UNREACH_NLRI attributes defined in <xref target="RFC4760"></xref>.
-        When advertising FSv2 NLRI, the length of the Next-Hop Network Address
-        MUST be set to 0. Upon reception, the Network Address in the Next-Hop
-        field MUST be ignored.</t>
+        <t>FSv2 NLRI are encoded in BGP UPDATEs using the MP_REACH_NLRI and
+        MP_UNREACH_NLRI attributes defined in <xref target="RFC4760"/>.  When
+        advertising FSv2 NLRI, the length of the Next-Hop Network Address MUST
+        be set to 0. Upon reception, the MP_REACH_NLRI "Network Address of
+        NextHop" field MUST be ignored.</t>
 
-        <t>Implementations wishing to exchange flow specification rules MUST
-        use BGP's Capability Advertisement facility to exchange the
-        Multiprotocol Extension Capability Code (Code 1) as defined in <xref
-        target="RFC4760"></xref>, and indicate a capability for FSv1, FSv2
-        (Code TBD3), or both.</t> 
+        <!-- XXX JMH - this is the start of a section describing the top level thinking for why things are organized the way they are -->
+        <t>FSv2 filter rules are encoded as a vector of filter types. FSv2
+        filter types are typically associated with match criteria for a given
+        networking layer; for example, 802.2 Layer 2, MPLS, IPv4/IPv6 , Segment
+        Routing, etc.</t>
 
+        <!-- XXX JMH - there needs to be a separate definition for the VPN family -->
         <t>The AFI/SAFI NLRI for BGP Flow Specification version 2 (FSv2) has the format:
-         <figure>
+         <figure title="FSv2 NLRI Format">
+         <!-- XXX JMH - was there specific discussion around making the dependent filters chain 8 octets vs. 4? -->
          <artwork>
-     +--------------------------------+
-     | NLRI length (2 octets)         |
-     +--------------------------------+
-     | TLVs+                          |
-     +--------------------------------+
-     
-      Figure 3-1 - NLRI format 
++-------------------------+
+| NLRI Length             |
+| (2 octets)              |
++-------------------------+
+| Dependent Filters Chain |
+| (8 octets)              |
++-------------------------+
+| User Order              |
+| (4 octets)              |
++-------------------------+
+| FSv2 Filter TLVs        |
+| (variable)              |
++-------------------------+
           </artwork>
           </figure> 
         </t>
 
-        <t>where:
-          <list style="symbols">
-            <t>NLRI length: length of field including all SubTLVs in octets.</t> 
-            <t>TLV+ - indicates the repetition of the TLV field</t>
-          </list> 
-        </t> 
-        <t>Each each TLV has the Format:
-          <figure>
-          <artwork>
-      
-         TLV format   
-     +--------------------------------+
-     | +============================+ |
-     | | order (4 octets)           | |
-     | +----------------------------+ |
-     | | Dependent filters chain    | | 
-     | |(type, chain ID, count,     | |
-     | | item) (8 octets)           | |
-     | +----------------------------+ | 
-     | + FSv2 Filter type (2 octet) + |
-     | +----------------------------+ |
-     | + length TLVs (2 octet)      + |
-     | + ---------------------------+ |
-     | + value (variable)           + |
-     | +----------------------------+ |
-     +-------------------------------+
+        <t>Where:
+          <ul>
+            <li>NLRI Length: Length of the NLRI field in octets excluding the
+            NLRI Length field.  The minimum NLRI Length is 12 (Dependent Filter
+            Chain + User Order).</li>
 
-     Figure 3-2 - TLV format within FSv2 NLRI  
+            <li>Dependent Filters Chain (DFC): A 64-bit unsigned integer in
+            network byte order.  When non-zero, the Dependent Filters Chain
+            value is used to associate multiple NLRI together that share
+            dependencies.  See <xref target="fsv2-dependencies"/> for further
+            information on its use.</li>
+
+            <li>User Order: A 32-bit unsigned integer in network byte order.
+            FSv2 rules with a lower User Order value have a better precedence
+            for filter ordering.</li>
+
+            <li>FSv2 Filter TLVs: A vector of FSv2 filter types encoding
+            component match criteria for a given filter type.</li>
+          </ul> 
+        </t> 
+        <t>Each each FSv2 Filter TLV has the Format:
+          <figure title="FSv2 Filter TLV Format">
+          <artwork>
++-----------------------------+
+| FSv2 Filter Type            |
+| (2 octets)                  |
++-----------------------------+
+| FSv2 Filter Length          |
+| (2 octets)                  |
++-----------------------------+
+| FSv2 Filter Components TLVs |
+| (variable)                  |
++-----------------------------+
           </artwork>
           </figure>
         </t>
 
-        <t>where:
+        <t>Where:
+          <ul>
+            <li>FSv2 Filter Type: A 16-bit unsigned integer in network byte
+            order defining the FSv2 filter that is carried in this TLV.  For
+            sorting purposes, lower value FSv2 Filter Types have a better
+            precendence than higher values.</li>
 
-          <list style="symbols">
-            <t>order: flow-specification global rule order number (4 octets).</t>
-            <t> Dependent Filters Chain: 8 octets for identifying a chain of
-            FSv2 filters that must be deployed at the same time.  
+            <li>FSv2 Filter Length: Length of the FSv2 Filter Components in octets.</li>
+          </ul>
+        </t>
 
-              <list style="hanging">
-                <t hangText="Why needed in FSv2:">Flow specification filters
-                distributed in BGP UPDATE packets may be broken into multiple
-                packets. In FSv2, the dependent filter ID allows the filter
-                chains to be identified across all user-defined or default
-                filters.  The rules can be installed from BGP into the firewall
-                after all filters have been installed.</t>
- 
-                <t hangText="For basic FSV2:">This field is required to be set
-                to all zero, and ignored upon reception.</t>
+        <t>Each each FSv2 Filter Component TLV has the Format:
+          <figure title="FSv2 Filter Component TLV Format">
+          <artwork>
++------------------------------+ 
+| FSv2 Filter Component Type   |
+| (2 octets)                   |
++------------------------------+
+| FSv2 Filter Component Length |
+| (2 octets)                   |
++------------------------------+
+| FSv2 Filter Component Flags  |
+| (1 octet)                    |
++------------------------------+
+| FSv2 Filter Component Value  |
+| (variable)                   |
++------------------------------+
+          </artwork>
+          </figure>
+        </t>
 
-                <t hangText="For future FSV2:">Future specifications will
-                specify the use of this field, and future specifications will
-                continue to ignore the field if the value is all zeros.</t>
-              </list> 
-            </t>
+        <t>Where:
+          <ul>
+            <li>
+	      <t>FSv2 Filter Component Type: A 16-bit unsigned integer in
+	      network byte order defining the match component for a given FSv2
+	      filter type.  For sorting purposes, lower value FSv2 Filter
+	      Component Types have a better precedence than higher values.</t>
 
+	      <t>This document defines the following FSv2 Filter Component Types.
+	      The definition of the type-specific filter components may be defined in
+	      other documents:
+
+      <!--
             <t>FSv2 Filter type: contains a type for FSv2 TLV format of the
             NRLI (2 octets).  This type specifies support for a set of
             components.  [Editor's note: We need to decide between Option 2 or
             Option 1.  Option 2 makes provides a better default ordering for
-            frame/packet filters.
+            frame/packet filters.</t>
 
-              <list style="hanging">
-                <t hangText="Option 1"> ascending order (draft-ietf-idr-fsv2-ip-basic-02)
+		      <t hangText="Option 1"> ascending order (draft-ietf-idr-fsv2-ip-basic-02)
+			<list>
+			  <t>0 - reserved, </t>
+			  <t>1 - IP Basic Filter rules </t>
+			  <t>2 - IP Extended Filter Rules </t>
+			  <t>3 - MPLS Filter Rules </t>
+			  <t>4 - L2 traffic rules</t>
+			  <t>5 - SFC Traffic rules </t>
+			  <t>6 - Tunneled traffic </t> 
+			</list>
+		      <t hangText="Option 2"> ordering by frame/packet (new) 
+			<list>
+      -->
+		<dl spacing="compact">
+		  <dt>0 -</dt>
+		  <dd>Reserved</dd>
 
-                  <list>
-                    <t>0 - reserved, </t>
-                    <t>1 - IP Basic Filter rules </t>
-                    <t>2 - IP Extended Filter Rules </t>
-                    <t>3 - MPLS Filter Rules </t>
-                    <t>4 - L2 traffic rules</t>
-                    <t>5 - SFC Traffic rules </t>
-                    <t>6 - Tunneled traffic </t> 
-                  </list>
-                </t>
-                <t hangText="Option 2"> ordering by frame/packet (new) 
-                  <list>
-                    <t>0 - reserved, </t>
-                    <t>50 -  L2 Traffic fules  </t>
-                    <t>100 - MPLS traffic rules</t>
-                    <t>150 - SFC Traffic rules </t>
-                    <t>200 - Tunneled traffic </t> 
-                    <t>256 - IP Basic Filter Rules (bit 1 of high bit) </t>
-                    <t>280 - IP Extended Filter Rules </t> 
-                  </list>
-                </t> 
-              </list> 
-            </t> 
+		  <dt>50 -</dt>
+		  <dd>L2 Traffic fules</dd>
 
-            <t>length-TLV: is the length of the value part of the Sub-TLV,</t>
-            <t>value: value depends on the type of FSv2 Filter type.</t>
-          </list>  
+		  <dt>100 -</dt>
+		  <dd>MPLS traffic rules</dd>
+
+		  <dt>150 -</dt>
+		  <dd>SFC Traffic rules</dd>
+
+		  <dt>200 -</dt>
+		  <dd>Tunneled traffic</dd> 
+
+		  <dt>256 -</dt>
+		  <dd>IP Basic Filter Rules (bit 1 of high bit)</dd>
+
+		  <dt>280 -</dt>
+		  <dd>IP Extended Filter Rules</dd> 
+		</dl>
+	      </t>
+	    </li>
+
+            <li>FSv2 Filter Component Length: A 16-bit unsigned integer in
+            network byte order containing the length of the FSv2 Filter
+            Components Value field.</li>
+
+	    <li><t>The FSv2 Filter Component Flags are defined as:
+	      <figure title="FSv2 Filter Component Flags Format">
+	      <artwork>
+  0   1   2   3   4   5   6   7
++---+---+---+---+---+---+---+---+
+| M | R | R | R | R | R | R | R |
++---+---+---+---+---+---+---+---+
+	      </artwork>
+	      </figure>
+	    </t>
+
+	    <t>The fields of the FSv2 Filter Component Flags are defined as:
+	      <ul>
+		<li>M - Mandatory: When 1, the FSv2 filter-type-specific filter
+		component <bcp14>MUST</bcp14> be supported by the local
+		implementation.  Otherwise, the component is considered
+		"optional". When the component has the mandatory flag and is
+		not supported, the FSv2 filter rule is considered "invalid" for
+		validation purposes.</li>
+
+		<li>R - Reserved: When not otherwise re-defined in a later
+		document, this bit <bcp14>MUST</bcp14> be set to zero when sent and
+		<bcp14>SHOULD</bcp14> be ignored on reception.</li>
+	      </ul>
+	    </t>
+	    </li>
+            
+            <li>FSv2 Filter Component Value: Each FSv2 filter type will define
+            one or more FSv2 filter-type-specific filter components.  See each
+            FSv2 filter-type's specification for a component's definition.</li>
+          </ul>
         </t>
+
 
         <t>FSv2 implementations MUST pass valid filter TLVs even if the
         implementation does not support these installation of these a particular
@@ -676,18 +779,64 @@
         <t>This specification only defines operation of the IP Basic Filter Rules
         that all FSv2 must support.  </t> 
 
-        <section title="Ordering of TLVs within the FSv2 NLRI">
-          <t> For ease of processing, the ordering within the FSv2 NLRI MUST be
-          by order number.  Within an order value (e.g. 20), the filters MUST
-          group the filters by the same filter type (e.g. IP Basic filter rules),
-          and order the groups of filters by filter type (ascending values).</t>
+        <section anchor="fsv2-dependencies" title="FSv2 Dependencies">
+	  <t>Firewalls are implemented using ordered terms.  Flow specification
+	  routes encode flowspec rules that correspond to a set of conditions
+	  in a firewall term.  The sorting rules for flow specification routes
+	  is intended to, by default, produce a reasonably ordered set of rules
+	  for common deployment scenarios.</t>
 
-          <t>The order within a filter type (e.g. IP Basic Filters) MUST be by
-          the component type. If multiple components of the same type exist, the
-          component ordering is specified by the component definition (as in
-          FSv1).</t>
+	  <t>When the FSv2 rule ordering wouldn't accomplish the operator's
+	  firewall intent when deploying FSv2, the User Order field can permit
+	  the operator to influence the firewall installation order in a
+	  deployment.</t>
+
+	  <t>When set of firewall rules are required to implement an operator's
+	  intent and that set of rules has interdependencies, the failure to
+	  install a flowspec rule, or part of that rule's actions, may result
+	  in incorrect firewall deployment.  An example of such a
+	  dependency is two rules covering an IP destination, one with a
+	  more-specific and one with a less-specific prefix relaionship.  As an
+	  example:
+
+	    <ol>
+	      <li>match dst=10.1.1.1/8 tcp port=25 then dscp=AF1 and permit</li>
+	      <li>match dst=10.0.0.0/8 tcp port=25 then drop</li>
+	    </ol>
+	  </t>
+	  
+	  <t>If an implementation couldn't support the DSCP action and failed
+	  to install the first rule in the firewall, SMTP traffic to the host
+	  10.1.1.1 would fail to be delivered due to the second rule's
+	  drop action.  In other words, these two entries have a
+	  dependency.</t>
+
+	  <t>When an implementation is unable to install a flowspec rule for
+	  some reason, that flowspec rule is locally "invalid".  In many
+	  circumstances, flowspec rules that do not have dependencies may be
+	  installed on a best-effort basis by an implementation.  However, in
+	  the case of dependent rules, installing some rules selectively but
+	  not others can be problematic.</t>
+	  
+	  <t>FSv2 defines for each FSv2 NLRI a Dependent Filters Chain (DFC).
+	  When the value of DFC is zero (0), no special consideration is given
+	  for dependencies.  When the value of DFC is non-zero, when a rule is
+	  locally considered invalid, all rules sharing the same DFC value are
+	  also considered invalid, and not installed.</t>
+        </section>
+
+        <section title="Ordering of TLVs within the FSv2 NLRI">
+	  <t>For NLRI canonicalization purposes, and also to ease processing,
+	  all TLVs within the FSv2 NLRI <bcp14>MUST</bcp14> be ordered in
+	  a strictly increasing fashion.  FSv2 filter types and FSv2
+	  filter-type-specific component types for a given component
+	  <bcp14>MUST NOT</bcp14> occur more than once.</t>
+
+	  <t>See <xref target="error-handling-and-validation"/> for further
+	  details.</t>
         </section> 
 
+	<!-- XXX JMH - this section should move elsewhere as well as being expanded -->
         <section title="Partial Deployments">
           <t>Partial deployments can occur for two reasons: 
             <list style="symbols">
@@ -702,6 +851,7 @@
           </t>
           <t>Editor: Are there others? </t> 
         </section> 
+
       </section>
 
       <section title="FSv2 Basic IP Filters " >
@@ -1723,7 +1873,7 @@
           encountered by FS actions (FSv1 or FSv2).</t>
         </section>
 
-        <section title="Error handling and Validation">
+        <section anchor="error-handling-and-validation" title="Error handling and Validation">
           <t>The following two error handling rules must be followed by all BGP
           speakers which support FSv2:
 

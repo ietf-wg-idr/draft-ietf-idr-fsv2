@@ -835,7 +835,7 @@
     <section title="FSv2 Basic IP Filters (Filter Family Type TBD)">
       <t>FSv2 Basic IP filters provide the same functionality as those
       specified in FSv1 RFCs <xref target="RFC8955"/> and
-      <xref target="RFC8956"/>.  The format of those components have been
+      <xref target="RFC8956"/>.  The format of those components has been
       preserved for ease of implementation.</t>
 
       <t>The FSv2 Basic IP filter has been assigned a FSv2 Filter Type value of
@@ -844,7 +844,7 @@
       <t>FSv2 Basic IP Filter component types are numbered differently from
       those in FSv1.  FSv2 components have been numbered with gaps to permit
       future FSv2 Basic IP filter components to be added in between currently
-      specified Basic IP components.  This permits a a natural default sort
+      specified Basic IP components.  This permits a natural default sort
       order for those new components in implementations.</t>
 
       <section title="Operators">
@@ -971,59 +971,38 @@
 	below. Additional IP filters are documented in defined in
 	<xref target="I-D.hares-idr-fsv2-more-ip-filters"/>.</t>
 
-        <t>
-          <figure title="FSv2 IP Basic Components">
-          <artwork>
-
-     Type     Definition
-   --------  ---------------------
-       0      Reserved
-      10      IP Destination prefix
-      20      IP Source prefix
-      30      IPv4 Protocol /
-              IPv6 Upper Layer Protocol
-      40      Port
-      50      Destination Port
-      60      Source Port
-      70      ICMPv4 type / ICMPv6 type
-      80      ICMPv4 code / ICPv6 code
-      90      TCP Flags
-     100      Packet length
-     110      DSCP
-     120      Fragment
-     130      Flow Label
-   65535      Reserved
-          </artwork>
-          </figure>
-        </t>
-        
-	<t>FSv2 IP Basic Component Types that are not otherwise assigned in the above
-	table are assigned using an IANA "Expert Review" procedures.</t>
+	<table align="left">
+	  <name>FSv2 IP Basic Components</name>
+	  <thead>
+	    <tr>
+	      <th>Type</th>
+	      <th>Definition</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr><td>0</td><td>Reserved</td></tr>
+	    <tr><td>10</td><td>IP Destination Prefix</td></tr>
+	    <tr><td>20</td><td>IP Source Prefix</td></tr>
+	    <tr><td>30</td><td>IPv4 Protocol / IPv6 Upper Layer Protocol</td></tr>
+	    <tr><td>40</td><td>Port</td></tr>
+	    <tr><td>50</td><td>Destination Port</td></tr>
+	    <tr><td>60</td><td>Source Port</td></tr>
+	    <tr><td>70</td><td>ICMPv4 Type / ICMPv6 Type</td></tr>
+	    <tr><td>80</td><td>ICMPv4 Code / ICPv6 Code</td></tr>
+	    <tr><td>90</td><td>TCP Flags</td></tr>
+	    <tr><td>100</td><td>Packet Length</td></tr>
+	    <tr><td>110</td><td>DSCP</td></tr>
+	    <tr><td>120</td><td>Fragment</td></tr>
+	    <tr><td>130</td><td>Flow Label</td></tr>
+	    <tr><td>65535</td><td>Reserved</td></tr>
+	  </tbody>
+	</table>
       </section>
 
-      <section title="Ordering within the IP Basic Filter TLVs">
-        <t> The ordering of components within the value field of the IP Basic TLV
-        follows the FSv1 rules.  The following is a restatement of FSv1 rules in
-        FSv2 terms.</t>
-
-        <t>
-          <list style="symbols">
-            <t>1) order by component types (1-13).</t>
-
-            <t>(2) If the components are the same, then the value fields are
-            compared using mechanisms defined in <xref target="RFC8955"></xref>
-            and <xref target="RFC8956"></xref> and MUST be in ascending order.
-            NLRIs having component TLVs which do not follow the above ordering
-            rules MUST be considered as malformed by a BGP FSv2 propagator. This
-            rule prevents any ambiguities that arise from the multiple copies of
-            the same NLRI from multiple BGP FSv2 propagators.  A BGP
-            implementation SHOULD treat such malformed NLRIs as
-            "treat-as-withdrawl".  <xref target="RFC7606"></xref>.</t>
-          </list>
-        </t>
-
-        <t>See <xref target="RFC8955"></xref>, <xref target="RFC8956"></xref>,
-        and for details on per component ordering.</t>
+      <section title="FSv2 Flow Specification Order of Basic IP Components">
+	<t>For Flow Specification ordering purposes, IP Basic Filter components
+	are ordered using the FSv1 comparison rules.  These rules
+	are document in <xref target="RFC8955" section="5.1"/>.</t>
       </section>
 
       <section title="FSv2 Components for IP Basic TLVs">
@@ -1984,38 +1963,46 @@
       </section>
 
       <section title="FSv2 IP Filters Component Types">
-        <t>IANA is requested to create a new "BGP FSv2 Component Types"
+        <t>IANA is requested to create a new "BGP FSv2 IP Basic Component Types"
         registry and indicate [this draft] as a reference.  The following
-        assignments in the FSv2 IP Filters Component Types Registry shold be
+        assignments in the FSv2 IP Basic Filters Component Types Registry shold be
         made.</t>
 
         <t>
-          <figure>
-          <artwork>
-       Table 7-5 - Flow Specification
+          <dl spacing="compact">
+	    <dt>Registry Name:</dt><dd>BGP FSv2 Component Types</dd>
+            <dt>Reference:</dt><dd>[this document]</dd>
+            <dt>Registration Procedures:</dt><dd>0x01-0x3FFF Standards Action, 0x4000-0xFFFF FCFS.</dd>
+	  </dl>
+	</t>
 
-       Registry Name: BGP FSv2 Component Types
-       Reference: [this document]
-       Registration Procedures: 0x01-0x3FFF Standards Action.
-
-       Value  Description         Reference
-       -----  ------------------- ------------------------
-        1     Destination filter  [RFC8955][RFC8956][this document]
-        2     Source Prefix       [RFC8955][RFC8956][this document]
-        3     IP Protocol         [RFC8955][RFC8956][this document]
-        4     Port                [RFC8955][RFC8956][this document]
-        5     Destination Port    [RFC8955][RFC8956][this document]
-        6     Source Port         [RFC8955][RFC8956][this document]
-        7     ICMP Type [v4 or v6][RFC8955][RFC8956][this document]
-        8     ICMP Code [v4 or v6][RFC8955][RFC8956][this document]
-        9     TCP Flags [v4]      [RFC8955][RFC8956][this document]
-       10     Packet Length       [RFC8955][RFC8956][this document]
-       11     DSCP marking        [RFC8955][RFC8956][this document]
-       12     Fragment            [RFC8955][RFC8956][this document]
-       13     Flow Label          [RFC8956][this document]
-          </artwork>
-          </figure>
-        </t>
+	<table align="left">
+	  <name>BGP FSv2 IP Basic Component Types</name>
+	  <thead>
+	    <tr>
+	      <th>Type</th>
+	      <th>Definition</th>
+	      <th>Reference</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr><td>0</td><td>Reserved</td><td>This document</td></tr>
+	    <tr><td>10</td><td>IP Destination Prefix</td><td>This document</td></tr>
+	    <tr><td>20</td><td>IP Source Prefix</td><td>This document</td></tr>
+	    <tr><td>30</td><td>IPv4 Protocol / IPv6 Upper Layer Protocol</td><td>This document</td></tr>
+	    <tr><td>40</td><td>Port</td><td>This document</td></tr>
+	    <tr><td>50</td><td>Destination Port</td><td>This document</td></tr>
+	    <tr><td>60</td><td>Source Port</td><td>This document</td></tr>
+	    <tr><td>70</td><td>ICMPv4 Type / ICMPv6 Type</td><td>This document</td></tr>
+	    <tr><td>80</td><td>ICMPv4 Code / ICPv6 Code</td><td>This document</td></tr>
+	    <tr><td>90</td><td>TCP Flags</td><td>This document</td></tr>
+	    <tr><td>100</td><td>Packet Length</td><td>This document</td></tr>
+	    <tr><td>110</td><td>DSCP</td><td>This document</td></tr>
+	    <tr><td>120</td><td>Fragment</td><td>This document</td></tr>
+	    <tr><td>130</td><td>Flow Label</td><td>This document</td></tr>
+	    <tr><td>65535</td><td>Reserved</td><td>This document</td></tr>
+	  </tbody>
+	</table>
       </section>
 
       <section title="FSV2 NLRI TLV Types">

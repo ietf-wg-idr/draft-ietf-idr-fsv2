@@ -809,6 +809,17 @@
     </section>
 
     <section title="FSv2 Basic IP Filters " >
+      <t>FSv2 Basic IP filters provide the same functionality as those
+      specified in FSv1 RFCs <xref target="RFC8955"/> and
+      <xref target="RFC8956"/>.  The format of those components have been
+      preserved for ease of implementation.</t>
+
+      <t>FSv2 Basic IP Filter component types are numbered differently from
+      those in FSv1.  FSv2 components have been numbered with gaps to permit
+      future FSv2 Basic IP filter components to be added in between currently
+      specified Basic IP components.  This permits a a natural default sort
+      order for those new components in firewall implementations.</t>
+
       <section title="Operators for comparison">
         <section title="Numeric Operator (numeric_op)">
           <t>This operator is encoded as shown in Figure 3-3.

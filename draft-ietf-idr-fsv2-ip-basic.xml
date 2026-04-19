@@ -812,16 +812,12 @@
       <section title="Operators for comparison">
         <section title="Numeric Operator (numeric_op)">
           <t>This operator is encoded as shown in Figure 3-3.
-            <figure>
+            <figure title="Numeric Operator (numeric_op)">
             <artwork>
-
-        0   1   2   3   4   5   6   7
-      +---+---+---+---+---+---+---+---+
-      | e | a |  len  | 0 |lt |gt |eq |
-      +---+---+---+---+---+---+---+---+
-
-            Figure 3-3: Numeric Operator (numeric_op)
-
+  0   1   2   3   4   5   6   7
++---+---+---+---+---+---+---+---+
+| e | a |  len  | 0 |lt |gt |eq |
++---+---+---+---+---+---+---+---+
             </artwork>
             </figure>
           </t>
@@ -861,30 +857,27 @@
           "not equal to", as shown in Table 3-1.</t>
 
           <t>
-            <figure>
+            <figure title="Comparison Operation Combinations">
             <artwork>
-
-                +====+====+====+==================================+
-                | lt | gt | eq | Resulting operation              |
-                +====+====+====+==================================+
-                | 0  | 0  | 0  | false (independent of the value) |
-                +----+----+----+----------------------------------+
-                | 0  | 0  | 1  | == (equal)                       |
-                +----+----+----+----------------------------------+
-                | 0  | 1  | 0  | &gt; (greater than)                 |
-                +----+----+----+----------------------------------+
-                | 0  | 1  | 1  | &lt;= (greater than or equal)       |
-                +----+----+----+----------------------------------+
-                | 1  | 0  | 0  | &lt; (less than)                    |
-                +----+----+----+----------------------------------+
-                | 1  | 0  | 1  | &lt;= (less than or equal)          |
-                +----+----+----+----------------------------------+
-                | 1  | 1  | 0  | != (not equal value)             |
-                +----+----+----+----------------------------------+
-                | 1  | 1  | 1  | true (independent of the value)  |
-                +----+----+----+----------------------------------+
-
-                   Table 3-1: Comparison Operation Combinations
++====+====+====+==================================+
+| lt | gt | eq | Resulting operation              |
++====+====+====+==================================+
+| 0  | 0  | 0  | false (independent of the value) |
++----+----+----+----------------------------------+
+| 0  | 0  | 1  | == (equal)                       |
++----+----+----+----------------------------------+
+| 0  | 1  | 0  | &gt; (greater than)                 |
++----+----+----+----------------------------------+
+| 0  | 1  | 1  | &lt;= (greater than or equal)       |
++----+----+----+----------------------------------+
+| 1  | 0  | 0  | &lt; (less than)                    |
++----+----+----+----------------------------------+
+| 1  | 0  | 1  | &lt;= (less than or equal)          |
++----+----+----+----------------------------------+
+| 1  | 1  | 0  | != (not equal value)             |
++----+----+----+----------------------------------+
+| 1  | 1  | 1  | true (independent of the value)  |
++----+----+----+----------------------------------+
             </artwork>
             </figure>
           </t>
@@ -892,15 +885,12 @@
 
         <section title="Bitmask Operator (bitmask_op)">
           <t>This operator is encoded as shown in Figure 3-4.
-            <figure>
+            <figure title="Bitmask Operator (bitmask_op)">
             <artwork>
-
-         0   1   2   3   4   5   6   7
-        +---+---+---+---+---+---+---+---+
-        | e | a |  len  | 0 | 0 |not| m |
-        +---+---+---+---+---+---+---+---+
-
-        Figure 3-4 Bitmask Operator (bitmask_op)
+  0   1   2   3   4   5   6   7
++---+---+---+---+---+---+---+---+
+| e | a |  len  | 0 | 0 |not| m |
++---+---+---+---+---+---+---+---+
           </artwork>
           </figure>
 

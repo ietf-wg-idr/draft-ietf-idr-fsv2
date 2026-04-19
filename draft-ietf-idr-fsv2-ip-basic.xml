@@ -999,10 +999,36 @@
 	</table>
       </section>
 
-      <section title="FSv2 Flow Specification Order of Basic IP Components">
+      <section title="FSv2 Flow Specification Order of IP Basic Components">
 	<t>For Flow Specification ordering purposes, IP Basic Filter components
-	are ordered using the FSv1 comparison rules.  These rules
-	are document in <xref target="RFC8955" section="5.1"/>.</t>
+	are ordered similar the FSv1 comparison rules documented in
+	<xref target="RFC8955" section="5.1"/>.</t>
+
+	<t>The relative order of two Flow Specificationss with IP Basic filter
+	family components is determined by comparing their respective
+	family-specific components. The algorithm starts by comparing the lowest component type
+	value of the Flow Specifications. If the types differ, the Flow
+	Specification with lowest numeric type value has higher precedence (and
+	thus will match before) than the Flow Specification that doesn't
+	contain that component type. If the component types are the same, then
+	a type-specific comparison is performed (see below). If the types are
+	equal, the algorithm continues with the next component.</t>
+
+	<t>For IP prefix values (IP destination or source prefix), if one of the
+	two prefixes to compare is a more specific prefix of the other, the
+	more specific prefix has higher precedence. Otherwise, the one with the
+	lowest IP value has higher precedence.</t>
+
+	<t>For all other component types, unless otherwise specified, the
+	comparison is performed by comparing the component data as a binary
+	string using the memcmp() function as defined by [ISO_IEC_9899]. For
+	strings with equal lengths, the lowest string (memcmp) has higher
+	precedence. For strings of different lengths, the common prefix is
+	compared. If the common prefix is not equal, the string with the lowest
+	prefix has higher precedence. If the common prefix is equal, the
+	longest string is considered to have higher precedence than the shorter
+	one.</t>
+      <!-- XXX JMH - the rules above are NOT generic and implementations with a mix of an old and a new FS component/family need to be able to select things consistently! -->
       </section>
 
       <section title="FSv2 Components for IP Basic TLVs">

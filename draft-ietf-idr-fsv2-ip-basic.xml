@@ -1032,7 +1032,7 @@
       </section>
 
       <section title="FSv2 Components for IP Basic TLVs">
-        <section title="IP Destination Prefix (type = 1)">
+        <section title="IP Destination Prefix (type = 10)">
           <t>IPv4 Name: IP Destination Prefix   (reference: <xref target="RFC8955"></xref>)</t>
           <t>IPv6 Name: IPv6 Destination Prefix (reference: <xref target="RFC8956"></xref>)</t>
           <t></t>
@@ -1045,7 +1045,7 @@
           than" 129 or component is malformed.</t>
         </section>
 
-        <section title="IP Source Prefix (type = 2) ">
+        <section title="IP Source Prefix (type = 20)">
           <t>IPv4 Name: IP Source Prefix    (reference: <xref target="RFC8955"></xref>) </t>
           <t>IPv6 Name: IPv6 Source Prefix  (reference: <xref target="RFC8956"></xref>) </t>
           <t></t>
@@ -1058,7 +1058,7 @@
           address.  Otherwise, length must be offset &lt; length &lt; 129 or
           component is malformed.</t>
         </section>
-        <section title="IP Protocol (type = 3) ">
+        <section title="IP Protocol (type = 30)">
           <t>IPv4 Name: IP Protocol  IP Source Prefix  (reference: <xref target="RFC8955"></xref>)</t>
           <t>IPv6 Name: IPv6 Upper-Layer Protocol:   (reference: <xref target="RFC8956"></xref>)</t>
           <t></t>
@@ -1070,7 +1070,7 @@
           <t>where the value following each numeric_op is a single octet.</t>
         </section>
 
-        <section title="Port (type = 4)">
+        <section title="Port (type = 40)">
           <t>IPv4/IPv6 Name: Port (reference:  <xref target="RFC8955"></xref>),
           <xref target="RFC8956"></xref>)</t>
           <t>Filter defines: a set of port values to match either destination
@@ -1099,7 +1099,7 @@
           value.</t>
         </section>
 
-        <section title="Destination Port (type = 5) ">
+        <section title="Destination Port (type = 50)">
           <t>IPv4/IPv6 Name: Destination Port    (reference:  <xref
           target="RFC8955"></xref>), <xref target="RFC8956"></xref>) </t>
           <t>Filter defines: a list of match filters for destination port for TCP
@@ -1107,14 +1107,15 @@
           <t>Length: variable</t>
           <t> Component Value format: [numeric_op, value]+</t>
         </section>
-        <section title="Source Port (type = 6)  ">
+
+        <section title="Source Port (type = 60)">
           <t>IPv4/IPv6 Name: Source Port (reference:  <xref target="RFC8955"></xref>), <xref target="RFC8956"></xref>)</t>
           <t>Filter defines: a list of match filters for source port for TCP or UDP within a received packet</t>
           <t>IPv4/IPv6 length: variable</t>
           <t>IPv4/Ipv6 value: [numeric_op, value]+</t>
         </section>
 
-        <section title="ICMP Type (type = 7) ">
+        <section title="ICMP Type (type = 70)">
           <t>IPv4: ICMP Type (reference:  <xref target="RFC8955"></xref>)</t>
           <t>Filter defines: Defines: a list of match criteria for ICMPv4 type</t>
           <t>IPv6: ICMPv6 Type (reference: <xref target="RFC8956"></xref>) </t>
@@ -1124,7 +1125,7 @@
           <t>IPv4/IPv6 value: [numeric_op, value]+</t>
         </section>
 
-        <section title="ICMP Code (type = 8) ">
+        <section title="ICMP Code (type = 80)">
           <t>IPv4: ICMP Type (reference:  <xref target="RFC8955"></xref>)</t>
           <t>Filter defines: a list of match criteria for ICMPv4 code.</t>
           <t>IPv6: ICMPv6 Type (reference: <xref target="RFC8956"></xref>)</t>
@@ -1134,7 +1135,7 @@
           <t>IPv4/IPv6 value: [numeric_op, value]+ </t>
         </section>
 
-        <section title="TCP Flags (type = 9) " >
+        <section title="TCP Flags (type = 90)" >
           <t>IPv4/IPv6: TCP Flags Code  (reference:  <xref target="RFC8955"></xref>)</t>
           <t>Filter defines: a list of match criteria for TCP Control bits</t>
           <t></t>
@@ -1144,7 +1145,7 @@
           <t>Note: a 2 octets bitmask match is always used for TCP-Flags </t>
         </section>
 
-        <section title="Packet length (type = 10 (0x0A)) ">
+        <section title="Packet length (type = 100)">
           <t>IPv4/IPv6: Packet Length (reference: <xref target="RFC8955"></xref>,
           <xref target="RFC8956"></xref>)</t>
           <t>Filter defines: a list of match criteria for length of packet
@@ -1155,7 +1156,7 @@
           <t>Note:<xref target="RFC8955"></xref> uses either 1 or 2 octet values.</t>
         </section>
 
-        <section title="DSCP (Differentiaed Services Code Point)(type = 11 (0x0B)) ">
+        <section title="DSCP (Differentiaed Services Code Point)(type = 110)">
           <t>IPv4/IPv6: DSCP Code  (reference:  <xref target="RFC8955"></xref>,
           <xref target="RFC8956"></xref>)</t>
           <t>Filter defines: a list of match criteria for DSCP code values to
@@ -1172,7 +1173,7 @@
           bits SHOULD be treated as 0.</t>
         </section>
 
-        <section title="Fragment (type = 12 (0x0C))   ">
+        <section title="Fragment (type = 120)">
           <t>IPv4/IPv6: Fragment  (reference:  <xref target="RFC8955"></xref>,
           <xref target="RFC8956"></xref>)</t>
           <t>Filter defines: a list of match criteria for specific IP fragments.</t>
@@ -1211,7 +1212,7 @@
           </t>
         </section>
 
-        <section title="Flow Label(type = 13 (0xOD)) ">
+        <section title="Flow Label (type = 130)">
           <t>IPv4/IPv6: Fragment  (reference:  <xref target="RFC8956"></xref>)</t>
           <t>Filter defines: a list of match criteria for 20-bit Flow Label in the IPv6 header field.</t>
           <t></t>

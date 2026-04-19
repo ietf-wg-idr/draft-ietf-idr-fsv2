@@ -502,52 +502,6 @@
             <xref target="fsv2-dependencies"/> for more details.</li>
           </ol>
         </t>
-        <t><xref target="fsv2-data-structures"/> shows a diagram of the FSv2
-        logical data structures with 5 rules for IP Basic functionality.             
-          <figure anchor="fsv2-data-structures" title="BGP Flow Specification v2 Policy" align="center">
-          <artwork>
-      +--------------------------------------+
-      | Flow Specification (FS)              |
-      | Policy                               |
-      +--------------------------------------+
-          ^               ^              ^
-          |               |              |
-          |               |              |
- +--------^----+  +-------^-------+     +-------------+
- |   FS Rule 1 |  |   FS Rule 2   | ... |  FS rule 5  |
- +-------------+  +---------------+     +-------------+
-                       :  :  :  :
-     ..................:  :  :  :
-     :       .............:  :  :
-  +--V--+ +--V-------+       :  :
-  |Order| |Dependent | ......:  :..
-  |     | | filter   | :          :
-  +-----+ | chain    | :          :
-          +----------+ :          :
-                       :          :
-                       :          :
-                  .....:          :........
-                  :                       :
-        +---------V-----------+      +----V-------------+
-        |  Rule Condition     |      |   Rule Action    |
-        |  in BGP NLRIs       |      | in BGP Extended  |
-        | AFI/SAFI 1/133,     |      | Communities      |
-        | 1/134, 2/133, 2/134 |      |                  |
-        +---------------------+      +------------------+
-            :     :    :                 :      :    :
-       .....:     .    :.....       .....:      .    :.....
-       :          :         :       :           :         :
-  +----V---+  +---V----+ +--V---+ +-V------+ +--V-----++--V---+
-  |  Match |  | Match  | |Match | | Action | | Action ||Action|
-  |Operator|  |Variable| |Value | |Operator| |Variable|| Value|
-  |*1      |  |        | |      | |(subtype| |        ||      |
-  +--------+  +--------+ +------+ +--------+ +--------++------+
-
-    *1 match operator may be complex.
-          </artwork>
-          </figure>
-          <!-- XXX JMH - I've cleaned up the figure above, but don't completely understand the "Operator/Variable/Value" terminology. Clarify? -->
-        </t>
       </section>
     </section> 
 
@@ -590,14 +544,13 @@
         <!-- XXX JMH - there needs to be a separate definition for the VPN family -->
         <t>The AFI/SAFI NLRI for BGP Flow Specification version 2 (FSv2) has the format:
          <figure title="FSv2 NLRI Format">
-         <!-- XXX JMH - was there specific discussion around making the dependent filters chain 8 octets vs. 4? -->
          <artwork>
 +-------------------------+
 | NLRI Length             |
 | (2 octets)              |
 +-------------------------+
 | Dependent Filters Chain |
-| (8 octets)              |
+| (4 octets)              |
 +-------------------------+
 | User Order              |
 | (4 octets)              |
@@ -612,10 +565,10 @@
         <t>Where:
           <ul>
             <li>NLRI Length: Length of the NLRI field in octets excluding the
-            NLRI Length field.  The minimum NLRI Length is 12 (Dependent Filter
+            NLRI Length field.  The minimum NLRI Length is 8 (Dependent Filter
             Chain + User Order).</li>
 
-            <li>Dependent Filters Chain (DFC): A 64-bit unsigned integer in
+            <li>Dependent Filters Chain (DFC): A 32-bit unsigned integer in
             network byte order.  When non-zero, the Dependent Filters Chain
             value is used to associate multiple NLRI together that share
             dependencies.  See <xref target="fsv2-dependencies"/> for further

@@ -820,7 +820,14 @@
       specified Basic IP components.  This permits a a natural default sort
       order for those new components in firewall implementations.</t>
 
-      <section title="Operators for comparison">
+      <section title="Operators">
+	<t>Most of the components described below make use of comparison
+	operators. These operators were originally defined in
+	<xref target="RFC8955" section="4.2.1"/>. They are repeated here for
+	document clarity.</t>
+
+	<t>The operators are encoded as a single octet.</t>
+
         <section title="Numeric Operator (numeric_op)">
           <t>This operator is encoded as shown in Figure 3-3.
             <figure title="Numeric Operator (numeric_op)">

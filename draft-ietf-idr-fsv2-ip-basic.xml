@@ -506,39 +506,60 @@
     </section>
 
     <section anchor="fsv2-formats-and-actions" title="FSv2 NLRI Formats and Actions">
+      <t>BGP Flow Specifications are encoded in BGP NLRI as an ordered list of
+      TLVs of "filter families", where each filter family consists of an
+      ordered list of TLVs of "filter components" for that familiy. Filter
+      families are groupings of related filtering functionality, typically at
+      the same network layer. Filter components match specific network elements
+      for a filter family.</t>
+
+      <t>Each FSv2 NLRI has a default sort order, documented in section TODO.
+      This sort order determines the order of installation for the Flow
+      Specification in the BGP speaker.   Operators <bcp14>MAY</bcp14> override
+      this default ordering by causing the FSv2 User Order field to be set to a
+      non-zero value.</t>
+
+      <t>Sets of FSv2 NLRI might share fate with each other. In the event that
+      a Flow Specification is unable to be installed by the BGP speaker,
+      dependent Flow Specifications <bcp14>MUST NOT</bcp14> also be installed,
+      even if they are otherwise valid. These dependencies are encoded in the
+      Dependent Filters Chain field of a FSv2 Flow Specification.</t>
+
+      <t>FSv2 is carried in BGP using standard <xref target="RFC4760"/>
+      multiprotocol extensions.  FSv2 supports NRLI with formats for following AFIs:
+	<ul>
+	  <li>IPv4 (AFI = 1)</li>
+	  <li>IPv6 (AFI = 2)</li>
+	  <li>L2 (AFI = 6)</li>
+	  <li>L2VPN (AFI=25)</li>
+	  <li> SFC (AFI=31)</li>
+	</ul>
+      </t>
+      <t>These AFIs will be paired with the following SAFIs:
+
+	<ul>
+	  <li>TBD1 (Flow Spec Version 2)</li>
+	  <li>TBD2 (Flow Spec Version 2 for VPNs)</li>
+	</ul>
+      </t>
+
+      <t>A compliant FSv2 implementation only has to implement one AFI/SAFI
+      pair out of the full list of NRLIs.  For example, a compliant FSv2
+      implementation might only implement IPv4 FSv2 (AFI=1, SAFI=TBD1).</t>
+
+      <t>FSv2 NLRI are encoded in BGP UPDATEs using the MP_REACH_NLRI and
+      MP_UNREACH_NLRI attributes defined in <xref target="RFC4760"/>.  When
+      advertising FSv2 NLRI, the length of the Next-Hop Network Address MUST
+      be set to 0. Upon reception, the MP_REACH_NLRI "Network Address of
+      NextHop" field MUST be ignored.</t>
+
+
       <section title="FSv2 NLRI Format">
-        <t>FSv2 is carried in BGP using standard <xref target="RFC4760"/>
-        multiprotocol extensions.  FSv2 supports NRLI with formats for following AFIs:
-          <ul>
-            <li>IPv4 (AFI = 1)</li>
-            <li>IPv6 (AFI = 2)</li>
-            <li>L2 (AFI = 6)</li>
-            <li>L2VPN (AFI=25)</li>
-            <li> SFC (AFI=31)</li>
-          </ul>
-        </t>
-        <t>These AFIs will be paired with the following SAFIs:
-
-          <ul>
-            <li>TBD1 (Flow Spec Version 2)</li>
-            <li>TBD2 (Flow Spec Version 2 for VPNs)</li>
-          </ul>
-        </t>
-
-        <t>A compliant FSv2 implementation only has to implement one AFI/SAFI
-        pair out of the full list of NRLIs.  For example, a compliant FSv2
-        implementation might only implement IPv4 FSv2 (AFI=1, SAFI=TBD1).</t>
-
-        <t>FSv2 NLRI are encoded in BGP UPDATEs using the MP_REACH_NLRI and
-        MP_UNREACH_NLRI attributes defined in <xref target="RFC4760"/>.  When
-        advertising FSv2 NLRI, the length of the Next-Hop Network Address MUST
-        be set to 0. Upon reception, the MP_REACH_NLRI "Network Address of
-        NextHop" field MUST be ignored.</t>
 
         <!-- XXX JMH - this is the start of a section describing the top level thinking for why things are organized the way they are -->
-        <t>FSv2 filter rules are encoded as a vector of filter types. FSv2
-        filter types are typically associated with match criteria for a given
-        networking layer; for example, 802.2 Layer 2, MPLS, IPv4/IPv6 , Segment
+        <t>FSv2 Flow Specifications are encoded as an ordered list of TLVs of filter families. FSv2
+        filter famliies are typically associated with match criteria for a given
+        networking layer; for example, 802.2 Layer 2, MPLS, IPv4/IPv6, Segment
         Routing, etc.</t>
 
         <!-- XXX JMH - there needs to be a separate definition for the VPN family -->
@@ -555,7 +576,7 @@
 | User Order              |
 | (4 octets)              |
 +-------------------------+
-| FSv2 Filter TLVs        |
+| FSv2 Filter Family TLVs |
 | (variable)              |
 +-------------------------+
           </artwork>
@@ -578,18 +599,21 @@
             FSv2 rules with a lower User Order value have a better precedence
             for filter ordering.</li>
 
-            <li>FSv2 Filter TLVs: A vector of FSv2 filter types encoding
-            component match criteria for a given filter type.</li>
+	    <li>FSv2 Filter Family TLVs: An ordered list of TLVs of FSv2 filter
+	    families.  The encoding of these filter families is documented in
+	    the next section.</li>
           </ul>
         </t>
-        <t>Each each FSv2 Filter TLV has the Format:
-          <figure title="FSv2 Filter TLV Format">
+
+	<section anchor="fsv2-filter-families" title="FSv2 Filter Family TLVs">
+        <t>Each each FSv2 Filter Family TLV has the format:
+          <figure title="FSv2 Filter Family TLV Format">
           <artwork>
 +-----------------------------+
-| FSv2 Filter Type            |
+| FSv2 Filter Family Type     |
 | (2 octets)                  |
 +-----------------------------+
-| FSv2 Filter Length          |
+| FSv2 Filter Family Length   |
 | (2 octets)                  |
 +-----------------------------+
 | FSv2 Filter Components TLVs |
@@ -601,15 +625,18 @@
 
         <t>Where:
           <ul>
-            <li>FSv2 Filter Type: A 16-bit unsigned integer in network byte
-            order defining the FSv2 filter that is carried in this TLV.  For
-            sorting purposes, lower value FSv2 Filter Types have a better
-            precendence than higher values.</li>
+	    <li>FSv2 Filter Family Type: A 16-bit unsigned integer in network
+	    byte order defining the FSv2 filter that is carried in this TLV.
+	    For sorting purposes, lower value FSv2 Filter Types have a better
+	    precendence than higher values.</li>
 
-            <li>FSv2 Filter Length: Length of the FSv2 Filter Components in octets.</li>
-          </ul>
+	    <li>FSv2 Filter Family Length: Length of the FSv2 Filter Components
+	    TLVs in octets.</li>
+	  </ul>
         </t>
+	</section>
 
+	<section anchor="fsv2-filter-components" title="FSv2 Filter Component TLVs">
         <t>Each each FSv2 Filter Component TLV has the Format:
           <figure title="FSv2 Filter Component TLV Format">
           <artwork>
@@ -724,104 +751,118 @@
           </ul>
         </t>
 
-
         <t>FSv2 implementations MUST pass valid filter TLVs even if the
         implementation does not support these installation of these a particular
         type of filter rules.</t>
 
         <t>This specification only defines operation of the IP Basic Filter Rules
         that all FSv2 must support.  </t>
+	</section>
+      </section>
 
-        <section anchor="fsv2-dependencies" title="FSv2 Dependencies">
-          <t>Firewalls are implemented using ordered terms.  Flow specification
-          routes encode flowspec rules that correspond to a set of conditions
-          in a firewall term.  The sorting rules for flow specification routes
-          is intended to, by default, produce a reasonably ordered set of rules
-          for common deployment scenarios.</t>
+      <section anchor="fsv2-dependencies" title="FSv2 Dependencies">
+	<t>Flow Specifications are implemented using ordered terms.  The
+	sorting rules for flow specification routes is intended to, by default,
+	produce a reasonably ordered set of rules for common deployment
+	scenarios.</t>
 
-          <t>When the FSv2 rule ordering wouldn't accomplish the operator's
-          firewall intent when deploying FSv2, the User Order field can permit
-          the operator to influence the firewall installation order in a
-          deployment.</t>
+	<t>When the FSv2 rule ordering wouldn't accomplish the operator's
+	intent when deploying FSv2, the User Order field can permit
+	the operator to influence the Flow Specification installation order in a
+	deployment.</t>
 
-          <t>When set of firewall rules are required to implement an operator's
-          intent and that set of rules has interdependencies, the failure to
-          install a flowspec rule, or part of that rule's actions, may result
-          in incorrect firewall deployment.  An example of such a
-          dependency is two rules covering an IP destination, one with a
-          more-specific and one with a less-specific prefix relaionship.  As an
-          example:
+	<t>When set of Flow Specifications are required to implement an
+	operator's intent and that set of rules has interdependencies, the
+	failure to install a Flow Specification, or part of that
+	specification's actions, may result in incorrect deployment.  An
+	example of such a dependency is two rules covering an IP destination,
+	one with a more-specific and one with a less-specific prefix
+	relaionship.  As an example:
 
-            <ol>
-              <li>match dst=10.1.1.1/8 tcp port=25 then dscp=AF1 and permit</li>
-              <li>match dst=10.0.0.0/8 tcp port=25 then drop</li>
-            </ol>
-          </t>
-        
-          <t>If an implementation couldn't support the DSCP action and failed
-          to install the first rule in the firewall, SMTP traffic to the host
-          10.1.1.1 would fail to be delivered due to the second rule's
-          drop action.  In other words, these two entries have a
-          dependency.</t>
+	  <ol>
+	    <li>match dst=10.1.1.1/8 tcp port=25 then dscp=AF1 and permit</li>
+	    <li>match dst=10.0.0.0/8 tcp port=25 then drop</li>
+	  </ol>
+	</t>
+      
+	<t>If an implementation couldn't support the DSCP action and failed to
+	install the first rule, SMTP traffic to the host 10.1.1.1 would fail to
+	be delivered due to the second rule's drop action.  In other words,
+	these two entries have a dependency.</t>
 
-          <t>When an implementation is unable to install a flowspec rule for
-          some reason, that flowspec rule is locally "invalid".  In many
-          circumstances, flowspec rules that do not have dependencies may be
-          installed on a best-effort basis by an implementation.  However, in
-          the case of dependent rules, installing some rules selectively but
-          not others can be problematic.</t>
-        
-          <t>FSv2 defines for each FSv2 NLRI a Dependent Filters Chain (DFC).
-          When the value of DFC is zero (0), no special consideration is given
-          for dependencies.  When the value of DFC is non-zero, when a rule is
-          locally considered invalid, all rules sharing the same DFC value are
-          also considered invalid, and not installed.</t>
-        </section>
+	<t>When an implementation is unable to install a Flow Specification for
+	some reason, that Flow Specification is locally "invalid".  In many
+	circumstances, Flow Specifications that do not have dependencies may be
+	installed on a best-effort basis by an implementation.  However, in
+	the case of dependent rules, installing some rules selectively but
+	not others can be problematic.</t>
+      
+	<t>FSv2 defines for each FSv2 NLRI a Dependent Filters Chain (DFC).
+	When the value of DFC is zero (0), no special consideration is given
+	for dependencies.  When the value of DFC is non-zero, when a rule is
+	locally considered invalid, all rules sharing the same DFC value are
+	also considered invalid, and not installed.</t>
+      </section>
 
-        <section title="Ordering of TLVs within the FSv2 NLRI">
-          <t>For NLRI canonicalization purposes, and also to ease processing,
-          all TLVs within the FSv2 NLRI <bcp14>MUST</bcp14> be ordered in
-          a strictly increasing fashion.  FSv2 filter types and FSv2
-          filter-type-specific component types for a given component
-          <bcp14>MUST NOT</bcp14> occur more than once.</t>
+      <section title="Ordering of TLVs within the FSv2 NLRI">
+	<t>For NLRI canonicalization purposes, and also to ease processing,
+	all TLVs within the FSv2 NLRI <bcp14>MUST</bcp14> be ordered in
+	a strictly increasing fashion.  FSv2 filter types and FSv2
+	filter-type-specific component types for a given component
+	<bcp14>MUST NOT</bcp14> occur more than once.</t>
 
-          <t>See <xref target="error-handling-and-validation"/> for further
-          details.</t>
-        </section>
+	<t>See <xref target="error-handling-and-validation"/> for further
+	details.</t>
+      </section>
 
-        <!-- XXX JMH - this section should move elsewhere as well as being expanded -->
-        <section title="Partial Deployments">
-          <t>Partial deployments can occur for two reasons:
-            <list style="symbols">
-              <t>Only a portion of the nodes in a network with FSv2 support
-              installing new FSv2 Filter types with new FSv2 components. Other
-              nodes (such as RRs), check the syntax, but do not handle the
-              semantic meaning.</t>
+      <!-- XXX JMH - this section should move elsewhere as well as being expanded -->
+      <section title="Partial Deployments">
+	<t>Partial deployments can occur for two reasons:
+	  <list style="symbols">
+	    <t>Only a portion of the nodes in a network with FSv2 support
+	    installing new FSv2 Filter types with new FSv2 components. Other
+	    nodes (such as RRs), check the syntax, but do not handle the
+	    semantic meaning.</t>
 
-              <t>During upgrades, a portion of the nodes know about a new Filter
-              type with the components, but other nodes do not.</t>
-            </list>
-          </t>
-          <t>Editor: Are there others? </t>
-        </section>
-
+	    <t>During upgrades, a portion of the nodes know about a new Filter
+	    type with the components, but other nodes do not.</t>
+	  </list>
+	</t>
+	<t>Editor: Are there others? </t>
       </section>
     </section>
 
-    <section title="FSv2 Basic IP Filters " >
-      <section title="Operators for comparison">
+    <section title="FSv2 Basic IP Filters (Filter Family Type TBD)">
+      <t>FSv2 Basic IP filters provide the same functionality as those
+      specified in FSv1 RFCs <xref target="RFC8955"/> and
+      <xref target="RFC8956"/>.  The format of those components has been
+      preserved for ease of implementation.</t>
+
+      <t>The FSv2 Basic IP filter has been assigned a FSv2 Filter Type value of
+      TBD.</t>
+
+      <t>FSv2 Basic IP Filter component types are numbered differently from
+      those in FSv1.  FSv2 components have been numbered with gaps to permit
+      future FSv2 Basic IP filter components to be added in between currently
+      specified Basic IP components.  This permits a natural default sort
+      order for those new components in implementations.</t>
+
+      <section title="Operators">
+	<t>Most of the components described below make use of comparison
+	operators. These operators were originally defined in
+	<xref target="RFC8955" section="4.2.1"/>. They are repeated here for
+	document clarity.</t>
+
+	<t>The operators are encoded as a single octet.</t>
+
         <section title="Numeric Operator (numeric_op)">
           <t>This operator is encoded as shown in Figure 3-3.
-            <figure>
+            <figure title="Numeric Operator (numeric_op)">
             <artwork>
-
-        0   1   2   3   4   5   6   7
-      +---+---+---+---+---+---+---+---+
-      | e | a |  len  | 0 |lt |gt |eq |
-      +---+---+---+---+---+---+---+---+
-
-            Figure 3-3: Numeric Operator (numeric_op)
-
+  0   1   2   3   4   5   6   7
++---+---+---+---+---+---+---+---+
+| e | a |  len  | 0 |lt |gt |eq |
++---+---+---+---+---+---+---+---+
             </artwork>
             </figure>
           </t>
@@ -861,30 +902,27 @@
           "not equal to", as shown in Table 3-1.</t>
 
           <t>
-            <figure>
+            <figure title="Comparison Operation Combinations">
             <artwork>
-
-                +====+====+====+==================================+
-                | lt | gt | eq | Resulting operation              |
-                +====+====+====+==================================+
-                | 0  | 0  | 0  | false (independent of the value) |
-                +----+----+----+----------------------------------+
-                | 0  | 0  | 1  | == (equal)                       |
-                +----+----+----+----------------------------------+
-                | 0  | 1  | 0  | &gt; (greater than)                 |
-                +----+----+----+----------------------------------+
-                | 0  | 1  | 1  | &lt;= (greater than or equal)       |
-                +----+----+----+----------------------------------+
-                | 1  | 0  | 0  | &lt; (less than)                    |
-                +----+----+----+----------------------------------+
-                | 1  | 0  | 1  | &lt;= (less than or equal)          |
-                +----+----+----+----------------------------------+
-                | 1  | 1  | 0  | != (not equal value)             |
-                +----+----+----+----------------------------------+
-                | 1  | 1  | 1  | true (independent of the value)  |
-                +----+----+----+----------------------------------+
-
-                   Table 3-1: Comparison Operation Combinations
++====+====+====+==================================+
+| lt | gt | eq | Resulting operation              |
++====+====+====+==================================+
+| 0  | 0  | 0  | false (independent of the value) |
++----+----+----+----------------------------------+
+| 0  | 0  | 1  | == (equal)                       |
++----+----+----+----------------------------------+
+| 0  | 1  | 0  | &gt; (greater than)                 |
++----+----+----+----------------------------------+
+| 0  | 1  | 1  | &lt;= (greater than or equal)       |
++----+----+----+----------------------------------+
+| 1  | 0  | 0  | &lt; (less than)                    |
++----+----+----+----------------------------------+
+| 1  | 0  | 1  | &lt;= (less than or equal)          |
++----+----+----+----------------------------------+
+| 1  | 1  | 0  | != (not equal value)             |
++----+----+----+----------------------------------+
+| 1  | 1  | 1  | true (independent of the value)  |
++----+----+----+----------------------------------+
             </artwork>
             </figure>
           </t>
@@ -892,15 +930,12 @@
 
         <section title="Bitmask Operator (bitmask_op)">
           <t>This operator is encoded as shown in Figure 3-4.
-            <figure>
+            <figure title="Bitmask Operator (bitmask_op)">
             <artwork>
-
-         0   1   2   3   4   5   6   7
-        +---+---+---+---+---+---+---+---+
-        | e | a |  len  | 0 | 0 |not| m |
-        +---+---+---+---+---+---+---+---+
-
-        Figure 3-4 Bitmask Operator (bitmask_op)
+  0   1   2   3   4   5   6   7
++---+---+---+---+---+---+---+---+
+| e | a |  len  | 0 | 0 |not| m |
++---+---+---+---+---+---+---+---+
           </artwork>
           </figure>
 
@@ -927,163 +962,77 @@
         </section>
       </section>
 
-      <section title="IP Basic Filters (Filter type=TBD )">
-        <t>The format of the IP Basic TLV value field is shown in Figure 3-5.
-        The IP header for the VPN case is specified in section 3.5.</t>
+      <section title="FSv2 IP Basic Filter Components">
+	<t>FSv2 IP Basic Filter Components are encoded in FSv2 Filter Component
+	TLVs as described in <xref target="fsv2-filter-components"/>.</t>
 
-        <t>
-          <figure>
-          <artwork>
+	<t>The list of valid Basic IP types, covering the functionality defined
+	in <xref target="RFC8955"/> and <xref target="RFC8956"/> are documented
+	below. Additional IP filters are documented in defined in
+	<xref target="I-D.hares-idr-fsv2-more-ip-filters"/>.</t>
 
-       Top-level TLV
-     +-------------------------------+
-     | +============================+ |
-     | | order (4 octets)           | |
-     | +----------------------------+ |
-     | | dependency filter chain    | |
-     | |  (8 octets)                | |
-     | +----------------------------+ |
-     | + FSv2 Filter type (2 octets)| |
-     | | option1: 1, option2: 256   | |
-     | +----------------------------+ |
-     | + length (2 octet)           + |
-     | + ---------------------------+ |
-     | + value (variable)           + |
-     | +----------------------------+ |
-     +--------------------------------+
-
-    Figure 3-5 NLRI format for FSv2 IP Filter Type
-          </artwork>
-          </figure>
-        </t>
-
-        <t>Where:
-          <list>
-            <t>order - is an 4 octet field with a value 1-N.  The value 0 (zero)
-            is invalid, and the TLV should be "treated-as-withdrawl".</t>
-
-            <t>dependency filter chain - is an 8 octet field which must be all
-            zero for the IP Basic Filter rules.</t>
-
-            <t>length - is a 2 octet field indicating the length of the value
-            field.</t>
-
-            <t>value - is a variable field comprised of a sequence of component TLVs:
-              <figure>
-              <artwork>
-
-     +--------------------------------+
-     | + ---------------------------+ |
-     | + Components TLV+ (variable) + |
-     | +----------------------------+ |
-     +--------------------------------+
-
-     Figure 3-6 Value Field
-              </artwork>
-              </figure>
-            </t>
-
-            <t>
-              <figure>
-              <artwork>
-
-      Where the Component TLVs are:
-
-       +----------------------------+
-       |  Component Type (1 octet)  |
-       +----------------------------+
-       |  length (1 octet)          |
-       + ---------------------------+
-       |  value (variable)          |
-       +----------------------------+
-
-    Figure 3-7 – IP header Component TLVs
-
-              </artwork>
-              </figure>
-            </t>
-
-            <t>Where:
-              <list>
-                <t>Component type: component values are defined in the "Flow
-                Specification Component types" registry for IPv4 and IPv6 by
-                <xref target="RFC8955"></xref>, <xref target="RFC8956"></xref>,
-                and <xref target="I-D.ietf-idr-flowspec-srv6"></xref></t>
-
-                <t>length: length of SubTLV (varies depending on the component
-                type).  If the length of the component types does match the valid
-                defined length(s) for the component, the component type is
-                ignored and the Filter type TLV is "treated-as-withdrawl".</t>
-
-                <t>value: dependent on component type.</t>
-              </list>
-            </t>
-
-            <t>Many of the components use the operators [numeric_op] and
-            [bitmask_op] defined in <xref target="RFC8955"></xref></t>
-          </list>
-        </t>
-
-        <t>The list of valid SubTLV types appears in Table 3-2 for filter type of
-        IP Filters (type=1).  Other filters beyond these filters may be defined
-        other filter types (e.g. IP Extended Filters).</t>
-
-        <t>
-          <figure>
-          <artwork>
-    Table 3-2 FSv2 IP Basic TLV Components
-
-    Sub-TLV   Definition
-    --------  ---------------------
-       0 -    Reserved
-       1 -    IP Destination prefix
-       2 -    IP Source prefix
-       3 –    IPv4 Protocol /
-              IPv6 Upper Layer Protocol
-       4 –    Port
-       5 –    Destination Port
-       6 –    Source Port
-       7 –    ICMPv4 type / ICMPv6 type
-       8 –    ICMPv4 code / ICPv6 code
-       9 –    TCP Flags
-      10 –    Packet length
-      11 –    DSCP
-      12 –    Fragment
-      13 –    Flow Label
-      14-255  Reserved
-
-          </artwork>
-          </figure>
-        </t>
+	<table align="left">
+	  <name>FSv2 IP Basic Components</name>
+	  <thead>
+	    <tr>
+	      <th>Type</th>
+	      <th>Definition</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr><td>0</td><td>Reserved</td></tr>
+	    <tr><td>10</td><td>IP Destination Prefix</td></tr>
+	    <tr><td>20</td><td>IP Source Prefix</td></tr>
+	    <tr><td>30</td><td>IPv4 Protocol / IPv6 Upper Layer Protocol</td></tr>
+	    <tr><td>40</td><td>Port</td></tr>
+	    <tr><td>50</td><td>Destination Port</td></tr>
+	    <tr><td>60</td><td>Source Port</td></tr>
+	    <tr><td>70</td><td>ICMPv4 Type / ICMPv6 Type</td></tr>
+	    <tr><td>80</td><td>ICMPv4 Code / ICPv6 Code</td></tr>
+	    <tr><td>90</td><td>TCP Flags</td></tr>
+	    <tr><td>100</td><td>Packet Length</td></tr>
+	    <tr><td>110</td><td>DSCP</td></tr>
+	    <tr><td>120</td><td>Fragment</td></tr>
+	    <tr><td>130</td><td>Flow Label</td></tr>
+	    <tr><td>65535</td><td>Reserved</td></tr>
+	  </tbody>
+	</table>
       </section>
 
-      <section title="Ordering within the IP Basic Filter TLVs">
-        <t> The ordering of components within the value field of the IP Basic TLV
-        follows the FSv1 rules.  The following is a restatement of FSv1 rules in
-        FSv2 terms.</t>
+      <section title="FSv2 Flow Specification Order of IP Basic Components">
+	<t>For Flow Specification ordering purposes, IP Basic Filter components
+	are ordered similar the FSv1 comparison rules documented in
+	<xref target="RFC8955" section="5.1"/>.</t>
 
-        <t>
-          <list style="symbols">
-            <t>1) order by component types (1-13).</t>
+	<t>The relative order of two Flow Specificationss with IP Basic filter
+	family components is determined by comparing their respective
+	family-specific components. The algorithm starts by comparing the lowest component type
+	value of the Flow Specifications. If the types differ, the Flow
+	Specification with lowest numeric type value has higher precedence (and
+	thus will match before) than the Flow Specification that doesn't
+	contain that component type. If the component types are the same, then
+	a type-specific comparison is performed (see below). If the types are
+	equal, the algorithm continues with the next component.</t>
 
-            <t>(2) If the components are the same, then the value fields are
-            compared using mechanisms defined in <xref target="RFC8955"></xref>
-            and <xref target="RFC8956"></xref> and MUST be in ascending order.
-            NLRIs having component TLVs which do not follow the above ordering
-            rules MUST be considered as malformed by a BGP FSv2 propagator. This
-            rule prevents any ambiguities that arise from the multiple copies of
-            the same NLRI from multiple BGP FSv2 propagators.  A BGP
-            implementation SHOULD treat such malformed NLRIs as
-            "treat-as-withdrawl".  <xref target="RFC7606"></xref>.</t>
-          </list>
-        </t>
+	<t>For IP prefix values (IP destination or source prefix), if one of the
+	two prefixes to compare is a more specific prefix of the other, the
+	more specific prefix has higher precedence. Otherwise, the one with the
+	lowest IP value has higher precedence.</t>
 
-        <t>See <xref target="RFC8955"></xref>, <xref target="RFC8956"></xref>,
-        and for details on per component ordering.</t>
+	<t>For all other component types, unless otherwise specified, the
+	comparison is performed by comparing the component data as a binary
+	string using the memcmp() function as defined by [ISO_IEC_9899]. For
+	strings with equal lengths, the lowest string (memcmp) has higher
+	precedence. For strings of different lengths, the common prefix is
+	compared. If the common prefix is not equal, the string with the lowest
+	prefix has higher precedence. If the common prefix is equal, the
+	longest string is considered to have higher precedence than the shorter
+	one.</t>
+      <!-- XXX JMH - the rules above are NOT generic and implementations with a mix of an old and a new FS component/family need to be able to select things consistently! -->
       </section>
 
       <section title="FSv2 Components for IP Basic TLVs">
-        <section title="IP Destination Prefix (type = 1)">
+        <section title="IP Destination Prefix (type = 10)">
           <t>IPv4 Name: IP Destination Prefix   (reference: <xref target="RFC8955"></xref>)</t>
           <t>IPv6 Name: IPv6 Destination Prefix (reference: <xref target="RFC8956"></xref>)</t>
           <t></t>
@@ -1096,7 +1045,7 @@
           than" 129 or component is malformed.</t>
         </section>
 
-        <section title="IP Source Prefix (type = 2) ">
+        <section title="IP Source Prefix (type = 20)">
           <t>IPv4 Name: IP Source Prefix    (reference: <xref target="RFC8955"></xref>) </t>
           <t>IPv6 Name: IPv6 Source Prefix  (reference: <xref target="RFC8956"></xref>) </t>
           <t></t>
@@ -1109,7 +1058,7 @@
           address.  Otherwise, length must be offset &lt; length &lt; 129 or
           component is malformed.</t>
         </section>
-        <section title="IP Protocol (type = 3) ">
+        <section title="IP Protocol (type = 30)">
           <t>IPv4 Name: IP Protocol  IP Source Prefix  (reference: <xref target="RFC8955"></xref>)</t>
           <t>IPv6 Name: IPv6 Upper-Layer Protocol:   (reference: <xref target="RFC8956"></xref>)</t>
           <t></t>
@@ -1121,7 +1070,7 @@
           <t>where the value following each numeric_op is a single octet.</t>
         </section>
 
-        <section title="Port (type = 4)">
+        <section title="Port (type = 40)">
           <t>IPv4/IPv6 Name: Port (reference:  <xref target="RFC8955"></xref>),
           <xref target="RFC8956"></xref>)</t>
           <t>Filter defines: a set of port values to match either destination
@@ -1150,7 +1099,7 @@
           value.</t>
         </section>
 
-        <section title="Destination Port (type = 5) ">
+        <section title="Destination Port (type = 50)">
           <t>IPv4/IPv6 Name: Destination Port    (reference:  <xref
           target="RFC8955"></xref>), <xref target="RFC8956"></xref>) </t>
           <t>Filter defines: a list of match filters for destination port for TCP
@@ -1158,14 +1107,15 @@
           <t>Length: variable</t>
           <t> Component Value format: [numeric_op, value]+</t>
         </section>
-        <section title="Source Port (type = 6)  ">
+
+        <section title="Source Port (type = 60)">
           <t>IPv4/IPv6 Name: Source Port (reference:  <xref target="RFC8955"></xref>), <xref target="RFC8956"></xref>)</t>
           <t>Filter defines: a list of match filters for source port for TCP or UDP within a received packet</t>
           <t>IPv4/IPv6 length: variable</t>
           <t>IPv4/Ipv6 value: [numeric_op, value]+</t>
         </section>
 
-        <section title="ICMP Type (type = 7) ">
+        <section title="ICMP Type (type = 70)">
           <t>IPv4: ICMP Type (reference:  <xref target="RFC8955"></xref>)</t>
           <t>Filter defines: Defines: a list of match criteria for ICMPv4 type</t>
           <t>IPv6: ICMPv6 Type (reference: <xref target="RFC8956"></xref>) </t>
@@ -1175,7 +1125,7 @@
           <t>IPv4/IPv6 value: [numeric_op, value]+</t>
         </section>
 
-        <section title="ICMP Code (type = 8) ">
+        <section title="ICMP Code (type = 80)">
           <t>IPv4: ICMP Type (reference:  <xref target="RFC8955"></xref>)</t>
           <t>Filter defines: a list of match criteria for ICMPv4 code.</t>
           <t>IPv6: ICMPv6 Type (reference: <xref target="RFC8956"></xref>)</t>
@@ -1185,7 +1135,7 @@
           <t>IPv4/IPv6 value: [numeric_op, value]+ </t>
         </section>
 
-        <section title="TCP Flags (type = 9) " >
+        <section title="TCP Flags (type = 90)" >
           <t>IPv4/IPv6: TCP Flags Code  (reference:  <xref target="RFC8955"></xref>)</t>
           <t>Filter defines: a list of match criteria for TCP Control bits</t>
           <t></t>
@@ -1195,7 +1145,7 @@
           <t>Note: a 2 octets bitmask match is always used for TCP-Flags </t>
         </section>
 
-        <section title="Packet length (type = 10 (0x0A)) ">
+        <section title="Packet length (type = 100)">
           <t>IPv4/IPv6: Packet Length (reference: <xref target="RFC8955"></xref>,
           <xref target="RFC8956"></xref>)</t>
           <t>Filter defines: a list of match criteria for length of packet
@@ -1206,7 +1156,7 @@
           <t>Note:<xref target="RFC8955"></xref> uses either 1 or 2 octet values.</t>
         </section>
 
-        <section title="DSCP (Differentiaed Services Code Point)(type = 11 (0x0B)) ">
+        <section title="DSCP (Differentiaed Services Code Point)(type = 110)">
           <t>IPv4/IPv6: DSCP Code  (reference:  <xref target="RFC8955"></xref>,
           <xref target="RFC8956"></xref>)</t>
           <t>Filter defines: a list of match criteria for DSCP code values to
@@ -1223,7 +1173,7 @@
           bits SHOULD be treated as 0.</t>
         </section>
 
-        <section title="Fragment (type = 12 (0x0C))   ">
+        <section title="Fragment (type = 120)">
           <t>IPv4/IPv6: Fragment  (reference:  <xref target="RFC8955"></xref>,
           <xref target="RFC8956"></xref>)</t>
           <t>Filter defines: a list of match criteria for specific IP fragments.</t>
@@ -1262,7 +1212,7 @@
           </t>
         </section>
 
-        <section title="Flow Label(type = 13 (0xOD)) ">
+        <section title="Flow Label (type = 130)">
           <t>IPv4/IPv6: Fragment  (reference:  <xref target="RFC8956"></xref>)</t>
           <t>Filter defines: a list of match criteria for 20-bit Flow Label in the IPv6 header field.</t>
           <t></t>
@@ -2040,38 +1990,46 @@
       </section>
 
       <section title="FSv2 IP Filters Component Types">
-        <t>IANA is requested to create a new "BGP FSv2 Component Types"
+        <t>IANA is requested to create a new "BGP FSv2 IP Basic Component Types"
         registry and indicate [this draft] as a reference.  The following
-        assignments in the FSv2 IP Filters Component Types Registry shold be
+        assignments in the FSv2 IP Basic Filters Component Types Registry shold be
         made.</t>
 
         <t>
-          <figure>
-          <artwork>
-       Table 7-5 - Flow Specification
+          <dl spacing="compact">
+	    <dt>Registry Name:</dt><dd>BGP FSv2 Component Types</dd>
+            <dt>Reference:</dt><dd>[this document]</dd>
+            <dt>Registration Procedures:</dt><dd>0x01-0x3FFF Standards Action, 0x4000-0xFFFF FCFS.</dd>
+	  </dl>
+	</t>
 
-       Registry Name: BGP FSv2 Component Types
-       Reference: [this document]
-       Registration Procedures: 0x01-0x3FFF Standards Action.
-
-       Value  Description         Reference
-       -----  ------------------- ------------------------
-        1     Destination filter  [RFC8955][RFC8956][this document]
-        2     Source Prefix       [RFC8955][RFC8956][this document]
-        3     IP Protocol         [RFC8955][RFC8956][this document]
-        4     Port                [RFC8955][RFC8956][this document]
-        5     Destination Port    [RFC8955][RFC8956][this document]
-        6     Source Port         [RFC8955][RFC8956][this document]
-        7     ICMP Type [v4 or v6][RFC8955][RFC8956][this document]
-        8     ICMP Code [v4 or v6][RFC8955][RFC8956][this document]
-        9     TCP Flags [v4]      [RFC8955][RFC8956][this document]
-       10     Packet Length       [RFC8955][RFC8956][this document]
-       11     DSCP marking        [RFC8955][RFC8956][this document]
-       12     Fragment            [RFC8955][RFC8956][this document]
-       13     Flow Label          [RFC8956][this document]
-          </artwork>
-          </figure>
-        </t>
+	<table align="left">
+	  <name>BGP FSv2 IP Basic Component Types</name>
+	  <thead>
+	    <tr>
+	      <th>Type</th>
+	      <th>Definition</th>
+	      <th>Reference</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr><td>0</td><td>Reserved</td><td>This document</td></tr>
+	    <tr><td>10</td><td>IP Destination Prefix</td><td>This document</td></tr>
+	    <tr><td>20</td><td>IP Source Prefix</td><td>This document</td></tr>
+	    <tr><td>30</td><td>IPv4 Protocol / IPv6 Upper Layer Protocol</td><td>This document</td></tr>
+	    <tr><td>40</td><td>Port</td><td>This document</td></tr>
+	    <tr><td>50</td><td>Destination Port</td><td>This document</td></tr>
+	    <tr><td>60</td><td>Source Port</td><td>This document</td></tr>
+	    <tr><td>70</td><td>ICMPv4 Type / ICMPv6 Type</td><td>This document</td></tr>
+	    <tr><td>80</td><td>ICMPv4 Code / ICPv6 Code</td><td>This document</td></tr>
+	    <tr><td>90</td><td>TCP Flags</td><td>This document</td></tr>
+	    <tr><td>100</td><td>Packet Length</td><td>This document</td></tr>
+	    <tr><td>110</td><td>DSCP</td><td>This document</td></tr>
+	    <tr><td>120</td><td>Fragment</td><td>This document</td></tr>
+	    <tr><td>130</td><td>Flow Label</td><td>This document</td></tr>
+	    <tr><td>65535</td><td>Reserved</td><td>This document</td></tr>
+	  </tbody>
+	</table>
       </section>
 
       <section title="FSV2 NLRI TLV Types">
@@ -2171,7 +2129,7 @@
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8205"/>
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-v2"/>
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.hares-idr-fsv2-more-ip-actions"/>
-      <!-- xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.hares-idr-fsv2-more-ip-filters"/-->
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.hares-idr-fsv2-more-ip-filters"/>
     </references>
   </back>
 </rfc>

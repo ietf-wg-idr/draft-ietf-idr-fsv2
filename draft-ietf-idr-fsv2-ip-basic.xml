@@ -806,468 +806,468 @@
         </section>
 
       </section>
+    </section>
 
-      <section title="FSv2 Basic IP Filters " >
-        <section title="Operators for comparison">
-          <section title="Numeric Operator (numeric_op)">
-            <t>This operator is encoded as shown in Figure 3-3.
-              <figure>
-              <artwork>
+    <section title="FSv2 Basic IP Filters " >
+      <section title="Operators for comparison">
+        <section title="Numeric Operator (numeric_op)">
+          <t>This operator is encoded as shown in Figure 3-3.
+            <figure>
+            <artwork>
 
-          0   1   2   3   4   5   6   7
-        +---+---+---+---+---+---+---+---+
-        | e | a |  len  | 0 |lt |gt |eq |
-        +---+---+---+---+---+---+---+---+
+        0   1   2   3   4   5   6   7
+      +---+---+---+---+---+---+---+---+
+      | e | a |  len  | 0 |lt |gt |eq |
+      +---+---+---+---+---+---+---+---+
 
-              Figure 3-3: Numeric Operator (numeric_op)
+            Figure 3-3: Numeric Operator (numeric_op)
 
-              </artwork>
-              </figure>
-            </t>
-
-            <dl>
-              <dt>e (end-of-list bit): </dt>
-              <dd>Set in the last {op, value} pair in the list</dd>
-
-              <dt>a (AND bit):</dt>
-              <dd> If unset, the result of the previous {op, value} pair is
-              logically ORed with the current one.  If set, the operation is a
-              logical AND.  In the first operator octet of a sequence, it MUST be
-              encoded as unset and MUST be treated as always unset on decoding.
-              The AND operator has higher priority than OR for the purposes of
-              evaluating logical expressions.</dd>
-
-              <dt>len (length): </dt>
-              <dd>The length of the value field for this operator given as (1
-              &lt;&lt; len).  This encodes 1 (len=00), 2 (len=01), 4 (len=10), and
-              8 (len=11) octets.</dd>
-
-              <dt>0</dt>
-              <dd>MUST be set to 0 on NLRI encoding and MUST be ignored during decoding</dd>
-
-              <dt>lt</dt>
-              <dd>less-than comparison between data and value</dd>
-
-              <dt>gt:</dt>
-              <dd>greater-than comparison between data and value</dd>
-
-              <dt>eq:</dt>
-              <dd>equality between data and value</dd>
-            </dl>
-
-            <t> The bits lt, gt, and eq can be combined to produce common
-            relational operators, such as "less or equal", "greater or equal", and
-            "not equal to", as shown in Table 3-1.</t>
-
-            <t>
-              <figure>
-              <artwork>
-
-                  +====+====+====+==================================+
-                  | lt | gt | eq | Resulting operation              |
-                  +====+====+====+==================================+
-                  | 0  | 0  | 0  | false (independent of the value) |
-                  +----+----+----+----------------------------------+
-                  | 0  | 0  | 1  | == (equal)                       |
-                  +----+----+----+----------------------------------+
-                  | 0  | 1  | 0  | &gt; (greater than)                 |
-                  +----+----+----+----------------------------------+
-                  | 0  | 1  | 1  | &lt;= (greater than or equal)       |
-                  +----+----+----+----------------------------------+
-                  | 1  | 0  | 0  | &lt; (less than)                    |
-                  +----+----+----+----------------------------------+
-                  | 1  | 0  | 1  | &lt;= (less than or equal)          |
-                  +----+----+----+----------------------------------+
-                  | 1  | 1  | 0  | != (not equal value)             |
-                  +----+----+----+----------------------------------+
-                  | 1  | 1  | 1  | true (independent of the value)  |
-                  +----+----+----+----------------------------------+
-
-                     Table 3-1: Comparison Operation Combinations
-              </artwork>
-              </figure>
-            </t>
-          </section>
-
-          <section title="Bitmask Operator (bitmask_op)">
-            <t>This operator is encoded as shown in Figure 3-4.
-              <figure>
-              <artwork>
-
-           0   1   2   3   4   5   6   7
-          +---+---+---+---+---+---+---+---+
-          | e | a |  len  | 0 | 0 |not| m |
-          +---+---+---+---+---+---+---+---+
-
-          Figure 3-4 Bitmask Operator (bitmask_op)
             </artwork>
             </figure>
+          </t>
 
-            Where:</t>
+          <dl>
+            <dt>e (end-of-list bit): </dt>
+            <dd>Set in the last {op, value} pair in the list</dd>
 
-            <dl>
-              <dt>e, a, len (end-of-list bit, AND bit, and length field):</dt>
-              <dd>Most significant nibble; defined in the Numeric Operator format
-              in section 3-x.</dd>
+            <dt>a (AND bit):</dt>
+            <dd> If unset, the result of the previous {op, value} pair is
+            logically ORed with the current one.  If set, the operation is a
+            logical AND.  In the first operator octet of a sequence, it MUST be
+            encoded as unset and MUST be treated as always unset on decoding.
+            The AND operator has higher priority than OR for the purposes of
+            evaluating logical expressions.</dd>
 
-              <dt>not (NOT bit):</dt>
-              <dd>If set, logical negation of operation.</dd>
+            <dt>len (length): </dt>
+            <dd>The length of the value field for this operator given as (1
+            &lt;&lt; len).  This encodes 1 (len=00), 2 (len=01), 4 (len=10), and
+            8 (len=11) octets.</dd>
 
-              <dt>m (Match bit):</dt>
-              <dd>If set, this is a bitwise match operation defined as
-              "(data AND value) == value"; if unset, (data AND value) evaluates to
-              TRUE if any of the bits in the value mask are set in the data.</dd>
+            <dt>0</dt>
+            <dd>MUST be set to 0 on NLRI encoding and MUST be ignored during decoding</dd>
 
-              <dt>0 (all 0 bits):</dt>
-              <dd> MUST be set to 0 on NLRI encoding and MUST be ignored during
-              decoding</dd>
+            <dt>lt</dt>
+            <dd>less-than comparison between data and value</dd>
 
-            </dl>
-          </section>
-        </section>
+            <dt>gt:</dt>
+            <dd>greater-than comparison between data and value</dd>
 
-        <section title="IP Basic Filters (Filter type=TBD )">
-          <t>The format of the IP Basic TLV value field is shown in Figure 3-5.
-          The IP header for the VPN case is specified in section 3.5.</t>
+            <dt>eq:</dt>
+            <dd>equality between data and value</dd>
+          </dl>
+
+          <t> The bits lt, gt, and eq can be combined to produce common
+          relational operators, such as "less or equal", "greater or equal", and
+          "not equal to", as shown in Table 3-1.</t>
 
           <t>
             <figure>
             <artwork>
 
-         Top-level TLV
-       +-------------------------------+
-       | +============================+ |
-       | | order (4 octets)           | |
-       | +----------------------------+ |
-       | | dependency filter chain    | |
-       | |  (8 octets)                | |
-       | +----------------------------+ |
-       | + FSv2 Filter type (2 octets)| |
-       | | option1: 1, option2: 256   | |
-       | +----------------------------+ |
-       | + length (2 octet)           + |
-       | + ---------------------------+ |
-       | + value (variable)           + |
-       | +----------------------------+ |
-       +--------------------------------+
+                +====+====+====+==================================+
+                | lt | gt | eq | Resulting operation              |
+                +====+====+====+==================================+
+                | 0  | 0  | 0  | false (independent of the value) |
+                +----+----+----+----------------------------------+
+                | 0  | 0  | 1  | == (equal)                       |
+                +----+----+----+----------------------------------+
+                | 0  | 1  | 0  | &gt; (greater than)                 |
+                +----+----+----+----------------------------------+
+                | 0  | 1  | 1  | &lt;= (greater than or equal)       |
+                +----+----+----+----------------------------------+
+                | 1  | 0  | 0  | &lt; (less than)                    |
+                +----+----+----+----------------------------------+
+                | 1  | 0  | 1  | &lt;= (less than or equal)          |
+                +----+----+----+----------------------------------+
+                | 1  | 1  | 0  | != (not equal value)             |
+                +----+----+----+----------------------------------+
+                | 1  | 1  | 1  | true (independent of the value)  |
+                +----+----+----+----------------------------------+
 
-      Figure 3-5 NLRI format for FSv2 IP Filter Type
+                   Table 3-1: Comparison Operation Combinations
             </artwork>
             </figure>
           </t>
+        </section>
 
-          <t>Where:
-            <list>
-              <t>order - is an 4 octet field with a value 1-N.  The value 0 (zero)
-              is invalid, and the TLV should be "treated-as-withdrawl".</t>
-
-              <t>dependency filter chain - is an 8 octet field which must be all
-              zero for the IP Basic Filter rules.</t>
-
-              <t>length - is a 2 octet field indicating the length of the value
-              field.</t>
-
-              <t>value - is a variable field comprised of a sequence of component TLVs:
-                <figure>
-                <artwork>
-
-       +--------------------------------+
-       | + ---------------------------+ |
-       | + Components TLV+ (variable) + |
-       | +----------------------------+ |
-       +--------------------------------+
-
-       Figure 3-6 Value Field
-                </artwork>
-                </figure>
-              </t>
-
-              <t>
-                <figure>
-                <artwork>
-
-        Where the Component TLVs are:
-
-         +----------------------------+
-         |  Component Type (1 octet)  |
-         +----------------------------+
-         |  length (1 octet)          |
-         + ---------------------------+
-         |  value (variable)          |
-         +----------------------------+
-
-      Figure 3-7 – IP header Component TLVs
-
-                </artwork>
-                </figure>
-              </t>
-
-              <t>Where:
-                <list>
-                  <t>Component type: component values are defined in the "Flow
-                  Specification Component types" registry for IPv4 and IPv6 by
-                  <xref target="RFC8955"></xref>, <xref target="RFC8956"></xref>,
-                  and <xref target="I-D.ietf-idr-flowspec-srv6"></xref></t>
-
-                  <t>length: length of SubTLV (varies depending on the component
-                  type).  If the length of the component types does match the valid
-                  defined length(s) for the component, the component type is
-                  ignored and the Filter type TLV is "treated-as-withdrawl".</t>
-
-                  <t>value: dependent on component type.</t>
-                </list>
-              </t>
-
-              <t>Many of the components use the operators [numeric_op] and
-              [bitmask_op] defined in <xref target="RFC8955"></xref></t>
-            </list>
-          </t>
-
-          <t>The list of valid SubTLV types appears in Table 3-2 for filter type of
-          IP Filters (type=1).  Other filters beyond these filters may be defined
-          other filter types (e.g. IP Extended Filters).</t>
-
-          <t>
+        <section title="Bitmask Operator (bitmask_op)">
+          <t>This operator is encoded as shown in Figure 3-4.
             <figure>
             <artwork>
-      Table 3-2 FSv2 IP Basic TLV Components
 
-      Sub-TLV   Definition
-      --------  ---------------------
-         0 -    Reserved
-         1 -    IP Destination prefix
-         2 -    IP Source prefix
-         3 –    IPv4 Protocol /
-                IPv6 Upper Layer Protocol
-         4 –    Port
-         5 –    Destination Port
-         6 –    Source Port
-         7 –    ICMPv4 type / ICMPv6 type
-         8 –    ICMPv4 code / ICPv6 code
-         9 –    TCP Flags
-        10 –    Packet length
-        11 –    DSCP
-        12 –    Fragment
-        13 –    Flow Label
-        14-255  Reserved
+         0   1   2   3   4   5   6   7
+        +---+---+---+---+---+---+---+---+
+        | e | a |  len  | 0 | 0 |not| m |
+        +---+---+---+---+---+---+---+---+
 
-            </artwork>
-            </figure>
-          </t>
+        Figure 3-4 Bitmask Operator (bitmask_op)
+          </artwork>
+          </figure>
+
+          Where:</t>
+
+          <dl>
+            <dt>e, a, len (end-of-list bit, AND bit, and length field):</dt>
+            <dd>Most significant nibble; defined in the Numeric Operator format
+            in section 3-x.</dd>
+
+            <dt>not (NOT bit):</dt>
+            <dd>If set, logical negation of operation.</dd>
+
+            <dt>m (Match bit):</dt>
+            <dd>If set, this is a bitwise match operation defined as
+            "(data AND value) == value"; if unset, (data AND value) evaluates to
+            TRUE if any of the bits in the value mask are set in the data.</dd>
+
+            <dt>0 (all 0 bits):</dt>
+            <dd> MUST be set to 0 on NLRI encoding and MUST be ignored during
+            decoding</dd>
+
+          </dl>
         </section>
+      </section>
 
-        <section title="Ordering within the IP Basic Filter TLVs">
-          <t> The ordering of components within the value field of the IP Basic TLV
-          follows the FSv1 rules.  The following is a restatement of FSv1 rules in
-          FSv2 terms.</t>
+      <section title="IP Basic Filters (Filter type=TBD )">
+        <t>The format of the IP Basic TLV value field is shown in Figure 3-5.
+        The IP header for the VPN case is specified in section 3.5.</t>
 
-          <t>
-            <list style="symbols">
-              <t>1) order by component types (1-13).</t>
+        <t>
+          <figure>
+          <artwork>
 
-              <t>(2) If the components are the same, then the value fields are
-              compared using mechanisms defined in <xref target="RFC8955"></xref>
-              and <xref target="RFC8956"></xref> and MUST be in ascending order.
-              NLRIs having component TLVs which do not follow the above ordering
-              rules MUST be considered as malformed by a BGP FSv2 propagator. This
-              rule prevents any ambiguities that arise from the multiple copies of
-              the same NLRI from multiple BGP FSv2 propagators.  A BGP
-              implementation SHOULD treat such malformed NLRIs as
-              "treat-as-withdrawl".  <xref target="RFC7606"></xref>.</t>
-            </list>
-          </t>
+       Top-level TLV
+     +-------------------------------+
+     | +============================+ |
+     | | order (4 octets)           | |
+     | +----------------------------+ |
+     | | dependency filter chain    | |
+     | |  (8 octets)                | |
+     | +----------------------------+ |
+     | + FSv2 Filter type (2 octets)| |
+     | | option1: 1, option2: 256   | |
+     | +----------------------------+ |
+     | + length (2 octet)           + |
+     | + ---------------------------+ |
+     | + value (variable)           + |
+     | +----------------------------+ |
+     +--------------------------------+
 
-          <t>See <xref target="RFC8955"></xref>, <xref target="RFC8956"></xref>,
-          and for details on per component ordering.</t>
-        </section>
+    Figure 3-5 NLRI format for FSv2 IP Filter Type
+          </artwork>
+          </figure>
+        </t>
 
-        <section title="FSv2 Components for IP Basic TLVs">
-          <section title="IP Destination Prefix (type = 1)">
-            <t>IPv4 Name: IP Destination Prefix   (reference: <xref target="RFC8955"></xref>)</t>
-            <t>IPv6 Name: IPv6 Destination Prefix (reference: <xref target="RFC8956"></xref>)</t>
-            <t></t>
-            <t>IPv4 length: Prefix length in bits</t>
-            <t>IPv4 value: IPv4 Prefix (variable length)</t>
-            <t>IPv6 length: length of value</t>
-            <t>IPv6 value: [offset (1 octet)] [pattern (variable)] [padding(variable)]</t>
-            <t>If IPv6 length = 0 and offset = 0, then component matches every
-            address.  Otherwise, length must be offset "less than" length "less
-            than" 129 or component is malformed.</t>
-          </section>
+        <t>Where:
+          <list>
+            <t>order - is an 4 octet field with a value 1-N.  The value 0 (zero)
+            is invalid, and the TLV should be "treated-as-withdrawl".</t>
 
-          <section title="IP Source Prefix (type = 2) ">
-            <t>IPv4 Name: IP Source Prefix    (reference: <xref target="RFC8955"></xref>) </t>
-            <t>IPv6 Name: IPv6 Source Prefix  (reference: <xref target="RFC8956"></xref>) </t>
-            <t></t>
-            <t>IPv4 length: Prefix length in bits</t>
-            <t>IPv4 value: Source IPv4 Prefix (variable length)</t>
-            <t>IPv6 length: length of value</t>
-            <t>IPv6 value: [offset (1 octet)] [pattern (variable)][padding(variable)]</t>
-            <t></t>
-            <t>If IPv6 length = 0 and offset = 0, then component matches every
-            address.  Otherwise, length must be offset &lt; length &lt; 129 or
-            component is malformed.</t>
-          </section>
-          <section title="IP Protocol (type = 3) ">
-            <t>IPv4 Name: IP Protocol  IP Source Prefix  (reference: <xref target="RFC8955"></xref>)</t>
-            <t>IPv6 Name: IPv6 Upper-Layer Protocol:   (reference: <xref target="RFC8956"></xref>)</t>
-            <t></t>
-            <t>IPv4 length: variable</t>
-            <t>IPv4 value: [numeric_op, value]+</t>
-            <t></t>
-            <t>IPv6 length: variable</t>
-            <t>IPv6 value: [numeric_op, value]+</t>
-            <t>where the value following each numeric_op is a single octet.</t>
-          </section>
+            <t>dependency filter chain - is an 8 octet field which must be all
+            zero for the IP Basic Filter rules.</t>
 
-          <section title="Port (type = 4)">
-            <t>IPv4/IPv6 Name: Port (reference:  <xref target="RFC8955"></xref>),
-            <xref target="RFC8956"></xref>)</t>
-            <t>Filter defines: a set of port values to match either destination
-            port or source port.</t>
-            <t></t>
-            <t>IPv4 length: variable</t>
-            <t>IPv4 value: [numeric_op, value]+</t>
-            <t></t>
-            <t>IPv6 length: variable</t>
-            <t>IPv6 value: [numeric_op, value]+</t>
-            <t></t>
-            <t>where the value following each numeric_op is a single octet. </t>
-            <t>Note-1: (from FSV1) In the presence of the port component
-            (destination or source port), only a TCP (port 6) or UDP (port 17)
-            packet can match the entire flow specification.  If the packet is
-            fragmented and this is not the first fragment, then the system may not
-            be able to find the header.  At this point, the FSv2 filter may fail to
-            detect the correct flow.  Similarly, if other IP options or the
-            encapsulating security payload (ESP) is present, then the  node may not
-            be able to describe the transport header and the FSv2 filter may fail
-            to detect the flow.</t>
-            <t>The restriction in note-1 comes from the inheritance of the FSv1
-            filter component for port.  If better resolution is desired, a new FSv2
-            filter should be defined.</t>
-            <t>Note-2: FSv2 component only matches the first upper layer protocol
-            value.</t>
-          </section>
+            <t>length - is a 2 octet field indicating the length of the value
+            field.</t>
 
-          <section title="Destination Port (type = 5) ">
-            <t>IPv4/IPv6 Name: Destination Port    (reference:  <xref
-            target="RFC8955"></xref>), <xref target="RFC8956"></xref>) </t>
-            <t>Filter defines: a list of match filters for destination port for TCP
-            or UDP within a received packet</t>
-            <t>Length: variable</t>
-            <t> Component Value format: [numeric_op, value]+</t>
-          </section>
-          <section title="Source Port (type = 6)  ">
-            <t>IPv4/IPv6 Name: Source Port (reference:  <xref target="RFC8955"></xref>), <xref target="RFC8956"></xref>)</t>
-            <t>Filter defines: a list of match filters for source port for TCP or UDP within a received packet</t>
-            <t>IPv4/IPv6 length: variable</t>
-            <t>IPv4/Ipv6 value: [numeric_op, value]+</t>
-          </section>
+            <t>value - is a variable field comprised of a sequence of component TLVs:
+              <figure>
+              <artwork>
 
-          <section title="ICMP Type (type = 7) ">
-            <t>IPv4: ICMP Type (reference:  <xref target="RFC8955"></xref>)</t>
-            <t>Filter defines: Defines: a list of match criteria for ICMPv4 type</t>
-            <t>IPv6: ICMPv6 Type (reference: <xref target="RFC8956"></xref>) </t>
-            <t>Filter defines: a list of match criteria for ICMPv6 type.</t>
-            <t></t>
-            <t>IPv4/IPv6 length: variable</t>
-            <t>IPv4/IPv6 value: [numeric_op, value]+</t>
-          </section>
+     +--------------------------------+
+     | + ---------------------------+ |
+     | + Components TLV+ (variable) + |
+     | +----------------------------+ |
+     +--------------------------------+
 
-          <section title="ICMP Code (type = 8) ">
-            <t>IPv4: ICMP Type (reference:  <xref target="RFC8955"></xref>)</t>
-            <t>Filter defines: a list of match criteria for ICMPv4 code.</t>
-            <t>IPv6: ICMPv6 Type (reference: <xref target="RFC8956"></xref>)</t>
-            <t>Filter defines: a list of match criteria for ICMPv6 code.</t>
-            <t></t>
-            <t>IPv4/IPv6 length: variable</t>
-            <t>IPv4/IPv6 value: [numeric_op, value]+ </t>
-          </section>
+     Figure 3-6 Value Field
+              </artwork>
+              </figure>
+            </t>
 
-          <section title="TCP Flags (type = 9) " >
-            <t>IPv4/IPv6: TCP Flags Code  (reference:  <xref target="RFC8955"></xref>)</t>
-            <t>Filter defines: a list of match criteria for TCP Control bits</t>
-            <t></t>
-            <t>IPv4/IPv6 length: variable</t>
-            <t>IPv4/IPv6 value: [bitmask_op, value]+</t>
-            <t></t>
-            <t>Note: a 2 octets bitmask match is always used for TCP-Flags </t>
-          </section>
-
-          <section title="Packet length (type = 10 (0x0A)) ">
-            <t>IPv4/IPv6: Packet Length (reference: <xref target="RFC8955"></xref>,
-            <xref target="RFC8956"></xref>)</t>
-            <t>Filter defines: a list of match criteria for length of packet
-            (excluding L2 header but including IP header).</t>
-            <t>IPv4/IPv6 length: variable</t>
-            <t>IPv4/IPv6 value: [numeric_op, value]+</t>
-            <t></t>
-            <t>Note:<xref target="RFC8955"></xref> uses either 1 or 2 octet values.</t>
-          </section>
-
-          <section title="DSCP (Differentiaed Services Code Point)(type = 11 (0x0B)) ">
-            <t>IPv4/IPv6: DSCP Code  (reference:  <xref target="RFC8955"></xref>,
-            <xref target="RFC8956"></xref>)</t>
-            <t>Filter defines: a list of match criteria for DSCP code values to
-            match the 6-bit DSCP field.</t>
-            <t></t>
-            <t>IPv4/IPv6 length: variable</t>
-            <t>IPv4/IPv6 value: [numeric_op, value]+</t>
-            <t></t>
-            <t>Note: This component uses the Numeric Operator (numeric_op)
-            described in <xref target="RFC8955"></xref> in section 4.2.1.1.  Type
-            11 component values MUST be encoded as single octet (numeric_op
-            len=00).</t>
-            <t>The six least significant bits contain the DSCP value.  All other
-            bits SHOULD be treated as 0.</t>
-          </section>
-
-          <section title="Fragment (type = 12 (0x0C))   ">
-            <t>IPv4/IPv6: Fragment  (reference:  <xref target="RFC8955"></xref>,
-            <xref target="RFC8956"></xref>)</t>
-            <t>Filter defines: a list of match criteria for specific IP fragments.</t>
-            <t></t>
-            <t>Length: variable</t>
-            <t>Component Value format: [bitmask_op, value]+</t>
-            <t>Bitmask values are:</t>
             <t>
               <figure>
               <artwork>
-            0    1   2   3   4   5   6  7
-          +---+---+---+---+---+---+---+---+
-          | 0 | 0 | 0 | 0 |LF |FF |IsF| DF|
-          +---+---+---+---+---+---+---+---+
-                       Figure 3-8
+
+      Where the Component TLVs are:
+
+       +----------------------------+
+       |  Component Type (1 octet)  |
+       +----------------------------+
+       |  length (1 octet)          |
+       + ---------------------------+
+       |  value (variable)          |
+       +----------------------------+
+
+    Figure 3-7 – IP header Component TLVs
+
               </artwork>
               </figure>
             </t>
 
             <t>Where:
               <list>
-                <t>DF (don’t fragment): match If IP header flags bit 1 (DF) is 1.</t>
+                <t>Component type: component values are defined in the "Flow
+                Specification Component types" registry for IPv4 and IPv6 by
+                <xref target="RFC8955"></xref>, <xref target="RFC8956"></xref>,
+                and <xref target="I-D.ietf-idr-flowspec-srv6"></xref></t>
 
-                <t>IsF(is a fragment other than first: match if IP header fragment
-                offset is not 0.</t>
+                <t>length: length of SubTLV (varies depending on the component
+                type).  If the length of the component types does match the valid
+                defined length(s) for the component, the component type is
+                ignored and the Filter type TLV is "treated-as-withdrawl".</t>
 
-                <t> FF (First Fragment): Match if <xref target="RFC0791"></xref>
-                IP Header Fragment offset is zero and Flags Bit-2 (MF) is 1.</t>
-
-                <t>LF (last Fragment): Match if <xref target="RFC0791"></xref> IP
-                header Fragment is not 0 And Flags bit-2 (MF) is 0</t>
-
-                <t>0: MUST be sent in NLRI encoding as 0, and MUST be ignored
-                during reception.</t>
+                <t>value: dependent on component type.</t>
               </list>
             </t>
-          </section>
 
-          <section title="Flow Label(type = 13 (0xOD)) ">
-            <t>IPv4/IPv6: Fragment  (reference:  <xref target="RFC8956"></xref>)</t>
-            <t>Filter defines: a list of match criteria for 20-bit Flow Label in the IPv6 header field.</t>
-            <t></t>
-            <t>Length: variable</t>
-            <t>Component Value format: [numeric_op, value]+</t>
-          </section>
+            <t>Many of the components use the operators [numeric_op] and
+            [bitmask_op] defined in <xref target="RFC8955"></xref></t>
+          </list>
+        </t>
+
+        <t>The list of valid SubTLV types appears in Table 3-2 for filter type of
+        IP Filters (type=1).  Other filters beyond these filters may be defined
+        other filter types (e.g. IP Extended Filters).</t>
+
+        <t>
+          <figure>
+          <artwork>
+    Table 3-2 FSv2 IP Basic TLV Components
+
+    Sub-TLV   Definition
+    --------  ---------------------
+       0 -    Reserved
+       1 -    IP Destination prefix
+       2 -    IP Source prefix
+       3 –    IPv4 Protocol /
+              IPv6 Upper Layer Protocol
+       4 –    Port
+       5 –    Destination Port
+       6 –    Source Port
+       7 –    ICMPv4 type / ICMPv6 type
+       8 –    ICMPv4 code / ICPv6 code
+       9 –    TCP Flags
+      10 –    Packet length
+      11 –    DSCP
+      12 –    Fragment
+      13 –    Flow Label
+      14-255  Reserved
+
+          </artwork>
+          </figure>
+        </t>
+      </section>
+
+      <section title="Ordering within the IP Basic Filter TLVs">
+        <t> The ordering of components within the value field of the IP Basic TLV
+        follows the FSv1 rules.  The following is a restatement of FSv1 rules in
+        FSv2 terms.</t>
+
+        <t>
+          <list style="symbols">
+            <t>1) order by component types (1-13).</t>
+
+            <t>(2) If the components are the same, then the value fields are
+            compared using mechanisms defined in <xref target="RFC8955"></xref>
+            and <xref target="RFC8956"></xref> and MUST be in ascending order.
+            NLRIs having component TLVs which do not follow the above ordering
+            rules MUST be considered as malformed by a BGP FSv2 propagator. This
+            rule prevents any ambiguities that arise from the multiple copies of
+            the same NLRI from multiple BGP FSv2 propagators.  A BGP
+            implementation SHOULD treat such malformed NLRIs as
+            "treat-as-withdrawl".  <xref target="RFC7606"></xref>.</t>
+          </list>
+        </t>
+
+        <t>See <xref target="RFC8955"></xref>, <xref target="RFC8956"></xref>,
+        and for details on per component ordering.</t>
+      </section>
+
+      <section title="FSv2 Components for IP Basic TLVs">
+        <section title="IP Destination Prefix (type = 1)">
+          <t>IPv4 Name: IP Destination Prefix   (reference: <xref target="RFC8955"></xref>)</t>
+          <t>IPv6 Name: IPv6 Destination Prefix (reference: <xref target="RFC8956"></xref>)</t>
+          <t></t>
+          <t>IPv4 length: Prefix length in bits</t>
+          <t>IPv4 value: IPv4 Prefix (variable length)</t>
+          <t>IPv6 length: length of value</t>
+          <t>IPv6 value: [offset (1 octet)] [pattern (variable)] [padding(variable)]</t>
+          <t>If IPv6 length = 0 and offset = 0, then component matches every
+          address.  Otherwise, length must be offset "less than" length "less
+          than" 129 or component is malformed.</t>
+        </section>
+
+        <section title="IP Source Prefix (type = 2) ">
+          <t>IPv4 Name: IP Source Prefix    (reference: <xref target="RFC8955"></xref>) </t>
+          <t>IPv6 Name: IPv6 Source Prefix  (reference: <xref target="RFC8956"></xref>) </t>
+          <t></t>
+          <t>IPv4 length: Prefix length in bits</t>
+          <t>IPv4 value: Source IPv4 Prefix (variable length)</t>
+          <t>IPv6 length: length of value</t>
+          <t>IPv6 value: [offset (1 octet)] [pattern (variable)][padding(variable)]</t>
+          <t></t>
+          <t>If IPv6 length = 0 and offset = 0, then component matches every
+          address.  Otherwise, length must be offset &lt; length &lt; 129 or
+          component is malformed.</t>
+        </section>
+        <section title="IP Protocol (type = 3) ">
+          <t>IPv4 Name: IP Protocol  IP Source Prefix  (reference: <xref target="RFC8955"></xref>)</t>
+          <t>IPv6 Name: IPv6 Upper-Layer Protocol:   (reference: <xref target="RFC8956"></xref>)</t>
+          <t></t>
+          <t>IPv4 length: variable</t>
+          <t>IPv4 value: [numeric_op, value]+</t>
+          <t></t>
+          <t>IPv6 length: variable</t>
+          <t>IPv6 value: [numeric_op, value]+</t>
+          <t>where the value following each numeric_op is a single octet.</t>
+        </section>
+
+        <section title="Port (type = 4)">
+          <t>IPv4/IPv6 Name: Port (reference:  <xref target="RFC8955"></xref>),
+          <xref target="RFC8956"></xref>)</t>
+          <t>Filter defines: a set of port values to match either destination
+          port or source port.</t>
+          <t></t>
+          <t>IPv4 length: variable</t>
+          <t>IPv4 value: [numeric_op, value]+</t>
+          <t></t>
+          <t>IPv6 length: variable</t>
+          <t>IPv6 value: [numeric_op, value]+</t>
+          <t></t>
+          <t>where the value following each numeric_op is a single octet. </t>
+          <t>Note-1: (from FSV1) In the presence of the port component
+          (destination or source port), only a TCP (port 6) or UDP (port 17)
+          packet can match the entire flow specification.  If the packet is
+          fragmented and this is not the first fragment, then the system may not
+          be able to find the header.  At this point, the FSv2 filter may fail to
+          detect the correct flow.  Similarly, if other IP options or the
+          encapsulating security payload (ESP) is present, then the  node may not
+          be able to describe the transport header and the FSv2 filter may fail
+          to detect the flow.</t>
+          <t>The restriction in note-1 comes from the inheritance of the FSv1
+          filter component for port.  If better resolution is desired, a new FSv2
+          filter should be defined.</t>
+          <t>Note-2: FSv2 component only matches the first upper layer protocol
+          value.</t>
+        </section>
+
+        <section title="Destination Port (type = 5) ">
+          <t>IPv4/IPv6 Name: Destination Port    (reference:  <xref
+          target="RFC8955"></xref>), <xref target="RFC8956"></xref>) </t>
+          <t>Filter defines: a list of match filters for destination port for TCP
+          or UDP within a received packet</t>
+          <t>Length: variable</t>
+          <t> Component Value format: [numeric_op, value]+</t>
+        </section>
+        <section title="Source Port (type = 6)  ">
+          <t>IPv4/IPv6 Name: Source Port (reference:  <xref target="RFC8955"></xref>), <xref target="RFC8956"></xref>)</t>
+          <t>Filter defines: a list of match filters for source port for TCP or UDP within a received packet</t>
+          <t>IPv4/IPv6 length: variable</t>
+          <t>IPv4/Ipv6 value: [numeric_op, value]+</t>
+        </section>
+
+        <section title="ICMP Type (type = 7) ">
+          <t>IPv4: ICMP Type (reference:  <xref target="RFC8955"></xref>)</t>
+          <t>Filter defines: Defines: a list of match criteria for ICMPv4 type</t>
+          <t>IPv6: ICMPv6 Type (reference: <xref target="RFC8956"></xref>) </t>
+          <t>Filter defines: a list of match criteria for ICMPv6 type.</t>
+          <t></t>
+          <t>IPv4/IPv6 length: variable</t>
+          <t>IPv4/IPv6 value: [numeric_op, value]+</t>
+        </section>
+
+        <section title="ICMP Code (type = 8) ">
+          <t>IPv4: ICMP Type (reference:  <xref target="RFC8955"></xref>)</t>
+          <t>Filter defines: a list of match criteria for ICMPv4 code.</t>
+          <t>IPv6: ICMPv6 Type (reference: <xref target="RFC8956"></xref>)</t>
+          <t>Filter defines: a list of match criteria for ICMPv6 code.</t>
+          <t></t>
+          <t>IPv4/IPv6 length: variable</t>
+          <t>IPv4/IPv6 value: [numeric_op, value]+ </t>
+        </section>
+
+        <section title="TCP Flags (type = 9) " >
+          <t>IPv4/IPv6: TCP Flags Code  (reference:  <xref target="RFC8955"></xref>)</t>
+          <t>Filter defines: a list of match criteria for TCP Control bits</t>
+          <t></t>
+          <t>IPv4/IPv6 length: variable</t>
+          <t>IPv4/IPv6 value: [bitmask_op, value]+</t>
+          <t></t>
+          <t>Note: a 2 octets bitmask match is always used for TCP-Flags </t>
+        </section>
+
+        <section title="Packet length (type = 10 (0x0A)) ">
+          <t>IPv4/IPv6: Packet Length (reference: <xref target="RFC8955"></xref>,
+          <xref target="RFC8956"></xref>)</t>
+          <t>Filter defines: a list of match criteria for length of packet
+          (excluding L2 header but including IP header).</t>
+          <t>IPv4/IPv6 length: variable</t>
+          <t>IPv4/IPv6 value: [numeric_op, value]+</t>
+          <t></t>
+          <t>Note:<xref target="RFC8955"></xref> uses either 1 or 2 octet values.</t>
+        </section>
+
+        <section title="DSCP (Differentiaed Services Code Point)(type = 11 (0x0B)) ">
+          <t>IPv4/IPv6: DSCP Code  (reference:  <xref target="RFC8955"></xref>,
+          <xref target="RFC8956"></xref>)</t>
+          <t>Filter defines: a list of match criteria for DSCP code values to
+          match the 6-bit DSCP field.</t>
+          <t></t>
+          <t>IPv4/IPv6 length: variable</t>
+          <t>IPv4/IPv6 value: [numeric_op, value]+</t>
+          <t></t>
+          <t>Note: This component uses the Numeric Operator (numeric_op)
+          described in <xref target="RFC8955"></xref> in section 4.2.1.1.  Type
+          11 component values MUST be encoded as single octet (numeric_op
+          len=00).</t>
+          <t>The six least significant bits contain the DSCP value.  All other
+          bits SHOULD be treated as 0.</t>
+        </section>
+
+        <section title="Fragment (type = 12 (0x0C))   ">
+          <t>IPv4/IPv6: Fragment  (reference:  <xref target="RFC8955"></xref>,
+          <xref target="RFC8956"></xref>)</t>
+          <t>Filter defines: a list of match criteria for specific IP fragments.</t>
+          <t></t>
+          <t>Length: variable</t>
+          <t>Component Value format: [bitmask_op, value]+</t>
+          <t>Bitmask values are:</t>
+          <t>
+            <figure>
+            <artwork>
+          0    1   2   3   4   5   6  7
+        +---+---+---+---+---+---+---+---+
+        | 0 | 0 | 0 | 0 |LF |FF |IsF| DF|
+        +---+---+---+---+---+---+---+---+
+                     Figure 3-8
+            </artwork>
+            </figure>
+          </t>
+
+          <t>Where:
+            <list>
+              <t>DF (don’t fragment): match If IP header flags bit 1 (DF) is 1.</t>
+
+              <t>IsF(is a fragment other than first: match if IP header fragment
+              offset is not 0.</t>
+
+              <t> FF (First Fragment): Match if <xref target="RFC0791"></xref>
+              IP Header Fragment offset is zero and Flags Bit-2 (MF) is 1.</t>
+
+              <t>LF (last Fragment): Match if <xref target="RFC0791"></xref> IP
+              header Fragment is not 0 And Flags bit-2 (MF) is 0</t>
+
+              <t>0: MUST be sent in NLRI encoding as 0, and MUST be ignored
+              during reception.</t>
+            </list>
+          </t>
+        </section>
+
+        <section title="Flow Label(type = 13 (0xOD)) ">
+          <t>IPv4/IPv6: Fragment  (reference:  <xref target="RFC8956"></xref>)</t>
+          <t>Filter defines: a list of match criteria for 20-bit Flow Label in the IPv6 header field.</t>
+          <t></t>
+          <t>Length: variable</t>
+          <t>Component Value format: [numeric_op, value]+</t>
         </section>
       </section>
 

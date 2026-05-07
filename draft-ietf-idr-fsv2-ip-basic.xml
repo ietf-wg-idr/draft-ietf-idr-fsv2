@@ -855,7 +855,7 @@
 
 	<t>The operators are encoded as a single octet.</t>
 
-        <section title="Numeric Operator (numeric_op)">
+        <section title="Numeric Operator (numeric_op)" anchor="numeric-op">
           <t>This operator is encoded as shown in Figure 3-3.
             <figure title="Numeric Operator (numeric_op)">
             <artwork>
@@ -1032,74 +1032,138 @@
       </section>
 
       <section title="FSv2 Components for IP Basic TLVs">
-        <section title="IP Destination Prefix (type = 10)">
-          <t>IPv4 Name: IP Destination Prefix   (reference: <xref target="RFC8955"></xref>)</t>
-          <t>IPv6 Name: IPv6 Destination Prefix (reference: <xref target="RFC8956"></xref>)</t>
-          <t></t>
-          <t>IPv4 length: Prefix length in bits</t>
-          <t>IPv4 value: IPv4 Prefix (variable length)</t>
-          <t>IPv6 length: length of value</t>
-          <t>IPv6 value: [offset (1 octet)] [pattern (variable)] [padding(variable)]</t>
-          <t>If IPv6 length = 0 and offset = 0, then component matches every
-          address.  Otherwise, length must be offset "less than" length "less
-          than" 129 or component is malformed.</t>
+        <section title="IP Destination Prefix (component type = 10)">
+	  <section title="IPv4 Destination Prefix (AFI=1)">
+	    <t><tt>Encoding: &lt;prefix length (1 octet), prefix (variable)&gt;</tt></t>
+
+	    <t>Defines the IPv4 destination prefix to match.</t>
+
+	    <dl spacing="compact">
+	      <dt><strong>prefix length:</strong></dt><dd>Length of the prefix in bits.</dd>
+	      <dt><strong>prefix:</strong></dt><dd>IPv4 Prefix encoded using <xref target="RFC4271"/> NLRI format.</dd>
+	    </dl>
+	  </section>
+	  <section title="IPv6 Destination Prefix (AFI=2)" anchor="ipv6-dst-prefix">
+	    <t><tt>Encoding: &lt;length (1 octet), offset (1 octet), pattern (variable), padding (variable)&gt;</tt></t>
+
+	    <t>This defines the IPv6 destination prefix to match. The offset
+	    has been defined to allow for flexible matching to portions of an
+	    IPv6 address where one is required to skip over the first N bits of
+	    the address. (These bits skipped are often indicated as "don't
+	    care" bits.) This can be especially useful where part of the IPv6
+	    address consists of an embedded IPv4 address, and matching needs to
+	    happen only on the embedded IPv4 address. The encoded pattern
+	    contains enough octets for the bits used in matching (length minus
+	    offset bits).</t>
+
+	    <dl spacing="compact">
+              <dt><strong>length:</strong></dt>
+	      <dd>This indicates the N-th most significant bit in the address where bitwise pattern matching stops.</dd>
+	      <dt><strong>offset:</strong></dt>
+	      <dd>This indicates the number of most significant address bits to skip before bitwise pattern matching starts.</dd>
+	      <dt><strong>pattern:</strong></dt>
+	      <dd>This contains the matching pattern. The length of the pattern
+	      is defined by the number of bits needed for pattern matching
+	      (length minus offset).</dd>
+	      <dt><strong>padding:</strong></dt>
+	      <dd>This contains the minimum number of bits required to pad the
+	      component to an octet boundary. Padding bits MUST be 0 on
+	      encoding and MUST be ignored on decoding.</dd>
+	    </dl>
+
+	    <t>If length = 0 and offset = 0, this component matches every
+	    address; otherwise, length MUST be in the range offset &lt; length &lt;
+	    129 or the component is malformed.</t>
+
+	    <t>Note: This Flow Specification component can be represented by
+	    the notation ipv6address/length if offset is 0 or
+	    ipv6address/offset-length. The ipv6address in this notation is the
+	    textual IPv6 representation of the pattern shifted to the right by
+	    the number of offset bits.</t>
+	  </section>
         </section>
 
         <section title="IP Source Prefix (type = 20)">
-          <t>IPv4 Name: IP Source Prefix    (reference: <xref target="RFC8955"></xref>) </t>
-          <t>IPv6 Name: IPv6 Source Prefix  (reference: <xref target="RFC8956"></xref>) </t>
-          <t></t>
-          <t>IPv4 length: Prefix length in bits</t>
-          <t>IPv4 value: Source IPv4 Prefix (variable length)</t>
-          <t>IPv6 length: length of value</t>
-          <t>IPv6 value: [offset (1 octet)] [pattern (variable)][padding(variable)]</t>
-          <t></t>
-          <t>If IPv6 length = 0 and offset = 0, then component matches every
-          address.  Otherwise, length must be offset &lt; length &lt; 129 or
-          component is malformed.</t>
+	  <section title="IPv4 Source Prefix (AFI=1)">
+	    <t><tt>Encoding: &lt;prefix length (1 octet), prefix (variable)&gt;</tt></t>
+
+	    <t>Defines the IPv4 source prefix to match.</t>
+
+	    <dl spacing="compact">
+	      <dt><strong>prefix length:</strong></dt><dd>Length of the prefix in bits.</dd>
+	      <dt><strong>prefix:</strong></dt><dd>IPv4 Prefix encoded using <xref target="RFC4271"/> NLRI format.</dd>
+	    </dl>
+	  </section>
+
+	  <section title="IPv6 Source Prefix (AFI=2)">
+	    <t><tt>Encoding: &lt;length (1 octet), offset (1 octet), pattern (variable), padding (variable)&gt;</tt></t>
+
+	    <t>This defines the source prefix to match. The length, offset, pattern, and padding are the same as in <xref target="ipv6-dst-prefix"/>.</t>
+	  </section>
         </section>
-        <section title="IP Protocol (type = 30)">
-          <t>IPv4 Name: IP Protocol  IP Source Prefix  (reference: <xref target="RFC8955"></xref>)</t>
-          <t>IPv6 Name: IPv6 Upper-Layer Protocol:   (reference: <xref target="RFC8956"></xref>)</t>
-          <t></t>
-          <t>IPv4 length: variable</t>
-          <t>IPv4 value: [numeric_op, value]+</t>
-          <t></t>
-          <t>IPv6 length: variable</t>
-          <t>IPv6 value: [numeric_op, value]+</t>
-          <t>where the value following each numeric_op is a single octet.</t>
+
+        <section title="IP Protocol/IPv6 Upper Layer Protocol (type = 30)">
+	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
+
+	  <section title="IPv4 Protocol (AFI=1)">
+	    <t>Contains a list of <tt>{numeric_op, value}</tt> pairs that are
+	    used to match the IP protocol value octet in IPv4 packet header
+	    <xref target="RFC0791" section="3.1"/>.</t>
+
+	    <t>This component uses the Numeric Operator (numeric_op) described
+	    in <xref target="numeric-op"/>. Type 30 component values SHOULD be
+	    encoded as single octet (numeric_op len=00).</t>
+	  </section>
+
+	  <section title="IPv6 Upper Layer Protocol (AFI=2)">
+	    <t>This contains a list of <tt>{numeric_op, value}</tt> pairs that
+	    are used to match the first Next Header value octet in IPv6 packets
+	    that is not an extension header and thus indicates that the next
+	    item in the packet is the corresponding upper-layer header
+	    (see <xref target="RFC8200" section="4"/> Section 4).</t>
+
+	    <t>This component uses the Numeric Operator (numeric_op) described
+	    in <xref target="numeric-op"/>. Type 30 component values SHOULD be
+	    encoded as a single octet (numeric_op len=00).</t>
+
+	    <t>Note: While IPv6 allows for more than one Next Header field in
+	    the packet, the main goal of the Type 30 Flow Specification
+	    component is to match on the first upper-layer IP protocol value.
+	    Therefore, the definition is limited to match only on this specific
+	    Next Header field in the packet.</t>
+	  </section>
         </section>
 
         <section title="Port (type = 40)">
-          <t>IPv4/IPv6 Name: Port (reference:  <xref target="RFC8955"></xref>),
-          <xref target="RFC8956"></xref>)</t>
-          <t>Filter defines: a set of port values to match either destination
-          port or source port.</t>
-          <t></t>
-          <t>IPv4 length: variable</t>
-          <t>IPv4 value: [numeric_op, value]+</t>
-          <t></t>
-          <t>IPv6 length: variable</t>
-          <t>IPv6 value: [numeric_op, value]+</t>
-          <t></t>
-          <t>where the value following each numeric_op is a single octet. </t>
-          <t>Note-1: (from FSV1) In the presence of the port component
-          (destination or source port), only a TCP (port 6) or UDP (port 17)
-          packet can match the entire flow specification.  If the packet is
-          fragmented and this is not the first fragment, then the system may not
-          be able to find the header.  At this point, the FSv2 filter may fail to
-          detect the correct flow.  Similarly, if other IP options or the
-          encapsulating security payload (ESP) is present, then the  node may not
-          be able to describe the transport header and the FSv2 filter may fail
-          to detect the flow.</t>
-          <t>The restriction in note-1 comes from the inheritance of the FSv1
-          filter component for port.  If better resolution is desired, a new FSv2
-          filter should be defined.</t>
-          <t>Note-2: FSv2 component only matches the first upper layer protocol
-          value.</t>
+	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
+
+	  <t>Defines a list of <tt>{numeric_op, value}</tt> pairs that match
+	  source OR destination TCP/UDP ports (see <xref target="RFC0793"
+	  section="3.1"/> and the "Format" section of <xref
+	  target="RFC0768"/>). This component matches if either the destination
+	  port OR the source port of an IP packet matches the value.</t>
+
+	  <t>This component uses the Numeric Operator (numeric_op) described in
+	  <xref target="numeric-op"/>. Type 40 component values SHOULD be
+	  encoded as 1- or 2-octet quantities (numeric_op len=00 or
+	  len=01).</t>
+
+	  <t>In case of the presence of the port (destination-port (<xref
+	  target="dst-port"/>), source-port (<xref target="src-port"/>)
+	  component, only TCP or UDP packets can match the entire Flow
+	  Specification. The port component, if present, never matches when the
+	  packet's IP protocol value is not 6 (TCP) or 17 (UDP), if the packet
+	  is fragmented and this is not the first fragment, or if the system is
+	  unable to locate the transport header. Different implementations may
+	  or may not be able to decode the transport header in the presence of
+	  IP options or Encapsulating Security Payload (ESP) NULL
+	  <xref target="RFC4303"/> encryption.</t>
+
+          <t>Note: This component only matches the first upper layer protocol
+          value in IPv6.</t>
         </section>
 
-        <section title="Destination Port (type = 50)">
+        <section title="Destination Port (type = 50)" anchor="dst-port">
           <t>IPv4/IPv6 Name: Destination Port    (reference:  <xref
           target="RFC8955"></xref>), <xref target="RFC8956"></xref>) </t>
           <t>Filter defines: a list of match filters for destination port for TCP
@@ -1108,7 +1172,7 @@
           <t> Component Value format: [numeric_op, value]+</t>
         </section>
 
-        <section title="Source Port (type = 60)">
+        <section title="Source Port (type = 60)" anchor="src-port">
           <t>IPv4/IPv6 Name: Source Port (reference:  <xref target="RFC8955"></xref>), <xref target="RFC8956"></xref>)</t>
           <t>Filter defines: a list of match filters for source port for TCP or UDP within a received packet</t>
           <t>IPv4/IPv6 length: variable</t>
@@ -2097,10 +2161,13 @@
   </middle>
   <back>
     <references title="Normative References">
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.0768"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.0791"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.0793"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.1997"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.2119"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4271"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4303"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4360"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4456"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4760"/>
@@ -2110,6 +2177,7 @@
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.7606"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.7665"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8174"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8200"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8955"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8956"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9015"/>

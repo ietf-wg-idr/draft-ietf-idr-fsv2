@@ -831,19 +831,19 @@
       </section>
     </section>
 
-    <section title="FSv2 Basic IP Filters (Filter Family Type TBD)">
-      <t>FSv2 Basic IP filters provide the same functionality as those
+    <section title="FSv2 IP Basic Filters (Filter Family Type TBD)">
+      <t>FSv2 IP Basic filters provide the same functionality as those
       specified in FSv1 RFCs <xref target="RFC8955"/> and
       <xref target="RFC8956"/>.  The format of those components has been
       preserved for ease of implementation.</t>
 
-      <t>The FSv2 Basic IP filter has been assigned a FSv2 Filter Type value of
+      <t>The FSv2 IP Basic filter has been assigned a FSv2 Filter Type value of
       TBD.</t>
 
-      <t>FSv2 Basic IP Filter component types are numbered differently from
+      <t>FSv2 IP Basic Filter component types are numbered differently from
       those in FSv1.  FSv2 components have been numbered with gaps to permit
-      future FSv2 Basic IP filter components to be added in between currently
-      specified Basic IP components.  This permits a natural default sort
+      future FSv2 IP Basic filter components to be added in between currently
+      specified IP Basic components.  This permits a natural default sort
       order for those new components in implementations.</t>
 
       <section title="Operators">
@@ -1429,6 +1429,7 @@
 	multiple actions per flow specification filter match in this section
 	can be ignored.</t>
 
+	<!-- XXX JMH - rewrite -->
         <t>When an operator defines multiple flow specification Extended Community
         (FS-EC) Actions for a single filter match, it is possible that some FS-EC
         actions can interact. If one sorts the FS-EC actions into categories,
@@ -1439,29 +1440,29 @@
 
         <t>This section defines the FS-EC actions, categories of FS-EC
         actions, and ways to minimize interactions between FS-EC actions.
-        Section 3.3.1 describes the existing FS-EC action formats.  Section
-        3.3.2 describes the interaction between FS-EC action, and categories of
+        <xref target="fsv2-actions"/> describes the existing FS-EC action formats.
+        <xref target="fs-interactions"/> describes the interaction between FS-EC action, and categories of
         actions, and the way to minimizes interactions.  Should the BGP to
         distribute information about the configured interactions for sequences
-        of multiple actions, Section 3.3 defines an optional FS-EC to pass
+        of multiple actions, <xref target="fsv2-aco"/> defines an optional FS-EC to pass
         information ordering of categories (user/this standard) and failure
         action (stop or best effort).</t>
 
-        <t>Note that FSv2 implementations that only associate 1 FSv2-EC per
+	<!-- XXX JMH - this sentence doesn't mean anything? -->
+        <t>Note that FSv2 implementations that only associate one FSv2-EC per
         filter match do not need the FSv2-EC.</t>
 
-        <section title="FSv2 Extended Community Actions">
-          <t>The FSv2 IP Basic uses FSv1 actions and defines for one one
-          additional optional FSv2 specific FS-EC. This one optional action is
-          the Action Chain Ordering (ACO) Extended Community (ACO-EC) which can
-          pass around defaults currently only available by configuration in
-          FSv1.</t>
+        <section title="FSv2 Extended Community Actions" anchor="fsv2-actions">
+	  <t>FSv2 IP Basic uses FSv1 actions and defines one additional,
+	  optional, FSv2 specific FS-EC: the Action Chain Ordering (ACO)
+	  Extended Community (ACO-EC).  ACO-EC can pass around defaults
+	  currently only available by configuration in FSv1.</t>
 
           <section title="FSv2 Actions in Extended Community for IPv4">
-            <t> The format of the Extended Community for IPv4 defined in <xref
-            target="RFC4360"></xref> is shown in Figure 3-9 with 2 octet type
-            that is split into a high byte and low byte.  The format of the
-            IPv4 Extended Community is shown in Figure 3-10.
+            <t>The format of the Extended Community for IPv4 defined in
+	    <xref target="RFC4360"></xref> is shown in Figure 3-9 with 2 octet
+	    type that is split into a high byte and low byte.  The format of
+	    the IPv4 Extended Community is shown in Figure 3-10.
 
               <figure>
               <artwork>
@@ -1688,7 +1689,7 @@
             originator expects will happen upon failure of an action.</t>
           </section>
 
-          <section title="Action Chain Ordering FSv2-EC (ACO) (optional)">
+          <section title="Action Chain Ordering FSv2-EC (ACO) (optional)" anchor="fsv2-aco">
             <t>
               <dl>
                 <dt>Summary:</dt>

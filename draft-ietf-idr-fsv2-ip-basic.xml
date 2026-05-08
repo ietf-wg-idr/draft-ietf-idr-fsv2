@@ -1416,26 +1416,28 @@
         </section>
       </section>
 
+      <!-- XXX JMH We need to normalize the short form of flow specifications.
+      flowspec? Flow Spec? -->
       <section title="FSv2 Actions for FSv2 IP Basic ">
-        <t> The IP Basic FSv2 allows FS actions to be sent in an Extended
-        Community (FSv2-EC) for IPv4 and IPv6.   The Extended Community encodes
-        the Flow Specification actions in the Extended IPv4 Community format
-        <xref target="RFC4360"></xref> or in the extended IPv6 Community format
-        <xref target="RFC5701"></xref>.</t>
+        <t>FSv2 IP Basic allows flowspec actions to be attached in BGP Extended
+	Communities (FSv2-EC). FSv2-ECs encode their actions using the Extended
+	Community formats <xref target="RFC4360"></xref> or in the IPv6 Address
+	Specific Extended Community format <xref target="RFC5701"></xref>.</t>
 
-        <t> A Flow Spec filter match maybe linked to only one Flow Spec action.
-        For these deplyments, the details on multiple actions per flow spec
-        filter match in this section can be ignored.</t>
+	<t>A flow specification filter match may be linked to only one flow
+	specification action.  For such deployments, the details on how
+	multiple actions per flow specification filter match in this section
+	can be ignored.</t>
 
-        <t> When an operator defines multiple Flow Spec Extended Community
-        (FS-EC) Actions for single filter match, it is possible that some FS-EC
-        actions can interact If one sorts the FS-EC actions into categories,
+        <t>When an operator defines multiple flow specification Extended Community
+        (FS-EC) Actions for a single filter match, it is possible that some FS-EC
+        actions can interact. If one sorts the FS-EC actions into categories,
         the interactions can be minimized. One example of such interactions is
         if the flow is redirect to a VRF and to a VPN. Another way two actions
         interact is if an action fails.  For example, if set DSCP action fails
         prior to redirect to a VPN may have undesired data flow patterns.</t>
 
-        <t> This section defines the FS-EC actions, categories of FS-EC
+        <t>This section defines the FS-EC actions, categories of FS-EC
         actions, and ways to minimize interactions between FS-EC actions.
         Section 3.3.1 describes the existing FS-EC action formats.  Section
         3.3.2 describes the interaction between FS-EC action, and categories of

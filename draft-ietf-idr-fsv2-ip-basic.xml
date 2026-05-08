@@ -1419,46 +1419,67 @@
       <!-- XXX JMH We need to normalize the short form of flow specifications.
       flowspec? Flow Spec? -->
       <section title="FSv2 Actions for FSv2 IP Basic ">
-        <t>FSv2 IP Basic allows flowspec actions to be attached in BGP Extended
-	Communities (FSv2-EC). FSv2-ECs encode their actions using the Extended
-	Community formats <xref target="RFC4360"></xref> or in the IPv6 Address
-	Specific Extended Community format <xref target="RFC5701"></xref>.</t>
+	<t>Traffic matching a flow specification filter may have selected
+	<em>traffic actions</em> applied to it that have various impacts on the
+	matched traffic. FSv2 IP Basic allows flow specification actions to be
+	attached to flow specification routes using BGP Extended Communities
+	(FSv2-EC) encoded using the Extended Community formats
+	<xref target="RFC4360"/> or in the IPv6 Address Specific Extended
+	Community format <xref target="RFC5701"/>.</t>
 
-	<t>A flow specification filter match may be linked to only one flow
-	specification action.  For such deployments, the details on how
-	multiple actions per flow specification filter match in this section
-	can be ignored.</t>
+	<t><xref target="fs-interactions"/> describes the interaction between
+	FS-EC action, and categories of actions.  <xref target="fsv2-actions"/>
+	describes the existing FS-EC action formats.  <xref target="fsv2-ec-aco"/>
+	defines an optional FS-EC to pass information ordering of categories
+	(user/this standard) and failure action (stop or best effort).</t>
 
-	<!-- XXX JMH - rewrite -->
-        <t>When an operator defines multiple flow specification Extended Community
-        (FS-EC) Actions for a single filter match, it is possible that some FS-EC
-        actions can interact. If one sorts the FS-EC actions into categories,
-        the interactions can be minimized. One example of such interactions is
-        if the flow is redirect to a VRF and to a VPN. Another way two actions
-        interact is if an action fails.  For example, if set DSCP action fails
-        prior to redirect to a VPN may have undesired data flow patterns.</t>
+	<section title="Categories of FSv2 Actions and their Interactions" anchor="fs-interactions">
 
-        <t>This section defines the FS-EC actions, categories of FS-EC
-        actions, and ways to minimize interactions between FS-EC actions.
-        <xref target="fsv2-actions"/> describes the existing FS-EC action formats.
-        <xref target="fs-interactions"/> describes the interaction between FS-EC action, and categories of
-        actions, and the way to minimizes interactions.  Should the BGP to
-        distribute information about the configured interactions for sequences
-        of multiple actions, <xref target="fsv2-aco"/> defines an optional FS-EC to pass
-        information ordering of categories (user/this standard) and failure
-        action (stop or best effort).</t>
+	  <t>FSv2-EC actions fall into the following categories:
 
-	<!-- XXX JMH - this sentence doesn't mean anything? -->
-        <t>Note that FSv2 implementations that only associate one FSv2-EC per
-        filter match do not need the FSv2-EC.</t>
+	    <ul>
+	      <li>Further constraint of the match criteria for the traffic in
+	      addition to that which is encoded in the NLRI.</li>
+
+	      <li>Apply traffic shaping mechanisms, such as bps/pps rate
+	      limiters.</li>
+
+	      <li>Change IP packet properties, such as DSCP.</li>
+
+	      <li>Redirect (change the forwarding) of the traffic.  Examples
+	      include redirecting to VPN VRFs, or forwarding to tunneled
+	      destinations.</li>
+
+	      <li>Flag the traffic for sampling.</li>
+
+	      <li>Terminate the evaluation of further flow specification
+	      matches in the forwarding plane.</li>
+	    </ul>
+	  </t>
+
+	  <t>When multiple actions from a given FSv2-EC category are present in
+	  a FSv2 route, these actions may <em>conflict</em>. Conflicting
+	  actions result in ambiguity as to what traffic action behavior is
+	  applied to traffic matching the flow specification.</t>
+
+	  <t>FSv2 actions passed in a BGP Community Container Attribute can
+	  provide ordering of actions, dependencies, or signal which actions are
+	  valid within a category (see
+	  <xref target="I-D.hares-idr-fsv2-more-ip-actions"/>).
+	  However, these features are beyond the Basic FSv2 for IP forwarding
+	  and are out of scope for this specification.</t>
+	</section>
 
         <section title="FSv2 Extended Community Actions" anchor="fsv2-actions">
-	  <t>FSv2 IP Basic uses FSv1 actions and defines one additional,
-	  optional, FSv2 specific FS-EC: the Action Chain Ordering (ACO)
-	  Extended Community (ACO-EC).  ACO-EC can pass around defaults
-	  currently only available by configuration in FSv1.</t>
+	  <t>FSv2 IP Basic uses FSv1 actions and these are referenced in
+	  <xref target="fsv2-ec-rfc4360"/> and <xref target="fsv2-ec-rfc5701"/>.</t>
 
-          <section title="Existing Flow Specification Action Extended Communities">
+	  <t>One additional, optional, FSv2 specific FS-EC: the Action Chain
+	  Ordering (ACO) Extended Community (ACO-EC), is defined in
+	  <xref target="fsv2-ec-aco"/>.  ACO-EC can carry defaults currently
+	  only available by configuration in FSv1.</t>
+
+          <section title="Existing Flow Specification Action Extended Communities" anchor="fsv2-ec-rfc4360">
 	    <t>FSv1 defines a set of <xref target="RFC4360"/> encoded extended
 	    communities implementing actions also applicable to FSv2 IP Basic
 	    match types.  They are:</t>
@@ -1560,7 +1581,7 @@
             reference a particular action.</t>
 
           </section>
-          <section title="Existing Flow Specification Actions IPv6 Address Specific Extended Communities">
+          <section title="Existing Flow Specification Actions IPv6 Address Specific Extended Communities" anchor="fsv2-ec-rfc5701">
 	    <t>FSv1 defines a set of <xref target="RFC5701"/> encoded extended
 	    communities implementing actions also applicable to FSv2 IP Basic
 	    match types.  They are:</t>
@@ -1584,7 +1605,7 @@
 		</tr>
 		<tr>
 		  <td>0x000D</td>
-		  <td>FS Redirect to IPv6</td>
+		  <td>FS Redirect to VPN by IPv6 route target</td>
 		  <td>RD-VRF-IPv6</td>
 		  <td><xref target="RFC8956"/></td>
 		</tr>
@@ -1593,186 +1614,174 @@
           </section>
         </section>
 
-        <section anchor="fs-interactions"
-         title="Interactions between Flow Spec Extended Community Actions (FS-EC)">
-          <t>Interactions between FS-EC only occur if a filter match has
-          multiple actions.  If multiple FS-EC actions are listed on a filter,
-          these can interact within categories or if a previous FS-EC action
-          fails.  Consider three cases of multiple actions as you read this
-          section.</t>
+	<section title="Failure of an FS-EC Action" >
+	  <t>Devices implementing flow specification matching and traffic
+	  actions may be unable, for whatever reason, to carry out the signaled
+	  actions for the matched traffic.  Some examples of this inability
+	  include:
 
-          <t>Case 1: a filter match has three actions:
-            <list>
-              <t>1. set a DSCP value in the IP Packet,</t>
-              <t>2. Sample the traffic (for spam checking), and</t>
-              <t>3. Redirect the traffic to a VRF.</t>
-            </list>
-          </t>
-          <t>Case 2: a filter match has two actions.
-            <list>
-              <t>1. redirect to VRF,</t>
-              <t>2. TAIS Terminate FS filter processing</t>
-            </list>
-          </t>
-          <t>Case 3: a Filter match has two actions
-            <list>
-              <t>1. redirect to VRF, and</t>
-              <t>2. redirect to SFC</t>
-            </list>
-          </t>
+	    <ul>
+	      <li>The action is not implemented in the forwarding plane.</li>
 
-          <section title="Interactions Between Multiple Actions by Categories">
-            <t>This section considers interactions between multiple successful
-            FSv2 Actions.</t>
+	      <li>Combinations of non-conflicting actions may not be able to be
+	      simultaneously executed due to limitation in the implementation's
+	      forwarding plane.</li>
+	    </ul>
+	  </t>
+<!-- XXX JMH - need to deal with *unknown* actions -->
 
-            <t>FS-EC actions fall into the following categories:
-              <list>
-                <t>1. limitation on filters or actions (interface-set or local configuration)</t>
-                <t>2. rate limiting (bytes (TRB) and packets (TRP)),</t>
-                <t>3. Set DSCP value in IP packet</t>
-                <t>4. Sample packet (TAIS - sample)</t>
-                <t>5. redirect to IP paths  (to VRF, to VPN, to Indirection-ID, to SFC path)</t>
-                <t>6. Terminate action processing (TAIS terminate)</t>
-              </list>
+	  <t>When FS-EC actions known to the implementation are attached to a
+	  flow specification route and an action cannot be executed, there are
+	  three potential options:
 
-            If multiple actions with only one action per category, then there
-            is little interaction between successful actions.  If multiple
-            actions have more than one action per category, then successful
-            actions can interact. For example, the multiple actions in Case 1
-            and Case 2 described above only have one type of action per
-            category.  In contrast, Case 3 has two interactions in the
-            redirect category.</t>
+	    <ol type="Option %d:">
+	      <li>Stop processing additional filters and (optionally) signal failure to the management process.</li>
+	      <li>Continue on processing in "best effort" for the next filters.</li>
+	      <li>Decide between 1 and 2 based on dependencies between filters and actions.</li>
+	    </ol>
+	  </t>
 
-            <t>For multiple actions passed in the FS-EC, this logical
-            categorization allow the implementation to reject a set of multiple
-            actions if some of the actions interact in a set. Using the three
-            case examples, Case 1 and Case 2 FS-EC would be allowed and Case 3
-            FS-AC would be rejected.</t>
+	  <t>Option 1 and 2 can be signaled by configuration within a Flow
+	  Specification implementation.</t>
 
-            <t>FSv2 actions passed in a BGP Community Attribute can provide
-            ordering of actions, dependencies or signal which actions are valid
-            within a category
-            (see <xref target="I-D.hares-idr-fsv2-more-ip-actions"></xref>).
-            However, these features are beyond the Basic FSv2 for IP forwarding
-            and out of scope for this specification.</t>
-          </section>
+	  <t>Option 3 requires the encoding dependency lists in ordered filters
+	  and ordered actions.  The FSv2 NLRI format has a field to carry
+	  filter dependency information, but these functions are beyond the
+	  FSv2 Basic IP functions and out of scope for this specification.</t>
 
-          <section title="Failure of an FS-EC Action" >
-            <t>If multiple FS-EC action is attached to a Flow Spec filter rule and
-            one of the actions fails there are three potential options:
-              <list>
-                <t>Option 1. Stop processing additional filters and (optionally) signal failure to the management process,  </t>
-                <t>Option 2. Continue on processing in "best effort" for the next filters. </t>
-                <t>Option 3. Decide between 1 and 2 based on dependencies between filters and actions </t>
-              </list>
-            Option 1 and 2 can be signaled by configuration within a Flow
-            Specification implementation.  Option 3 requires the encoding
-            dependency lists in ordered filters and ordered actions.  The FSv2
-            NLRI format has a field to carry filter dependency information, but
-            these funtions are beyond the FSv2 Basic IP functions and out of
-            scope for this specification.</t>
+	  <t>Consider an example where three FSv2-EC actions are present on the route: Set the DSCP value, request sampling of the traffic, redirect to a VRF. If the implementation is unable to set the DSCP value:
 
-            <t>Consider Case 1 where the set DSCP value in IP field fails to occur.
-            Option 1, would be to stop processing and not do the other two actions.
-            Option 2, would be to continue prcoessing and do the other two actions.</t>
+	    <ol type="Option %d">
+	      <li>would be to stop processing and not do the other two actions.</li>
+	      <li>would be to continue prcoessing and do the other two actions.</li>
+	    </ol>
+	  </t>
 
-            <t>Currently, for FSv1 local configuration determines what happens
-            if one of the actions fails within a set of multiple actions
-            attached to a filter rule.</t>
+	  <t>Currently, for FSv1, local configuration or implementation
+	  behavior determines what happens if one of the actions fails within a
+	  set of multiple actions attached to a filter rule.</t>
 
-            <t>One option for FSv2 is to pass another FS-EC indicating what the
-            originator expects will happen upon failure of an action.</t>
-          </section>
+	  <t>One option for FSv2 is to pass another FS-EC indicating what the
+	  originator expects will happen upon failure of an action.</t>
+	</section>
 
-          <section title="Action Chain Ordering FSv2-EC (ACO) (optional)" anchor="fsv2-aco">
-            <t>
-              <dl>
-                <dt>Summary:</dt>
-                <dd>>This optional FSv2-EC passes information on what the BGP
-                peer originating the FSv2-EC expects will happen with multiple
-                actions attached to a single filter.</dd>
+	<section title="Unknown FSv2-EC Actions">
+	  <t>A flow specification implementation that understands extended
+	  communities for a traffic action may not necessarily be able to
+	  implement them. Another problematic case for consistent deployment of
+	  flow specification within a network is understanding that an
+	  implementation may be ignorant of some FSv2-ECs.</t>
 
-                  <dt>Description:</dt>
-                  <dd>The BGP peer originating multiple FSv2 FS-EC actions
-                  attached to FSv2 NLRI (filters) may attach the Action Chain
-                  Ordering (ACO) FS-EC to inform BGP Peers receiving the FSv2
-                  information how the originating pair expects action
-                  interactions and actions failures will be handled. Two fields
-                  are encoded in this FS-EC:
+	  <t>FSv2-ECs are carried in the general purpose BGP Extended Community
+	  features.  The expected behavior for an implementation receiving
+	  unknown Extended Communities, depending on configuration and policy,
+	  will be to ignore the contents of these communities and propagate
+	  them according to the transitivity rules in
+	  <xref target="RFC4360"/>.</t>
 
-                  <list>
-                    <t>AC-interaction - What happens if two actions are
-                    specified in a category, and</t>
+	  <t>Newly defined FSv2-ECs may be unknown to the implementation,
+	  typically as a result of incremental deployment newer flow
+	  specification traffic actions. When a network with older
+	  implementations receive such newly defined FSv2-ECs, the older
+	  implementations are unable to determine that an action has been
+	  requested at all. The default behavior thus becomes "best effort"
+	  for executing the known FSv2-ECs.</t>
 
-                    <t>AC-Failure - what happens if an action with multiple
-                    action set fails.</t>
-                  </list>
-                </dd>
+	  <t>When specifying new FSv2-ECs, operational consideration
+	  <bcp14>MUST</bcp14> be given to what the behavior of such ignorant
+	  implementations may do to the desired traffic forwarding throughout
+	  the FS deployment.</t>
+	</section>
 
-                <dt>Encoding:</dt>
-                <dd>The Generic Transitive encoding is shown in figure 3-11
-                with the field definitions below.</dd>
-              </dl>
-            </t>
-            <t>
-              <figure>
-              <artwork>
-     Generic Transitive Extended Community (IPv4)
+	<!-- XXX JMH - I'm a bit unclear on some of the intended details here
+	for ACO.  I think the desire is "what do you do if you fail to execute
+	a known action?"  The text is focusing on pairs that I don't
+	understand. -->
+	<section title="Action Chain Ordering FSv2-EC (ACO) (optional)" anchor="fsv2-ec-aco">
+	  <t>
+	    <dl>
+	      <dt>Summary:</dt>
+	      <dd>This optional FSv2-EC passes information on what the BGP
+	      peer originating the FSv2-EC expects will happen with multiple
+	      actions attached to a single filter.</dd>
 
-       0                   1                   2                   3
-      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |  Type high    |  Type low     |AC-interaction |  AC-Failure   |
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |        Reserved  (4 octets)                                   |
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+		<dt>Description:</dt>
+		<dd>The BGP peer originating multiple FSv2 FS-EC actions
+		attached to FSv2 NLRI (filters) may attach the Action Chain
+		Ordering (ACO) FS-EC to inform BGP Peers receiving the FSv2
+		information how the originating pair expects action
+		interactions and actions failures will be handled. Two fields
+		are encoded in this FS-EC:
 
-                      Figure 3-11
-              </artwork>
-              </figure>
-            </t>
+		<list>
+		  <t>AC-interaction - What happens if two actions are
+		  specified in a category, and</t>
 
-            <t>where:
-              <dl>
-                <dt>Type high:</dt>
-                <dd> This 1 octet field has a value of 0x80 For the Generic
-                Transitive EC.</dd>
+		  <t>AC-Failure - what happens if an action with multiple
+		  action set fails.</t>
+		</list>
+	      </dd>
 
-                <dt>Type low:</dt>
-                <dd> This one octet field identifies the ACO-Action.  The value
-                is TBD4.</dd>
+	      <dt>Encoding:</dt>
+	      <dd>The Generic Transitive encoding is shown in figure 3-11
+	      with the field definitions below.</dd>
+	    </dl>
+	  </t>
+	  <t>
+	    <figure title="Action Chain Ordering FSv2-EC">
+	    <artwork>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|  Type high    |  Type low     |AC-interaction |  AC-Failure   |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|        Reserved  (4 octets)                                   |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+	    </artwork>
+	    </figure>
+	  </t>
 
-                <dt>ACO Dependency</dt>
-                <dd>This field indicates whether the FS-EC category order is
-                the pre-defined order or an implementation specific order.
+	  <t>where:
+	    <dl>
+	      <dt><strong>Type high:</strong></dt>
+	      <dd> This 1 octet field has a value of 0x80 For the Generic
+	      Transitive EC.</dd>
 
-                  <list>
-                    <t>0 (default): do not install actions with two actions per
-                    category.</t>
+	      <dt><strong>Type low:</strong></dt>
+	      <dd> This one octet field identifies the ACO-Action.  The value
+	      is TBD.</dd>
 
-                    <t>1 (local config): allow under local configuration</t>
-                  </list>
-                </dd>
+	      <dt><strong>AC-interaction:</strong></dt>
+	      <dd>This field indicates whether the FS-EC category order is
+	      the pre-defined order or an implementation specific order.
 
-                <dt>AC-failure –</dt>
-                <dd> 1 octet byte that determines the action on failure.
-                Actions may succeed or fail and an Action chain must deal with
-                it.  The default value stored for an action chain that does not
-                have this action chain is "stop on failure".  where AC-Failure
-                types are:
-                  <list>
-                    <t> 0x00 – stop on failure of an action </t>
-                    <t>0x01 – continue on failure of an action,,</t>
-                  </list>
-                </dd>
+		<ul>
+		  <li>0 (default): Do not install actions with two actions per
+		  category.</li>
 
-                <dt>Reserved -</dt>
-                <dd>Reserved for future use.  Must be set to all zeros, and
-                ignored upon reception.</dd>
-              </dl>
-            </t>
-          </section>
-        </section>
+		  <li>1 (local config): Allow under local configuration.</li>
+		</ul>
+	      </dd>
+
+	      <dt><strong>AC-failure:</strong></dt>
+	      <dd>1 octet byte that determines the action on failure.
+	      Actions may succeed or fail and an Action chain must deal with
+	      it.  The default value stored for an action chain that does not
+	      have this action chain is "stop on failure".  AC-Failure
+	      types are:
+
+		<ul>
+		  <li>0x00: Stop on failure of an action.</li>
+		  <li>0x01: Continue on failure of an action.</li>
+		</ul>
+	      </dd>
+
+	      <dt><strong>Reserved:</strong></dt>
+	      <dd>Reserved for future use.  Must be set to all zeros, and
+	      ignored upon reception.</dd>
+	    </dl>
+	  </t>
+	</section>
       </section>
     </section>
 
@@ -2292,6 +2301,9 @@
     <displayreference target="I-D.ietf-idr-flowspec-interfaceset" to="interface-set"/>
     <displayreference target="I-D.ietf-idr-flowspec-redirect-ip" to="redirect-ip"/>
     <displayreference target="I-D.ietf-idr-flowspec-path-redirect" to="path-redirect"/>
+    <displayreference target="I-D.hares-idr-fsv2-more-ip-actions" to="fsv2-more-ip-actions"/>
+    <displayreference target="I-D.hares-idr-fsv2-more-ip-actions" to="fsv2-more-ip-filters"/>
+    <displayreference target="I-D.ietf-idr-flowspec-v2" to="fsv2"/>
     <references title="Normative References">
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.0768"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.0791"/>

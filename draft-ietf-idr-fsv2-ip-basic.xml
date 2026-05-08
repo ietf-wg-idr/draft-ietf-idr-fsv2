@@ -1749,7 +1749,7 @@
 
 	      <dt><strong>Type low:</strong></dt>
 	      <dd> This one octet field identifies the ACO-Action.  The value
-	      is TBD.</dd>
+	      is TBD4.</dd>
 
 	      <dt><strong>AC-interaction:</strong></dt>
 	      <dd>This field indicates whether the FS-EC category order is

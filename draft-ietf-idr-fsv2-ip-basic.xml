@@ -1458,143 +1458,138 @@
 	  Extended Community (ACO-EC).  ACO-EC can pass around defaults
 	  currently only available by configuration in FSv1.</t>
 
-          <section title="FSv2 Actions in Extended Community for IPv4">
-            <t>The format of the Extended Community for IPv4 defined in
-	    <xref target="RFC4360"></xref> is shown in Figure 3-9 with 2 octet
-	    type that is split into a high byte and low byte.  The format of
-	    the IPv4 Extended Community is shown in Figure 3-10.
+          <section title="Existing Flow Specification Action Extended Communities">
+	    <t>FSv1 defines a set of <xref target="RFC4360"/> encoded extended
+	    communities implementing actions also applicable to FSv2 IP Basic
+	    match types.  They are:</t>
 
-              <figure>
-              <artwork>
-
-      0                   1                   2                   3
-      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |  Type high    |  Type low(*)  |                               |
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+          Value (6 octets)     |
-     |                                                               |
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-                        Figure 3-9
-              </artwork>
-              </figure>
-            </t>
-            <t>
-              <figure>
-              <artwork>
-
-                   Table 3-3
-      FSv1 Transitive Extended Communities for IP Basic
-          High-Low byte of Transitive FS-EC
-
-    H-L      FSv1 Description               Short-ID FS document
-    ======   ==================             ======== ==========
-    0x01-0C  Transitive IPv4                RDIPv4   RDIP
-    0x07-02  FSv1 for an Interface set      TAIS     ifset
-    0x09-xx  Redirect to Indirection ID     RGID     RGID
-    0x0b-00  SFC Reserved                   SFC-R    RFC9015
-    0x0b-01  SFVC SFIR POOL Identifier      SFIR-PI  RFC9015
-    0x0b-02  SFC MPLS label stack Swapping  SFC-MPLS RFC9015
-             or stacking labels
-    0x80-06  Traffic rate limit by bytes    TRB      RFC8955
-    0x80-07  Traffic Action                 TA       RFC8955
-             (sample, terminal)
-    0x80-08  Redirection to VRF (2 AS form) RDIP     RFC8955
-    0x80-09  Traffic mark DSCP              TM       RFC8955
-    0x80-0C  Traffic rate limit by packets  TRP      RFC8955
-    0x81-08  Redirect to VPN (IPv4 form)    RDIP     RFC8955
-    0x81-08  Redirect to VPN (4 AS form)    RDIP     RFC8955
-              </artwork>
-              </figure>
-            </t>
+	    <table align="left">
+	      <name>FSv1 Extended Communities Used by FSv2</name>
+	      <thead>
+		<tr>
+		  <th>Type/Sub-Type</th>
+		  <th>Description</th>
+		  <th>Short-ID</th>
+		  <th>Reference</th>
+		</tr>
+	      </thead>
+	      <tbody>
+		<tr>
+		  <td>0x01/0x0c</td>
+		  <td>Redirect to IP</td>
+		  <td>RD-IP</td>
+		  <td><xref target="I-D.ietf-idr-flowspec-redirect-ip"/></td>
+		</tr>
+		<tr>
+		  <td>0x07/0x02</td>
+		  <td>Match Interface set</td>
+		  <td>TA-IS</td>
+		  <td><xref target="I-D.ietf-idr-flowspec-interfaceset"/></td>
+		</tr>
+		<tr>
+		  <td>0x09/0xxx</td>
+		  <td>Redirect to Indirection ID</td>
+		  <td>RD-IID</td>
+		  <td><xref target="I-D.ietf-idr-flowspec-path-redirect"/></td>
+		</tr>
+		<!-- XXX JMH - these SFC code points need review to see if they belong here. -->
+		<tr>
+		  <td>0x0b/0x00</td>
+		  <td>SFC Reserved</td>
+		  <td>SFC-R</td>
+		  <td><xref target="RFC9015"/></td>
+		</tr>
+		<tr>
+		  <td>0x0b/0x01</td>
+		  <td>SFVC SFIR POOL Identifier</td>
+		  <td>SFIR-PI</td>
+		  <td><xref target="RFC9015"/></td>
+		</tr>
+		<tr>
+		  <td>0x0b/0x02</td>
+		  <td>SFC MPLS label stack Swapping or stacking labels</td>
+		  <td>SFC-MPLS</td>
+		  <td><xref target="RFC9015"/></td>
+		</tr>
+		<tr>
+		  <td>0x80/0x06</td>
+		  <td>Traffic rate limit by bytes</td>
+		  <td>TR-BPS</td>
+		  <td><xref target="RFC8955"/></td>
+		</tr>
+		<tr>
+		  <td>0x80/0x07</td>
+		  <td>Traffic Action (sample, terminal)</td>
+		  <td>TA</td>
+		  <td><xref target="RFC8955"/></td>
+		</tr>
+		<tr>
+		  <td>0x80/0x08</td>
+		  <td>Redirection to VRF (2-octet AS form)</td>
+		  <td>RD-VRF-AS2</td>
+		  <td><xref target="RFC8955"/></td>
+		</tr>
+		<tr>
+		  <td>0x80/0x09</td>
+		  <td>Traffic mark DSCP</td>
+		  <td>TM-DSCP</td>
+		  <td><xref target="RFC8955"/></td>
+		</tr>
+		<tr>
+		  <td>0x80/0x0C</td>
+		  <td>Traffic rate limit by packets</td>
+		  <td>TR-BPS</td>
+		  <td><xref target="RFC8955"/></td>
+		</tr>
+		<tr>
+		  <td>0x81/0x08</td>
+		  <td>Redirect to VPN (IPv4 form)</td>
+		  <td>RD-VRF-IPv4</td>
+		  <td><xref target="RFC8955"/></td>
+		</tr>
+		<tr>
+		  <td>0x81/0x08</td>
+		  <td>Redirect to VPN (4-octet AS form)</td>
+		  <td>RD-VRF-AS4</td>
+		  <td><xref target="RFC8955"/></td>
+		</tr>
+	      </tbody>
+	    </table>
 
             <t> Note the Short ID is simply a quick way for this document to
             reference a particular action.</t>
 
-            <t>References:
-              <dl>
-                <dt>ifset:</dt>
-                <dd><xref target="I-D.ietf-idr-flowspec-interfaceset"></xref></dd>
-
-                <dt>RDIP:</dt>
-                <dd><xref target="I-D.ietf-idr-flowspec-redirect-ip"></xref></dd>
-
-                <dt>RGID:</dt>
-                <dd><xref target="I-D.ietf-idr-flowspec-path-redirect"></xref></dd>
-
-                <dt>RFC9015:</dt>
-                <dd><xref target="RFC9015"></xref></dd>
-
-                <dt>RFC8955:</dt>
-                <dd><xref target="RFC8955"></xref></dd>
-              </dl>
-            </t>
           </section>
-          <section title="Flow Specification Actions in IPv6 forms">
-            <t> The Transitive IPv6-Address-Specific Extended Community encodes
-            the Flow Specification actions in the Extended Community format
-            specified in <xref target="RFC5701"></xref> shown in Figure 3-10.
-            Table 3-3 lists the 4 octet format for high-byte and low-byte.
-            Note that there are two allocations for redirect from IPv6.
+          <section title="Existing Flow Specification Actions IPv6 Address Specific Extended Communities">
+	    <t>FSv1 defines a set of <xref target="RFC5701"/> encoded extended
+	    communities implementing actions also applicable to FSv2 IP Basic
+	    match types.  They are:</t>
 
-              <figure>
-              <artwork>
-
-      0                   1                   2                   3
-      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     | Type (high)   |  Sub-type     |   Global Administrator        |
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-|
-     |         Global Administrator (cont.)                          |
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |         Global Administrator (cont.)                          |
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |         Global Administrator (cont.)                          |
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     | Global Administrator (cont.)  |   Local Administrator         |
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-                  Figure 3-10
-
-    The 20 octets of value are given in the following format:
-    Global Administrator: IPv6 address assigned by Internet Registry
-    Local Administrator:  2 bytes of Local Administrator
-              </artwork>
-              </figure>
-            </t>
-            <t>
-              <figure>
-              <artwork>
-                      Table 3-4
-    Transitive IPv6-Address-Specific Extended Community Types
-
-    H-L byte  FSv1 Description        Short-ID FS document
-    ======    ==================      ======== ==========
-    0x0000    Unassigned
-    0x0001    Unassigned
-    0x0002    Route Target            RT        No
-    0x0003    Route origin            ROrg      No (deprecated)
-    0x0004    OSPFv3 Route Attribute  OSPFv3    No (deprecated)
-    0x0005    FIT Tail Community      IFITv6    No
-    0x0006    Link Bandwidth          LBW       No
-    0x0008    Unassigned
-    0x0009    Unassigned
-    0x000A    Unassigned
-    0x000B    VRF Route Import        VRP-I     No
-    0x000C    FS Redirect to IPv6     RDIPv6C   Yes: RDIP
-    0x000D    FS Redirect to IPv6     RDIPv6    Yes: RFC8956
-    0x000E    Unassigned
-    Ox000F    Unassigned
-    0x0010    Cisco VPN distinguisher Cisco-VPN  No
-    0x0011    UUID-based Route Target UUID-RT    No
-    0x0012    Inter-ARea P2MP S-NH    PM2P-NH    No
-    0x0013    Unassigned
-    0x0014    VRF Recursive NH        VRF-RNH    no
-    0x0015    RT-derived-EC           RT-EC      no
-
-              </artwork>
-              </figure>
-            </t>
+	    <table align="left">
+	      <name>FSv1 IPv6 Address Specific Extended Communities Used by FSv2</name>
+	      <thead>
+		<tr>
+		  <th>Type</th>
+		  <th>Description</th>
+		  <th>Short-ID</th>
+		  <th>Reference</th>
+		</tr>
+	      </thead>
+	      <tbody>
+		<tr>
+		  <td>0x000C</td>
+		  <td>FS Redirect to IPv6</td>
+		  <td>RD-IP6</td>
+		  <td><xref target="I-D.ietf-idr-flowspec-redirect-ip"/></td>
+		</tr>
+		<tr>
+		  <td>0x000D</td>
+		  <td>FS Redirect to IPv6</td>
+		  <td>RD-VRF-IPv6</td>
+		  <td><xref target="RFC8956"/></td>
+		</tr>
+	      </tbody>
+	    </table>
           </section>
         </section>
 
@@ -2294,6 +2289,9 @@
     </section>
   </middle>
   <back>
+    <displayreference target="I-D.ietf-idr-flowspec-interfaceset" to="interface-set"/>
+    <displayreference target="I-D.ietf-idr-flowspec-redirect-ip" to="redirect-ip"/>
+    <displayreference target="I-D.ietf-idr-flowspec-path-redirect" to="path-redirect"/>
     <references title="Normative References">
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.0768"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.0791"/>

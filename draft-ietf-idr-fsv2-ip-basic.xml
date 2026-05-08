@@ -928,7 +928,7 @@
           </t>
         </section>
 
-        <section title="Bitmask Operator (bitmask_op)">
+        <section title="Bitmask Operator (bitmask_op)" anchor="bitmask-op">
           <t>This operator is encoded as shown in Figure 3-4.
             <figure title="Bitmask Operator (bitmask_op)">
             <artwork>
@@ -1134,7 +1134,7 @@
 	  </section>
         </section>
 
-        <section title="Port (type = 40)">
+        <section title="Port (type = 40)" anchor="port">
 	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
 	  <t>Defines a list of <tt>{numeric_op, value}</tt> pairs that match
@@ -1164,124 +1164,256 @@
         </section>
 
         <section title="Destination Port (type = 50)" anchor="dst-port">
-          <t>IPv4/IPv6 Name: Destination Port    (reference:  <xref
-          target="RFC8955"></xref>), <xref target="RFC8956"></xref>) </t>
-          <t>Filter defines: a list of match filters for destination port for TCP
-          or UDP within a received packet</t>
-          <t>Length: variable</t>
-          <t> Component Value format: [numeric_op, value]+</t>
+	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
+
+	  <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to match
+	  the destination port of a TCP or UDP packet (see also
+	  <xref target="RFC0793" section="3.1"/> and the "Format" section of
+	  <xref target="RFC0768"/>.</t>
+
+	  <t>This component uses the Numeric Operator (numeric_op) described in
+	  <xref target="numeric-op"/>. Type 50 component values SHOULD be
+	  encoded as 1- or 2-octet quantities (numeric_op len=00 or
+	  len=01).</t>
+
+	  <t>The last paragraph of <xref target="port"/> also applies to this
+	  component.</t>
         </section>
 
         <section title="Source Port (type = 60)" anchor="src-port">
-          <t>IPv4/IPv6 Name: Source Port (reference:  <xref target="RFC8955"></xref>), <xref target="RFC8956"></xref>)</t>
-          <t>Filter defines: a list of match filters for source port for TCP or UDP within a received packet</t>
-          <t>IPv4/IPv6 length: variable</t>
-          <t>IPv4/Ipv6 value: [numeric_op, value]+</t>
+	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
+
+	  <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to match
+	  the source port of a TCP or UDP packet (see also
+	  <xref target="RFC0793" section="3.1"/> and the "Format" section of
+	  <xref target="RFC0768"/>.</t>
+
+	  <t>This component uses the Numeric Operator (numeric_op) described in
+	  <xref target="numeric-op"/>. Type 60 component values SHOULD be
+	  encoded as 1- or 2-octet quantities (numeric_op len=00 or
+	  len=01).</t>
+
+	  <t>The last paragraph of <xref target="port"/> also applies to this
+	  component.</t>
         </section>
 
         <section title="ICMP Type (type = 70)">
-          <t>IPv4: ICMP Type (reference:  <xref target="RFC8955"></xref>)</t>
-          <t>Filter defines: Defines: a list of match criteria for ICMPv4 type</t>
-          <t>IPv6: ICMPv6 Type (reference: <xref target="RFC8956"></xref>) </t>
-          <t>Filter defines: a list of match criteria for ICMPv6 type.</t>
-          <t></t>
-          <t>IPv4/IPv6 length: variable</t>
-          <t>IPv4/IPv6 value: [numeric_op, value]+</t>
+	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
+
+	  <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to match
+	  the type field of an ICMP packet (see also the "Message Formats"
+	  section of <xref target="RFC0792"/>).</t>
+
+	  <t>This component uses the Numeric Operator (numeric_op) described in
+	  <xref target="numeric-op"/>. Type 70 component values SHOULD be
+	  encoded as single octet (numeric_op len=00).</t>
+
+	  <section title="ICMP IPv4 Type (AFI=1)">
+	    <t>In case of the presence of the ICMP type component, only ICMP
+	    packets can match the entire Flow Specification. The ICMP type
+	    component, if present, never matches when the packet's IP protocol
+	    value is not 1 (ICMP), if the packet is fragmented and this is not
+	    the first fragment, or if the system is unable to locate the
+	    transport header. Different implementations may or may not be able
+	    to decode the transport header in the presence of IP options or
+	    Encapsulating Security Payload (ESP) NULL <xref target="RFC4303"/>
+	    encryption.</t>
+	  </section>
+
+	  <section title="ICMP IPv6 Type (AFI=2)">
+	    <t>In case of the presence of the ICMPv6 type component, only
+	    ICMPv6 packets can match the entire Flow Specification. The ICMPv6
+	    type component, if present, never matches when the packet's
+	    upper-layer IP protocol value is not 58 (ICMPv6), if the packet is
+	    fragmented and this is not the first fragment, or if the system is
+	    unable to locate the transport header. Different implementations
+	    may or may not be able to decode the transport header.</t>
+	  </section>
         </section>
 
         <section title="ICMP Code (type = 80)">
-          <t>IPv4: ICMP Type (reference:  <xref target="RFC8955"></xref>)</t>
-          <t>Filter defines: a list of match criteria for ICMPv4 code.</t>
-          <t>IPv6: ICMPv6 Type (reference: <xref target="RFC8956"></xref>)</t>
-          <t>Filter defines: a list of match criteria for ICMPv6 code.</t>
-          <t></t>
-          <t>IPv4/IPv6 length: variable</t>
-          <t>IPv4/IPv6 value: [numeric_op, value]+ </t>
+	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
+
+	  <section title="ICMP Code IPv4 Type (AFI=1)">
+	    <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to
+	    match the code field of an ICMP packet (see also the "Message
+	    Formats" section of <xref target="RFC0792"/>).</t>
+
+	    <t>This component uses the Numeric Operator (numeric_op) described
+	    in <xref target="numeric-op"/>. Type 80 component values SHOULD be
+	    encoded as single octet (numeric_op len=00).</t>
+
+	    <t>In case of the presence of the ICMP code component, only ICMP
+	    packets can match the entire Flow Specification. The ICMP code
+	    component, if present, never matches when the packet's IP protocol
+	    value is not 1 (ICMP), if the packet is fragmented and this is not
+	    the first fragment, or if the system is unable to locate the
+	    transport header. Different implementations may or may not be able
+	    to decode the transport header in the presence of IP options or
+	    Encapsulating Security Payload (ESP) NULL <xref target="RFC4303"/>
+	    encryption.</t>
+	  </section>
+
+	  <section title="ICMP Code IPv6 Type (AFI=2)">
+	    <t>This defines a list of {numeric_op, value} pairs used to match
+	    the code field of an ICMPv6 packet (see also
+	    <xref target="RFC4443" section="2.1"/>).</t>
+
+	    <t>This component uses the Numeric Operator (numeric_op) described
+	    in <xref target="numeric-op"/>. Type 80 component values SHOULD be
+	    encoded as a single octet (numeric_op len=00).</t>
+
+	    <t>In case of the presence of the ICMPv6 code component, only
+	    ICMPv6 packets can match the entire Flow Specification. The ICMPv6
+	    code component, if present, never matches when the packet's
+	    upper-layer IP protocol value is not 58 (ICMPv6), if the packet is
+	    fragmented and this is not the first fragment, or if the system is
+	    unable to locate the transport header. Different implementations
+	    may or may not be able to decode the transport header.</t>
+	  </section>
         </section>
 
         <section title="TCP Flags (type = 90)" >
-          <t>IPv4/IPv6: TCP Flags Code  (reference:  <xref target="RFC8955"></xref>)</t>
-          <t>Filter defines: a list of match criteria for TCP Control bits</t>
-          <t></t>
-          <t>IPv4/IPv6 length: variable</t>
-          <t>IPv4/IPv6 value: [bitmask_op, value]+</t>
-          <t></t>
+	  <t><tt>Encoding: &lt;[bitmask_op, bitmask]+&gt;</tt></t>
+
+	  <t>Defines a list of <tt>{bitmask_op, bitmask}</tt> pairs used to
+	  match TCP control bits (see also
+	  <xref target="RFC0793" section="3.1"/>).</t>
+
+	  <t>This component uses the Bitmask Operator (bitmask_op) described in
+	  <xref target="bitmask-op"/>. Type 90 component bitmasks MUST be
+	  encoded as 1- or 2-octet bitmask (bitmask_op len=00 or len=01).</t>
+
+	  <t>When a single octet (bitmask_op len=00) is specified, it matches
+	  octet 14 of the TCP header (see also
+	  <xref target="RFC0793" section="3.1"/>), which contains the TCP
+	  control bits. When a 2-octet (bitmask_op len=01) encoding is used, it
+	  matches octets 13 and 14 of the TCP header with the data offset
+	  (leftmost 4 bits) always treated as 0.</t>
+
+	  <t>In case of the presence of the TCP flags component, only TCP
+	  packets can match the entire Flow Specification. The TCP flags
+	  component, if present, never matches when the packet's IP protocol
+	  value is not 6 (TCP), if the packet is fragmented and this is not the
+	  first fragment, or if the system is unable to locate the transport
+	  header. Different implementations may or may not be able to decode
+	  the transport header in the presence of IP options or Encapsulating
+	  Security Payload (ESP) NULL <xref target="RFC4303"/> encryption.</t>
+
+	  <!-- XXX JMH the intention here was to be more restrictive?
           <t>Note: a 2 octets bitmask match is always used for TCP-Flags </t>
+	  -->
         </section>
 
         <section title="Packet length (type = 100)">
-          <t>IPv4/IPv6: Packet Length (reference: <xref target="RFC8955"></xref>,
-          <xref target="RFC8956"></xref>)</t>
-          <t>Filter defines: a list of match criteria for length of packet
-          (excluding L2 header but including IP header).</t>
-          <t>IPv4/IPv6 length: variable</t>
-          <t>IPv4/IPv6 value: [numeric_op, value]+</t>
-          <t></t>
-          <t>Note:<xref target="RFC8955"></xref> uses either 1 or 2 octet values.</t>
+	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
+
+	  <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to match
+	  on the total IP packet length (excluding Layer 2 but including IP
+	  header).</t>
+
+	  <t>This component uses the Numeric Operator (numeric_op) described in
+	  <xref target="numeric-op"/>. Type 100 component values SHOULD be
+	  encoded as 1- or 2-octet quantities (numeric_op len=00 or
+	  len=01).</t>
         </section>
 
         <section title="DSCP (Differentiaed Services Code Point)(type = 110)">
-          <t>IPv4/IPv6: DSCP Code  (reference:  <xref target="RFC8955"></xref>,
-          <xref target="RFC8956"></xref>)</t>
-          <t>Filter defines: a list of match criteria for DSCP code values to
-          match the 6-bit DSCP field.</t>
-          <t></t>
-          <t>IPv4/IPv6 length: variable</t>
-          <t>IPv4/IPv6 value: [numeric_op, value]+</t>
-          <t></t>
-          <t>Note: This component uses the Numeric Operator (numeric_op)
-          described in <xref target="RFC8955"></xref> in section 4.2.1.1.  Type
-          11 component values MUST be encoded as single octet (numeric_op
-          len=00).</t>
-          <t>The six least significant bits contain the DSCP value.  All other
-          bits SHOULD be treated as 0.</t>
+	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
+
+	  <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to match
+	  the 6-bit DSCP field (see also <xref target="RFC2474"/>).</t>
+
+	  <t>This component uses the Numeric Operator (numeric_op) described in
+	  <xref target="numeric-op"/>. Type 110 component values MUST be
+	  encoded as single octet (numeric_op len=00).</t>
+
+	  <t>The six least significant bits contain the DSCP value. All other
+	  bits SHOULD be treated as 0.</t>
         </section>
 
         <section title="Fragment (type = 120)">
-          <t>IPv4/IPv6: Fragment  (reference:  <xref target="RFC8955"></xref>,
-          <xref target="RFC8956"></xref>)</t>
-          <t>Filter defines: a list of match criteria for specific IP fragments.</t>
-          <t></t>
-          <t>Length: variable</t>
-          <t>Component Value format: [bitmask_op, value]+</t>
-          <t>Bitmask values are:</t>
-          <t>
-            <figure>
-            <artwork>
-          0    1   2   3   4   5   6  7
-        +---+---+---+---+---+---+---+---+
-        | 0 | 0 | 0 | 0 |LF |FF |IsF| DF|
-        +---+---+---+---+---+---+---+---+
-                     Figure 3-8
-            </artwork>
-            </figure>
-          </t>
+	  <t><tt>Encoding: &lt;[bitmask_op, bitmask]+&gt;</tt></t>
 
-          <t>Where:
-            <list>
-              <t>DF (don’t fragment): match If IP header flags bit 1 (DF) is 1.</t>
+	  <t>Defines a list of <tt>{bitmask_op, bitmask}</tt> pairs used to
+	  match specific IP fragments.</t>
 
-              <t>IsF(is a fragment other than first: match if IP header fragment
-              offset is not 0.</t>
+	  <t>This component uses the Bitmask Operator (bitmask_op) described in
+	  <xref target="bitmask-op"/>. Type 120 component bitmask MUST be
+	  encoded as single octet bitmask (bitmask_op len=00).</t>
 
-              <t> FF (First Fragment): Match if <xref target="RFC0791"></xref>
-              IP Header Fragment offset is zero and Flags Bit-2 (MF) is 1.</t>
+	  <section title="IPv4 Fragment (AFI=1)">
+	    <t>
+	      <figure title="IPv4 Fragment Bitmask Operand">
+	      <artwork>
+    0   1   2   3   4   5   6   7
+  +---+---+---+---+---+---+---+---+
+  | 0 | 0 | 0 | 0 |LF |FF |IsF|DF |
+  +---+---+---+---+---+---+---+---+
+	      </artwork>
+	      </figure>
+	    </t>
 
-              <t>LF (last Fragment): Match if <xref target="RFC0791"></xref> IP
-              header Fragment is not 0 And Flags bit-2 (MF) is 0</t>
+	    <t>Bitmask values:</t>
 
-              <t>0: MUST be sent in NLRI encoding as 0, and MUST be ignored
-              during reception.</t>
-            </list>
-          </t>
+	    <dl>
+	      <dt><strong>DF (Don't Fragment):</strong></dt>
+	      <dd>match if IP Header Flags Bit-1 (DF) <xref target="RFC0791"/> is 1</dd>
+
+	      <dt><strong>IsF (Is a fragment other than the first):</strong></dt>
+	      <dd>match if the <xref target="RFC0791"/> IP Header Fragment Offset is not 0</dd>
+
+	      <dt><strong>FF (First Fragment):</strong></dt>
+	      <dd>match if the <xref target="RFC0791"/> IP Header Fragment Offset is 0 AND Flags Bit-2 (MF) is 1</dd>
+
+	      <dt><strong>LF (Last Fragment):</strong></dt>
+	      <dd>match if the <xref target="RFC0791"/> IP Header Fragment Offset is not 0 AND Flags Bit-2 (MF) is 0</dd>
+
+	      <dt><strong>0:</strong></dt>
+	      <dd>MUST be set to 0 on NLRI encoding and MUST be ignored during decoding</dd>
+	    </dl>
+	  </section>
+
+	  <section title="IPv6 Fragment (AFI=2)">
+	    <t>
+	      <figure title="IPv6 Fragment Bitmask Operand">
+	      <artwork>
+  0   1   2   3   4   5   6   7
++---+---+---+---+---+---+---+---+
+| 0 | 0 | 0 | 0 |LF |FF |IsF| 0 |
++---+---+---+---+---+---+---+---+
+	      </artwork>
+	      </figure>
+	    </t>
+
+	    <t>Bitmask values:</t>
+
+	    <dl>
+	      <dt><strong>IsF:</strong></dt>
+	      <dd>Is a fragment other than the first -- match if IPv6 Fragment Header (<xref target="RFC8200" section="4.5"/>) Fragment Offset is not 0</dd>
+
+	      <dt><strong>FF:</strong></dt>
+	      <dd>First fragment -- match if IPv6 Fragment Header (<xref target="RFC8200" section="4.5"/>) Fragment Offset is 0 AND M flag is 1</dd>
+
+	      <dt><strong>LF:</strong></dt>
+	      <dd>Last fragment -- match if IPv6 Fragment Header (<xref target="RFC8200" section="4.5"/>) Fragment Offset is not 0 AND M flag is 0</dd>
+
+	      <dt><strong>0:</strong></dt>
+	      <dd>MUST be set to 0 on NLRI encoding and MUST be ignored during decoding</dd>
+	    </dl>
+	  </section>
         </section>
 
-        <section title="Flow Label (type = 130)">
-          <t>IPv4/IPv6: Fragment  (reference:  <xref target="RFC8956"></xref>)</t>
-          <t>Filter defines: a list of match criteria for 20-bit Flow Label in the IPv6 header field.</t>
-          <t></t>
-          <t>Length: variable</t>
-          <t>Component Value format: [numeric_op, value]+</t>
+        <section title="Flow Label (type = 130), AFI=2 only">
+	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
+
+	  <t>This contains a list of {numeric_op, value} pairs that are used to
+	  match the 20-bit Flow Label IPv6 header field
+	  (<xref target="RFC8200" section="3"/>).</t>
+
+	  <t>This component uses the Numeric Operator (numeric_op) described in
+	  <xref target="numeric-op"/>. Type 130 component values SHOULD be
+	  encoded as 4-octet quantities (numeric_op len=10).</t>
         </section>
       </section>
 
@@ -2163,12 +2295,15 @@
     <references title="Normative References">
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.0768"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.0791"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.0792"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.0793"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.1997"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.2119"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.2474"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4271"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4303"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4360"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4443"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4456"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4760"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.5065"/>

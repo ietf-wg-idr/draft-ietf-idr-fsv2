@@ -641,14 +641,14 @@
           <figure title="FSv2 Filter Component TLV Format">
           <artwork>
 +------------------------------+
+| FSv2 Filter Component Flags  |
+| (4 bits)                     |
++------------------------------+
 | FSv2 Filter Component Type   |
-| (2 octets)                   |
+| (16 bits)                    |
 +------------------------------+
 | FSv2 Filter Component Length |
 | (2 octets)                   |
-+------------------------------+
-| FSv2 Filter Component Flags  |
-| (1 octet)                    |
 +------------------------------+
 | FSv2 Filter Component Value  |
 | (variable)                   |
@@ -659,8 +659,34 @@
 
         <t>Where:
           <ul>
+            <li><t>The FSv2 Filter Component Flags are defined as:
+              <figure title="FSv2 Filter Component Flags Format">
+              <artwork>
+  0   1   2   3  
++---+---+---+---+
+| O | R | R | R |
++---+---+---+---+
+              </artwork>
+              </figure>
+            </t>
+
+            <t>The fields of the FSv2 Filter Component Flags are defined as:
+              <ul>
+                <li>O - Optional: When 0, the FSv2 filter-type-specific filter
+		component is mandatory and <bcp14>MUST</bcp14> be supported by
+		the local implementation.  Otherwise, when 1, the component is
+		considered "optional". When the component is mandatory and is
+		not supported, the FSv2 filter rule is considered "invalid" for
+		validation purposes.</li>
+
+                <li>R - Reserved: When not otherwise re-defined in a later
+                document, this bit <bcp14>MUST</bcp14> be set to zero when sent and
+                <bcp14>SHOULD</bcp14> be ignored on reception.</li>
+              </ul>
+            </t>
+            </li>
             <li>
-              <t>FSv2 Filter Component Type: A 16-bit unsigned integer in
+              <t>FSv2 Filter Component Type: A 12-bit unsigned integer in
               network byte order defining the match component for a given FSv2
               filter type.  For sorting purposes, lower value FSv2 Filter
               Component Types have a better precedence than higher values.</t>
@@ -717,33 +743,6 @@
             <li>FSv2 Filter Component Length: A 16-bit unsigned integer in
             network byte order containing the length of the FSv2 Filter
             Components Value field.</li>
-
-            <li><t>The FSv2 Filter Component Flags are defined as:
-              <figure title="FSv2 Filter Component Flags Format">
-              <artwork>
-  0   1   2   3   4   5   6   7
-+---+---+---+---+---+---+---+---+
-| M | R | R | R | R | R | R | R |
-+---+---+---+---+---+---+---+---+
-              </artwork>
-              </figure>
-            </t>
-
-            <t>The fields of the FSv2 Filter Component Flags are defined as:
-              <ul>
-                <li>M - Mandatory: When 1, the FSv2 filter-type-specific filter
-                component <bcp14>MUST</bcp14> be supported by the local
-                implementation.  Otherwise, the component is considered
-                "optional". When the component has the mandatory flag and is
-                not supported, the FSv2 filter rule is considered "invalid" for
-                validation purposes.</li>
-
-                <li>R - Reserved: When not otherwise re-defined in a later
-                document, this bit <bcp14>MUST</bcp14> be set to zero when sent and
-                <bcp14>SHOULD</bcp14> be ignored on reception.</li>
-              </ul>
-            </t>
-            </li>
 
             <li>FSv2 Filter Component Value: Each FSv2 filter type will define
             one or more FSv2 filter-type-specific filter components.  See each
@@ -994,7 +993,7 @@
 	    <tr><td>110</td><td>DSCP</td></tr>
 	    <tr><td>120</td><td>Fragment</td></tr>
 	    <tr><td>130</td><td>Flow Label</td></tr>
-	    <tr><td>65535</td><td>Reserved</td></tr>
+	    <tr><td>4095</td><td>Reserved</td></tr>
 	  </tbody>
 	</table>
       </section>
@@ -2027,7 +2026,7 @@
 	    <tr><td>110</td><td>DSCP</td><td>This document</td></tr>
 	    <tr><td>120</td><td>Fragment</td><td>This document</td></tr>
 	    <tr><td>130</td><td>Flow Label</td><td>This document</td></tr>
-	    <tr><td>65535</td><td>Reserved</td><td>This document</td></tr>
+	    <tr><td>4095</td><td>Reserved</td><td>This document</td></tr>
 	  </tbody>
 	</table>
       </section>

@@ -1723,12 +1723,12 @@
 	      </dd>
 
 	      <dt>Encoding:</dt>
-	      <dd>The Generic Transitive encoding is shown in figure 3-11
+	      <dd>The Generic Transitive encoding is shown in <xref target="aco-fsv2-ec"/>
 	      with the field definitions below.</dd>
 	    </dl>
 	  </t>
 	  <t>
-	    <figure title="Action Chain Ordering FSv2-EC">
+	    <figure title="Action Chain Ordering FSv2-EC" anchor="aco-fsv2-ec">
 	    <artwork>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -2184,8 +2184,6 @@
        Value   Description                Reference       Controller
        -----  --------------------------  ---------------  ----------
         TBD4  FSv2 Action Chain Ordering  [this document]  IETF
-
-       The requested value is "0x01".
           </artwork>
           </figure>
         </t>

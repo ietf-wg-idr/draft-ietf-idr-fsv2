@@ -670,6 +670,7 @@
               </figure>
             </t>
 
+	    <!-- XXX JMH - this probably needs an IANA section -->
             <t>The fields of the FSv2 Filter Component Flags are defined as:
               <ul>
                 <li>O - Optional: When 0, the FSv2 filter-type-specific filter
@@ -2227,47 +2228,104 @@
 	</table>
       </section>
 
-      <section title="FSV2 NLRI TLV Types">
-        <t>IANA is requested to create the a new registries on a new "Flow
-        Specification v2 TLV Types" web page.</t>
+      <section title="FSv2 Filter Component Types">
+        <t>IANA is requested to create the a new registry for "Flow
+        Specification v2 Filter Component Types".</t>
 
-        <t>This set of option assumes Type 2 ordering by packet frame rather
-        than ascending order.
+        <t>Registration Procedures: 0x01-0x3FFF Standards Action.</t>
 
-        <figure>
-        <artwork>
-       Table 7-6 FSv2 TLV types - Option 2
-       Registry Name: BGP FSv2 TLV types
-       Reference: [this document]
-       Registration Procedures: 0x01-0x3FFF Standards Action.
-
-
-        Type          Description              Reference
-        ----          ----------------------   ------------
-        0x00          Reserved                 [this document]
-            0x01-0x31     Unassigned               [this document]
-            0x32 (50)     L2 Traffic Rules         [this document]
-            0x33-0x63     Unassigned               [this document]
-            0x64 (100)    MPLS traffic rules         [this document]
-            0x65 (101)    Unassigned               [this document]
-         -0x95 (149)
-            0x96 (150)    SFC Traffic rules        [this document]
-        0x97 (151)    Unassigned               [this document]
-         - 0xC7
-        0xC8 (200)    Tunnel Traffic rules     [this document]
-            0xC9-0x99     Unassigned               [this document]
-            0x100 (256)   IP traffic rules         [this document]
-             0x101-0x117  Unassigned
-
-        0x118 (280)   Extended IP Rules        [this document]
-             0x119-0x6000 Unassigned               [this document]
-
-        0x6000-0x7FFF Vendor specific          [this document]
-        0x8000-0xFFFF Reserved                 [this document]
-
-          </artwork>
-          </figure>
-        </t>
+	<table align="left">
+	  <name>Flow Specification v2 Filter Component Types</name>
+	  <thead>
+	    <tr>
+	      <th>Type</th>
+	      <th>Description</th>
+	      <th>Reference</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <td>0</td>
+	      <td>Reserved</td>
+	      <td>[this document]</td>
+	    </tr>
+	    <tr>
+	      <td>1-49</td>
+	      <td>Unassigned</td>
+	      <td>[this document]</td>
+	    </tr>
+	    <tr>
+	      <td>50</td>
+	      <td>L2 Traffic Rules</td>
+	      <td>[this document]</td>
+	    </tr>
+	    <tr>
+	      <td>51-99</td>
+	      <td>Unassigned</td>
+	      <td>[this document]</td>
+	    </tr>
+	    <tr>
+	      <td>100</td>
+	      <td>MPLS traffic rules</td>
+	      <td>[this document]</td>
+	    </tr>
+	    <tr>
+	      <td>101-149</td>
+	      <td>Unassigned</td>
+	      <td>[this document]</td>
+	    </tr>
+	    <tr>
+	      <td>150</td>
+	      <td>SFC Traffic rules</td>
+	      <td>[this document]</td>
+	    </tr>
+	    <tr>
+	      <td>151-199</td>
+	      <td>Unassigned</td>
+	      <td>[this document]</td>
+	    </tr>
+	    <tr>
+	      <td>200</td>
+	      <td>Tunnel Traffic rules</td>
+	      <td>[this document]</td>
+	    </tr>
+	    <tr>
+	      <td>201-255</td>
+	      <td>Unassigned</td>
+	      <td>[this document]</td>
+	    </tr>
+	    <tr>
+	      <td>256</td>
+	      <td>IP traffic rules</td>
+	      <td>[this document]</td>
+	    </tr>
+	    <tr>
+	      <td>257-279</td>
+	      <td>Unassigned</td>
+	      <td>[this document]</td>
+	    </tr>
+	    <tr>
+	      <td>280</td>
+	      <td>Extended IP Rules</td>
+	      <td>[this document]</td>
+	    </tr>
+	    <tr>
+	      <td>281-24575</td>
+	      <td>Unassigned</td>
+	      <td>[this document]</td>
+	    </tr>
+	    <tr>
+	      <td>24576-32767</td>
+	      <td>Vendor specific</td>
+	      <td>[this document]</td>
+	    </tr>
+	    <tr>
+	      <td>32768-65535</td>
+	      <td>Reserved</td>
+	      <td>[this document]</td>
+	    </tr>
+	  </tbody>
+	</table>
       </section>
     </section>
 

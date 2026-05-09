@@ -2149,23 +2149,6 @@
         </t>
       </section>
 
-      <section title="BGP Capability Code">
-        <t>IANA is requested to assign a Capability Code from the registry at
-        https://www.iana.org/assignments/capability-codes/ from the IETF Review
-        range as follows:
-
-        <figure>
-        <artwork>
-       Table 7-2 - Capability Code
-
-       Value   Description            Reference       Controller
-       -----  ---------------------  ---------------  ----------
-        TBD3  Flow Specification V2  [this document]  IETF
-        </artwork>
-        </figure>
-       </t>
-      </section>
-
       <section title="Generic Transitive Extended Community">
         <t>IANA is requested to assign a type value from the "Generic
         Transitive Extended Community Sub-Types" registry at

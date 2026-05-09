@@ -554,7 +554,7 @@
       NextHop" field MUST be ignored.</t>
 
 
-      <section title="FSv2 NLRI Format">
+      <section title="FSv2 NLRI Format" anchor="nlri-format">
 
         <!-- XXX JMH - this is the start of a section describing the top level thinking for why things are organized the way they are -->
         <t>FSv2 Flow Specifications are encoded as an ordered list of TLVs of filter families. FSv2
@@ -810,7 +810,7 @@
 	filter-type-specific component types for a given component
 	<bcp14>MUST NOT</bcp14> occur more than once.</t>
 
-	<t>See <xref target="error-handling-and-validation"/> for further
+	<t>See <xref target="validating-fsv2-nlri"/> for further
 	details.</t>
       </section>
 
@@ -1785,222 +1785,307 @@
       </section>
     </section>
 
-    <section anchor="fsv2-validation-and-ordering" title="Validation and Ordering of NLRI">
-      <section title="Validation of FSv2 NLRI ">
-        <t>The validation of FSv2 NLRI adheres to the combination of rules for
-        general BGP FSv1 NLRI found in <xref target="RFC8955"></xref>, <xref
-        target="RFC8956"></xref>, <xref target="RFC9117"></xref>.  These FSv1
-        rules are sufficient for FSv2 for IP traffic.</t>
+    <section anchor="fsv2-validation-and-ordering" title="Validation and Ordering of FS Routes">
+      <t>The validation of FSv2 routes adheres to the combination of rules for
+      general BGP FSv1 routes found in <xref target="RFC8955"/>,
+      <xref target="RFC8956"/>, and <xref target="RFC9117"/>.  These FSv1 rules
+      are sufficient for FSv2 for IP traffic.</t>
 
-        <t> Specific additions have been defined for IP Filters used for
-        guiding IP traffic into Service Function Service Function Pathways SFC
-        NLRI in <xref target="RFC9015"></xref>, or validation of L2VPN FS NLRI
-        (see <xref target="I-D.ietf-idr-flowspec-l2vpn"></xref>).  These
-        additions are not required for the FSv2 for IP Basic functions.
-        Therefore, FSv2 NLRI validation for Basic IP uses the same rules as
-        FSv1.</t>
+      <t>Specific additions have been defined for IP Filters used for
+      guiding IP traffic into Service Function Service Function Pathways SFC
+      NLRI in <xref target="RFC9015"/>, or validation of L2VPN FS NLRI (see
+      <xref target="I-D.ietf-idr-flowspec-l2vpn"/>).  These additions are not
+      required for the FSv2 for IP Basic functions.</t>
 
-        <t>To provide clarity, the full validation process for flow
-        specification routes (FSv1 or FSv2) for all AFI/SAFIs is described
-        below in section x.x rather than simply referring to the relevant
-        portions of these RFCs.  Validation only occurs after BGP UPDATE
-        message reception and the FSv2 NLRI and the path attributes relating to
-        FSv2 (Extended community and Wide Community) have been determined to be
-        well-formed.  Any MALFORMED FSv2 NRLI is handled as a "session reset"
-        <xref target="RFC7606"></xref>.</t>
+      <t>Validating FSv2 routes procedes through the following steps:
+        <ul>
+	  <li>Syntactic and semantic validitation for FSv2 NLRI (<xref target="validating-fsv2-nlri"/>).</li>
+	  <li>Validating FSv2 route properties (<xref target="fsv2-route-validation"/>).</li>
+	  <li>Validating FSv2 route actions (<xref target="validation-fsv2-actions"/>).</li>
+	</ul>
+      </t>
 
-        <section title="Validation of FS NLRI (FSv1 or FSv2)">
-          <t> Flow specifications received from a BGP peer that are accepted in
-          the respective Adj-RIB-In are used as input to the route selection
-          process.  Although the forwarding attributes of the two routes for
-          tbe same prefix may be the same, BGP is still required to perform its
-          path selection algorithm in order to select the correct set of
-          attributes to advertise.</t>
+      <t>The full validation process for FSv2 routes for all AFI/SAFIs is
+      described below in <xref target="fsv2-route-validation"/> rather than
+      simply referring to the relevant portions of the previously referenced
+      RFCs.</t>
 
-          <t>The first step of the BGP Route selection procedure (section 9.1.2
-          of <xref target="RFC4271"></xref> is to exclude from the selection
-          procedure routes that are considered unfeasible. In the context of IP
-          routing information, this is used to validate that the NEXT_HOP
-          Attribute of a given route is resolvable.</t>
+      <section anchor="validating-fsv2-nlri" title="Validating FSv2 NLRI">
+	<t>All FSv2 NLRI <bcp14>MUST</bcp14> be well-formed.</t>
 
-          <t>The concept can be extended in the case of the Flow Specification
-          NLRI to allow other validation procedures.</t>
+	<t>Failure of the following NLRI validation conditions
+	<bcp14>MUST</bcp14> use "session reset" for <xref target="RFC7606"/>
+	purposes since recovery from NLRI malformation cannot is not
+	possible:</t>
 
-          <t>The FSv2 validation process validates the FSv2 NLRI with following
-          unicast routes received over the same AFI (1 or 2) but different
-          SAFIs:
+	<ul>
+	  <li>NLRI Length (<xref target="nlri-format"/>) <bcp14>MUST</bcp14>
+	  be at least 20 octets:
 
-            <dl>
-              <dt>FSv2 received over SAFI=TBD1</dt>
-              <dd> FSv1 received over SAFI=133 are be validated against SAFI=1.
-              Similarly, FSv2 routes received over SAFI=TBD1 will be validated
-              against SAFI=1.</dd>
+	      <ul>
+		<li>Dependent Filters Chain (4 octets) + User Order (4 octets) +</li>
 
-              <dt>FSv2 received over SAFI=TBD2</dt>
-              <dd>FSv1 received over SAFI=134 are validated against SAFI=128,
-              and FSv2 received over SAFI=TBD2 will be validated against
-              SAFI=128.</dd>
+		<li>One non-empty FSv2 Filter Family TLV (FSv2 Filter Family
+		Type (2 octets) + FSv2 Filter Family Length (2 octets)) +</li>
 
-              <dt>FSv2 received with AFI = 31</dt>
-              <dd> The FSV2 routes received with (AFI=31, SAFI=TBD1) will be
-              validated against SAFI=1.  The FSv2 received with (AFI=31,
-              SAFI=TBD2) will be validated against SAFI=128.</dd>
+		<li>One possibly-empty FSv2 Filter Component (FSv2 Filter
+		Component Flags + Type (2 octets)+ FSv2 Filter Component
+		Length (2 octets))</li>
+	      </ul>
+	  </li>
 
-              <dt>FSv2 L2 routes passed in (AFI=6, SAFI=TBD1) and L2VPN routes
-              passed in (AFI=25, SAFI=TBD2).</dt>
-              <dd>
-                <dl>
-                  <dt>FSv2 L2 routes -</dt>
-                  <dd> validate (AFI=6, SAFI=TBD1) against (AFI=1, SAFI=1).</dd>
+	  <li>All TLVs and sub-TLVs <bcp14>MUST</bcp14> be well-formed and
+	  exactly contained in their parent TLVs: The total length of all
+	  sub-TLVs must be identical to the length field of the parent
+	  TLV.</li>
+	</ul>
 
-                  <dt>FSv2 L2VPN routes -</dt>
-                  <dd> validate (AFI=256, SAFI=TBD2) against (AFI=1, SAFI=128></dd>
+	<t>Failure of the following NLRI validation conditions
+	<bcp14>MUST</bcp14> use "treat-as-withdraw" for the NLRI for <xref
+	target="RFC7606"/> purposes.  In these cases, it is possible to parse
+	the boundaries of individual NLRI in a BGP UPDATE message and thus the
+	BGP speaker can continue to parse the next NLRI in the UPDATE.
+	Implementations also <bcp14>MUST</bcp14> notify the operator of this
+	behavior: In circumstances where routes have been announced by a
+	previously valid NLRI but failed to be properly withdrawn due to an
+	implicit or explicit withdraw of a malformed NLRI, "stuck" routes may
+	result in the network.</t>
 
-                  <dt>This is similar to FSv1. -</dt>
-                  <dd> The FSv1 L2 validated L2 routes passed in (AFI=6,
-                  SAFI=133) against (AFI=1, SAFI=1) and the L2VPN routes
-                  (AFI=25, SAFI=134) are validated against (AFI=1, SAFI=128).</dd>
-                </dl>
-              </dd>
-            </dl>
-          </t>
+	<ul>
+	  <li>TLVs of a given class (FSv2 Filter Family, FSv2 Filter Component for
+	  a FSv2 Filter Family) <bcp14>MUST</bcp14> be present no more than once in
+	  an NLRI. (No duplicates TLVs.)</li>
 
-          <t>In the absence of explicit configuration, a Flow specification
-          NLRI (FSv1 or FSv2) MUST be validated such that it is considered
-          feasible if and only if all of the conditions are true:
+	  <li>TLVs of a given class <bcp14>MUST</bcp14> be ordered from lowest to
+	  highest. (TLVs need to be sorted.)</li>
 
-            <list>
-              <t>a) A destination prefix component is embedded in the Flow
-              Specification,</t>
-              <t>b) One of the following conditions holds true:
+	  <li>When a TLV's value field is understood by the implementation, the
+	  value <bcp14>MUST</bcp14> have a length appropriate for that TLV
+	  type.</li>
 
-                <list>
-                  <t>1. The originator of the Flow Specification matches the
-                  originator of the best-match unicast route for the destination
-                  prefix embedded in the flow specification (this is the unicast
-                  route with the longest possible prefix length covering the
-                  destination prefix embedded in the flow specification).</t>
+	  <li>When a TLV's value field is understood by the implementation, the
+	  value field <bcp14>MUST</bcp14> be well-formed according the definition
+	  of that TLV type.</li>
+	</ul>
 
-                  <t>2. The AS_PATH attribute of the flow specification is empty
-                  or contains only an AS_CONFED_SEQUENCE segment
-                  <xref target="RFC5065"></xref>.
+	<t>Implementations <bcp14>MAY</bcp14>, depending on configuration,
+	restrict propagation of FSv2 routes with NLRI containing Filter
+	Families or Filter Components that they are ignorant of the encodings
+	for. This is permitted only when the NLRI are otherwise not considered
+	malformed by the implementation.  This behavior is useful for BGP
+	speakers, such as route reflectors, to generically disseminate FSv2
+	routes that they themselves might not utilize for traffic
+	filtering.</t>
 
-                    <list>
-                      <t>2a.This condition should be enabled by default.</t>
-                      <t>2b.This condition may be disabled by explicit
-                      configuration on a BGP Speaker,</t>
-                      <t>2c.As an extension to this rule, a given non-empty
-                      AS_PATH (besides AS_CONFED_SEQUENCE segments) MAY be
-                      permitted by policy].</t>
-                    </list>
-                  </t>
-                </list>
-              </t>
-
-              <t>c) There are no "more-specific" unicast routes when compared
-              with the flow destination prefix that have been received from a
-              different neighbor AS than the best-match unicast route, which
-              has been determined in rule b.</t>
-            </list>
-          </t>
-
-          <t>However, part of rule a may be relaxed by explicit configuration,
-          permitting Flow Specifications that include no destination prefix
-          component.  If such is the case, rules b and c are moot and MUST be
-          disregarded.</t>
-
-          <t>By "originator" of a BGP route, we mean either the address of the
-          originator in the ORIGINATOR_ID Attribute
-          <xref target="RFC4456"></xref> or the source address of the BGP peer,
-          if this path attribute is not present.</t>
-
-          <t>A BGP implementation MUST enforce that the AS in the left-most
-          position of the AS_PATH attribute of a Flow Specification Route (FSv1
-          or FSv2) received via the Exterior Border Gateway Protocol (eBGP)
-          matches the AS in the left-most position of the AS_PATH attribute of
-          the best-match unicast route for the destination prefix embedded in
-          the Flow Specification (FSv1 or FSv2) NLRI.</t>
-
-          <t>The best-match unicast route may change over time independently of
-          the Flow Specification NLRI (FSv1 or FSv2). Therefore, a revalidation
-          of the Flow Specification MUST be performed whenever unicast routes
-          change.  Revalidation is defined as retesting rules a to c as
-          described above.</t>
-        </section>
-
-        <section title="Validation of Flow Specification Actions for FSv2 for IP Basic">
-          <t>A match on a Flow Specification (FS) filters is linked to one or
-          more FS action set by an Extended Communities (FS-EC) for FSv2 for IP
-          Basic functions.</t>
-
-          <t>Validation of FS-EC action begins with validating the syntax of
-          the Extended Communities attributes attached to FS NLRI in UPDATE
-          packet.  Since FSv1 and FSv2 operate on different NLRIs (AFI/SAFI
-          sets), a single FS-EC action can apply to both FSv1 and FSv2 filters.
-          If the FS-EC is not syntactically correct, the FS-EC community causes
-          NLRI and FS-EC to be treated as withdrawal.</t>
-
-          <t>If the FS-EC is syntacically correct, then the FS-EC check to
-          determine if this node can perform this action. If not, the FS-EC is
-          stored for transmittal to other nodes, but cannot be used in this
-          node.</t>
-
-          <t>If multiple syntactically correct actions that can be performed on
-          are linked to the filtering rules defined in the NLRI in UPDATE
-          packet, then the list of multiple actions are check for conflicts
-          within a category. If conflicts exist within a multiple action set
-          attached to a FSv2 filter, then the default case is to ignore the
-          action set for installation in the node.  Optionally, if the ACO
-          FS-EC may indicate if the BGP peer originating the FSv2 filter +
-          action expects this "ignoring" of the action or specifical local
-          configuration.</t>
-
-          <t>An example of local configuration might be if rate limiting by
-          byte and by packet are specified, the local configuration might allow
-          both to be enacted in the hardware.</t>
-        </section>
-
-        <section title="Failure of FS-EC action when processing a filter flow">
-          <t>If one action in the ordered list fails for a traffic flow, the
-          local node may be able to halt processing of the for. For example, if
-          a DSCP value set and forwarding to VPN is specified AND the DSCP
-          fails, the forwarding logic may allow the forwarding to the VPN to
-          not occur.</t>
-
-          <t>FSv1-EC current control the failure action by configuration and/or
-          implementation defaults.</t>
-
-          <t>The optional ACO FSv2-EC can inform the BGP receiving the FSv2
-          information how the originator expects failures within the multiple
-          actions in an action set will occur.  The ACO FSv2-EC is optional.</t>
-
-          <t>FSv2 Implementations MAY wish to log the action failures
-          encountered by FS actions (FSv1 or FSv2).</t>
-        </section>
-
-        <section anchor="error-handling-and-validation" title="Error handling and Validation">
-          <t>The following two error handling rules must be followed by all BGP
-          speakers which support FSv2:
-
-            <list style="symbols">
-              <t>FSv2 NLRI having TLVs which do not have the correct lengths or
-              syntax must be considered MALFORMED, and "treated-as-withdrawl".</t>
-
-              <t>FSv2 NLRIs having TLVs which do not follow the above ordering
-              rules described in section 4.1 MUST be considered as MALFORMED by
-              a BGP FSv2 propagator, and treated "treated-as-withdrawl".</t>
-            </list>
-
-          The above two rules prevent any ambiguity that arises from the
-          multiple copies of the same NLRI from multiple BGP FSv2 propagators.</t>
-
-          <t>A BGP implementation SHOULD treat such malformed NLRIs as ‘session
-          reset’ <xref target="RFC7606"></xref></t>
-
-          <t>An implementation for a BGP speaker supporting both FSv1 and FSv2
-          MUST support the error handling for both FSv1 and FSv2.</t>
-        </section>
+	<t>The above rules permit FSv2 implementations that are ignorant of a
+	given Filter Family, or Filter Family's Component encoding to propagate
+	the FSv2 route to other BGP speakers in the deployment. However, since
+	semantic checks for a given Filter Family's components can only be
+	effected by implementations aware of that component, ignorant upstream
+	BGP speakers may propagate semantically-incorrect NLRI until it reaches
+	a BGP speaker that understands the encoding.</t>
       </section>
+
+      <section title="Validation of FSv2 BGP Routes" anchor="validation-fsv2-routes">
+	<t>By <xref target="RFC4271" section="1.1"/> definition, a BGP route is
+	a pairing of its destination (NLRI) and Path Attributes.  The prior
+	section discussed the validation of the NLRI.  This section discusses
+	validation of the pairing of the NLRIs in an UPDATE along with their
+	Path Attributes as BGP routes.</t>
+
+	<t>Flow specifications received from a BGP peer that are accepted in
+	the respective Adj-RIB-In are used as input to the route selection
+	process.  Although the forwarding attributes of the two routes for
+	the same prefix may be the same, BGP is still required to perform its
+	path selection algorithm in order to select the correct set of
+	attributes to advertise.</t>
+
+	<t>The first step of the BGP Route selection procedure 
+	(<xref target="RFC4271" section="9.1.2"/>) is to exclude from the
+	selection procedure routes that are considered unfeasible. In the
+	context of IP routing information, this is used to validate that the
+	next hop of a given route is resolvable.</t>
+
+	<t>This concept can be extended in the case of the Flow Specification
+	NLRI to allow other validation procedures.</t>
+
+
+	<section title="AFI/SAFIs Used For Validation">
+	  <t>The FSv2 validation process validates the FSv2 NLRI with following
+	  unicast routes received over the same AFI (1 or 2) but different
+	  SAFIs:</t>
+
+	  <!-- XXX JMH - we likely don't need the comparable FSv1 table, but here it is if we want to use it for comparison purposes.
+	  <table align="left">
+	    <name>FSv1 Flowspec BGP Route AFI/SAFI Validation</name>
+	    <thead>
+	      <tr>
+		<th>Received AFI/SAFI</th>
+		<th>Validate Route Using AFI/SAFI</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+		<td>1/133 (FSv1-IPv4)</td>
+		<td>1/1 (IPv4-Unicast)</td>
+	      </tr>
+	      <tr>
+		<td>1/134 (FSv1-VPNv4)</td>
+		<td>1/128 (IPv4-Labeled Unicast)</td>
+	      </tr>
+	      <tr>
+		<td>2/1 (FSv1-IPv6)</td>
+		<td>2/1 (IPv6-Unicast)</td>
+	      </tr>
+	      <tr>
+		<td>2/134 (FSv1-VPNv6)</td>
+		<td>2/128 (IPv6-Labeled Unicast)</td>
+	      </tr>
+	      <tr>
+		<td>6/133</td>
+		<td>1/1 (IPv4-Unicast)</td>
+	      </tr>
+	      <tr>
+		<td>25/134</td>
+		<td>1/128 (IPv4-Labeled Unicast)</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	  -->
+
+	  <table align="left">
+	    <name>FSv2 Flowspec BGP Route AFI/SAFI Validation</name>
+	    <thead>
+	      <tr>
+		<th>Received AFI/SAFI</th>
+		<th>Validate Route Using AFI/SAFI</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+		<td>1/TBD1</td>
+		<td>1/1 (IPv4-Unicast)</td>
+	      </tr>
+	      <tr>
+		<td>1/TBD2</td>
+		<td>1/128 (IPv4-Labeled Unicast)</td>
+	      </tr>
+	      <tr>
+		<td>2/TBD1</td>
+		<td>2/1 (IPv6-Unicast)</td>
+	      </tr>
+	      <tr>
+		<td>2/TBD2</td>
+		<td>2/128 (IPv6-Labeled Unicast)</td>
+	      </tr>
+	      <tr>
+		<td>31/TBD1</td>
+		<td>1/1 (IPv4-Unicast)</td>
+	      </tr>
+	      <tr>
+		<td>31/TBD2</td>
+		<td>1/128 (IPv4-Labeled Unicast)</td>
+	      </tr>
+	      <tr>
+		<td>6/TBD1</td>
+		<td>1/1 (IPv4-Unicast)</td>
+	      </tr>
+	      <tr>
+		<td>256/TBD2</td>
+		<td>1/128 (IPv4-Labeled Unicast)</td>
+	      </tr>
+	    </tbody>
+	  </table>
+
+	</section>
+
+	<section title="FSv2 Route Validation Procedure" anchor="fsv2-route-validation">
+
+	  <t>In the absence of explicit configuration, a Flow specification
+	  NLRI (FSv1 or FSv2) MUST be validated such that it is considered
+	  feasible if and only if all of the conditions are true:
+
+	    <ol type="a">
+	      <li anchor="validation-rule-dest">A destination prefix component
+	      is embedded in the Flow Specification.</li>
+	      <li anchor="validation-rule-empty">One of the following conditions holds true:
+
+		<ol>
+		  <li>The originator of the Flow Specification matches the
+		  originator of the best-match unicast route for the destination
+		  prefix embedded in the flow specification (this is the unicast
+		  route with the longest possible prefix length covering the
+		  destination prefix embedded in the flow specification).</li>
+
+		  <li>The AS_PATH attribute of the flow specification is empty
+		  or contains only an AS_CONFED_SEQUENCE segment.
+		  <xref target="RFC5065"/>.
+
+		    <ol type="2%c">
+		      <li>This condition <bcp14>SHOULD</bcp14> be enabled by
+		      default.</li>
+		      <li>This condition <bcp14>MAY</bcp14> be disabled by
+		      explicit configuration on a BGP Speaker.</li>
+		      <li>As an extension to this rule, a given non-empty
+		      AS_PATH (besides AS_CONFED_SEQUENCE segments) 
+		      <bcp14>MAY</bcp14> be permitted by policy.</li>
+		    </ol>
+		  </li>
+		</ol>
+	      </li>
+
+	      <li anchor="validation-rule-more-specific">There are no
+	      "more-specific" unicast routes when compared with the flow
+	      destination prefix that have been received from a different
+	      neighbor AS than the best-match unicast route, which has been
+	      determined in rule
+	      <xref target="validation-rule-empty" format="none">b</xref>.</li>
+	    </ol>
+	  </t>
+
+	  <t>However, part of rule
+	  <xref target="validation-rule-dest" format="none">a</xref> may be
+	  relaxed by explicit configuration, permitting Flow Specifications
+	  that include no destination prefix component.  If such is the case,
+	  rules
+	  <xref target="validation-rule-empty" format="none">b</xref> and
+	  <xref target="validation-rule-more-specific" format="none">c</xref>
+	  are moot and <bcp14>MUST</bcp14> be disregarded.</t>
+
+	  <t>By "originator" of a BGP route, we mean either the address of the
+	  originator in the ORIGINATOR_ID Attribute <xref target="RFC4456"/> or
+	  the source address of the BGP peer, if this path attribute is not
+	  present.</t>
+
+	  <t>A BGP implementation <bcp14>MUST</bcp14> enforce that the AS in
+	  the left-most position of the AS_PATH attribute of a Flow
+	  Specification Route (FSv1 or FSv2) received via the Exterior Border
+	  Gateway Protocol (eBGP) matches the AS in the left-most position of
+	  the AS_PATH attribute of the best-match unicast route for the
+	  destination prefix embedded in the Flow Specification (FSv1 or FSv2)
+	  NLRI.</t>
+
+	  <t>The best-match unicast route may change over time independently of
+	  the Flow Specification NLRI (FSv1 or FSv2). Therefore, a revalidation
+	  of the Flow Specification <bcp14>MUST</bcp14> be performed whenever
+	  unicast routes change.  Revalidation is defined as retesting rules a
+	  to c as described above.</t>
+	</section>
+
+	<section title="Validation of Flow Specification Actions for FSv2 for IP Basic"
+	         anchor="validation-fsv2-actions">
+	  <t>FSv2 routes can carry one or more filtering action extended
+	  communities (FS-EC) that are executed when the flow specification
+	  filter matches traffic.  These extended communities are syntactically
+	  validated using the procedures in <xref target="RFC4360"/> and
+	  <xref target="RFC7606"/>.</t>
+
+	  <t><xref target="fsv2-actions"/> discusses the procedures for
+	  utilizing FSv2-EC actions as part of traffic filtering.</t>
+	</section>
+
+      </section>
+
       <section title="Ordering of FS filters for BGP Peers which support FSv1 and FSv2">
         <t> FSv2 allows the user to order flow specification rules and the
         actions associated with a rule. Each FSv2 rule has one or more match

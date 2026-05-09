@@ -1914,6 +1914,8 @@
 
           </section>
 
+          <section title="Validation Procedure">
+
           <t>In the absence of explicit configuration, a Flow specification
           NLRI (FSv1 or FSv2) MUST be validated such that it is considered
           feasible if and only if all of the conditions are true:
@@ -1983,6 +1985,7 @@
 	  of the Flow Specification <bcp14>MUST</bcp14> be performed whenever
 	  unicast routes change.  Revalidation is defined as retesting rules a
 	  to c as described above.</t>
+	</section>
 	</section>
 
         <section title="Validation of Flow Specification Actions for FSv2 for IP Basic">

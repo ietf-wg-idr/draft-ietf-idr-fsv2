@@ -1802,18 +1802,18 @@
 
         <t>To provide clarity, the full validation process for flow
         specification routes (FSv1 or FSv2) for all AFI/SAFIs is described
-        below in section x.x rather than simply referring to the relevant
-        portions of these RFCs.  Validation only occurs after BGP UPDATE
-        message reception and the FSv2 NLRI and the path attributes relating to
-        FSv2 (Extended community and Wide Community) have been determined to be
-        well-formed.  Any MALFORMED FSv2 NRLI is handled as a "session reset"
-        <xref target="RFC7606"></xref>.</t>
+	below in <xref target="validation-fs-routes"/> rather than simply referring
+	to the relevant portions of these RFCs.  Validation only occurs after
+	BGP UPDATE message reception and the FSv2 NLRI and the path attributes
+	relating to FSv2 (Extended community and Wide Community) have been
+	determined to be well-formed.  Any MALFORMED FSv2 NRLI is handled as a
+	"session reset" <xref target="RFC7606"/>.</t>
 
-        <section title="Validation of FS NLRI (FSv1 or FSv2)">
-          <t> Flow specifications received from a BGP peer that are accepted in
+        <section title="Validation of FS BGP Routes (FSv1 or FSv2)" anchor="validation-fs-routes">
+          <t>Flow specifications received from a BGP peer that are accepted in
           the respective Adj-RIB-In are used as input to the route selection
           process.  Although the forwarding attributes of the two routes for
-          tbe same prefix may be the same, BGP is still required to perform its
+          the same prefix may be the same, BGP is still required to perform its
           path selection algorithm in order to select the correct set of
           attributes to advertise.</t>
 
@@ -1830,6 +1830,7 @@
           unicast routes received over the same AFI (1 or 2) but different
           SAFIs:
 
+	    <!-- XXX JMH - this text can be simplified. -->
             <dl>
               <dt>FSv2 received over SAFI=TBD1</dt>
               <dd> FSv1 received over SAFI=133 are be validated against SAFI=1.
@@ -1869,64 +1870,72 @@
           NLRI (FSv1 or FSv2) MUST be validated such that it is considered
           feasible if and only if all of the conditions are true:
 
-            <list>
-              <t>a) A destination prefix component is embedded in the Flow
-              Specification,</t>
-              <t>b) One of the following conditions holds true:
+            <ol type="a">
+	      <li anchor="validation-rule-dest">A destination prefix component
+	      is embedded in the Flow Specification.</li>
+              <li anchor="validation-rule-empty">One of the following conditions holds true:
 
-                <list>
-                  <t>1. The originator of the Flow Specification matches the
+                <ol>
+                  <li>The originator of the Flow Specification matches the
                   originator of the best-match unicast route for the destination
                   prefix embedded in the flow specification (this is the unicast
                   route with the longest possible prefix length covering the
-                  destination prefix embedded in the flow specification).</t>
+                  destination prefix embedded in the flow specification).</li>
 
-                  <t>2. The AS_PATH attribute of the flow specification is empty
-                  or contains only an AS_CONFED_SEQUENCE segment
-                  <xref target="RFC5065"></xref>.
+                  <li>The AS_PATH attribute of the flow specification is empty
+                  or contains only an AS_CONFED_SEQUENCE segment.
+                  <xref target="RFC5065"/>.
 
-                    <list>
-                      <t>2a.This condition should be enabled by default.</t>
-                      <t>2b.This condition may be disabled by explicit
-                      configuration on a BGP Speaker,</t>
-                      <t>2c.As an extension to this rule, a given non-empty
-                      AS_PATH (besides AS_CONFED_SEQUENCE segments) MAY be
-                      permitted by policy].</t>
-                    </list>
-                  </t>
-                </list>
-              </t>
+                    <ol type="2%c">
+		      <li>This condition <bcp14>SHOULD</bcp14> be enabled by
+		      default.</li>
+		      <li>This condition <bcp14>MAY</bcp14> be disabled by
+		      explicit configuration on a BGP Speaker.</li>
+                      <li>As an extension to this rule, a given non-empty
+                      AS_PATH (besides AS_CONFED_SEQUENCE segments) 
+		      <bcp14>MAY</bcp14> be permitted by policy.</li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
 
-              <t>c) There are no "more-specific" unicast routes when compared
-              with the flow destination prefix that have been received from a
-              different neighbor AS than the best-match unicast route, which
-              has been determined in rule b.</t>
-            </list>
+	      <li anchor="validation-rule-more-specific">There are no
+	      "more-specific" unicast routes when compared with the flow
+	      destination prefix that have been received from a different
+	      neighbor AS than the best-match unicast route, which has been
+	      determined in rule
+	      <xref target="validation-rule-empty" format="none">b</xref>.</li>
+            </ol>
           </t>
 
-          <t>However, part of rule a may be relaxed by explicit configuration,
-          permitting Flow Specifications that include no destination prefix
-          component.  If such is the case, rules b and c are moot and MUST be
-          disregarded.</t>
+          <t>However, part of rule
+	  <xref target="validation-rule-dest" format="none">a</xref> may be
+	  relaxed by explicit configuration, permitting Flow Specifications
+	  that include no destination prefix component.  If such is the case,
+	  rules
+	  <xref target="validation-rule-empty" format="none">b</xref> and
+	  <xref target="validation-rule-more-specific" format="none">c</xref>
+	  are moot and <bcp14>MUST</bcp14> be disregarded.</t>
 
           <t>By "originator" of a BGP route, we mean either the address of the
-          originator in the ORIGINATOR_ID Attribute
-          <xref target="RFC4456"></xref> or the source address of the BGP peer,
-          if this path attribute is not present.</t>
+	  originator in the ORIGINATOR_ID Attribute <xref target="RFC4456"/> or
+	  the source address of the BGP peer, if this path attribute is not
+	  present.</t>
 
-          <t>A BGP implementation MUST enforce that the AS in the left-most
-          position of the AS_PATH attribute of a Flow Specification Route (FSv1
-          or FSv2) received via the Exterior Border Gateway Protocol (eBGP)
-          matches the AS in the left-most position of the AS_PATH attribute of
-          the best-match unicast route for the destination prefix embedded in
-          the Flow Specification (FSv1 or FSv2) NLRI.</t>
+	  <t>A BGP implementation <bcp14>MUST</bcp14> enforce that the AS in
+	  the left-most position of the AS_PATH attribute of a Flow
+	  Specification Route (FSv1 or FSv2) received via the Exterior Border
+	  Gateway Protocol (eBGP) matches the AS in the left-most position of
+	  the AS_PATH attribute of the best-match unicast route for the
+	  destination prefix embedded in the Flow Specification (FSv1 or FSv2)
+	  NLRI.</t>
 
-          <t>The best-match unicast route may change over time independently of
-          the Flow Specification NLRI (FSv1 or FSv2). Therefore, a revalidation
-          of the Flow Specification MUST be performed whenever unicast routes
-          change.  Revalidation is defined as retesting rules a to c as
-          described above.</t>
-        </section>
+	  <t>The best-match unicast route may change over time independently of
+	  the Flow Specification NLRI (FSv1 or FSv2). Therefore, a revalidation
+	  of the Flow Specification <bcp14>MUST</bcp14> be performed whenever
+	  unicast routes change.  Revalidation is defined as retesting rules a
+	  to c as described above.</t>
+	</section>
 
         <section title="Validation of Flow Specification Actions for FSv2 for IP Basic">
           <t>A match on a Flow Specification (FS) filters is linked to one or

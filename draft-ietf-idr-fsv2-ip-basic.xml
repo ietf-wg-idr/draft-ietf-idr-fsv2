@@ -1826,45 +1826,93 @@
           <t>The concept can be extended in the case of the Flow Specification
           NLRI to allow other validation procedures.</t>
 
+	  <section title="Validating AFI/SAFIs">
+
           <t>The FSv2 validation process validates the FSv2 NLRI with following
           unicast routes received over the same AFI (1 or 2) but different
-          SAFIs:
+          SAFIs:</t>
 
-	    <!-- XXX JMH - this text can be simplified. -->
-            <dl>
-              <dt>FSv2 received over SAFI=TBD1</dt>
-              <dd> FSv1 received over SAFI=133 are be validated against SAFI=1.
-              Similarly, FSv2 routes received over SAFI=TBD1 will be validated
-              against SAFI=1.</dd>
+	    <table align="left">
+	      <name>FSv1 Flowspec BGP Route AFI/SAFI Validation</name>
+	      <thead>
+	        <tr>
+		  <th>Received AFI/SAFI</th>
+		  <th>Validate Route Using AFI/SAFI</th>
+	        </tr>
+	      </thead>
+	      <tbody>
+	        <tr>
+		  <td>1/133 (FSv1-IPv4)</td>
+		  <td>1/1 (IPv4-Unicast)</td>
+		</tr>
+	        <tr>
+		  <td>1/134 (FSv1-VPNv4)</td>
+		  <td>1/128 (IPv4-Labeled Unicast)</td>
+		</tr>
+	        <tr>
+		  <td>2/1 (FSv1-IPv6)</td>
+		  <td>2/1 (IPv6-Unicast)</td>
+		</tr>
+	        <tr>
+		  <td>2/134 (FSv1-VPNv6)</td>
+		  <td>2/128 (IPv6-Labeled Unicast)</td>
+		</tr>
+	        <tr>
+		  <td>6/133</td>
+		  <td>1/1 (IPv4-Unicast)</td>
+		</tr>
+	        <tr>
+		  <td>25/134</td>
+		  <td>1/128 (IPv4-Labeled Unicast)</td>
+		</tr>
+	      </tbody>
+	    </table>
 
-              <dt>FSv2 received over SAFI=TBD2</dt>
-              <dd>FSv1 received over SAFI=134 are validated against SAFI=128,
-              and FSv2 received over SAFI=TBD2 will be validated against
-              SAFI=128.</dd>
+	    <table align="left">
+	      <name>FSv2 Flowspec BGP Route AFI/SAFI Validation</name>
+	      <thead>
+	        <tr>
+		  <th>Received AFI/SAFI</th>
+		  <th>Validate Route Using AFI/SAFI</th>
+	        </tr>
+	      </thead>
+	      <tbody>
+	        <tr>
+		  <td>1/TBD1</td>
+		  <td>1/1 (IPv4-Unicast)</td>
+		</tr>
+	        <tr>
+		  <td>1/TBD2</td>
+		  <td>1/128 (IPv4-Labeled Unicast)</td>
+		</tr>
+	        <tr>
+		  <td>2/TBD1</td>
+		  <td>2/1 (IPv6-Unicast)</td>
+		</tr>
+	        <tr>
+		  <td>2/TBD2</td>
+		  <td>2/128 (IPv6-Labeled Unicast)</td>
+		</tr>
+	        <tr>
+		  <td>31/TBD1</td>
+		  <td>1/1 (IPv4-Unicast)</td>
+		</tr>
+	        <tr>
+		  <td>31/TBD2</td>
+		  <td>1/128 (IPv4-Labeled Unicast)</td>
+		</tr>
+	        <tr>
+		  <td>6/TBD1</td>
+		  <td>1/1 (IPv4-Unicast)</td>
+		</tr>
+	        <tr>
+		  <td>256/TBD2</td>
+		  <td>1/128 (IPv4-Labeled Unicast)</td>
+		</tr>
+	      </tbody>
+	    </table>
 
-              <dt>FSv2 received with AFI = 31</dt>
-              <dd> The FSV2 routes received with (AFI=31, SAFI=TBD1) will be
-              validated against SAFI=1.  The FSv2 received with (AFI=31,
-              SAFI=TBD2) will be validated against SAFI=128.</dd>
-
-              <dt>FSv2 L2 routes passed in (AFI=6, SAFI=TBD1) and L2VPN routes
-              passed in (AFI=25, SAFI=TBD2).</dt>
-              <dd>
-                <dl>
-                  <dt>FSv2 L2 routes -</dt>
-                  <dd> validate (AFI=6, SAFI=TBD1) against (AFI=1, SAFI=1).</dd>
-
-                  <dt>FSv2 L2VPN routes -</dt>
-                  <dd> validate (AFI=256, SAFI=TBD2) against (AFI=1, SAFI=128></dd>
-
-                  <dt>This is similar to FSv1. -</dt>
-                  <dd> The FSv1 L2 validated L2 routes passed in (AFI=6,
-                  SAFI=133) against (AFI=1, SAFI=1) and the L2VPN routes
-                  (AFI=25, SAFI=134) are validated against (AFI=1, SAFI=128).</dd>
-                </dl>
-              </dd>
-            </dl>
-          </t>
+          </section>
 
           <t>In the absence of explicit configuration, a Flow specification
           NLRI (FSv1 or FSv2) MUST be validated such that it is considered

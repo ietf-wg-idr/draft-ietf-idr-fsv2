@@ -558,7 +558,7 @@
 
         <!-- XXX JMH - this is the start of a section describing the top level thinking for why things are organized the way they are -->
         <t>FSv2 Flow Specifications are encoded as an ordered list of TLVs of filter families. FSv2
-        filter famliies are typically associated with match criteria for a given
+        filter families are typically associated with match criteria for a given
         networking layer; for example, 802.2 Layer 2, MPLS, IPv4/IPv6, Segment
         Routing, etc.</t>
 
@@ -2083,7 +2083,164 @@
 	  <t><xref target="fsv2-actions"/> discusses the procedures for
 	  utilizing FSv2-EC actions as part of traffic filtering.</t>
 	</section>
+      </section>
+    </section>
 
+    <section title="Traffic Filtering">
+      <t><xref target="RFC8955" section="5"/> discusses the general behavior of
+      using flow specification for traffic filtering.  FSv2 provides the
+      additional ability to apply traffic filtering at different portions of a
+      forwarding path.</t>
+
+      <t>The code points assigned to the Filter Family Types and Filter
+      Component Types for a given Filter Family are arranged to support a
+      reasonable default traffic filtering (match, and actions) behavior.  For
+      example, the Component orders for FSv1 and FSv2 IP Basic can match
+      traffic as part of monitoring, or mitigating, distributed denial of
+      service (DDoS) attacks.  However, that default ordering may be unsuitable
+      for all filtering situations.  FSv1 provided no mechanism to deviate from
+      the ordering rules in <xref target="RFC8955" section="5.1"/>.</t>
+
+      <t>The User Order field of the NLRI (<xref target="nlri-format"/>)
+      permits an operator to override the default sort ordering of FSv2 rules
+      to effect their desired traffic filtering behavior when it deviates from
+      the default order.</t>
+
+      <t>Note that the procedures in <xref target="validating-fsv2-nlri"/> have
+      ensured that TLVs are distinctly numbered and sorted. This assists with
+      the procedures in the following section.</t>
+
+      <section title="Ordering of FSv2 Flow Specifications">
+	<t>More than one Flow Specification may match a particular traffic
+	flow. Thus, it is necessary to define the order in which Flow
+	Specifications get matched and actions being applied to a particular
+	traffic flow. This ordering function is such that it does not depend on
+	the arrival order of the Flow Specification via BGP and thus is
+	consistent in the network.</t>
+
+	<t>FSv2 routes consist of a series of Filter Families containing Filter
+	Components for those Filter Families.  Filter Families are generally
+	ordered where their match criteria match lower network layers based on
+	lower-numbered Filter Family Types. However, they may also be ordered
+	based on where the default match order for that Filter Family vs. other
+	Filter Families should occur.</t>
+
+	<t>Similarly, within a Filter Family, Filter Components are ordered
+	based to permit the default match order for that Filter Family to be
+	naturally ordered as part of sorting FSv2 routes.</t>
+
+	<t>Thus, for FSv2, the choice of code point for Filter Family, or
+	Filter Component is chosen to represent the default sort order for
+	traffic filtering.</t>
+
+	<t>The relative order of two FSv2 flow specifications is determined in
+	the following fashion:
+
+	  <ol>
+	    <li>A route with a lower User Order value
+	    (<xref target="nlri-format"/>) comes before a route with a higher
+	    User Order value.</li>
+
+	    <li>Each route's Filter Family TLVs are then compared in a
+	    pair-wise fashion. A route with a lower FSv2 Filter Family Type
+	    value (<xref target="fsv2-filter-families"/>) comes before a route
+	    with a higher Filter Family Type value.</li>
+
+	    <li>When both routes have the same Filter Family Type, each Filter
+	    Component TLV for that Filter Family are compared in a pair-wise
+	    fashion.  A route with a lower FSv2 Filter Component Type value
+	    (<xref target="fsv2-filter-components"/>) comes before a route with
+	    a higher Filter Component Type value.</li>
+
+	    <li>When Filter Component Types are identical, Filter Component
+	    Values are compared:
+
+	      <ul>
+		<li>For IP prefix values (IP destination or source prefix), if
+		one of the two prefixes to compare is a more specific prefix of
+		the other, the route with the more-specific prefix comes before
+		the route with the less-specific prefix.  Otherwise, the route
+		with the lowest IP value comes before the route with the higher
+		IP value.</li>
+
+		<li>For all other Filter Component Types, unless otherwise
+		specified, the comparison is performed by comparing the Filter
+		Component data as a binary string using the memcmp() function
+		as defined by [ISO_IEC_9899]. For strings with equal lengths,
+		the lowest string (memcmp) has higher precedence. For strings
+		of different lengths, the common prefix is compared. If the
+		common prefix is not equal, the string with the lowest prefix
+		has higher precedence. If the common prefix is equal, the
+		longest string is considered to have higher precedence than the
+		shorter one.</li>
+	      </ul>
+	    </li>
+	  </ol>
+        </t>
+
+	<t><strong>Warning:</strong> Specifications for FSv2 Filter Components
+	are permitted to define their sort comparison criteria for that
+	component. However, when implementations are ignorant of that Filter
+	Component, it can only sort the components based on the general memcmp
+	mechanism described above.  In the case where a deployment contains
+	implementations that are ignorant of a given filtering behavior, one of
+	the two things <bcp14>SHOULD</bcp14> be done by the operator to avoid
+	inappropriate traffic filtering or forwarding:
+
+	  <ul>
+	    <li>The User Order field should be utilized to prevent
+	    inappropriate ordering of FSv2 routes that ignorant implementations
+	    may misorder.</li>
+
+	    <li>The Filter Component Type should be marked as "mandatory"
+	    (<xref target="fsv2-filter-components"/>) and dependent FSv2 filters
+	    placed in an appropriate, non-zero, Dependent Filter Chain
+	    (<xref target="nlri-format"/>).</li>
+	  </ul>
+	</t>
+      </section>
+      
+      <section title="Installation of FSv2 Filters">
+	<t>Once FSv2 flow specifications have been ordered according to the
+	rules of the prior section, they are eligible to be installed for
+	traffic filtering purposes.  However, it is possible that a given
+	device is incapable of implementing all match components, or
+	actions.</t>
+
+	<t>FSv2 flow specifications are evaluated to see if their match and
+	action elements are able to be executed on the device. When the
+	evaluation is "valid", the flow specification (match and actions) are
+	eligible to be installed in the relative sort order determined in the
+	prior section.</t>
+
+	<t>When FSv2 flow specifications are determined to be "invalid", it
+	impacts not only the individual flow specification that has been deemed
+	invalid, but also all FSv2 entries sharing the same non-zero Dependent
+	Filter Chain value (<xref target="nlri-format"/>).</t>
+
+	<t>For filtering components, <xref target="fsv2-filter-components"/>
+	defines the FSv2 Filter Component Flags field.  When a device is unable
+	to implement the match criteria contained in that Filter Component -
+	for whatever reason - the "Optional" bit is checked.  If the Optional
+	bit is unset (zero), the Filter Component is "mandatory" and the flow
+	specification filter is considered "invalid". If the filter bit is set
+	(one), the Filter Component is "optional", and the device is free to
+	install the flow specification in the sorted order minus the Filter
+	Component in question as a "valid" entry.</t>
+
+	<t>Similarly, if a flow specification's traffic filtering actions are
+	unable to be installed by the device, the implementation may determine
+	whether or not the flow specification is valid or invalid based on
+	implementation defaults, or configuration.  The <xref
+	target="fsv2-ec-aco" format="none">ACO community</xref> may be used on
+	supporting implementations to influence validity in these
+	circumstances.</t>
+
+	<t>Features governing ordered FSv2 action and validity evaluation may
+	be considered in the future.</t>
+
+	<t>Once validation of all FSv2 flow specification is complete, eligible
+	FSv2 flow specifications are installed as traffic filters.</t>
       </section>
 
       <section title="Ordering of FS filters for BGP Peers which support FSv1 and FSv2">
@@ -2387,6 +2544,8 @@
     <displayreference target="I-D.hares-idr-fsv2-more-ip-actions" to="fsv2-more-ip-actions"/>
     <displayreference target="I-D.hares-idr-fsv2-more-ip-actions" to="fsv2-more-ip-filters"/>
     <displayreference target="I-D.ietf-idr-flowspec-v2" to="fsv2"/>
+    <displayreference target="RFC8955" to="FSv1"/>
+    <displayreference target="RFC8956" to="FSv1-IPv6"/>
     <references title="Normative References">
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.0768"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.0791"/>

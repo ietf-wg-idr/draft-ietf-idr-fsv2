@@ -1152,7 +1152,7 @@
 	  component.</t>
         </section>
 
-        <section title="Source Port (type = 60)" anchor="src-port">
+        <section title="Source Port (type = 110)" anchor="src-port">
 	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
 	  <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to match
@@ -1161,7 +1161,7 @@
 	  <xref target="RFC0768"/>.</t>
 
 	  <t>This component uses the Numeric Operator (numeric_op) described in
-	  <xref target="numeric-op"/>. Type 60 component values SHOULD be
+	  <xref target="numeric-op"/>. Type 110 component values SHOULD be
 	  encoded as 1- or 2-octet quantities (numeric_op len=00 or
 	  len=01).</t>
 
@@ -1169,7 +1169,7 @@
 	  component.</t>
         </section>
 
-        <section title="ICMP Type (type = 70)">
+        <section title="ICMP Type (type = 120)">
 	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
 	  <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to match
@@ -1177,7 +1177,7 @@
 	  section of <xref target="RFC0792"/>).</t>
 
 	  <t>This component uses the Numeric Operator (numeric_op) described in
-	  <xref target="numeric-op"/>. Type 70 component values SHOULD be
+	  <xref target="numeric-op"/>. Type 120 component values SHOULD be
 	  encoded as single octet (numeric_op len=00).</t>
 
 	  <section title="ICMP IPv4 Type (AFI=1)">
@@ -1203,7 +1203,7 @@
 	  </section>
         </section>
 
-        <section title="ICMP Code (type = 80)">
+        <section title="ICMP Code (type = 1300)">
 	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
 	  <section title="ICMP Code IPv4 Type (AFI=1)">
@@ -1212,7 +1212,7 @@
 	    Formats" section of <xref target="RFC0792"/>).</t>
 
 	    <t>This component uses the Numeric Operator (numeric_op) described
-	    in <xref target="numeric-op"/>. Type 80 component values SHOULD be
+	    in <xref target="numeric-op"/>. Type 130 component values SHOULD be
 	    encoded as single octet (numeric_op len=00).</t>
 
 	    <t>In case of the presence of the ICMP code component, only ICMP
@@ -1232,7 +1232,7 @@
 	    <xref target="RFC4443" section="2.1"/>).</t>
 
 	    <t>This component uses the Numeric Operator (numeric_op) described
-	    in <xref target="numeric-op"/>. Type 80 component values SHOULD be
+	    in <xref target="numeric-op"/>. Type 130 component values SHOULD be
 	    encoded as a single octet (numeric_op len=00).</t>
 
 	    <t>In case of the presence of the ICMPv6 code component, only
@@ -1245,7 +1245,7 @@
 	  </section>
         </section>
 
-        <section title="TCP Flags (type = 90)" >
+        <section title="TCP Flags (type = 140)" >
 	  <t><tt>Encoding: &lt;[bitmask_op, bitmask]+&gt;</tt></t>
 
 	  <t>Defines a list of <tt>{bitmask_op, bitmask}</tt> pairs used to
@@ -1253,7 +1253,7 @@
 	  <xref target="RFC0793" section="3.1"/>).</t>
 
 	  <t>This component uses the Bitmask Operator (bitmask_op) described in
-	  <xref target="bitmask-op"/>. Type 90 component bitmasks MUST be
+	  <xref target="bitmask-op"/>. Type 140 component bitmasks MUST be
 	  encoded as 1- or 2-octet bitmask (bitmask_op len=00 or len=01).</t>
 
 	  <t>When a single octet (bitmask_op len=00) is specified, it matches
@@ -1277,7 +1277,7 @@
 	  -->
         </section>
 
-        <section title="Packet length (type = 100)">
+        <section title="Packet length (type = 150)">
 	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
 	  <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to match
@@ -1285,33 +1285,33 @@
 	  header).</t>
 
 	  <t>This component uses the Numeric Operator (numeric_op) described in
-	  <xref target="numeric-op"/>. Type 100 component values SHOULD be
+	  <xref target="numeric-op"/>. Type 150 component values SHOULD be
 	  encoded as 1- or 2-octet quantities (numeric_op len=00 or
 	  len=01).</t>
         </section>
 
-        <section title="DSCP (Differentiaed Services Code Point)(type = 110)">
+        <section title="DSCP (Differentiaed Services Code Point)(type = 160)">
 	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
 	  <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to match
 	  the 6-bit DSCP field (see also <xref target="RFC2474"/>).</t>
 
 	  <t>This component uses the Numeric Operator (numeric_op) described in
-	  <xref target="numeric-op"/>. Type 110 component values MUST be
+	  <xref target="numeric-op"/>. Type 160 component values MUST be
 	  encoded as single octet (numeric_op len=00).</t>
 
 	  <t>The six least significant bits contain the DSCP value. All other
 	  bits SHOULD be treated as 0.</t>
         </section>
 
-        <section title="Fragment (type = 120)">
+        <section title="Fragment (type = 170)">
 	  <t><tt>Encoding: &lt;[bitmask_op, bitmask]+&gt;</tt></t>
 
 	  <t>Defines a list of <tt>{bitmask_op, bitmask}</tt> pairs used to
 	  match specific IP fragments.</t>
 
 	  <t>This component uses the Bitmask Operator (bitmask_op) described in
-	  <xref target="bitmask-op"/>. Type 120 component bitmask MUST be
+	  <xref target="bitmask-op"/>. Type 170 component bitmask MUST be
 	  encoded as single octet bitmask (bitmask_op len=00).</t>
 
 	  <section title="IPv4 Fragment (AFI=1)">
@@ -1376,7 +1376,7 @@
 	  </section>
         </section>
 
-        <section title="Flow Label (type = 130), AFI=2 only">
+        <section title="Flow Label (type = 180), AFI=2 only">
 	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
 	  <t>This contains a list of {numeric_op, value} pairs that are used to
@@ -1384,13 +1384,13 @@
 	  (<xref target="RFC8200" section="3"/>).</t>
 
 	  <t>This component uses the Numeric Operator (numeric_op) described in
-	  <xref target="numeric-op"/>. Type 130 component values SHOULD be
+	  <xref target="numeric-op"/>. Type 180 component values SHOULD be
 	  encoded as 4-octet quantities (numeric_op len=10).</t>
         </section>
       </section>
 
       <!-- XXX JMH We need to normalize the short form of flow specifications.
-      flowspec? Flow Spec? -->
+      flowspec? Flow Spec? XXXXSue FSspec-->
       <section title="FSv2 Traffic Filtering Actions for FSv2 IP Basic ">
 	<t>Traffic matching a flow specification filter may have selected
 	<em>traffic actions</em> applied to it that have various impacts on the

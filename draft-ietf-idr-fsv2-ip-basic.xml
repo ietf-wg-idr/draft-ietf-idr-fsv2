@@ -628,8 +628,22 @@
 	    <li>FSv2 Filter Family Type: A 16-bit unsigned integer in network
 	    byte order defining the FSv2 filter that is carried in this TLV.
 	    For sorting purposes, lower value FSv2 Filter Types have a better
-	    precendence than higher values.</li>
-
+	    precendence than higher values.
+		<ul>
+		<li>This document defines the following filter family types.	
+		The dfinition of other filter family types may be added in other documents. </li>
+		<li> 0- Reserved </li>
+		<li> 20 - Time </li>
+	    <li> 30 - Interface </li>
+	 	<li> 50 - L2 traffic Rules </li>
+		<li> 100 - MPLS traffic Rules </li> 
+		<li> 200 - Tunneled trafffic </li>
+		<li> 256 - IP Basic filter rules </li> 
+		<li> 280 - Extended IP filter rules </li>
+		<li> 300 - SFC Traffic rules </li> 
+		<li> 320 - CATS Traffic rules </li> 
+		</ul> 
+		</li> 
 	    <li>FSv2 Filter Family Length: Length of the FSv2 Filter Components
 	    TLVs in octets.</li>
 	  </ul>
@@ -692,53 +706,8 @@
               filter type.  For sorting purposes, lower value FSv2 Filter
               Component Types have a better precedence than higher values.</t>
 
-              <t>This document defines the following FSv2 Filter Component Types.
-              The definition of the type-specific filter components may be defined in
-              other documents:
-
-      <!--
-            <t>FSv2 Filter type: contains a type for FSv2 TLV format of the
-            NRLI (2 octets).  This type specifies support for a set of
-            components.  [Editor's note: We need to decide between Option 2 or
-            Option 1.  Option 2 makes provides a better default ordering for
-            frame/packet filters.</t>
-
-                      <t hangText="Option 1"> ascending order (draft-ietf-idr-fsv2-ip-basic-02)
-                        <list>
-                          <t>0 - reserved, </t>
-                          <t>1 - IP Basic Filter rules </t>
-                          <t>2 - IP Extended Filter Rules </t>
-                          <t>3 - MPLS Filter Rules </t>
-                          <t>4 - L2 traffic rules</t>
-                          <t>5 - SFC Traffic rules </t>
-                          <t>6 - Tunneled traffic </t>
-                        </list>
-                      <t hangText="Option 2"> ordering by frame/packet (new)
-                        <list>
-      -->
-                <dl spacing="compact">
-                  <dt>0 -</dt>
-                  <dd>Reserved</dd>
-
-                  <dt>50 -</dt>
-                  <dd>L2 Traffic fules</dd>
-
-                  <dt>100 -</dt>
-                  <dd>MPLS traffic rules</dd>
-
-                  <dt>150 -</dt>
-                  <dd>SFC Traffic rules</dd>
-
-                  <dt>200 -</dt>
-                  <dd>Tunneled traffic</dd>
-
-                  <dt>256 -</dt>
-                  <dd>IP Basic Filter Rules (bit 1 of high bit)</dd>
-
-                  <dt>280 -</dt>
-                  <dd>IP Extended Filter Rules</dd>
-                </dl>
-              </t>
+              <t>This document defines some FSv2 Filter Component Types for IP Basic Filter in section 4.  
+              Other documents may define additional Component types. 
             </li>
 
             <li>FSv2 Filter Component Length: A 16-bit unsigned integer in
@@ -968,8 +937,9 @@
 
 	<t>The list of valid Basic IP types, covering the functionality defined
 	in <xref target="RFC8955"/> and <xref target="RFC8956"/> are documented
-	below. Additional IP filters are documented in defined in
-	<xref target="I-D.hares-idr-fsv2-more-ip-filters"/>.</t>
+	below. Additional IP Filters types are temporarily assigned in this section
+	(until initial IANA registry is created) but the definitions are defined in 
+	other documents (per the IANA section). </t>
 
 	<table align="left">
 	  <name>FSv2 IP Basic Components</name>
@@ -981,19 +951,21 @@
 	  </thead>
 	  <tbody>
 	    <tr><td>0</td><td>Reserved</td></tr>
-	    <tr><td>10</td><td>IP Destination Prefix</td></tr>
-	    <tr><td>20</td><td>IP Source Prefix</td></tr>
-	    <tr><td>30</td><td>IPv4 Protocol / IPv6 Upper Layer Protocol</td></tr>
-	    <tr><td>40</td><td>Port</td></tr>
-	    <tr><td>50</td><td>Destination Port</td></tr>
-	    <tr><td>60</td><td>Source Port</td></tr>
-	    <tr><td>70</td><td>ICMPv4 Type / ICMPv6 Type</td></tr>
-	    <tr><td>80</td><td>ICMPv4 Code / ICPv6 Code</td></tr>
-	    <tr><td>90</td><td>TCP Flags</td></tr>
-	    <tr><td>100</td><td>Packet Length</td></tr>
-	    <tr><td>110</td><td>DSCP</td></tr>
-	    <tr><td>120</td><td>Fragment</td></tr>
-	    <tr><td>130</td><td>Flow Label</td></tr>
+		<tr><td>10></td>Some parts of SRHv6 header (draft-ietf-idr-flowspec-srv6)<td></tr>
+		<tr><td>20</td>NRP ID SRv6 Next Hop header (draft-ietf-idr-flowspec-network-slice-ts)</td></tr>
+	    <tr><td>50</td><td>IP Destination Prefix</td></tr>
+	    <tr><td>70</td><td>IP Source Prefix</td></tr>
+	    <tr><td>80</td><td>IPv4 Protocol / IPv6 Upper Layer Protocol</td></tr>
+	    <tr><td>90</td><td>Port</td></tr>
+	    <tr><td>100</td><td>Destination Port</td></tr>
+	    <tr><td>110</td><td>Source Port</td></tr>
+	    <tr><td>120</td><td>ICMPv4 Type / ICMPv6 Type</td></tr>
+	    <tr><td>130</td><td>ICMPv4 Code / ICPv6 Code</td></tr>
+	    <tr><td>140</td><td>TCP Flags</td></tr>
+	    <tr><td>150</td><td>Packet Length</td></tr>
+	    <tr><td>160</td><td>DSCP</td></tr>
+	    <tr><td>170</td><td>Fragment</td></tr>
+	    <tr><td>180</td><td>Flow Label</td></tr>
 	    <tr><td>4095</td><td>Reserved</td></tr>
 	  </tbody>
 	</table>
@@ -1032,7 +1004,7 @@
       </section>
 
       <section title="FSv2 Components for IP Basic TLVs">
-        <section title="IP Destination Prefix (component type = 10)">
+        <section title="IP Destination Prefix (component type = 50)">
 	  <section title="IPv4 Destination Prefix (AFI=1)">
 	    <t><tt>Encoding: &lt;prefix length (1 octet), prefix (variable)&gt;</tt></t>
 
@@ -1083,7 +1055,7 @@
 	  </section>
         </section>
 
-        <section title="IP Source Prefix (type = 20)">
+        <section title="IP Source Prefix (type = 70)">
 	  <section title="IPv4 Source Prefix (AFI=1)">
 	    <t><tt>Encoding: &lt;prefix length (1 octet), prefix (variable)&gt;</tt></t>
 
@@ -1102,7 +1074,7 @@
 	  </section>
         </section>
 
-        <section title="IP Protocol/IPv6 Upper Layer Protocol (type = 30)">
+        <section title="IP Protocol/IPv6 Upper Layer Protocol (type = 80)">
 	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
 	  <section title="IPv4 Protocol (AFI=1)">
@@ -1111,7 +1083,7 @@
 	    <xref target="RFC0791" section="3.1"/>.</t>
 
 	    <t>This component uses the Numeric Operator (numeric_op) described
-	    in <xref target="numeric-op"/>. Type 30 component values SHOULD be
+	    in <xref target="numeric-op"/>. Type 80 component values SHOULD be
 	    encoded as single octet (numeric_op len=00).</t>
 	  </section>
 
@@ -1123,18 +1095,18 @@
 	    (see <xref target="RFC8200" section="4"/> Section 4).</t>
 
 	    <t>This component uses the Numeric Operator (numeric_op) described
-	    in <xref target="numeric-op"/>. Type 30 component values SHOULD be
+	    in <xref target="numeric-op"/>. Type 80 component values SHOULD be
 	    encoded as a single octet (numeric_op len=00).</t>
 
 	    <t>Note: While IPv6 allows for more than one Next Header field in
-	    the packet, the main goal of the Type 30 Flow Specification
+	    the packet, the main goal of the Type 80 Flow Specification
 	    component is to match on the first upper-layer IP protocol value.
 	    Therefore, the definition is limited to match only on this specific
 	    Next Header field in the packet.</t>
 	  </section>
         </section>
 
-        <section title="Port (type = 40)" anchor="port">
+        <section title="Port (type = 90)" anchor="port">
 	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
 	  <t>Defines a list of <tt>{numeric_op, value}</tt> pairs that match
@@ -1144,7 +1116,7 @@
 	  port OR the source port of an IP packet matches the value.</t>
 
 	  <t>This component uses the Numeric Operator (numeric_op) described in
-	  <xref target="numeric-op"/>. Type 40 component values SHOULD be
+	  <xref target="numeric-op"/>. Type 90 component values SHOULD be
 	  encoded as 1- or 2-octet quantities (numeric_op len=00 or
 	  len=01).</t>
 
@@ -1163,7 +1135,7 @@
           value in IPv6.</t>
         </section>
 
-        <section title="Destination Port (type = 50)" anchor="dst-port">
+        <section title="Destination Port (type = 100)" anchor="dst-port">
 	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
 	  <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to match
@@ -1172,7 +1144,7 @@
 	  <xref target="RFC0768"/>.</t>
 
 	  <t>This component uses the Numeric Operator (numeric_op) described in
-	  <xref target="numeric-op"/>. Type 50 component values SHOULD be
+	  <xref target="numeric-op"/>. Type 100 component values SHOULD be
 	  encoded as 1- or 2-octet quantities (numeric_op len=00 or
 	  len=01).</t>
 

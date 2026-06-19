@@ -1446,12 +1446,127 @@
         <section title="FSv2 Extended Community Actions" anchor="fsv2-actions">
 	  <t>FSv2 IP Basic uses FSv1 actions and these are referenced in
 	  <xref target="fsv2-ec-rfc4360"/> and <xref target="fsv2-ec-rfc5701"/>.</t>
+	  <t>FSv2 IP Basic reassigns All FSv2 Extended Community actions to 
+	  two FSv2 Extended Community types: one transitive and one non-transitive. 
+	  These are defined in <xref target="FSv2-ec-newtrans"> and <xref target="fsv2-ec-newnontrans">. </t>
 
 	  <t>One additional, optional, FSv2 specific FS-EC: the Action Chain
 	  Ordering (ACO) Extended Community (ACO-EC), is defined in
 	  <xref target="fsv2-ec-aco"/>.  ACO-EC can carry defaults currently
 	  only available by configuration in FSv1.</t>
+      <section title="New FSv2 Transitive Action Extended Communities" anchor="fsv2-ec-newtrans">
+	  </section> 
+	   <table align="left">
+	      <name>FSv2 Non-Transitive Actions</name>
+	      <thead>
+		<tr>
+		  <th>Function</th>
+		  <th>Type/Sub-Type</th>
+		  <th>Description</th>
+		  <th>Sub-Registry</th>
+   		  <th>Reference</th>
+		</tr>
+	      </thead>
+	      <tbody>
+		<tr>
+		  <td>Grouping </td>
+		  <td>0x07/0x02</td>
+		  <td>Group by interface set</td>
+		  <td><xref target="I-D.ietf-idr-flowspec-interfaceset"/></td>
+		  <td>none </td>
+		</tr>
+		<tr>
+		  <td>Redirect </td>
+		  <td>0x07/TBD-3</td>
+		  <td>Redirect to IP </td>
+		  <td><xref target="I-D.ietf-idr-flowspec-redirect-to-IP "/></td>
+		  <td>none </td>
+		</tr>
+		<tr>
+		  <td>Redirect
+		  <td>0x07/TBD-4</td>
+		  <td>Redirect to Indirection ID</td>
+		  <td><xref target="I-D.ietf-idr-flowspec-path-redirect"/></td>
+		  <td>FS-Reg1: FlowSpec Redirect to indirection-id Extended Community Sub-Type </td>
+		</tr>
+		<tr>
+		  <td>0x07/TBD-5</td>
+		  <td>Redirect to Generalized SID </td>
+		  <td><xref target="I-D.li-idr-flowspec-redirect-generalized-sid"</td>
+		  <td>FS-Reg2: FSV2 Redirect via Generalized SID </td>
+		</tr>
+		<tr>
+		  <td>0x07/TBD-7</td>
+		  <td>Redirect to Generalized SID </td>
+		  <td><xref target="I-D.li-idr-flowspec-redirect-generalized-sid"</td>
+		  <td>FS-Reg2: FSV2 Redirect via Generalized SID </td>
+		</tr>
+		<!-- XXX JMH - these SFC code points need review to see if they belong here. -->
+		<tr>
+		  <td>0x0b/0x00</td>
+		  <td>SFC Reserved</td>
+		  <td>SFC-R</td>
+		  <td><xref target="RFC9015"/></td>
+		</tr>
+		<tr>
+		  <td>0x0b/0x01</td>
+		  <td>SFVC SFIR POOL Identifier</td>
+		  <td>SFIR-PI</td>
+		  <td><xref target="RFC9015"/></td>
+		</tr>
+		<tr>
+		  <td>0x0b/0x02</td>
+		  <td>SFC MPLS label stack Swapping or stacking labels</td>
+		  <td>SFC-MPLS</td>
+		  <td><xref target="RFC9015"/></td>
+		</tr>
+		<tr>
+		  <td>0x80/0x06</td>
+		  <td>Traffic rate limit by bytes</td>
+		  <td>TR-BPS</td>
+		  <td><xref target="RFC8955"/></td>
+		</tr>
+		<tr>
+		  <td>0x80/0x07</td>
+		  <td>Traffic Action (sample, terminal)</td>
+		  <td>TA</td>
+		  <td><xref target="RFC8955"/></td>
+		</tr>
+		<tr>
+		  <td>0x80/0x08</td>
+		  <td>Redirection to VRF (2-octet AS form)</td>
+		  <td>RD-VRF-AS2</td>
+		  <td><xref target="RFC8955"/></td>
+		</tr>
+		<tr>
+		  <td>0x80/0x09</td>
+		  <td>Traffic mark DSCP</td>
+		  <td>TM-DSCP</td>
+		  <td><xref target="RFC8955"/></td>
+		</tr>
+		<tr>
+		  <td>0x80/0x0C</td>
+		  <td>Traffic rate limit by packets</td>
+		  <td>TR-BPS</td>
+		  <td><xref target="RFC8955"/></td>
+		</tr>
+		<tr>
+		  <td>0x81/0x08</td>
+		  <td>Redirect to VPN (IPv4 form)</td>
+		  <td>RD-VRF-IPv4</td>
+		  <td><xref target="RFC8955"/></td>
+		</tr>
+		<tr>
+		  <td>0x81/0x08</td>
+		  <td>Redirect to VPN (4-octet AS form)</td>
+		  <td>RD-VRF-AS4</td>
+		  <td><xref target="RFC8955"/></td>
+		</tr>
+	      </tbody>
+	    </table>
 
+      <section title="New FSv2 Transitive Action Extended Communities" anchor="fsv2-ec-newtrans">
+	  </section>			
           <section title="Existing Flow Specification Action Extended Communities" anchor="fsv2-ec-rfc4360">
 	    <t>FSv1 defines a set of <xref target="RFC4360"/> encoded extended
 	    communities implementing actions also applicable to FSv2 IP Basic

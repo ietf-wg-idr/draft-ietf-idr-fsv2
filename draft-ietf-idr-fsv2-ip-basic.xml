@@ -1390,7 +1390,7 @@
       </section>
 
       <!-- XXX JMH We need to normalize the short form of flow specifications.
-      flowspec? Flow Spec? XXXXSue FSspec-->
+      flowspec? Flow Spec? XXX Sue FSspec-->
       <section title="FSv2 Traffic Filtering Actions for FSv2 IP Basic ">
 	<t>Traffic matching a flow specification filter may have selected
 	<em>traffic actions</em> applied to it that have various impacts on the

@@ -636,11 +636,11 @@
 		<li> 20 - Time </li>
 	    <li> 30 - Interface </li>
 	 	<li> 50 - L2 traffic Rules </li>
-		<li> 100 - MPLS traffic Rules </li> 
+		<li> 100 - MPLS traffic Rules </li>
+		<li> 150 - SFC Traffic rules </li> 
 		<li> 200 - Tunneled trafffic </li>
 		<li> 256 - IP Basic filter rules </li> 
 		<li> 280 - Extended IP filter rules </li>
-		<li> 300 - SFC Traffic rules </li> 
 		<li> 320 - CATS Traffic rules </li> 
 		</ul> 
 		</li> 
@@ -947,26 +947,37 @@
 	    <tr>
 	      <th>Type</th>
 	      <th>Definition</th>
+		  <th>Reference </th>
 	    </tr>
 	  </thead>
 	  <tbody>
-	    <tr><td>0</td><td>Reserved</td></tr>
-		<tr><td>10></td>Some parts of SRHv6 header (draft-ietf-idr-flowspec-srv6)<td></tr>
-		<tr><td>20</td>NRP ID SRv6 Next Hop header (draft-ietf-idr-flowspec-network-slice-ts)</td></tr>
-	    <tr><td>50</td><td>IP Destination Prefix</td></tr>
-	    <tr><td>70</td><td>IP Source Prefix</td></tr>
-	    <tr><td>80</td><td>IPv4 Protocol / IPv6 Upper Layer Protocol</td></tr>
-	    <tr><td>90</td><td>Port</td></tr>
-	    <tr><td>100</td><td>Destination Port</td></tr>
-	    <tr><td>110</td><td>Source Port</td></tr>
-	    <tr><td>120</td><td>ICMPv4 Type / ICMPv6 Type</td></tr>
-	    <tr><td>130</td><td>ICMPv4 Code / ICPv6 Code</td></tr>
-	    <tr><td>140</td><td>TCP Flags</td></tr>
-	    <tr><td>150</td><td>Packet Length</td></tr>
-	    <tr><td>160</td><td>DSCP</td></tr>
-	    <tr><td>170</td><td>Fragment</td></tr>
-	    <tr><td>180</td><td>Flow Label</td></tr>
-	    <tr><td>4095</td><td>Reserved</td></tr>
+	    <tr><td>0</td><td>Reserved</td><td>This document</td></tr>
+		<tr><td>10</td><td>Some parts of SRHv6 header</td><td> <xref target="I-D.ietf-idr-flowspec-srv6"/></td></tr>
+		<tr><td>20</td><td>NRP ID SRv6 Next Hop header</td><td> <xref target="I-D.ietf-idr-flowspec-network-slice-ts"/></td></tr>
+		<tr><td>30</td><td>CS ID (IPv4/IPv6) </td><td> draft-lin-idr-cats-flowspec-ts</td></tr>
+		<tr><td>40</td><td>Bitwise Destination IPv4/IPv6 filter </td><td>draft-kao-idr-bitwise-ip-filters</td></tr>
+		<tr><td>50</td><td>Destination-QP </td><td>draft-lll-idr-flowspec-filter-qp </td></tr>
+	    <tr><td>60</td><td>IP Destination Prefix</td><td>This document</td></tr>
+		<tr><td>70</td><td>Bitwise Source Filter IPv6 source</td><td> draft-kao-idr-bitwise-ip-filters</td></tr>
+	    <tr><td>80</td><td>IP Source Prefix</td><td>This document </td></tr>
+	    <tr><td>90</td><td>IPv4 Protocol / IPv6 Upper Layer Protocol</td><td> This document </td></tr>
+	    <tr><td>100</td><td>Port</td> <td> This document </td></tr>
+	    <tr><td>110</td><td>Destination Port</td><td> This document </td></tr>
+	    <tr><td>120</td><td>Source Port</td><td> This document </td></tr>
+	    <tr><td>130</td><td>ICMPv4 Type / ICMPv6 Type</td><td>This document </td></tr>
+	    <tr><td>140</td><td>ICMPv4 Code / ICPv6 Code</td><td>This document </td></tr>
+	    <tr><td>150</td><td>TCP Flags</td><td>This document </td></tr>
+	    <tr><td>160</td><td>Packet Length</td><td>This document </td></tr>
+	    <tr><td>170</td><td>DSCP</td><td>This document </td></tr>
+	    <tr><td>180</td><td>Fragment</td><td>This document </td></tr>
+	    <tr><td>190</td><td>Flow Label</td><td>This document </td></tr>
+		<tr><td>200</td><td>Packet Content filter</td><td>draft-cui-idr-content-filter-flowspec</td></tr>
+	    <tr><td>210</td><td>Class ID</td><td>draft-song-idr-flowspec-classid-filter </td></tr>
+	    <tr><td>220</td><td>DIP-AS </td><td>draft-wang-idr-flowspec-dip-origin-as-filter</td></tr>
+		<tr><td>230</td><td>SIP-AS </td><td>draft-wang-idr-flowspec-sip-origin-as-filter</td></tr>
+	    <tr><td>240</td><td>DIP-Com </td><td>draft-wang-idr-flowspec-dip-community-filter</td></tr>
+		<tr><td>250</td><td>SIP-com </td><td>draft-wang-idr-flowspec-sip-community-filter</td></tr>
+	    <tr><td>4095</td><td>Reserved</td><td>[This document]</td></tr>
 	  </tbody>
 	</table>
       </section>
@@ -1004,7 +1015,7 @@
       </section>
 
       <section title="FSv2 Components for IP Basic TLVs">
-        <section title="IP Destination Prefix (component type = 50)">
+        <section title="IP Destination Prefix (component type = 60)">
 	  <section title="IPv4 Destination Prefix (AFI=1)">
 	    <t><tt>Encoding: &lt;prefix length (1 octet), prefix (variable)&gt;</tt></t>
 
@@ -1055,7 +1066,7 @@
 	  </section>
         </section>
 
-        <section title="IP Source Prefix (type = 70)">
+        <section title="IP Source Prefix (type = 80)">
 	  <section title="IPv4 Source Prefix (AFI=1)">
 	    <t><tt>Encoding: &lt;prefix length (1 octet), prefix (variable)&gt;</tt></t>
 
@@ -1074,7 +1085,7 @@
 	  </section>
         </section>
 
-        <section title="IP Protocol/IPv6 Upper Layer Protocol (type = 80)">
+        <section title="IP Protocol/IPv6 Upper Layer Protocol (type = 90)">
 	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
 	  <section title="IPv4 Protocol (AFI=1)">
@@ -1083,7 +1094,7 @@
 	    <xref target="RFC0791" section="3.1"/>.</t>
 
 	    <t>This component uses the Numeric Operator (numeric_op) described
-	    in <xref target="numeric-op"/>. Type 80 component values SHOULD be
+	    in <xref target="numeric-op"/>. Type 90 component values SHOULD be
 	    encoded as single octet (numeric_op len=00).</t>
 	  </section>
 
@@ -1095,18 +1106,18 @@
 	    (see <xref target="RFC8200" section="4"/> Section 4).</t>
 
 	    <t>This component uses the Numeric Operator (numeric_op) described
-	    in <xref target="numeric-op"/>. Type 80 component values SHOULD be
+	    in <xref target="numeric-op"/>. Type 90 component values SHOULD be
 	    encoded as a single octet (numeric_op len=00).</t>
 
 	    <t>Note: While IPv6 allows for more than one Next Header field in
-	    the packet, the main goal of the Type 80 Flow Specification
+	    the packet, the main goal of the Type 90 Flow Specification
 	    component is to match on the first upper-layer IP protocol value.
 	    Therefore, the definition is limited to match only on this specific
 	    Next Header field in the packet.</t>
 	  </section>
         </section>
 
-        <section title="Port (type = 90)" anchor="port">
+        <section title="Port (type = 100)" anchor="port">
 	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
 	  <t>Defines a list of <tt>{numeric_op, value}</tt> pairs that match
@@ -1116,7 +1127,7 @@
 	  port OR the source port of an IP packet matches the value.</t>
 
 	  <t>This component uses the Numeric Operator (numeric_op) described in
-	  <xref target="numeric-op"/>. Type 90 component values SHOULD be
+	  <xref target="numeric-op"/>. Type 100 component values SHOULD be
 	  encoded as 1- or 2-octet quantities (numeric_op len=00 or
 	  len=01).</t>
 
@@ -1135,28 +1146,11 @@
           value in IPv6.</t>
         </section>
 
-        <section title="Destination Port (type = 100)" anchor="dst-port">
+        <section title="Destination Port (type = 110)" anchor="dst-port">
 	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
 	  <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to match
 	  the destination port of a TCP or UDP packet (see also
-	  <xref target="RFC0793" section="3.1"/> and the "Format" section of
-	  <xref target="RFC0768"/>.</t>
-
-	  <t>This component uses the Numeric Operator (numeric_op) described in
-	  <xref target="numeric-op"/>. Type 100 component values SHOULD be
-	  encoded as 1- or 2-octet quantities (numeric_op len=00 or
-	  len=01).</t>
-
-	  <t>The last paragraph of <xref target="port"/> also applies to this
-	  component.</t>
-        </section>
-
-        <section title="Source Port (type = 110)" anchor="src-port">
-	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
-
-	  <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to match
-	  the source port of a TCP or UDP packet (see also
 	  <xref target="RFC0793" section="3.1"/> and the "Format" section of
 	  <xref target="RFC0768"/>.</t>
 
@@ -1169,7 +1163,24 @@
 	  component.</t>
         </section>
 
-        <section title="ICMP Type (type = 120)">
+        <section title="Source Port (type = 120)" anchor="src-port">
+	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
+
+	  <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to match
+	  the source port of a TCP or UDP packet (see also
+	  <xref target="RFC0793" section="3.1"/> and the "Format" section of
+	  <xref target="RFC0768"/>.</t>
+
+	  <t>This component uses the Numeric Operator (numeric_op) described in
+	  <xref target="numeric-op"/>. Type 120 component values SHOULD be
+	  encoded as 1- or 2-octet quantities (numeric_op len=00 or
+	  len=01).</t>
+
+	  <t>The last paragraph of <xref target="port"/> also applies to this
+	  component.</t>
+        </section>
+
+        <section title="ICMP Type (type = 130)">
 	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
 	  <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to match
@@ -1177,7 +1188,7 @@
 	  section of <xref target="RFC0792"/>).</t>
 
 	  <t>This component uses the Numeric Operator (numeric_op) described in
-	  <xref target="numeric-op"/>. Type 120 component values SHOULD be
+	  <xref target="numeric-op"/>. Type 130 component values SHOULD be
 	  encoded as single octet (numeric_op len=00).</t>
 
 	  <section title="ICMP IPv4 Type (AFI=1)">
@@ -1203,7 +1214,7 @@
 	  </section>
         </section>
 
-        <section title="ICMP Code (type = 1300)">
+        <section title="ICMP Code (type = 140)">
 	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
 	  <section title="ICMP Code IPv4 Type (AFI=1)">
@@ -1212,7 +1223,7 @@
 	    Formats" section of <xref target="RFC0792"/>).</t>
 
 	    <t>This component uses the Numeric Operator (numeric_op) described
-	    in <xref target="numeric-op"/>. Type 130 component values SHOULD be
+	    in <xref target="numeric-op"/>. Type 140 component values SHOULD be
 	    encoded as single octet (numeric_op len=00).</t>
 
 	    <t>In case of the presence of the ICMP code component, only ICMP
@@ -1232,7 +1243,7 @@
 	    <xref target="RFC4443" section="2.1"/>).</t>
 
 	    <t>This component uses the Numeric Operator (numeric_op) described
-	    in <xref target="numeric-op"/>. Type 130 component values SHOULD be
+	    in <xref target="numeric-op"/>. Type 140 component values SHOULD be
 	    encoded as a single octet (numeric_op len=00).</t>
 
 	    <t>In case of the presence of the ICMPv6 code component, only
@@ -1245,7 +1256,7 @@
 	  </section>
         </section>
 
-        <section title="TCP Flags (type = 140)" >
+        <section title="TCP Flags (type = 150)" >
 	  <t><tt>Encoding: &lt;[bitmask_op, bitmask]+&gt;</tt></t>
 
 	  <t>Defines a list of <tt>{bitmask_op, bitmask}</tt> pairs used to
@@ -1253,7 +1264,7 @@
 	  <xref target="RFC0793" section="3.1"/>).</t>
 
 	  <t>This component uses the Bitmask Operator (bitmask_op) described in
-	  <xref target="bitmask-op"/>. Type 140 component bitmasks MUST be
+	  <xref target="bitmask-op"/>. Type 160 component bitmasks MUST be
 	  encoded as 1- or 2-octet bitmask (bitmask_op len=00 or len=01).</t>
 
 	  <t>When a single octet (bitmask_op len=00) is specified, it matches
@@ -1277,7 +1288,7 @@
 	  -->
         </section>
 
-        <section title="Packet length (type = 150)">
+        <section title="Packet length (type = 160)">
 	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
 	  <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to match
@@ -1285,33 +1296,33 @@
 	  header).</t>
 
 	  <t>This component uses the Numeric Operator (numeric_op) described in
-	  <xref target="numeric-op"/>. Type 150 component values SHOULD be
+	  <xref target="numeric-op"/>. Type 160 component values SHOULD be
 	  encoded as 1- or 2-octet quantities (numeric_op len=00 or
 	  len=01).</t>
         </section>
 
-        <section title="DSCP (Differentiaed Services Code Point)(type = 160)">
+        <section title="DSCP (Differentiaed Services Code Point)(type = 170)">
 	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
 	  <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to match
 	  the 6-bit DSCP field (see also <xref target="RFC2474"/>).</t>
 
 	  <t>This component uses the Numeric Operator (numeric_op) described in
-	  <xref target="numeric-op"/>. Type 160 component values MUST be
+	  <xref target="numeric-op"/>. Type 170 component values MUST be
 	  encoded as single octet (numeric_op len=00).</t>
 
 	  <t>The six least significant bits contain the DSCP value. All other
 	  bits SHOULD be treated as 0.</t>
         </section>
 
-        <section title="Fragment (type = 170)">
+        <section title="Fragment (type = 180)">
 	  <t><tt>Encoding: &lt;[bitmask_op, bitmask]+&gt;</tt></t>
 
 	  <t>Defines a list of <tt>{bitmask_op, bitmask}</tt> pairs used to
 	  match specific IP fragments.</t>
 
 	  <t>This component uses the Bitmask Operator (bitmask_op) described in
-	  <xref target="bitmask-op"/>. Type 170 component bitmask MUST be
+	  <xref target="bitmask-op"/>. Type 180 component bitmask MUST be
 	  encoded as single octet bitmask (bitmask_op len=00).</t>
 
 	  <section title="IPv4 Fragment (AFI=1)">
@@ -1376,7 +1387,7 @@
 	  </section>
         </section>
 
-        <section title="Flow Label (type = 180), AFI=2 only">
+        <section title="Flow Label (type = 190), AFI=2 only">
 	  <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
 	  <t>This contains a list of {numeric_op, value} pairs that are used to
@@ -1384,13 +1395,13 @@
 	  (<xref target="RFC8200" section="3"/>).</t>
 
 	  <t>This component uses the Numeric Operator (numeric_op) described in
-	  <xref target="numeric-op"/>. Type 180 component values SHOULD be
+	  <xref target="numeric-op"/>. Type 190 component values SHOULD be
 	  encoded as 4-octet quantities (numeric_op len=10).</t>
         </section>
       </section>
 
       <!-- XXX JMH We need to normalize the short form of flow specifications.
-      flowspec? Flow Spec? XXXXSue FSspec-->
+      flowspec? Flow Spec? XXXX SKH FSspec-->
       <section title="FSv2 Traffic Filtering Actions for FSv2 IP Basic ">
 	<t>Traffic matching a flow specification filter may have selected
 	<em>traffic actions</em> applied to it that have various impacts on the
@@ -1412,7 +1423,9 @@
 
 	    <ul>
 	      <li>Further constraint of the match criteria for the traffic in
-	      addition to that which is encoded in the NLRI.</li>
+	      addition to that which is encoded in the NLRI.  Examples of this 
+          include match criteria based on groups of interfaces, and 
+		  where filter rules are installed.</li>
 
 	      <li>Apply traffic shaping mechanisms, such as bps/pps rate
 	      limiters.</li>
@@ -1427,6 +1440,8 @@
 
 	      <li>Terminate the evaluation of further flow specification
 	      matches in the forwarding plane.</li>
+		  <li>Request logging of flowspec filter installation by 
+		      other protocols </li>
 	    </ul>
 	  </t>
 
@@ -1446,12 +1461,187 @@
         <section title="FSv2 Extended Community Actions" anchor="fsv2-actions">
 	  <t>FSv2 IP Basic uses FSv1 actions and these are referenced in
 	  <xref target="fsv2-ec-rfc4360"/> and <xref target="fsv2-ec-rfc5701"/>.</t>
+	  <t>FSv2 supports the FSv1 actions for the SFC network service header (NSH) specified in 
+	  <xref target="RFC9015"/> as referenced in <xref target="fsv2-ec-sfc-rfc9015"/>. </t> 
+	  <t>FSv2 IP Basic reassigns All FSv2 Extended Community actions to 
+	  two FSv2 Extended Community types: one transitive and one non-transitive. 
+	  These are defined in <xref target="fsv2-ec-newtrans"/> and <xref target="fsv2-ec-newnontrans"/>. </t>
 
-	  <t>One additional, optional, FSv2 specific FS-EC: the Action Chain
-	  Ordering (ACO) Extended Community (ACO-EC), is defined in
-	  <xref target="fsv2-ec-aco"/>.  ACO-EC can carry defaults currently
-	  only available by configuration in FSv1.</t>
-
+      <section title="New FSv2 Transitive Action Extended Communities" anchor="fsv2-ec-newtrans">
+	   <table align="left">
+	      <name>FSv2 Transitive Actions</name>
+	      <thead>
+		<tr>
+		  <th>Function</th>
+		  <th>Type/Sub-Type</th>
+		  <th>Description</th>
+		  <th>Sub-Registry</th>
+   		  <th>Reference</th>
+		</tr>
+	      </thead>
+	      <tbody>
+		<tr>
+		  <td>Grouping </td>
+		  <td>0x07/0x02</td>
+		  <td>Group by interface set</td>
+		  <td>none </td>
+		  <td><xref target="I-D.ietf-idr-flowspec-interfaceset"/></td>
+		</tr>
+		<tr>
+		  <td>Redirect </td>
+		  <td>0x07/TBD-3</td>
+		  <td>Redirect to IP (R-ID) </td>
+		  <td>none </td> 
+		  <td><xref target="I-D.ietf-idr-flowspec-redirect-ip"/></td>
+		</tr>
+		<tr>
+		  <td>Redirect</td>
+		  <td>0x07/TBD-4</td>
+		  <td>Redirect to Indirection ID (R-IID) </td>
+  		  <td>FS-ST-Reg1:Redirect IDs </td>
+		  <td><xref target="I-D.ietf-idr-flowspec-path-redirect"/></td>
+		</tr>
+		<tr>
+		  <td>Mark, Merge, Traffic shape </td>
+		  <td>0x07/0x06</td>
+		  <td>Traffic rate limit by bytes (TR-BPS) </td>
+  		  <td>none </td>
+		  <td><xref target="RFC8955"/></td>
+		</tr>
+		<tr>
+		  <td>Mark, Merge, Traffic shape </td>
+		  <td>0x07/0x0C </td>
+		  <td>Traffic rate limit by packets (TR-PPS) </td>
+  		  <td>none </td>
+		  <td><xref target="RFC8955"/></td>
+		</tr>
+		<tr>
+		  <td>Mark, Merge, Traffic shape </td>
+		  <td>0x07/0x07</td>
+		  <td>Traffic Action (sample, terminal) [TA]</td>
+		  <td>none </td>
+		  <td><xref target="RFC8955"/></td>
+		</tr>
+		<tr>
+	      <td>Mark, Merge, Traffic shape </td>
+		  <td>0x07/0x09 </td>
+		  <td>Mark DSCP</td>
+		  <td>none</td>
+		  <td><xref target="RFC8955"/></td>
+		</tr>
+        </tbody>
+		</table>
+		  <t>Fsv2-ST-reg1:RedirectIDs denotes a registry of  FlowSpec Redirect to indirection-id Extended Community Sub-Types. 
+           This registry will be created when the the <xref target="I-D.ietf-idr-flowspec-path-redirect"/> approved for
+           early registry allocation.   </t>
+	   </section> 
+	   <section title="New FSv2 Non-Transitive Action Extended Communities" anchor="fsv2-ec-newnontrans">
+	   <table align="left">
+	      <name>FSv2 Non-Transitive Actions</name>
+	      <thead>
+		<tr>
+		  <th>Function</th>
+		  <th>Type/Sub-Type</th>
+		  <th>Description</th>
+		  <th>Sub-Registry</th>
+   		  <th>Reference</th>
+		</tr>
+	      </thead>
+	      <tbody>
+		<tr>
+		  <td>Grouping </td>
+		  <td>0x47/0x02</td>
+		  <td>Group by interface set</td>
+		  <td>none </td>
+		  <td><xref target="I-D.ietf-idr-flowspec-interfaceset"/></td>
+		</tr>
+		<tr>
+		  <td>Redirect </td>
+		  <td>0x47/TBD-3 </td>
+		  <td>Redirect to IP </td>
+		  <td>none </td> 
+		  <td><xref target="I-D.ietf-idr-flowspec-redirect-ip"/></td>
+		</tr>
+		<tr>
+		  <td>Redirect </td>
+		  <td>0x47/TBD-4</td>
+		  <td>Redirect to Indirection ID</td>
+		  <td>FS-ST-Reg1:Redirect IDs </td>
+		  <td><xref target="I-D.ietf-idr-flowspec-path-redirect"/></td>
+		</tr>
+		<tr>
+		  <td>Mark, Merge, Traffic shape </td>
+		  <td>0x47/0x06</td>
+		  <td>Traffic rate limit by bytes (TR-BPS) </td>
+		  <td>none </td>
+		  <td><xref target="RFC8955"/></td>
+		</tr>
+		<tr>
+		  <td>Mark, Merge, Traffic shape </td>
+		  <td>0x47/0x0C </td>
+		  <td>Traffic rate limit by packets (TR-PPS)</td>
+		  <td>none </td>
+		  <td><xref target="RFC8955"/></td>
+		</tr>
+		<tr>
+		  <td>Mark, Merge, Traffic shape </td>
+		  <td>0x47/0x07</td>
+		  <td>Traffic Action (sample, terminal)(TA) </td>
+		  <td> none </td>
+		  <td><xref target="RFC8955"/></td>
+		</tr>
+		<tr>
+	      <td>Mark, Merge, Traffic shape </td>
+		  <td>0x47/0x09 </td>
+		  <td>Mark DSCP</td>
+		  <td>none </td> 
+		  <td><xref target="RFC8955"/></td>
+		</tr>
+        </tbody>
+		</table>
+		<t>FS-ST-Reg1:Redirect IDs denotes a registry of  FlowSpec Redirect to indirection-id Extended Community Sub-Types. 
+           This registry will be created when the the <xref target="I-D.ietf-idr-flowspec-path-redirect"/> approved for
+           early registry allocation.   </t>
+	   </section> 
+	   
+	   <section title="New FSv2 Non-Transitive Action Extended Communities" anchor="fsv2-ec-sfc-rfc9015">
+	   <t>FSv2 supports the FSv1 actions defined for SFC NSH Classifiers <xref target="RFC9015"/> list below. </t>
+	   <table align="left">
+	      <name>FSv2 Transitive Actions for SFC NSH Classifiers</name>
+	      <thead>
+		<tr>
+		  <th>Function</th>
+		  <th>Type/Sub-Type</th>
+		  <th>Description</th>
+		  <th>Sub-Registry</th>
+   		  <th>Reference</th>
+		</tr>
+	      </thead>	
+        <tbody>		  
+		<tr>
+		  <td>Redirect to SFC NSH  </td>
+		  <td>0x0b/0x00 </td>
+		  <td>NSH Based SFC Reserved</td>
+		  <td>NSH-SFC-R</td>
+		  <td><xref target="RFC9015"/></td>
+		</tr>
+		<tr>
+  	      <td>Redirect to SFC NSH  </td>
+		  <td>0x0b/0x01</td>
+		  <td>SFVC SFIR POOL Identifier</td>
+		  <td>SFIR-PI </td>
+		  <td><xref target="RFC9015"/></td>
+		</tr>
+		<tr>
+  	      <td>Redirect to SFC NSH  </td>
+		  <td>0x0b/0x02</td>
+		  <td>SFC MPLS label stack Swapping or stacking labels</td>
+		  <td>SFC-MPLS</td>
+		  <td><xref target="RFC9015"/></td>
+		</tr>
+        </tbody>
+		</table>
+		</section> 
           <section title="Existing Flow Specification Action Extended Communities" anchor="fsv2-ec-rfc4360">
 	    <t>FSv1 defines a set of <xref target="RFC4360"/> encoded extended
 	    communities implementing actions also applicable to FSv2 IP Basic
@@ -2370,23 +2560,6 @@
         </t>
       </section>
 
-      <section title="Generic Transitive Extended Community">
-        <t>IANA is requested to assign a type value from the "Generic
-        Transitive Extended Community Sub-Types" registry at
-        https://www.iana.org/assignments/bgp-extended-communities/bgp-extended-communities.xhtml
-
-          <figure>
-          <artwork>
-       Table 7-3 - Generic Transitive Extended Community
-
-       Value   Description                Reference       Controller
-       -----  --------------------------  ---------------  ----------
-        TBD4  FSv2 Action Chain Ordering  [this document]  IETF
-          </artwork>
-          </figure>
-        </t>
-      </section>
-
       <section title="FSv2 IP Filters Component Types">
         <t>IANA is requested to create a new "BGP FSv2 IP Basic Component Types"
         registry and indicate [this draft] as a reference.  The following
@@ -2412,28 +2585,66 @@
 	  </thead>
 	  <tbody>
 	    <tr><td>0</td><td>Reserved</td><td>This document</td></tr>
-	    <tr><td>10</td><td>IP Destination Prefix</td><td>This document</td></tr>
-	    <tr><td>20</td><td>IP Source Prefix</td><td>This document</td></tr>
-	    <tr><td>30</td><td>IPv4 Protocol / IPv6 Upper Layer Protocol</td><td>This document</td></tr>
-	    <tr><td>40</td><td>Port</td><td>This document</td></tr>
-	    <tr><td>50</td><td>Destination Port</td><td>This document</td></tr>
-	    <tr><td>60</td><td>Source Port</td><td>This document</td></tr>
-	    <tr><td>70</td><td>ICMPv4 Type / ICMPv6 Type</td><td>This document</td></tr>
-	    <tr><td>80</td><td>ICMPv4 Code / ICPv6 Code</td><td>This document</td></tr>
-	    <tr><td>90</td><td>TCP Flags</td><td>This document</td></tr>
-	    <tr><td>100</td><td>Packet Length</td><td>This document</td></tr>
-	    <tr><td>110</td><td>DSCP</td><td>This document</td></tr>
-	    <tr><td>120</td><td>Fragment</td><td>This document</td></tr>
-	    <tr><td>130</td><td>Flow Label</td><td>This document</td></tr>
+		<tr><td>1-9</td><td>Unassigned</td><td>This document </td></tr>
+		<tr><td>10</td><td>Parts of SRHv6 </td><td>This document</td></tr>
+		<tr><td>11-19</td><td>Unassigned</td><td>This document </td></tr>
+		<tr><td>20</td><td>NRP ID in NextHop SRv6 </td><td>This document</td></tr>
+		<tr><td>21-29</td><td>Unassigned</td><td>This document </td></tr>
+		<tr><td>30</td><td>CS ID (IPv4/IPv6)</td><td>This document</td></tr>
+		<tr><td>31-39</td><td>Unassigned</td><td>This document </td></tr>
+		<tr><td>40</td><td>Bitwise Destination IPv4/IPv6 </td><td>This document </td></tr>
+		<tr><td>41-49</td><td>Unassigned</td><td>This document </td></tr>
+		<tr><td>50</td><td>Destination QP </td><td>This document </td></tr>
+		<tr><td>51-59</td><td>Unassigned</td><td>This document </td></tr>
+	    <tr><td>60</td><td>IP Destination Prefix</td><td>This document</td></tr>
+		<tr><td>61-69</td><td>Unassigned</td><td>This document </td></tr>
+		<tr><td>70</td><td>Bitwise Source IPv4/IPv6 </td><td>This document </td></tr>	
+		<tr><td>71-79</td><td>Unassigned</td><td>This document </td></tr>
+	    <tr><td>80</td><td>IP Source Prefix</td><td>This document</td></tr>
+		<tr><td>81-89</td><td>Unassigned</td><td>This document </td></tr>
+	    <tr><td>90</td><td>IPv4 Protocol / IPv6 Upper Layer Protocol</td><td>This document</td></tr>
+		<tr><td>91-99</td><td>Unassigned</td><td>This document </td></tr>
+	    <tr><td>100</td><td>Port</td><td>This document</td></tr>
+		<tr><td>101-109</td><td>Unassigned</td><td>This document </td></tr>
+	    <tr><td>110</td><td>Destination Port</td><td>This document</td></tr>
+		<tr><td>111-119</td><td>Unassigned</td><td>This document </td></tr>
+	    <tr><td>120</td><td>Source Port</td><td>This document</td></tr>
+		<tr><td>121-129</td><td>Unassigned</td><td>This document </td></tr>
+	    <tr><td>130</td><td>ICMPv4 Type / ICMPv6 Type</td><td>This document</td></tr>
+		<tr><td>131-139</td><td>Unassigned</td><td>This document </td></tr>
+	    <tr><td>140</td><td>ICMPv4 Code / ICPv6 Code</td><td>This document</td></tr>
+		<tr><td>141-149</td><td>Unassigned</td><td>This document </td></tr>
+	    <tr><td>150</td><td>TCP Flags</td><td>This document</td></tr>
+		<tr><td>151-159</td><td>Unassigned</td><td>This document </td></tr>
+	    <tr><td>160</td><td>Packet Length</td><td>This document</td></tr>
+		<tr><td>161-169</td><td>Unassigned</td><td>This document </td></tr>
+	    <tr><td>170</td><td>DSCP</td><td>This document</td></tr>
+		<tr><td>171-179</td><td>Unassigned</td><td>This document </td></tr>
+	    <tr><td>180</td><td>Fragment</td><td>This document</td></tr>
+		<tr><td>181-189</td><td>Unassigned</td><td>This document </td></tr>
+	    <tr><td>190</td><td>Flow Label</td><td>This document</td></tr>
+		<tr><td>191-199</td><td>Unassigned</td><td>This document </td></tr>
+	    <tr><td>200</td><td>Packet Content Filter</td><td>This document</td></tr>
+		<tr><td>201-209</td><td>Unassigned</td><td>This document </td></tr>
+	    <tr><td>210</td><td>Class ID</td><td>This document</td></tr>
+		<tr><td>211-219</td><td>Unassigned</td><td>This document </td></tr>
+	    <tr><td>220</td><td>DIP-AS</td><td>This document</td></tr>
+		<tr><td>221-229</td><td>Unassigned</td><td>This document </td></tr>
+	    <tr><td>230</td><td>SIP-AS</td><td>This document</td></tr>
+		<tr><td>231-239</td><td>Unassigned</td><td>This document </td></tr>
+	    <tr><td>240</td><td>DIP-com</td><td>This document</td></tr>
+		<tr><td>241-249</td><td>Unassigned</td><td>This document </td></tr>
+	    <tr><td>250</td><td>SIP-com</td><td>This document</td></tr>
+		<tr><td>251-4094</td><td>Unassigned</td><td>This document </td></tr>
 	    <tr><td>4095</td><td>Reserved</td><td>This document</td></tr>
 	  </tbody>
 	</table>
       </section>
 
-      <section title="FSv2 Filter Component Types">
+      <section title="FSv2 Filter Family bTypes">
         <t>IANA is requested to create the a new registry for "Flow
-        Specification v2 Filter Component Types".</t>
-
+        Specification v2 Filter Family Types".</t>
+		  
         <t>Registration Procedures: 0x01-0x3FFF Standards Action.</t>
 
 	<table align="left">
@@ -2445,14 +2656,34 @@
 	      <th>Reference</th>
 	    </tr>
 	  </thead>
-	  <tbody>
+<tbody>
 	    <tr>
 	      <td>0</td>
 	      <td>Reserved</td>
 	      <td>[this document]</td>
 	    </tr>
+		  <tr>
+	      <td>1-19</td>
+	      <td>Unassigned</td>
+	      <td>[this document]</td>
+	    </tr>
+		<tr>
+		 <td>20</td>
+	     <td>Time</td>
+	      <td>[this document]</td>
+	    </tr>
 	    <tr>
-	      <td>1-49</td>
+	      <td>21-29</td>
+	      <td>Unassigned</td>
+	      <td>[this document]</td>
+	    </tr>
+		<tr>
+		 <td>30</td>
+	     <td>Interface</td>
+	      <td>[this document]</td>
+	    </tr>
+	    <tr>
+	      <td>31-49</td>
 	      <td>Unassigned</td>
 	      <td>[this document]</td>
 	    </tr>
@@ -2512,7 +2743,17 @@
 	      <td>[this document]</td>
 	    </tr>
 	    <tr>
-	      <td>281-24575</td>
+	      <td>281-319</td>
+	      <td>Unassigned</td>
+	      <td>[this document]</td>
+	    </tr>
+		<tr>
+	      <td>320</td>
+	      <td>CATS Traffic Rules </td>
+	      <td>[this document]</td>
+	    </tr>
+		 <tr>
+	      <td>321-24575</td>
 	      <td>Unassigned</td>
 	      <td>[this document]</td>
 	    </tr>
@@ -2555,7 +2796,8 @@
     <displayreference target="I-D.ietf-idr-flowspec-redirect-ip" to="redirect-ip"/>
     <displayreference target="I-D.ietf-idr-flowspec-path-redirect" to="path-redirect"/>
     <displayreference target="I-D.hares-idr-fsv2-more-ip-actions" to="fsv2-more-ip-actions"/>
-    <displayreference target="I-D.hares-idr-fsv2-more-ip-actions" to="fsv2-more-ip-filters"/>
+    <displayreference target="I-D.ietf-idr-flowspec-network-slice-ts" to="fsv2-netslice-nrp"/>
+    <displayreference target="I-D.hares-idr-fsv2-more-ip-actions" to="fsv2-more-ip-actions"/>
     <displayreference target="I-D.ietf-idr-flowspec-v2" to="fsv2"/>
     <displayreference target="RFC8955" to="FSv1"/>
     <displayreference target="RFC8956" to="FSv1-IPv6"/>
@@ -2591,6 +2833,7 @@
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-interfaceset"/>
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-redirect-ip"/>
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-path-redirect"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-network-slice-ts"/>
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-wide-bgp-communities"/>
     </references>
     <references title="Informative References">

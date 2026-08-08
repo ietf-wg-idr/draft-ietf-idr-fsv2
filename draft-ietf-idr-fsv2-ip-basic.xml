@@ -952,31 +952,31 @@
           </thead>
           <tbody>
             <tr><td>0</td><td>Reserved</td><td>This document</td></tr>
-            <tr><td>10</td><td>Some parts of SRHv6 header</td><td> <xref target="I-D.ietf-idr-flowspec-srv6"/></td></tr>
-            <tr><td>20</td><td>NRP ID SRv6 Next Hop header</td><td> <xref target="I-D.ietf-idr-flowspec-network-slice-ts"/></td></tr>
+            <tr><td>10</td><td>Some parts of SRHv6 header</td><td><xref target="I-D.ietf-idr-flowspec-srv6"/></td></tr>
+            <tr><td>20</td><td>NRP ID SRv6 Next Hop header</td><td><xref target="I-D.ietf-idr-flowspec-network-slice-ts"/></td></tr>
             <tr><td>30</td><td>CS ID (IPv4/IPv6)</td><td>draft-lin-idr-cats-flowspec-ts</td></tr>
-            <tr><td>40</td><td>Bitwise Destination IPv4/IPv6 filter </td><td>draft-kao-idr-bitwise-ip-filters</td></tr>
-            <tr><td>50</td><td>Destination-QP </td><td>draft-lll-idr-flowspec-filter-qp </td></tr>
+            <tr><td>40</td><td>Bitwise Destination IPv4/IPv6 filter</td><td>draft-kao-idr-bitwise-ip-filters</td></tr>
+            <tr><td>50</td><td>Destination-QP</td><td>draft-lll-idr-flowspec-filter-qp</td></tr>
             <tr><td>60</td><td>IP Destination Prefix</td><td>This document</td></tr>
             <tr><td>70</td><td>Bitwise Source Filter IPv6 source</td><td>draft-kao-idr-bitwise-ip-filters</td></tr>
-            <tr><td>80</td><td>IP Source Prefix</td><td>This document </td></tr>
+            <tr><td>80</td><td>IP Source Prefix</td><td>This document</td></tr>
             <tr><td>90</td><td>IPv4 Protocol / IPv6 Upper Layer Protocol</td><td>This document</td></tr>
-            <tr><td>100</td><td>Port</td> <td> This document </td></tr>
-            <tr><td>110</td><td>Destination Port</td><td> This document </td></tr>
-            <tr><td>120</td><td>Source Port</td><td> This document </td></tr>
-            <tr><td>130</td><td>ICMPv4 Type / ICMPv6 Type</td><td>This document </td></tr>
-            <tr><td>140</td><td>ICMPv4 Code / ICPv6 Code</td><td>This document </td></tr>
-            <tr><td>150</td><td>TCP Flags</td><td>This document </td></tr>
-            <tr><td>160</td><td>Packet Length</td><td>This document </td></tr>
-            <tr><td>170</td><td>DSCP</td><td>This document </td></tr>
-            <tr><td>180</td><td>Fragment</td><td>This document </td></tr>
-            <tr><td>190</td><td>Flow Label</td><td>This document </td></tr>
+            <tr><td>100</td><td>Port</td><td> This document</td></tr>
+            <tr><td>110</td><td>Destination Port</td><td> This document</td></tr>
+            <tr><td>120</td><td>Source Port</td><td> This document</td></tr>
+            <tr><td>130</td><td>ICMPv4 Type / ICMPv6 Type</td><td>This document</td></tr>
+            <tr><td>140</td><td>ICMPv4 Code / ICPv6 Code</td><td>This document</td></tr>
+            <tr><td>150</td><td>TCP Flags</td><td>This document</td></tr>
+            <tr><td>160</td><td>Packet Length</td><td>This document</td></tr>
+            <tr><td>170</td><td>DSCP</td><td>This document</td></tr>
+            <tr><td>180</td><td>Fragment</td><td>This document</td></tr>
+            <tr><td>190</td><td>Flow Label</td><td>This document</td></tr>
             <tr><td>200</td><td>Packet Content filter</td><td>draft-cui-idr-content-filter-flowspec</td></tr>
-            <tr><td>210</td><td>Class ID</td><td>draft-song-idr-flowspec-classid-filter </td></tr>
-            <tr><td>220</td><td>DIP-AS </td><td>draft-wang-idr-flowspec-dip-origin-as-filter</td></tr>
-            <tr><td>230</td><td>SIP-AS </td><td>draft-wang-idr-flowspec-sip-origin-as-filter</td></tr>
-            <tr><td>240</td><td>DIP-Com </td><td>draft-wang-idr-flowspec-dip-community-filter</td></tr>
-            <tr><td>250</td><td>SIP-com </td><td>draft-wang-idr-flowspec-sip-community-filter</td></tr>
+            <tr><td>210</td><td>Class ID</td><td>draft-song-idr-flowspec-classid-filter</td></tr>
+            <tr><td>220</td><td>DIP-AS</td><td>draft-wang-idr-flowspec-dip-origin-as-filter</td></tr>
+            <tr><td>230</td><td>SIP-AS</td><td>draft-wang-idr-flowspec-sip-origin-as-filter</td></tr>
+            <tr><td>240</td><td>DIP-Com</td><td>draft-wang-idr-flowspec-dip-community-filter</td></tr>
+            <tr><td>250</td><td>SIP-com</td><td>draft-wang-idr-flowspec-sip-community-filter</td></tr>
             <tr><td>4095</td><td>Reserved</td><td>[This document]</td></tr>
           </tbody>
         </table>

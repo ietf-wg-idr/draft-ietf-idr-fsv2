@@ -1301,7 +1301,7 @@
           len=01).</t>
         </section>
 
-        <section title="DSCP (Differentiaed Services Code Point)(type = 170)">
+        <section title="DSCP (Differentiated Services Code Point)(type = 170)">
           <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
           <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to match

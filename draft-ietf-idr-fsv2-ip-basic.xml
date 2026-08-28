@@ -1421,7 +1421,7 @@
             </dl>
           </section>
 
-	  <section title="Flow Label (component type = 2300) (IPv6)
+         <section title="Flow Label (component type = 2300) (IPv6)" >
           <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
           <t>This contains a list of {numeric_op, value} pairs that are used to

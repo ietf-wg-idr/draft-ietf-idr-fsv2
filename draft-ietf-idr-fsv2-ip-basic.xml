@@ -412,19 +412,14 @@
             <li>SFC VPN: AFI=31, SAFI=TBD2</li>
           </ul>
         </t>
+        <t>Editor's comment: Filter families allow us to move to single AFI (FSv2) and two SAFIS (normal, VPN).
+        </t> 	
 
         <t>One question asked by developers is what AFI/SAFI is required for
         FSv2 IP Basic compliance.  BGP negotiates support for each AFI/SAFI, so
         FSv2 IP Basic support for non-VPN could be as little as FSv2 for IPv4
         forwarding (AFI/SAFI: 1/TBD1),</t>
-
-        <!-- XXX JMH - this paragraph goes away as we do integration of the other specs later -->
-        <t>The IDR specification for L2 VPN traffic was specified in
-        <xref target="I-D.ietf-idr-flowspec-l2vpn"></xref>.  An IDR
-        specification for tunneled traffic is in
-        <xref target="I-D.ietf-idr-flowspec-nvo3"></xref>.
-        Both of these drafts were targeted for FSv1, but the WG decided to
-        require these to FSv2 TLV formats.</t>
+ 
       </section>
 
       <section title="FSv2 Overview">

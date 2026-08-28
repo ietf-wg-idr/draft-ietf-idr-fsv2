@@ -527,7 +527,7 @@
           <li>IPv6 (AFI = 2)</li>
           <li>L2 (AFI = 6)</li>
           <li>L2VPN (AFI=25)</li>
-          <li> SFC (AFI=31)</li>
+          <li>SFC (AFI=31)</li>
         </ul>
       </t>
       <t>These AFIs will be paired with the following SAFIs:
@@ -542,12 +542,17 @@
       pair out of the full list of NRLIs.  For example, a compliant FSv2
       implementation might only implement IPv4 FSv2 (AFI=1, SAFI=TBD1).</t>
 
+      <t>Editor's comment: Should we just have one FSv2 AFI? 
+      Filter families allow the differentiation of different filters
+      without multiple AFI/SAFIs </t>
+
       <t>FSv2 NLRI are encoded in BGP UPDATEs using the MP_REACH_NLRI and
       MP_UNREACH_NLRI attributes defined in <xref target="RFC4760"/>.  When
       advertising FSv2 NLRI, the length of the Next-Hop Network Address MUST
       be set to 0. Upon reception, the MP_REACH_NLRI "Network Address of
       NextHop" field MUST be ignored.</t>
 
+      
 
       <section title="FSv2 NLRI Format" anchor="nlri-format">
 

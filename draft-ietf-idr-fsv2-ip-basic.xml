@@ -651,19 +651,16 @@
         <t>Each each FSv2 Filter Component TLV has the Format:
           <figure title="FSv2 Filter Component TLV Format">
           <artwork>
-+------------------------------+
-| FSv2 Filter Component Flags  |
-| (4 bits)                     |
-+------------------------------+
-| FSv2 Filter Component Type   |
-| (16 bits)                    |
-+------------------------------+
-| FSv2 Filter Component Length |
-| (2 octets)                   |
-+------------------------------+
-| FSv2 Filter Component Value  |
-| (variable)                   |
-+------------------------------+
+  0                   1                   2                   3
+  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-+-+-+--+-+-+ 
+ | Flags | FSv2 filter           | FSv2 Filter Component Length  |
+ | 4 bits|  Component Type       |                               | 
+ |       |  12 bits              |       16 bits                 |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-+-+-+--+-+
+ | FSv2 Filter component TLVS                                    |
+ |          (variable)                                           | 
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-+-+-+--+-+
           </artwork>
           </figure>
         </t>

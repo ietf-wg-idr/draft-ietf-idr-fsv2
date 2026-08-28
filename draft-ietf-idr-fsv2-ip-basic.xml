@@ -606,16 +606,14 @@
         <t>Each each FSv2 Filter Family TLV has the format:
           <figure title="FSv2 Filter Family TLV Format">
           <artwork>
-+-----------------------------+
-| FSv2 Filter Family Type     |
-| (2 octets)                  |
-+-----------------------------+
-| FSv2 Filter Family Length   |
-| (2 octets)                  |
-+-----------------------------+
-| FSv2 Filter Components TLVs |
-| (variable)                  |
-+-----------------------------+
+
+  0                   1                   2                   3
+  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | FSv2 Filter Family type       | Fsv2 filter Family length     |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-+-+-+--+-+
+ |        FSv2 Filter Component TLVs (variable)                  |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
           </artwork>
           </figure>
         </t>

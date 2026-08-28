@@ -1068,18 +1068,15 @@
       </section>
 
       <section title="FSv2 Components for IP Basic TLVs">
-        <section title="IP Destination Prefix (type = 60)">
-          <section title="IPv4 Destination Prefix (AFI=1)">
+         <section title="IPv4 Destination Prefix (component type = 1000)">
             <t><tt>Encoding: &lt;prefix length (1 octet), prefix (variable)&gt;</tt></t>
-
             <t>Defines the IPv4 destination prefix to match.</t>
-
             <dl spacing="compact">
               <dt><strong>prefix length:</strong></dt><dd>Length of the prefix in bits.</dd>
               <dt><strong>prefix:</strong></dt><dd>IPv4 Prefix encoded using <xref target="RFC4271"/> NLRI format.</dd>
             </dl>
           </section>
-          <section title="IPv6 Destination Prefix (AFI=2)" anchor="ipv6-dst-prefix">
+          <section title="IPv6 Destination Prefix (component type = 1010)" anchor="ipv6-dst-prefix">
             <t><tt>Encoding: &lt;length (1 octet), offset (1 octet), pattern (variable), padding (variable)&gt;</tt></t>
 
             <t>This defines the IPv6 destination prefix to match. The offset
@@ -1117,10 +1114,8 @@
             textual IPv6 representation of the pattern shifted to the right by
             the number of offset bits.</t>
           </section>
-        </section>
 
-        <section title="IP Source Prefix (type = 80)">
-          <section title="IPv4 Source Prefix (AFI=1)">
+        <section title="IPv4 Source Prefix (component type = 1200)">
             <t><tt>Encoding: &lt;prefix length (1 octet), prefix (variable)&gt;</tt></t>
 
             <t>Defines the IPv4 source prefix to match.</t>
@@ -1131,17 +1126,15 @@
             </dl>
           </section>
 
-          <section title="IPv6 Source Prefix (AFI=2)">
+       <section title="IPv6 Source Prefix (component type = 1210)">
             <t><tt>Encoding: &lt;length (1 octet), offset (1 octet), pattern (variable), padding (variable)&gt;</tt></t>
 
             <t>This defines the source prefix to match. The length, offset, pattern, and padding are the same as in <xref target="ipv6-dst-prefix"/>.</t>
-          </section>
-        </section>
+       </section>
 
-        <section title="IP Protocol/IPv6 Upper Layer Protocol (type = 90)">
+
+        <section title="IPv4 Protocol (component type = 1300)">
           <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
-
-          <section title="IPv4 Protocol (AFI=1)">
             <t>Contains a list of <tt>{numeric_op, value}</tt> pairs that are
             used to match the IP protocol value octet in IPv4 packet header
             <xref target="RFC0791" section="3.1"/>.</t>
@@ -1151,7 +1144,7 @@
             encoded as single octet (numeric_op len=00).</t>
           </section>
 
-          <section title="IPv6 Upper Layer Protocol (AFI=2)">
+       <section title="IPv6 Upper Layer Protocol (type = 1310)">
             <t>This contains a list of <tt>{numeric_op, value}</tt> pairs that
             are used to match the first Next Header value octet in IPv6 packets
             that is not an extension header and thus indicates that the next
@@ -1167,10 +1160,9 @@
             component is to match on the first upper-layer IP protocol value.
             Therefore, the definition is limited to match only on this specific
             Next Header field in the packet.</t>
-          </section>
-        </section>
-
-        <section title="Port (type = 100)" anchor="port">
+       </section>
+ 
+        <section title="Port (component type = 1400)" anchor="port">
           <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
           <t>Defines a list of <tt>{numeric_op, value}</tt> pairs that match
@@ -1199,7 +1191,7 @@
           value in IPv6.</t>
         </section>
 
-        <section title="Destination Port (type = 110)" anchor="dst-port">
+      <section title="Destination Port (component type = 1500)" anchor="dst-port">
           <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
           <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to match
@@ -1216,7 +1208,7 @@
           component.</t>
         </section>
 
-        <section title="Source Port (type = 120)" anchor="src-port">
+        <section title="Source Port (component type = 1600)" anchor="src-port">
           <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
           <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to match
@@ -1233,7 +1225,7 @@
           component.</t>
         </section>
 
-        <section title="ICMP Type (type = 130)">
+        <section title="ICMPv4 Type (component type = 1700)">
           <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
           <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to match
@@ -1244,8 +1236,7 @@
           <xref target="numeric-op"/>. Type 130 component values SHOULD be
           encoded as single octet (numeric_op len=00).</t>
 
-          <section title="ICMP IPv4 Type (AFI=1)">
-            <t>In case of the presence of the ICMP type component, only ICMP
+            <t>In case of the presence of the ICMPv4 type component, only ICMPv4
             packets can match the entire Flow Specification. The ICMP type
             component, if present, never matches when the packet's IP protocol
             value is not 1 (ICMP), if the packet is fragmented and this is not
@@ -1256,7 +1247,7 @@
             encryption.</t>
           </section>
 
-          <section title="ICMP IPv6 Type (AFI=2)">
+         <section title="ICMP IPv6 Type (component type = 1710)">
             <t>In case of the presence of the ICMPv6 type component, only
             ICMPv6 packets can match the entire Flow Specification. The ICMPv6
             type component, if present, never matches when the packet's
@@ -1267,10 +1258,8 @@
           </section>
         </section>
 
-        <section title="ICMP Code (type = 140)">
+         <section title="ICMPv4 Code (component type = 1800)">
           <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
-
-          <section title="ICMP Code IPv4 Type (AFI=1)">
             <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to
             match the code field of an ICMP packet (see also the "Message
             Formats" section of <xref target="RFC0792"/>).</t>
@@ -1290,7 +1279,7 @@
             encryption.</t>
           </section>
 
-          <section title="ICMP Code IPv6 Type (AFI=2)">
+        <section title="ICMP Code IPv6 Type (component type = 1810)">
             <t>This defines a list of {numeric_op, value} pairs used to match
             the code field of an ICMPv6 packet (see also
             <xref target="RFC4443" section="2.1"/>).</t>
@@ -1309,7 +1298,7 @@
           </section>
         </section>
 
-        <section title="TCP Flags (type = 150)" >
+        <section title="TCP Flags (component type = 1900)" >
           <t><tt>Encoding: &lt;[bitmask_op, bitmask]+&gt;</tt></t>
 
           <t>Defines a list of <tt>{bitmask_op, bitmask}</tt> pairs used to
@@ -1341,7 +1330,7 @@
           -->
         </section>
 
-        <section title="Packet length (type = 160)">
+        <section title="Packet length (component type = 2000)">
           <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
           <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to match
@@ -1354,7 +1343,7 @@
           len=01).</t>
         </section>
 
-        <section title="DSCP (Differentiated Services Code Point)(type = 170)">
+        <section title="DSCP (Differentiated Services Code Point)(component type = 2100)">
           <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
           <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to match
@@ -1368,7 +1357,7 @@
           bits SHOULD be treated as 0.</t>
         </section>
 
-        <section title="Fragment (type = 180)">
+        <section title="IPv4 Fragment (component type = 2200)">
           <t><tt>Encoding: &lt;[bitmask_op, bitmask]+&gt;</tt></t>
 
           <t>Defines a list of <tt>{bitmask_op, bitmask}</tt> pairs used to
@@ -1377,8 +1366,6 @@
           <t>This component uses the Bitmask Operator (bitmask_op) described in
           <xref target="bitmask-op"></xref>. Type 180 component bitmask MUST be
           encoded as single octet bitmask (bitmask_op len=00).</t>
-
-          <section title="IPv4 Fragment (AFI=1)">
             <t>
               <figure title="IPv4 Fragment Bitmask Operand">
               <artwork>
@@ -1410,7 +1397,7 @@
             </dl>
           </section>
 
-          <section title="IPv6 Fragment (AFI=2)">
+         <section title="IPv6 Fragment (component type = 2210)">
             <t>
               <figure title="IPv6 Fragment Bitmask Operand">
               <artwork>
@@ -1438,7 +1425,7 @@
           </section>
      </section>
 
-        <section title="Flow Label (type = 190), AFI=2 only">
+	  <section title="Flow Label (component type = 2300) (IPv6)
           <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
           <t>This contains a list of {numeric_op, value} pairs that are used to

@@ -1437,6 +1437,61 @@
           encoded as 4-octet quantities (numeric_op len=10).</t>
 
         </section>
+  </section> 
+	<section title="FSv2 Components for CAT filter family">
+        <t>CAT Filter Components are encoded in FSv2 CAT Filter Component
+        TLVs as described below.</t>
+
+        <t>The list of valid Basic IP types, covering the functionality defined
+        in <xref target="RFC8955"/> and <xref target="RFC8956"/> are documented
+        below. Additional IP Filters types are temporarily assigned in this section
+        (until initial IANA registry is created) but the definitions are defined in
+        other documents (per the IANA section). </t>
+
+        <table align="left">
+          <name>CATS Match Components</name>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Definition</th>
+                  <th>Reference </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>0</td><td>Reserved</td><td>This document</td></tr>
+			<tr><td> 100</td><td>Class ID </td><td>draft-song-idr-flowspec-classid-filter</td> </tr>
+            <tr><td>4095</td><td>Reserved</td><td>[This document]</td></tr>
+          </tbody>
+        </table>
+      </section>
+	  	<section title="FSv2 Components for Routing Augment filter family">
+        <t>Routing Augment Components are encoded in FSv2 Filter Component
+        TLVs as described in below.</t>
+
+        <t>The list of valid Basic IP types, covering the functionality defined
+        in <xref target="RFC8955"/> and <xref target="RFC8956"/> are documented
+        below. Additional IP Filters types are temporarily assigned in this section
+        (until initial IANA registry is created) but the definitions are defined in
+        other documents (per the IANA section). </t>
+
+        <table align="left">
+          <name>Auxiliary Informatino Match Components</name>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Definition</th>
+                  <th>Reference </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>0</td><td>Reserved</td><td>This document</td></tr>
+	        <tr><td>100</td><td>DIP-AS </td><td>draft-wang-idr-flowspec-dip-origin-as-filter</td></tr>
+		    <tr><td>200</td><td>SIP-AS </td><td>draft-wang-idr-flowspec-sip-origin-as-filter</td></tr>
+	        <tr><td>300</td><td>DIP-Com </td><td>draft-wang-idr-flowspec-dip-community-filter</td></tr>
+		    <tr><td>400</td><td>SIP-com </td><td>draft-wang-idr-flowspec-sip-community-filter</td></tr>
+            <tr><td>4095</td><td>Reserved</td><td>[This document]</td></tr>
+          </tbody>
+        </table>
       </section>
 
    <section title="FSv2 Traffic Filtering Actions for FSv2 IP Basic ">

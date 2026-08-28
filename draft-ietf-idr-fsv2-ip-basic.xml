@@ -1256,9 +1256,7 @@
             unable to locate the transport header. Different implementations
             may or may not be able to decode the transport header.</t>
           </section>
-        </section>
-
-         <section title="ICMPv4 Code (component type = 1800)">
+      <section title="ICMPv4 Code (component type = 1800)">
           <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
             <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to
             match the code field of an ICMP packet (see also the "Message
@@ -1296,7 +1294,6 @@
             unable to locate the transport header. Different implementations
             may or may not be able to decode the transport header.</t>
           </section>
-        </section>
 
         <section title="TCP Flags (component type = 1900)" >
           <t><tt>Encoding: &lt;[bitmask_op, bitmask]+&gt;</tt></t>
@@ -1423,7 +1420,6 @@
               <dd>MUST be set to 0 on NLRI encoding and MUST be ignored during decoding</dd>
             </dl>
           </section>
-     </section>
 
 	  <section title="Flow Label (component type = 2300) (IPv6)
           <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>

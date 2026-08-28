@@ -566,19 +566,16 @@
         <t>The AFI/SAFI NLRI for BGP Flow Specification version 2 (FSv2) has the format:
          <figure title="FSv2 NLRI Format">
          <artwork>
-+-------------------------+
-| NLRI Length             |
-| (2 octets)              |
-+-------------------------+
-| Dependent Filters Chain |
-| (4 octets)              |
-+-------------------------+
-| User Order              |
-| (4 octets)              |
-+-------------------------+
-| FSv2 Filter Family TLVs |
-| (variable)              |
-+-------------------------+
+   0                   1                   2                   3
+  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
+ |       NLRI length             |  
+ |        2 octets               |  
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |               Dependent filter chain (4 octets)               |  
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |               User order (4 bytes)                            |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
           </artwork>
           </figure>
         </t>

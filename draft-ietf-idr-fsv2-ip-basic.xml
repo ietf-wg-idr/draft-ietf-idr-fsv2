@@ -627,16 +627,18 @@
                 <ul>
                   <li>This document defines the following filter family types.
                   The definition of other filter family types may be added in other documents. </li>
-                  <li> 0- Reserved </li>
-                  <li> 20 - Time </li>
-                  <li> 30 - Interface </li>
-                  <li> 50 - L2 traffic Rules </li>
-                  <li> 100 - MPLS traffic Rules </li>
-                  <li> 150 - SFC Traffic Rules </li>
-                  <li> 200 - Tunneled trafffic </li>
-                  <li> 256 - IP Basic filter rules </li>
-                  <li> 280 - Extended IP filter rules </li>
-                  <li> 320 - CATS Traffic rules </li>
+                  <li>   0 - Reserved </li>
+                  <li> 200 - Time </li>
+                  <li> 300 - Interface </li>
+                  <li> 400 - L2 traffic </li>
+                  <li> 500 - MPLS traffic </li>
+                  <li> 600 - SFC Traffic </li>
+				          <li> 700 - Queue Pair (QP) </li> 
+                  <li> 800 - Tunneled trafffic </li>
+                  <li>1000 - IPv4 Basic </li> 
+				          <li>1100 - IPv6 Basic </li>
+                  <li>1200 - CATS Traffic </li>
+				          <li>1400 - Routing </li> 
                   </ul>
                 </li>
             <li>FSv2 Filter Family Length: Length of the FSv2 Filter Components

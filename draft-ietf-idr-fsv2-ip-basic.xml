@@ -1466,8 +1466,8 @@
             <tr><td>0</td><td>Reserved</td><td>This document</td></tr>
 	        <tr><td>100</td><td>DIP-AS </td><td>draft-wang-idr-flowspec-dip-origin-as-filter</td></tr>
 		    <tr><td>200</td><td>SIP-AS </td><td>draft-wang-idr-flowspec-sip-origin-as-filter</td></tr>
-	        <tr><td>300</td><td>DIP-Com </td><td>draft-wang-idr-flowspec-dip-community-filter</xref><</td></tr>
-		    <tr><td>400</td><td>SIP-com </td><td>draft-wang-idr-flowspec-sip-community-filter</xref><</td></tr>
+	        <tr><td>300</td><td>DIP-Com </td><td>draft-wang-idr-flowspec-dip-community-filter</xref></td></tr>
+		    <tr><td>400</td><td>SIP-com </td><td>draft-wang-idr-flowspec-sip-community-filter</xref></td></tr>
             <tr><td>4095</td><td>Reserved</td><td>[This document]</td></tr>
           </tbody>
         </table>

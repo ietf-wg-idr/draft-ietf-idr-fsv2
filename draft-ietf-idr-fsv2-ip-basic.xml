@@ -2811,6 +2811,7 @@
     <displayreference target="I-D.ietf-idr-flowspec-v2" to="fsv2"/>
     <displayreference target="RFC8955" to="FSv1"/>
     <displayreference target="RFC8956" to="FSv1-IPv6"/>
+	<displayreference target="I-D.song-idr-flowspec-classid-filter" to "song-fsv2-class-id"
     <references title="Normative References">
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.0768"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.0791"/>
@@ -2845,7 +2846,12 @@
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-path-redirect"/>
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-network-slice-ts"/>
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-wide-bgp-communities"/>
-    </references>
+	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.song-idr-flowspec-classid-filter"/>
+	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.wang-idr-flowspec-dip-origin-as-filter"/>
+	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.wang-idr-flowspec-sip-origin-as-filter"/>
+	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.wang-idr-flowspec-dip-community-filterr"/>
+	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.wang-idr-flowspec-sip-community-filter"/>
+	</references>
     <references title="Informative References">
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.6241"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8040"/>

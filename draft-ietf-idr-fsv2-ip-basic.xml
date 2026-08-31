@@ -1464,10 +1464,10 @@
           </thead>
           <tbody>
             <tr><td>0</td><td>Reserved</td><td>This document</td></tr>
-	        <tr><td>100</td><td>DIP-AS </td><td><xref target="I-D.wang-idr-flowspec-dip-origin-as-filter"</xref></td></tr>
-		    <tr><td>200</td><td>SIP-AS </td><td><xref target="I-D.wang-idr-flowspec-sip-origin-as-filter"</xref></td></tr>
-	        <tr><td>300</td><td>DIP-Com </td><td><xref target="I-D.wang-idr-flowspec-dip-community-filter"</xref><</td></tr>
-		    <tr><td>400</td><td>SIP-com </td><td><xref target="I-D.wang-idr-flowspec-sip-community-filter"</xref><</td></tr>
+	        <tr><td>100</td><td>DIP-AS </td><td>draft-wang-idr-flowspec-dip-origin-as-filter</td></tr>
+		    <tr><td>200</td><td>SIP-AS </td><td>draft-wang-idr-flowspec-sip-origin-as-filter</td></tr>
+	        <tr><td>300</td><td>DIP-Com </td><td>draft-wang-idr-flowspec-dip-community-filter</xref><</td></tr>
+		    <tr><td>400</td><td>SIP-com </td><td>draft-wang-idr-flowspec-sip-community-filter</xref><</td></tr>
             <tr><td>4095</td><td>Reserved</td><td>[This document]</td></tr>
           </tbody>
         </table>
@@ -2847,10 +2847,7 @@
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-network-slice-ts"/>
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-wide-bgp-communities"/>
 	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.song-idr-flowspec-classid-filter"/>
-	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.wang-idr-flowspec-dip-origin-as-filter"/>
-	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.wang-idr-flowspec-sip-origin-as-filter"/>
-	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.wang-idr-flowspec-dip-community-filterr"/>
-	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.wang-idr-flowspec-sip-community-filter"/>
+	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.lll-idr-flowspec-filter-qp"/>
 	</references>
     <references title="Informative References">
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.6241"/>

@@ -570,7 +570,7 @@
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
  |       NLRI length             |  
- |        2 octets               |  
+ |       (2 octets)              |  
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |               Dependent filter chain (4 octets)               |  
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -656,7 +656,7 @@
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-+-+-+--+-+-+ 
  | Flags | FSv2 filter           | FSv2 Filter Component Length  |
  | 4 bits|  Component Type       |                               | 
- |       |  12 bits              |       16 bits                 |
+ |       |  (12 bits)            |      (16 bits)                |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-+-+-+--+-+
  | FSv2 Filter component TLVS                                    |
  |          (variable)                                           | 
@@ -926,12 +926,7 @@
       </section>
 	  <section title="FSv2 Components for QP Family Filter">
         <t>FSv2 QP Family Filter Components are encoded in FSv2 Filter Component
-        TLVs as described in draft-lll-idr-flowspec-filter-qp.</t>
-        <t>The list of valid Basic IP types, covering the functionality defined
-        in <xref target="RFC8955"/> and <xref target="RFC8956"/> are documented
-        below. Additional IP Filters types are temporarily assigned in this section
-        (until initial IANA registry is created) but the definitions are defined in
-        other documents (per the IANA section). </t>
+        TLVs as described in <xref target="I-D.lll-idr-flowspec-filter-qp"></xref></t>
 
         <table align="left">
           <name>QP Match Components</name>
@@ -939,7 +934,7 @@
             <tr>
               <th>Type</th>
               <th>Definition</th>
-                  <th>Reference </th>
+        	  <th>Reference </th>
             </tr>
           </thead>
           <tbody>
@@ -1438,24 +1433,18 @@
         <t>CAT Filter Components are encoded in FSv2 CAT Filter Component
         TLVs as described below.</t>
 
-        <t>The list of valid Basic IP types, covering the functionality defined
-        in <xref target="RFC8955"/> and <xref target="RFC8956"/> are documented
-        below. Additional IP Filters types are temporarily assigned in this section
-        (until initial IANA registry is created) but the definitions are defined in
-        other documents (per the IANA section). </t>
-
         <table align="left">
           <name>CATS Match Components</name>
           <thead>
             <tr>
               <th>Type</th>
               <th>Definition</th>
-                  <th>Reference </th>
+               <th>Reference </th>
             </tr>
           </thead>
           <tbody>
             <tr><td>0</td><td>Reserved</td><td>This document</td></tr>
-			<tr><td> 100</td><td>Class ID </td><td>draft-song-idr-flowspec-classid-filter</td> </tr>
+			<tr><td> 100</td><td>Class ID </td><td><xref target="I-D.song-idr-flowspec-classid-filter"</xref></td> </tr>
             <tr><td>4095</td><td>Reserved</td><td>[This document]</td></tr>
           </tbody>
         </table>
@@ -1464,27 +1453,21 @@
         <t>Routing Augment Components are encoded in FSv2 Filter Component
         TLVs as described in below.</t>
 
-        <t>The list of valid Basic IP types, covering the functionality defined
-        in <xref target="RFC8955"/> and <xref target="RFC8956"/> are documented
-        below. Additional IP Filters types are temporarily assigned in this section
-        (until initial IANA registry is created) but the definitions are defined in
-        other documents (per the IANA section). </t>
-
         <table align="left">
           <name>Auxiliary Informatino Match Components</name>
           <thead>
             <tr>
               <th>Type</th>
               <th>Definition</th>
-                  <th>Reference </th>
+            <th>Reference </th>
             </tr>
           </thead>
           <tbody>
             <tr><td>0</td><td>Reserved</td><td>This document</td></tr>
-	        <tr><td>100</td><td>DIP-AS </td><td>draft-wang-idr-flowspec-dip-origin-as-filter</td></tr>
-		    <tr><td>200</td><td>SIP-AS </td><td>draft-wang-idr-flowspec-sip-origin-as-filter</td></tr>
-	        <tr><td>300</td><td>DIP-Com </td><td>draft-wang-idr-flowspec-dip-community-filter</td></tr>
-		    <tr><td>400</td><td>SIP-com </td><td>draft-wang-idr-flowspec-sip-community-filter</td></tr>
+	        <tr><td>100</td><td>DIP-AS </td><td><xref target="I-D.wang-idr-flowspec-dip-origin-as-filter"</xref></td></tr>
+		    <tr><td>200</td><td>SIP-AS </td><td><xref target="I-D.wang-idr-flowspec-sip-origin-as-filter"</xref></td></tr>
+	        <tr><td>300</td><td>DIP-Com </td><td><xref target="I-D.wang-idr-flowspec-dip-community-filter"</xref><</td></tr>
+		    <tr><td>400</td><td>SIP-com </td><td><xref target="I-D.wang-idr-flowspec-sip-community-filter"</xref><</td></tr>
             <tr><td>4095</td><td>Reserved</td><td>[This document]</td></tr>
           </tbody>
         </table>

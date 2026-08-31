@@ -1444,7 +1444,7 @@
           </thead>
           <tbody>
             <tr><td>0</td><td>Reserved</td><td>This document</td></tr>
-			<tr><td> 100</td><td>Class ID </td><td><xref target="I-D.song-idr-flowspec-classid-filter"</xref></td></tr>
+			<tr><td> 100</td><td>Class ID </td><td>draft-song-idr-flowspec-classid-filter</td></tr>
             <tr><td>4095</td><td>Reserved</td><td>[This document]</td></tr>
           </tbody>
         </table>

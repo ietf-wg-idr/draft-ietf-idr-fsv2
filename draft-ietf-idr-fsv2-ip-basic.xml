@@ -398,6 +398,7 @@
         FSv2 IP Basic compliance.  BGP negotiates support for each AFI/SAFI, so
         FSv2 can support FSv2 normal (AFI/SAFI (TBD1/TBD2)) or FSv2 VPN (TBD1/TBD3))
 		or both (normal and VPN). 
+		</t>
       </section>
       <section title="FSv2 Overview">
         <t>FSv2 allows the user to order the flow specification rules and the
@@ -885,7 +886,7 @@
       </section>
 	  <section title="FSv2 Components for QP Family Filter">
         <t>FSv2 QP Family Filter Components are encoded in FSv2 Filter Component
-        TLVs as described in <xref target="I-D.lll-idr-flowspec-filter-qp"></xref></t>
+        TLVs as described in draft-lll-idr-flowspec-filter-qp.</t>
 
         <table align="left">
           <name>QP Match Components</name>
@@ -1403,7 +1404,7 @@
           </thead>
           <tbody>
             <tr><td>0</td><td>Reserved</td><td>This document</td></tr>
-			<tr><td> 100</td><td>Class ID </td><td><xref target="I-D.song-idr-flowspec-classid-filter"</xref></td> </tr>
+			<tr><td> 100</td><td>Class ID </td><td>draft-song-idr-flowspec-classid-filter</td> </tr>
             <tr><td>4095</td><td>Reserved</td><td>[This document]</td></tr>
           </tbody>
         </table>
@@ -1423,10 +1424,10 @@
           </thead>
           <tbody>
             <tr><td>0</td><td>Reserved</td><td>This document</td></tr>
-	        <tr><td>100</td><td>DIP-AS </td><td><xref target="I-D.wang-idr-flowspec-dip-origin-as-filter"</xref></td></tr>
-		    <tr><td>200</td><td>SIP-AS </td><td><xref target="I-D.wang-idr-flowspec-sip-origin-as-filter"</xref></td></tr>
-	        <tr><td>300</td><td>DIP-Com </td><td><xref target="I-D.wang-idr-flowspec-dip-community-filter"</xref><</td></tr>
-		    <tr><td>400</td><td>SIP-com </td><td><xref target="I-D.wang-idr-flowspec-sip-community-filter"</xref><</td></tr>
+	        <tr><td>100</td><td>DIP-AS </td><td>draft-wang-idr-flowspec-dip-origin-as-filter</td></tr>
+		    <tr><td>200</td><td>SIP-AS </td><td>draft-wang-idr-flowspec-sip-origin-as-filter</td></tr>
+	        <tr><td>300</td><td>DIP-Com </td><td>draft-wang-idr-flowspec-dip-community-filter</td></tr>
+		    <tr><td>400</td><td>SIP-com </td><td>draft-wang-idr-flowspec-sip-community-filter</td></tr>
             <tr><td>4095</td><td>Reserved</td><td>[This document]</td></tr>
           </tbody>
         </table>

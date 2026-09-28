@@ -115,8 +115,8 @@
       <t>The IDR WG requires two implementation. Early feedback on
       implementations of FSv2 indicate that FSv2 has a correct design
       direction, but that breaking FSv2 into a progression of documents would
-      aid deployment of the draft (basic, adding more filters, and adding more
-      actions). This document specifies the basic FSv2 NLRI with user ordering
+      aid deployment of the draft (basic and adding user ordered actions). 
+	  This document specifies the basic FSv2 NLRI with user ordering
       of filters added to FSv1 IP Filters and FSv2 actions.</t>
     </abstract>
   </front>
@@ -133,9 +133,9 @@
 
       <t>The initial BGP FSv2 specification had the correct direction, but it
       contained more than the early implementers desired. The implmenters desired a
-      progression of documents with smaller incremental changes: Basic FSv2,
-      adding more filters, and adding more actions.</t>
-
+      progression of documents with smaller incremental changes: Basic FSv2
+      and support for user-ordered actions.</t>
+		
       <t>This draft provides the basic FSv2 framework
       specification for transmitting user-ordered IP filters in the FSV2 NLRI
       and associating Flow Spec actions by transmitting Flow Spec Extended
@@ -150,14 +150,9 @@
       Container defined in the
       <xref target="I-D.hares-idr-fsv2-more-ip-actions"></xref>.</t>
 
-      <t>This document defines 2 new SAFIs, TBD1 and TBD2, for FSv2 to be used
-      with 5 AFIs: 1, 2, 6, 25, and 31.  FSv2 implementations do not
-      require all 10 combinations of FSv2 AFI/SAFIs to be implemented.
-      An implementation is required to implement only one these
-      AFI/SAFIs to be compliant.  For example, a compliant implementation
-      might only define the FSv2 NLRI for IPv4 for IP forwarding (AFI=1,
-      SAFI=TBD1).</t>
-
+      <t>This document defines one new AFI (FSv2, TBD1) and 2 new SAFIs 
+	  for non-VPN (TBD2) and VPN (TBD3). </t>
+		
       <t>FSv1 and FSv2 use different AFI/SAFIs to send their respective flow
       specification filters.  This permits FSv1 and FSv2 to be coexist with
       each other in a "ships in the night" deployment.</t>
@@ -334,7 +329,7 @@
       <xref target="RFC4360"/> and Community Container Path attributes
       <xref target="I-D.ietf-idr-wide-bgp-communities"/>.</t>
 
-      <t>Flow Specifiation NLRI for a given AFI/SAFI is used as they key for
+      <t>Flow Specification NLRI for a given AFI/SAFI is used as they key for
       Flow Specification routes in the BGP RIBs.  Flow Specification routes
       that are selected for the Loc-RIB are then associated with a given set of
       semantics which are application dependent. Standard BGP policy mechanisms
@@ -352,8 +347,8 @@
 
       <t>Network operators can control the propagation of Flow Specification
       BGP routes by enabling or disabling the exchange of routes for a
-      particular AFI/SAFI pair on a particular peering session.  BGP policy
-      mechanisms, including <xref target="RFC1997"/> scoping communities, can
+      FSv2 (AFI/SAFI TBD1/TBD2) or FSv2 VPN (AFI/SAFI TBD1/TBD3)). 
+	  BGP policy mechanisms, including <xref target="RFC1997"/> scoping communities, can
       also be used. Thus, Flow Specification routes may be distributed to only
       a portion of a BGP deployment.</t>
 
@@ -396,32 +391,15 @@
       </section>
 
       <section title="Transition to FSv2">
-        <t>This specification defines AFI/SAFIs to support
-        Flow Specification version 2 for IPv4, IPv6, Layer 2, IPv4 VPNs, IPv6
-        VPNs, Layer 2 VPNs (L2VPN), Service Function Chaining (SFC), and SFC
-        VPNs:
-
-          <ul>
-            <li>IPv4 traffic: AFI=1, SAFI=TBD1,</li>
-            <li>IPv6 traffic: AFI=2, SAFI=TBD1,</li>
-            <li>L2: AFI=6, SAFI=TDB1 (defined in <xref target="I-D.ietf-idr-flowspec-l2vpn"/>),</li>
-            <li>BGP/MPLS IPv4 VPN: AFI=1, SAFI=TBD2,</li>
-            <li>BGP/MPLS IPv6 VPN: AFI=2, SAFI=TBD2,</li>
-            <li>BGP/MPLS L2VPN: AFI=25, SAFI=TDB2 (defined in <xref target="I-D.ietf-idr-flowspec-l2vpn"/>),</li>
-            <li>SFC: AFI=31, SAFI=TBD1,</li>
-            <li>SFC VPN: AFI=31, SAFI=TBD2</li>
-          </ul>
-        </t>
-        <t>Editor's comment: Filter families allow us to move to single AFI (FSv2) and two SAFIS (normal, VPN).
-        </t> 	
-
+        <t>
+        Filter families allow us to use a single FSv2 AFI (TBD1) and two SAFIS (normal (TBD2) and VPN (TBD3).  
+        </t> 
         <t>One question asked by developers is what AFI/SAFI is required for
         FSv2 IP Basic compliance.  BGP negotiates support for each AFI/SAFI, so
-        FSv2 IP Basic support for non-VPN could be as little as FSv2 for IPv4
-        forwarding (AFI/SAFI: 1/TBD1),</t>
- 
+        FSv2 can support FSv2 normal (AFI/SAFI (TBD1/TBD2)) or FSv2 VPN (TBD1/TBD3))
+		or both (normal and VPN). 
+		</t>
       </section>
-
       <section title="FSv2 Overview">
         <t>FSv2 allows the user to order the flow specification rules and the
         actions associated with a rule. Each FSv2 rule may have one or more
@@ -466,11 +444,12 @@
 
               <t>When FSv2 Extended Communities are understood, they have
               precedence and interaction rules governing the actions they
-              encode. (See XXX JMH TODO)</t>
+              encode. (See section 4.9 (editor: XXX SKH TODO: add logical reference)). </t>
 
               <t>The FSv2 Action Community Container defines its own rules
-              governing FSv2 actions.  See that document (XXX JMH TODO) for
-              additional details.</t>
+              governing FSv2 actions. See draft-hares-idr-ip-more-actions 
+			  for additional details (editor: XXX SKH TODO revise 
+			  draft-hares-idr-ip-more-actions).</t>
             </li>
 
             <li>
@@ -508,9 +487,8 @@
       the same network layer. Filter components match specific network elements
       for a filter family.</t>
 
-      <t>Each FSv2 NLRI has a default sort order, documented in section TODO.
-      This sort order determines the order of installation for the Flow
-      Specification in the BGP speaker.   Operators <bcp14>MAY</bcp14> override
+      <t>Each FSv2 NLRI has a default sort order determined by filter family, 
+      followed by components within a filter family. Operators <bcp14>MAY</bcp14> override
       this default ordering by causing the FSv2 User Order field to be set to a
       non-zero value.</t>
 
@@ -520,39 +498,21 @@
       even if they are otherwise valid. These dependencies are encoded in the
       Dependent Filters Chain field of a FSv2 Flow Specification.</t>
 
+
       <t>FSv2 is carried in BGP using standard <xref target="RFC4760"/>
-      multiprotocol extensions.  FSv2 supports NRLI with formats for following AFIs:
+      multiprotocol extensions.  FSv2 supports a single FSv2 AFI (TBD1) with 
+      two SAFIs: 
         <ul>
-          <li>IPv4 (AFI = 1)</li>
-          <li>IPv6 (AFI = 2)</li>
-          <li>L2 (AFI = 6)</li>
-          <li>L2VPN (AFI=25)</li>
-          <li>SFC (AFI=31)</li>
+          <li>TBD1 (Flow Spec Version 2) (TBD2) </li>
+          <li>TBD2 (Flow Spec Version 2 for VPNs) (TBD3)</li>
         </ul>
       </t>
-      <t>These AFIs will be paired with the following SAFIs:
-
-        <ul>
-          <li>TBD1 (Flow Spec Version 2)</li>
-          <li>TBD2 (Flow Spec Version 2 for VPNs)</li>
-        </ul>
-      </t>
-
-      <t>A compliant FSv2 implementation only has to implement one AFI/SAFI
-      pair out of the full list of NRLIs.  For example, a compliant FSv2
-      implementation might only implement IPv4 FSv2 (AFI=1, SAFI=TBD1).</t>
-
-      <t>Editor's comment: Should we just have one FSv2 AFI? 
-      Filter families allow the differentiation of different filters
-      without multiple AFI/SAFIs </t>
-
       <t>FSv2 NLRI are encoded in BGP UPDATEs using the MP_REACH_NLRI and
       MP_UNREACH_NLRI attributes defined in <xref target="RFC4760"/>.  When
       advertising FSv2 NLRI, the length of the Next-Hop Network Address MUST
       be set to 0. Upon reception, the MP_REACH_NLRI "Network Address of
       NextHop" field MUST be ignored.</t>
 
-      
 
       <section title="FSv2 NLRI Format" anchor="nlri-format">
 
@@ -926,7 +886,7 @@
       </section>
 	  <section title="FSv2 Components for QP Family Filter">
         <t>FSv2 QP Family Filter Components are encoded in FSv2 Filter Component
-        TLVs as described in <xref target="I-D.lll-idr-flowspec-filter-qp"></xref></t>
+        TLVs as described in draft-lll-idr-flowspec-filter-qp.</t>
 
         <table align="left">
           <name>QP Match Components</name>
@@ -2533,7 +2493,24 @@
 
     <section anchor="IANA" title="IANA Considerations">
       <t>This section complies with <xref target="RFC7153"></xref>.</t>
+			 
+      <section title="Flow Specification V2 AFI">
+        <t> IANA is requested to assign one AFI Values in the registry at
+       https://www.iana.org/assignments/address-family-numbers from the Standard Action
+        Range as follows:
+          <figure>
+          <artwork>
 
+         Table 7-1 AFI 
+
+         Value   Description      Reference
+         -----   -------------    ---------------
+          TBD1   BGP FSv2         [this document]
+          </artwork>
+          </figure>
+        </t>
+      </section>
+		
       <section title="Flow Specification V2 SAFIs">
         <t> IANA is requested to assign two SAFI Values in the registry at
         https://www.iana.org/assignments/safi-namespace from the Standard Action
@@ -2552,106 +2529,8 @@
           </figure>
         </t>
       </section>
-
-      <section title="Generic Transitive Extended Community">
-        <t>IANA is requested to assign a type value from the "Generic
-        Transitive Extended Community Sub-Types" registry at
-        https://www.iana.org/assignments/bgp-extended-communities/bgp-extended-communities.xhtml
-
-          <figure>
-          <artwork>
-       Table 7-3 - Generic Transitive Extended Community
-
-       Value   Description                Reference       Controller
-       -----  --------------------------  ---------------  ----------
-        TBD4  FSv2 Action Chain Ordering  [this document]  IETF
-          </artwork>
-          </figure>
-        </t>
-      </section>
-
-      <section title="FSv2 IP Filters Component Types">
-        <t>IANA is requested to create a new "BGP FSv2 IP Basic Component Types"
-        registry and indicate [this draft] as a reference.  The following
-        assignments in the FSv2 IP Basic Filters Component Types Registry shold be
-        made.</t>
-
-        <t>
-          <dl spacing="compact">
-            <dt>Registry Name:</dt><dd>BGP FSv2 Component Types</dd>
-            <dt>Reference:</dt><dd>[this document]</dd>
-            <dt>Registration Procedures:</dt><dd>0x01-0x3FFF Standards Action, 0x4000-0xFFFF FCFS.</dd>
-          </dl>
-        </t>
-
-        <table align="left">
-          <name>BGP FSv2 IP Basic Component Types</name>
-          <thead>
-            <tr>
-              <th>Type</th>
-              <th>Definition</th>
-              <th>Reference</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>0</td><td>Reserved</td><td>This document</td></tr>
-            <tr><td>1-9</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>10</td><td>Parts of SRHv6 </td><td>This document</td></tr>
-            <tr><td>11-19</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>20</td><td>NRP ID in NextHop SRv6 </td><td>This document</td></tr>
-            <tr><td>21-29</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>30</td><td>CS ID (IPv4/IPv6)</td><td>This document</td></tr>
-            <tr><td>31-39</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>40</td><td>Bitwise Destination IPv4/IPv6 </td><td>This document</td></tr>
-            <tr><td>41-49</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>50</td><td>Destination QP </td><td>This document</td></tr>
-            <tr><td>51-59</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>60</td><td>IP Destination Prefix</td><td>This document</td></tr>
-            <tr><td>61-69</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>70</td><td>Bitwise Source IPv4/IPv6 </td><td>This document</td></tr>
-            <tr><td>71-79</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>80</td><td>IP Source Prefix</td><td>This document</td></tr>
-            <tr><td>81-89</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>90</td><td>IPv4 Protocol / IPv6 Upper Layer Protocol</td><td>This document</td></tr>
-            <tr><td>91-99</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>100</td><td>Port</td><td>This document</td></tr>
-            <tr><td>101-109</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>110</td><td>Destination Port</td><td>This document</td></tr>
-            <tr><td>111-119</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>120</td><td>Source Port</td><td>This document</td></tr>
-            <tr><td>121-129</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>130</td><td>ICMPv4 Type / ICMPv6 Type</td><td>This document</td></tr>
-            <tr><td>131-139</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>140</td><td>ICMPv4 Code / ICPv6 Code</td><td>This document</td></tr>
-            <tr><td>141-149</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>150</td><td>TCP Flags</td><td>This document</td></tr>
-            <tr><td>151-159</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>160</td><td>Packet Length</td><td>This document</td></tr>
-            <tr><td>161-169</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>170</td><td>DSCP</td><td>This document</td></tr>
-            <tr><td>171-179</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>180</td><td>Fragment</td><td>This document</td></tr>
-            <tr><td>181-189</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>190</td><td>Flow Label</td><td>This document</td></tr>
-            <tr><td>191-199</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>200</td><td>Packet Content Filter</td><td>This document</td></tr>
-            <tr><td>201-209</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>210</td><td>Class ID</td><td>This document</td></tr>
-            <tr><td>211-219</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>220</td><td>DIP-AS</td><td>This document</td></tr>
-            <tr><td>221-229</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>230</td><td>SIP-AS</td><td>This document</td></tr>
-            <tr><td>231-239</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>240</td><td>DIP-com</td><td>This document</td></tr>
-            <tr><td>241-249</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>250</td><td>SIP-com</td><td>This document</td></tr>
-            <tr><td>251-4094</td><td>Unassigned</td><td>This document</td></tr>
-            <tr><td>4095</td><td>Reserved</td><td>This document</td></tr>
-          </tbody>
-        </table>
-      </section>
-
-      <section title="FSv2 Filter Family Types">
+		
+    <section title="FSv2 Filter Family Types">
         <t>IANA is requested to create the a new registry for "Flow
         Specification v2 Filter Family Types".</t>
 
@@ -2673,97 +2552,117 @@
               <td>[this document]</td>
             </tr>
             <tr>
-              <td>1-19</td>
-              <td>Unassigned</td>
-              <td>[this document]</td>
-            </tr>
-            <tr>
-              <td>20</td>
-              <td>Time</td>
-              <td>[this document]</td>
-            </tr>
-            <tr>
-              <td>21-29</td>
-              <td>Unassigned</td>
-              <td>[this document]</td>
-            </tr>
-            <tr>
-              <td>30</td>
-              <td>Interface</td>
-              <td>[this document]</td>
-            </tr>
-            <tr>
-              <td>31-49</td>
-              <td>Unassigned</td>
-              <td>[this document]</td>
-            </tr>
-            <tr>
-              <td>50</td>
-              <td>L2 Traffic Rules</td>
-              <td>[this document]</td>
-            </tr>
-            <tr>
-              <td>51-99</td>
-              <td>Unassigned</td>
-              <td>[this document]</td>
-            </tr>
-            <tr>
-              <td>100</td>
-              <td>MPLS traffic rules</td>
-              <td>[this document]</td>
-            </tr>
-            <tr>
-              <td>101-149</td>
-              <td>Unassigned</td>
-              <td>[this document]</td>
-            </tr>
-            <tr>
-              <td>150</td>
-              <td>SFC Traffic rules</td>
-              <td>[this document]</td>
-            </tr>
-            <tr>
-              <td>151-199</td>
+              <td>1-119</td>
               <td>Unassigned</td>
               <td>[this document]</td>
             </tr>
             <tr>
               <td>200</td>
-              <td>Tunnel Traffic rules</td>
+              <td>Time</td>
               <td>[this document]</td>
             </tr>
             <tr>
-              <td>201-255</td>
+              <td>201-299</td>
               <td>Unassigned</td>
               <td>[this document]</td>
             </tr>
             <tr>
-              <td>256</td>
-              <td>IP traffic rules</td>
+              <td>300</td>
+              <td>Interface</td>
               <td>[this document]</td>
             </tr>
             <tr>
-              <td>257-279</td>
+              <td>301-399</td>
               <td>Unassigned</td>
               <td>[this document]</td>
             </tr>
             <tr>
-              <td>280</td>
-              <td>Extended IP Rules</td>
+              <td>400</td>
+              <td>L2 Traffic Rules</td>
               <td>[this document]</td>
             </tr>
             <tr>
-              <td>281-319</td>
+              <td>401-499</td>
               <td>Unassigned</td>
               <td>[this document]</td>
             </tr>
             <tr>
-              <td>320</td>
+              <td>500</td>
+              <td>MPLS traffic rules</td>
+              <td>[this document]</td>
+            </tr>
+            <tr>
+              <td>501-599</td>
+              <td>Unassigned</td>
+              <td>[this document]</td>
+            </tr>
+            <tr>
+              <td>600</td>
+              <td>SFC Traffic rules</td>
+              <td>[this document]</td>
+            </tr>
+            <tr>
+              <td>601-699</td>
+              <td>Unassigned</td>
+              <td>[this document]</td>
+            </tr>
+            <tr>
+              <td>700</td>
+              <td>Queue Pair</td>
+              <td>[this document]</td>
+            </tr>
+            <tr>
+              <td>701-799</td>
+              <td>Unassigned</td>
+              <td>[this document]</td>
+            </tr>
+            <tr>
+              <td>800</td>
+              <td>Tunneled traffic</td>
+              <td>[this document]</td>
+            </tr>
+			<tr>
+              <td>801-899</td>
+              <td>Unassigned</td>
+              <td>[this document]</td>
+            </tr>
+			<tr>
+              <td>1000</td>
+              <td>IPv4 Basic</td>
+              <td>[this document]</td>
+            </tr>
+            <tr>
+              <td>1001-1099</td>
+              <td>Unassigned</td>
+              <td>[this document]</td>
+            </tr>
+            <tr>
+              <td>1100</td>
+              <td>IPv6 Basic</td>
+              <td>[this document]</td>
+            </tr>
+            <tr>
+              <td>1100-1199</td>
+              <td>Unassigned</td>
+              <td>[this document]</td>
+            </tr>
+            <tr>
+              <td>1200</td>
               <td>CATS Traffic Rules</td>
               <td>[this document]</td>
             </tr>
+			  <tr>
+              <td>1200-1399</td>
+              <td>Unassigned</td>
+              <td>[this document]</td>
+            </tr>
             <tr>
-              <td>321-24575</td>
+              <td>1400</td>
+              <td>Routing </td>
+              <td>[this document]</td>
+            </tr>
+            <tr>
+              <td>1401-24575</td>
               <td>Unassigned</td>
               <td>[this document]</td>
             </tr>
@@ -2780,7 +2679,190 @@
           </tbody>
         </table>
       </section>
-    </section>
+
+		<section title="FSv2 QP Component Types">
+        <t>IANA is requested to create a new "BGP FSv2 QP Component Types"
+        registry and indicate [this draft] as a reference.  The following
+        assignments in the FSv2 QP Component Types Registry shold be
+        made.</t>
+	     <t>
+          <dl spacing="compact">
+            <dt>Registry Name:</dt><dd>BGP FSv2 QP Component Types</dd>
+            <dt>Reference:</dt><dd>[this document]</dd>
+            <dt>Registration Procedures:</dt><dd>0x01-0x3FFF Standards Action, 0x4000-0xFFFF FCFS.</dd>
+          </dl>
+        </t>
+        <table align="left">
+          <name>BGP FSv2 QP Component Types</name>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Definition</th>
+              <th>Reference</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>0</td><td>Reserved</td><td>This document</td></tr>
+            <tr><td>1-99</td><td>Unassigned</td><td>This document</td></tr>
+	        <tr><td>100</td><td>Destination QP (editor: verify) </td><td>This document</td></tr>
+            <tr><td>101-4094</td><td>Unassigned</td><td>This document</td></tr>
+            <tr><td>4095</td><td>reserved </td><td>This document</td></tr>
+		  </tbody>
+	        </table>
+      </section>
+			
+      <section title="FSv2 IP Filters Component Types">
+        <t>IANA is requested to create a new "BGP FSv2 IP Basic Component Types"
+        registry and indicate [this draft] as a reference.  The following
+        assignments in the FSv2 IP Basic Filters Component Types Registry shold be
+        made.</t>
+        <t>
+          <dl spacing="compact">
+            <dt>Registry Name:</dt><dd>BGP FSv2 Component Types</dd>
+            <dt>Reference:</dt><dd>[this document]</dd>
+            <dt>Registration Procedures:</dt><dd>0x01-0x3FFF Standards Action, 0x4000-0xFFFF FCFS.</dd>
+          </dl>
+        </t>
+
+        <table align="left">
+          <name>BGP FSv2 IP Basic Component Types</name>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Definition</th>
+              <th>Reference</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>0</td><td>Reserved</td><td>This document</td></tr>
+            <tr><td>1-99</td><td>Unassigned</td><td>This document</td></tr>
+	        <tr><td>100</td><td>Destination QP (editor: verify) </td><td>This document</td></tr>
+            <tr><td>101-199</td><td>Unassigned</td><td>This document</td></tr>
+            <tr><td>300</td><td>Parts of SRHv6 </td><td>This document</td></tr>
+            <tr><td>301-499</td><td>Unassigned</td><td>This document</td></tr>
+            <tr><td>500</td><td>NRP ID in NextHop SRv6 </td><td>This document</td></tr>
+            <tr><td>501-799</td><td>Unassigned</td><td>This document</td></tr>
+            <tr><td>800</td><td>Bitwise Destination IPv4 </td><td>This document</td></tr>
+            <tr><td>801-809</td><td>Unassigned</td><td>This document</td></tr>
+	        <tr><td>810</td><td>Bitwise Destination IPv6 </td><td>This document</td></tr>	
+            <tr><td>811-999</td><td>Unassigned</td><td>This document</td></tr>			
+            <tr><td>1000</td><td>IPv4 Destination Prefix</td><td>This document</td></tr>
+            <tr><td>1001-1009</td><td>Unassigned</td><td>This document</td></tr>
+	        <tr><td>1010</td><td>IPv6 Destination Prefix</td><td>This document</td></tr>	
+            <tr><td>1010-1099</td><td>Unassigned</td><td>This document</td></tr>			
+            <tr><td>1100</td><td>Bitwise Source IPv4</td><td>This document</td></tr>
+            <tr><td>1101-1109</td><td>Unassigned</td><td>This document</td></tr>
+		    <tr><td>1110</td><td>Bitwise Source IPv6</td><td>This docume</td></tr>
+            <tr><td>1111-1199</td><td>Unassigned</td><td>This document</td></tr>
+            <tr><td>1200</td><td>IPv4 Source Prefix</td><td>This document</td></tr>
+            <tr><td>1201-1209</td><td>Unassigned</td><td>This document</td></tr>
+            <tr><td>1210</td><td>IPv6 Source Prefix</td><td>This document</td></tr>
+            <tr><td>1211-1299</td><td>Unassigned</td><td>This document</td></tr>
+            <tr><td>1300</td><td>IPv4 Protocol </td><td>This document</td></tr>
+            <tr><td>1301-1309</td><td>Unassigned</td><td>This document</td></tr>
+		    <tr><td>1310</td><td>IPv6 Upper Layer Protocol</td><td>This document</td></tr>
+            <tr><td>1311-1399</td><td>Unassigned</td><td>This document</td></tr>
+            <tr><td>1400</td><td>Port</td><td>This document</td></tr>
+            <tr><td>1401-1499</td><td>Unassigned</td><td>This document</td></tr>
+            <tr><td>1500</td><td>Destination Port</td><td>This document</td></tr>
+            <tr><td>1501-1509</td><td>Unassigned</td><td>This document</td></tr>
+            <tr><td>1600</td><td>Source Port</td><td>This document</td></tr>
+            <tr><td>1600-1609</td><td>Unassigned</td><td>This document</td></tr>
+            <tr><td>1700</td><td>ICMPv4 Type </td><td>This document</td></tr>
+            <tr><td>1701-1709</td><td>Unassigned</td><td>This document</td></tr>
+	        <tr><td>1710</td><td>ICMPv6 Type</td><td>This document</td></tr>
+            <tr><td>1711-1799</td><td>Unassigned</td><td>This document</td></tr>
+            <tr><td>1800</td><td>ICMPv4 Code</td><td>This document</td></tr>
+            <tr><td>1800-1801</td><td>Unassigned</td><td>This document</td></tr>
+            <tr><td>1810</td><td>ICPv6 Code</td><td>This document</td></tr>
+            <tr><td>1811-1899</td><td>Unassigned</td><td>This document</td></tr>
+            <tr><td>1900</td><td>TCP (v4) Flags</td><td>This document</td></tr>
+            <tr><td>1901-1909</td><td>Unassigned</td><td>This document</td></tr>
+            <tr><td>1910</td><td>TCP (v4) Flags</td><td>This document</td></tr>
+            <tr><td>1911-1999</td><td>Unassigned</td><td>This document</td></tr>
+            <tr><td>2000</td><td>Packet Length</td><td>This document</td></tr>
+            <tr><td>2000-2099</td><td>Unassigned</td><td>This document</td></tr>
+            <tr><td>2100</td><td>DSCP</td><td>This document</td></tr>
+            <tr><td>2100-2199</td><td>Unassigned</td><td>This document</td></tr>
+            <tr><td>2200</td><td>Fragment</td><td>This document</td></tr>
+            <tr><td>2201-2299</td><td>Unassigned</td><td>This document</td></tr>
+            <tr><td>2300</td><td>Flow Label</td><td>This document</td></tr>
+            <tr><td>2301-2999</td><td>Unassigned</td><td>This document</td></tr>
+            <tr><td>3000</td><td>Packet Content Filter</td><td>This document</td></tr>
+            <tr><td>3001-3999</td><td>Unassigned</td><td>This document</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+
+		<section title="FSv2 CAT Component Types">
+        <t>IANA is requested to create a new "BGP FSv2 CAT Component Types"
+        registry and indicate [this draft] as a reference.  The following
+        assignments in the FSv2 QP Component Types Registry shold be
+        made.</t>
+	     <t>
+          <dl spacing="compact">
+            <dt>Registry Name:</dt><dd>BGP FSv2 CAT Component Types</dd>
+            <dt>Reference:</dt><dd>[this document]</dd>
+            <dt>Registration Procedures:</dt><dd>0x01-0x3FFF Standards Action, 0x4000-0xFFFF FCFS.</dd>
+          </dl>
+        </t>
+        <table align="left">
+          <name>BGP FSv2 CAT Component Types</name>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Definition</th>
+              <th>Reference</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>0</td><td>Reserved</td><td>This document</td></tr>
+            <tr><td>1-199</td><td>Unassigned</td><td>This document</td></tr>
+	        <tr><td>200</td><td>Class-ID (editor: verify) </td><td>This document</td></tr>
+            <tr><td>201-4094</td><td>Unassigned</td><td>This document</td></tr>
+            <tr><td>4095</td><td>reserved </td><td>This document</td></tr>
+		  </tbody>
+	        </table>
+      </section>
+			
+		<section title="FSv2 Routing Augment Filter Component Types">
+        <t>IANA is requested to create a new "BGP FSv2 Routing Component Types"
+        registry and indicate [this draft] as a reference.  The following
+        assignments in the FSv2 Routing Augment Component Types Registry shold be
+        made.</t>
+	     <t>
+          <dl spacing="compact">
+            <dt>Registry Name:</dt><dd>BGP FSv2 Routing Augment Component Types</dd>
+            <dt>Reference:</dt><dd>[this document]</dd>
+            <dt>Registration Procedures:</dt><dd>0x01-0x3FFF Standards Action, 0x4000-0xFFFF FCFS.</dd>
+          </dl>
+        </t>
+        <table align="left">
+          <name>BGP FSv2 Routing Augment Component Types</name>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Definition</th>
+              <th>Reference</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>0</td><td>Reserved</td><td>This document</td></tr>
+            <tr><td>1-99</td><td>Unassigned</td><td>This document</td></tr>
+	        <tr><td>100</td><td>DIP-AS (editor: verify) </td><td>This document</td></tr>
+            <tr><td>101-199</td><td>Unassigned</td><td>This document</td></tr>
+	        <tr><td>200</td><td>SIP-AS (editor: verify) </td><td>This document</td></tr>
+            <tr><td>201-299</td><td>Unassigned</td><td>This document</td></tr>
+	        <tr><td>300</td><td>DIP-comm (editor: verify) </td><td>This document</td></tr>
+            <tr><td>301-399</td><td>Unassigned</td><td>This document</td></tr>
+	        <tr><td>400</td><td>SIP-com (editor: verify) </td><td>This document</td></tr>
+            <tr><td>401-4094</td><td>Unassigned</td><td>This document</td></tr>
+            <tr><td>4095</td><td>reserved </td><td>This document</td></tr>
+		  </tbody>
+	        </table>
+      </section>	
+	</section>
 
     <section title="Security Considerations">
       <t>The use of ROA improves on <xref target="RFC8955"></xref> by checking

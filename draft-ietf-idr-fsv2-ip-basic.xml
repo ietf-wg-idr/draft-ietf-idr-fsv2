@@ -10,7 +10,7 @@
 <rfc
   xmlns:xi="http://www.w3.org/2001/XInclude"
   category="std"
-  docName="draft-ietf-idr-fsv2-ip-basic-08"
+  docName="draft-ietf-idr-fsv2-ip-basic-09"
   submissionType="IETF"
   ipr="trust200902">
   <front>
@@ -192,7 +192,7 @@
             <li>Traffic filtering in BGP/MPLS VPNS.</li>
             <li>Centralized traffic control for networks utilizing SDN control
             of router firewall functions.</li>
-            <li>Classifiers for insertion into a SFC.</li>
+            <li>Classifiers for insertion into a Service Function Chaining (SFC) path</li>
             <li>Filters for SRv6 (segment routing v6).</li>
           </ul>
         </t>
@@ -420,7 +420,10 @@
             <li>FSv2 filter rules are processed prior to FSv1 rules.  FSv1 NLRI
             are processed according to the procedures defined in
             <xref target="RFC8955"/> and <xref target="RFC8956"/>.
-            FSv2 filter rules thus have a better precedence vs. FSv1.</li>
+            FSv2 filter rules thus have a better precedence vs. FSv1.  
+			(Note: If FSv2 and FSv2 filters exactly match, only the FSv2 
+             filter would be installed).  / 
+</li>
 
             <li>FSv2 filter rules are ordered based on user-specified order,
             carried in each FSv2 NLRI.  Numerically smaller user-specified order
@@ -440,7 +443,10 @@
               <xref target="RFC4360"/> Extended Communities, they are
               propagated with the BGP routes regardless of whether they are
               understood based on the particular Extended Community's
-              transitivity.</t>
+              transitivity. Extended Communities associated with FSv1 or FSv2 
+              filters <bcp14>SHOULD NOT</bcp14> be filtered since filtering changes the
+              policy. (SHOULD is used because some FS policy actions might be determined 
+              as a DDOS attack by local policy).</t>
 
               <t>When FSv2 Extended Communities are understood, they have
               precedence and interaction rules governing the actions they
@@ -471,7 +477,7 @@
             When this value is non-zero, this value associates multiple received
             FSv2 filters with each other. If a FSv2 filter rule is ineligible
             to be installed due to an inability to implement a mandatory match
-            or action component, all other filters carrying the same dendency
+            or action component, all other filters carrying the same dependency
             value will be made ineligible for installation. See
             <xref target="fsv2-dependencies"/> for more details.</li>
           </ol>
@@ -496,7 +502,10 @@
       a Flow Specification is unable to be installed by the BGP speaker,
       dependent Flow Specifications <bcp14>MUST NOT</bcp14> also be installed,
       even if they are otherwise valid. These dependencies are encoded in the
-      Dependent Filters Chain field of a FSv2 Flow Specification.</t>
+      Dependent Filters Chain field of a FSv2 Flow Specification.
+	  Filters which are "unable to be installed" are passed to other nodes 
+	  unless local BGP policy prohibits distribution. 
+	  </t>
 
 
       <t>FSv2 is carried in BGP using standard <xref target="RFC4760"/>
@@ -675,7 +684,7 @@
         </t>
 
         <t>FSv2 implementations MUST pass valid filter TLVs even if the
-        implementation does not support these installation of these a particular
+        implementation does not support these installation of a particular
         type of filter rules.</t>
 
         <t>This specification only defines operation of the IP Basic Filter Rules
@@ -725,6 +734,10 @@
         for dependencies.  When the value of DFC is non-zero, when a rule is
         locally considered invalid, all rules sharing the same DFC value are
         also considered invalid, and not installed.</t>
+		
+		<t>If a FSv2 implementation determines a filter is invalid and cannot be installed, 
+		this event SHOULD be logged. Due to the potential of DDOS from 
+        logging invalid filters, the local implementations MAY set logging limits.</t>
       </section>
 
       <section title="Ordering of TLVs within the FSv2 NLRI">
@@ -779,7 +792,7 @@
         <t>The operators are encoded as a single octet.</t>
 
         <section title="Numeric Operator (numeric_op)" anchor="numeric-op">
-          <t>This operator is encoded as shown in Figure 3-3.
+          <t>This operator is encoded as shown in Figure 5.
             <figure title="Numeric Operator (numeric_op)">
             <artwork>
   0   1   2   3   4   5   6   7
@@ -822,7 +835,7 @@
 
           <t> The bits lt, gt, and eq can be combined to produce common
           relational operators, such as "less or equal", "greater or equal", and
-          "not equal to", as shown in Table 3-1.</t>
+          "not equal to", as shown in figure 6.</t>
 
           <t>
             <figure title="Comparison Operation Combinations">
@@ -852,7 +865,7 @@
         </section>
 
         <section title="Bitmask Operator (bitmask_op)" anchor="bitmask-op">
-          <t>This operator is encoded as shown in Figure 3-4.
+          <t>This operator is encoded as shown in Figure 7. 
             <figure title="Bitmask Operator (bitmask_op)">
             <artwork>
   0   1   2   3   4   5   6   7
@@ -886,7 +899,7 @@
       </section>
 	  <section title="FSv2 Components for QP Family Filter">
         <t>FSv2 QP Family Filter Components are encoded in FSv2 Filter Component
-        TLVs as described in draft-lll-idr-flowspec-filter-qp.</t>
+        TLVs as described in fsv2-filter-qp.</t>
 
         <table align="left">
           <name>QP Match Components</name>
@@ -899,7 +912,7 @@
           </thead>
           <tbody>
             <tr><td>0</td><td>Reserved</td><td>This document</td></tr>
-			<tr><td> 100</td><td>Destination-QP</td><td>draft-lll-idr-flowspec-filter-qp</td> </tr>
+			<tr><td> 100</td><td>Destination-QP</td><td>fsv2-filter-qp</td> </tr>
             <tr><td>4095</td><td>Reserved</td><td>[This document]</td></tr>
           </tbody>
         </table>
@@ -1121,7 +1134,7 @@
           <t><tt>Encoding: &lt;[numeric_op, value]+&gt;</tt></t>
 
           <t>Defines a list of <tt>{numeric_op, value}</tt> pairs that match
-          source OR destination TCP/UDP ports (see <xref target="RFC0793"
+          source OR destination TCP/UDP ports (see <xref target="RFC9293"
           section="3.1"/> and the "Format" section of <xref
           target="RFC0768"/>). This component matches if either the destination
           port OR the source port of an IP packet matches the value.</t>
@@ -1151,7 +1164,7 @@
 
           <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to match
           the destination port of a TCP or UDP packet (see also
-          <xref target="RFC0793" section="3.1"/> and the "Format" section of
+          <xref target="RFC9293" section="3.1"/> and the "Format" section of
           <xref target="RFC0768"/>.</t>
 
           <t>This component uses the Numeric Operator (numeric_op) described in
@@ -1168,7 +1181,7 @@
 
           <t>Defines a list of <tt>{numeric_op, value}</tt> pairs used to match
           the source port of a TCP or UDP packet (see also
-          <xref target="RFC0793" section="3.1"/> and the "Format" section of
+          <xref target="RFC9293" section="3.1"/> and the "Format" section of
           <xref target="RFC0768"/>.</t>
 
           <t>This component uses the Numeric Operator (numeric_op) described in
@@ -1255,7 +1268,7 @@
 
           <t>Defines a list of <tt>{bitmask_op, bitmask}</tt> pairs used to
           match TCP control bits (see also
-          <xref target="RFC0793" section="3.1"/>).</t>
+          <xref target="RFC9293" section="3.1"/>).</t>
 
           <t>This component uses the Bitmask Operator (bitmask_op) described in
           <xref target="bitmask-op"/>. Type 150 component bitmasks MUST be
@@ -1263,7 +1276,7 @@
 
           <t>When a single octet (bitmask_op len=00) is specified, it matches
           octet 14 of the TCP header (see also
-          <xref target="RFC0793" section="3.1"/>), which contains the TCP
+          <xref target="RFC9293" section="3.1"/>), which contains the TCP
           control bits. When a 2-octet (bitmask_op len=01) encoding is used, it
           matches octets 13 and 14 of the TCP header with the data offset
           (leftmost 4 bits) always treated as 0.</t>
@@ -1404,7 +1417,7 @@
           </thead>
           <tbody>
             <tr><td>0</td><td>Reserved</td><td>This document</td></tr>
-			<tr><td> 100</td><td>Class ID </td><td>draft-song-idr-flowspec-classid-filter</td></tr>
+			<tr><td> 100</td><td>Class ID </td><td>song-classid-filter</td></tr>
             <tr><td>4095</td><td>Reserved</td><td>[This document]</td></tr>
           </tbody>
         </table>
@@ -1840,7 +1853,7 @@
             three potential options:
 
               <ol type="Option %d:">
-                <li>Stop processing additional filters and (optionally) signal failure to the management process.</li>
+                <li>Stop processing additional filters and (optionally) signal failure to the management process (for logging or other actions).</li>
                 <li>Continue on processing in "best effort" for the next filters.</li>
                 <li>Decide between 1 and 2 based on dependencies between filters and actions.</li>
               </ol>
@@ -1898,7 +1911,9 @@
             <t>When specifying new FSv2-ECs, operational consideration
             <bcp14>MUST</bcp14> be given to what the behavior of such ignorant
             implementations may do to the desired traffic forwarding throughout
-            the FS deployment.</t>
+            the FS deployment. Appropriate operational consideration includes
+			what happens when such ignorant implementations receive new FSv2-EC 
+            and forward new FSv2-EC.</t>
           </section>
         </section>
       </section>
@@ -2890,6 +2905,8 @@
     <displayreference target="I-D.ietf-idr-flowspec-srv6" to="fsv2-srv6"/>
     <displayreference target="I-D.ietf-idr-flowspec-network-slice-ts" to="fsv2-netslice-nrp"/>
     <displayreference target="I-D.hares-idr-fsv2-more-ip-actions" to="fsv2-more-ip-actions"/>
+    <displayreference target="I-D.song-idr-flowspec-classid-filter" to="song-classid-filter"/>	
+    <displayreference target="I-D.lll-idr-flowspec-filter-qp" to="fsv2-filter-qp"/>
     <displayreference target="I-D.ietf-idr-flowspec-v2" to="fsv2"/>
     <displayreference target="RFC8955" to="FSv1"/>
     <displayreference target="RFC8956" to="FSv1-IPv6"/>
@@ -2898,7 +2915,6 @@
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.0768"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.0791"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.0792"/>
-      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.0793"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.1997"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.2119"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.2474"/>
@@ -2912,13 +2928,13 @@
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.5701"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.7153"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.7606"/>
-      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.7665"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8174"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8200"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8955"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8956"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9015"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9117"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9293"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9582"/>
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-l2vpn"/>
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-nvo3"/>
@@ -2933,6 +2949,7 @@
 	</references>
     <references title="Informative References">
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.6241"/>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.7665"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8040"/>
       <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8205"/>
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-v2"/>

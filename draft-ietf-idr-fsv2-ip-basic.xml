@@ -430,7 +430,7 @@
             values have better precedence than larger values.</li>
 
             <li>For rules with the same user-specified order, the filter rules
-            are then ordered by FSv2 component type and then rules for each
+            are then ordered by Filter Family type, then FSv2 component type, and then rules for each
             component type.</li>
 
             <li>
@@ -2046,8 +2046,10 @@
 
         <section title="AFI/SAFIs Used For Validation">
           <t>The FSv2 validation process validates the FSv2 NLRI with following
-          unicast routes received over the same AFI (1 or 2) but different
+          unicast routes received over the same FSv2 AFI (1 or 2) but different
           SAFIs:</t>
+		  <t>Note: The link between filter families and AFI/SAFIs for validation needs to be 
+		  carefully sanity checked.  </t> 
 
           <!-- XXX JMH - we likely don't need the comparable FSv1 table, but here it is if we want to use it for comparison purposes.
           <table align="left">
@@ -2091,42 +2093,51 @@
             <name>FSv2 Flowspec BGP Route AFI/SAFI Validation</name>
             <thead>
               <tr>
-                <th>Received AFI/SAFI</th>
+                <th>Received FSv2 AFI/SAFI</th>
+				<th>Receive Filter Families </th> 
                 <th>Validate Route Using AFI/SAFI</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>1/TBD1</td>
+                <td>FSv2 Unicast (AFI:TBD1/SAFI:TBD2)</td>
+				<td>Time, Interface, QP, IPv4 basic, CATS, Routing </td>
                 <td>1/1 (IPv4-Unicast)</td>
               </tr>
               <tr>
-                <td>1/TBD2</td>
+               <td>FSv2 Unicast VPN (AFI:TBD1/SAFI:TBD3)</td>
+			   <td>MPLS, tunneled (?) </td>
                 <td>1/128 (IPv4-Labeled Unicast)</td>
               </tr>
               <tr>
-                <td>2/TBD1</td>
+                <td>FSv2 Unicast (AFI:TBD1/SAFI:TBD2)</td>
+			   <td>IPv6 Basic </td>
                 <td>2/1 (IPv6-Unicast)</td>
               </tr>
               <tr>
-                <td>2/TBD2</td>
+                <td>FSv2 Unicast VPN (AFI:TBD1/SAFI:TBD2)</td>
+				<td>MPLS or tunneled (?)  </td>
                 <td>2/128 (IPv6-Labeled Unicast)</td>
               </tr>
               <tr>
-                <td>31/TBD1</td>
+                <td>FSv2 Unicast (AFI:TBD1/SAFI:TBD2)</td>
+				<td>SFC </td>
                 <td>1/1 (IPv4-Unicast)</td>
               </tr>
               <tr>
-                <td>31/TBD2</td>
+                <td>FSv2 Unicast (AFI:TBD1/SAFI:TBD2)</td>
+				<td>SFC </td>
                 <td>1/128 (IPv4-Labeled Unicast)</td>
               </tr>
               <tr>
-                <td>6/TBD1</td>
-                <td>1/1 (IPv4-Unicast)</td>
+                <td>FSv2 Unicast (AFI:TBD1/SAFI:TBD2)</td>
+				<td> L2 </td>
+                <td>6/1 (L2 IPv4-Unicast)</td>
               </tr>
               <tr>
-                <td>256/TBD2</td>
-                <td>1/128 (IPv4-Labeled Unicast)</td>
+               <td>FSv2 Unicast VPN (AFI:TBD1/SAFI:TBD3)</td>
+			   <td> L2 </td>
+                <td>6/128 (IPv4-Labeled Unicast)</td>
               </tr>
             </tbody>
           </table>

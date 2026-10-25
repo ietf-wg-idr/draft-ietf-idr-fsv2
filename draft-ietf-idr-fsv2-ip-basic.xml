@@ -602,12 +602,12 @@
                   <li> 400 - L2 traffic </li>
                   <li> 500 - MPLS traffic </li>
                   <li> 600 - SFC Traffic </li>
-				          <li> 700 - Queue Pair (QP) </li> 
+				  <li> 700 - Queue Pair (QP) </li> 
                   <li> 800 - Tunneled trafffic </li>
                   <li>1000 - IPv4 Basic </li> 
-				          <li>1100 - IPv6 Basic </li>
+				  <li>1100 - IPv6 Basic </li>
                   <li>1200 - CATS Traffic </li>
-				          <li>1400 - Routing </li> 
+				  <li>1400 - Routing </li> 
                   </ul>
                 </li>
             <li>FSv2 Filter Family Length: Length of the FSv2 Filter Components
@@ -2123,11 +2123,6 @@
                 <td>FSv2 Unicast (AFI:TBD1/SAFI:TBD2)</td>
 				<td>SFC </td>
                 <td>1/1 (IPv4-Unicast)</td>
-              </tr>
-              <tr>
-                <td>FSv2 Unicast (AFI:TBD1/SAFI:TBD2)</td>
-				<td>SFC </td>
-                <td>1/128 (IPv4-Labeled Unicast)</td>
               </tr>
               <tr>
                 <td>FSv2 Unicast (AFI:TBD1/SAFI:TBD2)</td>

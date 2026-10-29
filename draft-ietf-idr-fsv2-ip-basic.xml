@@ -421,8 +421,8 @@
             are processed according to the procedures defined in
             <xref target="RFC8955"/> and <xref target="RFC8956"/>.
             FSv2 filter rules thus have a better precedence vs. FSv1.  
-			(Note: If FSv2 and FSv2 filters exactly match, only the FSv2 
-             filter would be installed).  / 
+			(Note: If FSv1 and FSv2 filters exactly match, only the FSv2 
+             filter would be installed).  
 </li>
 
             <li>FSv2 filter rules are ordered based on user-specified order,
@@ -430,7 +430,7 @@
             values have better precedence than larger values.</li>
 
             <li>For rules with the same user-specified order, the filter rules
-            are then ordered by Filter Family type, then FSv2 component type, and then rules for each
+            are then ordered by FSv2 filter family type, then FSv2 component type, and then rules for each
             component type.</li>
 
             <li>
@@ -441,9 +441,9 @@
               <t>Some FSv2 Extended Communities may not be understood by every
               FSv2 implementation.  Since they are encoded as
               <xref target="RFC4360"/> Extended Communities, they are
-              propagated with the BGP routes regardless of whether they are
-              understood based on the particular Extended Community's
-              transitivity. Extended Communities associated with FSv1 or FSv2 
+              propagated with the BGP routes based on the particular Extended Community's
+              transitivity, regardless of whether they are understood or not. 
+			  Extended Communities associated with FSv1 or FSv2 
               filters <bcp14>SHOULD NOT</bcp14> be filtered since filtering changes the
               policy. (SHOULD is used because some FS policy actions might be determined 
               as a DDOS attack by local policy).</t>
@@ -545,6 +545,8 @@
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |               User order (4 bytes)                            |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                Filter Family TLVs                             |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
           </artwork>
           </figure>
         </t>
@@ -572,7 +574,7 @@
         </t>
 
         <section anchor="fsv2-filter-families" title="FSv2 Filter Family TLVs">
-        <t>Each each FSv2 Filter Family TLV has the format:
+        <t>Each FSv2 Filter Family TLV has the format:
           <figure title="FSv2 Filter Family TLV Format">
           <artwork>
 
@@ -581,7 +583,7 @@
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  | FSv2 Filter Family type       | Fsv2 filter Family length     |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-+-+-+--+-+
- |        FSv2 Filter Component TLVs (variable)                  |
+ |        FSv2 Filter Component TLVs  (variable)                 |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
           </artwork>
           </figure>
@@ -602,12 +604,12 @@
                   <li> 400 - L2 traffic </li>
                   <li> 500 - MPLS traffic </li>
                   <li> 600 - SFC Traffic </li>
-				          <li> 700 - Queue Pair (QP) </li> 
+				  <li> 700 - Queue Pair (QP) </li> 
                   <li> 800 - Tunneled trafffic </li>
                   <li>1000 - IPv4 Basic </li> 
-				          <li>1100 - IPv6 Basic </li>
+				  <li>1100 - IPv6 Basic </li>
                   <li>1200 - CATS Traffic </li>
-				          <li>1400 - Routing </li> 
+				  <li>1400 - Routing </li> 
                   </ul>
                 </li>
             <li>FSv2 Filter Family Length: Length of the FSv2 Filter Components
@@ -627,7 +629,7 @@
  | 4 bits|  Component Type       |                               | 
  |       |  (12 bits)            |      (16 bits)                |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-+-+-+--+-+
- | FSv2 Filter component TLVS                                    |
+ | FSv2 Filter component value                                   |
  |          (variable)                                           | 
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-+-+-+--+-+
           </artwork>
@@ -703,7 +705,7 @@
         the operator to influence the Flow Specification installation order in a
         deployment.</t>
 
-        <t>When set of Flow Specifications are required to implement an
+        <t>When a set of Flow Specifications are required to implement an
         operator's intent and that set of rules has interdependencies, the
         failure to install a Flow Specification, or part of that
         specification's actions, may result in incorrect deployment.  An
@@ -712,7 +714,7 @@
         relaionship.  As an example:
 
           <ol>
-            <li>match dst=10.1.1.1/8 tcp port=25 then dscp=AF1 and permit</li>
+            <li>match dst=10.1.1.1/24 tcp port=25 then dscp=AF1 and permit</li>
             <li>match dst=10.0.0.0/8 tcp port=25 then drop</li>
           </ol>
         </t>
@@ -980,7 +982,7 @@
           </thead>
           <tbody>
             <tr><td>0</td><td>Reserved</td><td>This document</td></tr>
-            <tr><td> 300</td><td>Some parts of SRHv6 header</td><td><xref target="I-D.ietf-idr-flowspec-srv6"/></td></tr>
+            <tr><td> 300</td><td>Some parts of SRH header</td><td><xref target="I-D.ietf-idr-flowspec-srv6"/></td></tr>
             <tr><td> 500</td><td>NRP ID SRv6 Next Hop header</td><td><xref target="I-D.ietf-idr-flowspec-network-slice-ts"/></td></tr>
             <tr><td> 810</td><td>Bitwise Destination IPv6 filter</td><td>draft-kao-idr-bitwise-ip-filters</td></tr>
             <tr><td>1010</td><td>IP Destination Prefix</td><td>This document</td></tr>
@@ -1439,8 +1441,8 @@
             <tr><td>0</td><td>Reserved</td><td>This document</td></tr>
 	        <tr><td>100</td><td>DIP-AS </td><td>draft-wang-idr-flowspec-dip-origin-as-filter</td></tr>
 		    <tr><td>200</td><td>SIP-AS </td><td>draft-wang-idr-flowspec-sip-origin-as-filter</td></tr>
-	        <tr><td>300</td><td>DIP-Com </td><td>draft-wang-idr-flowspec-dip-community-filter</td></tr>
-		    <tr><td>400</td><td>SIP-com </td><td>draft-wang-idr-flowspec-sip-community-filter</td></tr>
+	        <tr><td>300</td><td>DIP-Com </td><td>draft-wu-idr-flowspec-dip-community-filter</td></tr>
+		    <tr><td>400</td><td>SIP-com </td><td>draft-wu-idr-flowspec-sip-community-filter</td></tr>
             <tr><td>4095</td><td>Reserved</td><td>[This document]</td></tr>
           </tbody>
         </table>
@@ -1954,7 +1956,7 @@
 
         <ul>
           <li>NLRI Length (<xref target="nlri-format"/>) <bcp14>MUST</bcp14>
-          be at least 20 octets:
+          be at least 16 octets:
 
             <ul>
               <li>Dependent Filters Chain (4 octets) + User Order (4 octets) +</li>
@@ -2048,7 +2050,7 @@
           <t>The FSv2 validation process validates the FSv2 NLRI with following
           unicast routes received over the same FSv2 AFI (1 or 2) but different
           SAFIs:</t>
-		  <t>Note: The link between filter families and AFI/SAFIs for validation needs to be 
+		  <t>Editor: The link between filter families and AFI/SAFIs for validation needs to be 
 		  carefully sanity checked.  </t> 
 
           <!-- XXX JMH - we likely don't need the comparable FSv1 table, but here it is if we want to use it for comparison purposes.
@@ -2090,11 +2092,11 @@
           -->
 
           <table align="left">
-            <name>FSv2 Flowspec BGP Route AFI/SAFI Validation</name>
+            <name>FSv2 Flowspec BGP Route Validation per Filter Family type</name>
             <thead>
               <tr>
                 <th>Received FSv2 AFI/SAFI</th>
-				<th>Receive Filter Families </th> 
+				<th>Received Filter Families </th> 
                 <th>Validate Route Using AFI/SAFI</th>
               </tr>
             </thead>
@@ -2115,19 +2117,9 @@
                 <td>2/1 (IPv6-Unicast)</td>
               </tr>
               <tr>
-                <td>FSv2 Unicast VPN (AFI:TBD1/SAFI:TBD2)</td>
-				<td>MPLS or tunneled (?)  </td>
-                <td>2/128 (IPv6-Labeled Unicast)</td>
-              </tr>
-              <tr>
                 <td>FSv2 Unicast (AFI:TBD1/SAFI:TBD2)</td>
 				<td>SFC </td>
-                <td>1/1 (IPv4-Unicast)</td>
-              </tr>
-              <tr>
-                <td>FSv2 Unicast (AFI:TBD1/SAFI:TBD2)</td>
-				<td>SFC </td>
-                <td>1/128 (IPv4-Labeled Unicast)</td>
+                <td>31/1 (IPv4-Unicast)</td>
               </tr>
               <tr>
                 <td>FSv2 Unicast (AFI:TBD1/SAFI:TBD2)</td>
@@ -2548,8 +2540,8 @@
 
          Value   Description      Reference
          -----   -------------    ---------------
-          TBD1   BGP FSv2        [this document]
-          TBD2   BGP FSv2 VPN    [this document]
+          TBD2   BGP FSv2        [this document]
+          TBD3   BGP FSv2 VPN    [this document]
 
           </artwork>
           </figure>

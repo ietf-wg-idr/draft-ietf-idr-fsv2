@@ -488,6 +488,7 @@
 		signal between BGP peers cam be used to signal between BGP peers which filter families have active support in 
 		forwarding hardware. The Open BGP capability code is [TBD4] with the values of the capability code 
 		being a ordered list of 2-octet filter family identifiers in ascending order. 
+		</t>
       </section>
     </section>
 

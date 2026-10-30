@@ -812,6 +812,8 @@
 	  sending the Open message support the FSv2 filter in hardware. 
 	  Each filter family type is 2 octets. 
 	  </t> 
+	  </list>
+	  </t>
 	 <t>Editor: Since this is informational for the BGP speaker, should the NHC be used instead? 
 	 </t> 
 	  </section> 

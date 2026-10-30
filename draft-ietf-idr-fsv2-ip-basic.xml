@@ -393,7 +393,8 @@
       <section title="Transition to FSv2">
         <t>
         Filter families allow us to use a single FSv2 AFI (TBD1) and two SAFIS (normal (TBD2) and VPN (TBD3).  
-        </t> 
+		Flowspec filters denoted as flowspec components are defined by FSv2 grouped by Filter families.
+        </t>
         <t>One question asked by developers is what AFI/SAFI is required for
         FSv2 IP Basic compliance.  BGP negotiates support for each AFI/SAFI, so
         FSv2 can support FSv2 normal (AFI/SAFI (TBD1/TBD2)) or FSv2 VPN (TBD1/TBD3))
@@ -482,6 +483,11 @@
             <xref target="fsv2-dependencies"/> for more details.</li>
           </ol>
         </t>
+		<t>BGP Peers must pass all filter families whether or not the filters within the 
+		filter family are supported. BGP Open Capabilities [RFC9072][RFC4492] be used to 
+		signal between BGP peers cam be used to signal between BGP peers which filter families have active support in 
+		forwarding hardware. The Open BGP capability code is [TBD4] with the values of the capability code 
+		being a ordered list of 2-octet filter family identifiers in ascending order. 
       </section>
     </section>
 
@@ -768,6 +774,46 @@
         </t>
         <t>Editor: Are there others? </t>
       </section>
+	  <section title="Open Capability for FSv2 indicating Filter Family Hardware support">
+	  <t>
+	  The BGP peer support the FSv2 NLRI must receive and transmit all Filter families. 
+      This Open Capability parameter indicates which Filter Families BGP speaker actively parses 
+	  for installation.  The parameter contains one or more triples (capability code, 
+	  capability length, and a sequence of filter families ordered in ascending order. 
+ 
+      <figure title="FSv2 Open-Capability Format">
+              <artwork>
+
+  0                   1                   2                    
+  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4  
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+- 
+ |Capability type| length                        | 
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | Filter  family 1              |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | Filter  family 2              |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |             .....             |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | Filter  family 2              | 
+ +-------------------------------+
+      </artwork>
+        </figure>
+	  </t> 
+	  <t> Where: 
+	  <list>
+	  <t> Capability type is [TBD4). 
+	  </t> 
+	  <t> length is the length in octets in the filter family list.	  
+	  </t> 
+	  <t> The list of filter families type values are ordered in ascending order. 
+	  When a filter family is included in this list, the BGP speaker 
+	  sending the Open message support the FSv2 filter in hardware. 
+	  Each filter family type is 2 octets. 
+	  </t> 
+	 <t>Editor: Since this is informational for the BGP speaker, should the NHC be used instead? 
+	 </t> 
+	  </section> 
     </section>
 
     <section title="FSv2 IP Basic Filters (Filter Family Type TBD)">
